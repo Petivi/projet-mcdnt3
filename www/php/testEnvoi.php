@@ -5,7 +5,7 @@ if (isset($_POST['coucou'])) {
 	// on affiche nos résultats
 	$coucou = $_POST['coucou'];
 
-  echo $coucou;
+  echo json_encode($coucou);
 }
 
  ?>
