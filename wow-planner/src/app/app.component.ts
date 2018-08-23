@@ -17,6 +17,8 @@ export class AppComponent implements OnInit {
             console.log(res)
         });
         let coucou = 'mabite';
-        this.http.post("http://localhost/wow-planner/test.php", JSON.stringify({coucou:coucou})).subscribe();
+        this.http.post("http://localhost/wow-planner/testEnvoi.php", JSON.stringify({coucou:coucou})).subscribe(res => {
+            console.log(res);
+        });
     }
 }
