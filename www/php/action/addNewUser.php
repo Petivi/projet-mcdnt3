@@ -5,6 +5,7 @@ require_once('../config.php');
 $postRequest = file_get_contents("php://input");
 $request = json_decode($postRequest);
 
+
 // get user lastname
 // check if lastname exists
   if(isset($request->lastname)){
@@ -35,7 +36,7 @@ $request = json_decode($postRequest);
 // get user birth_date
 // check if birth_date exists
   if(isset($request->birth_date)){
-    $birth_date = htmlspecialchars($request->birth_date, ENT_QUOTES);
+    $birth_date = htmlspecialchars(strtotime($request->birth_date), ENT_QUOTES);
   }else{
     $birth_date = "";
   }
@@ -49,16 +50,6 @@ $request = json_decode($postRequest);
     $mail = "";
   }
 
-
-/***********************/
-// TEST //
-  // $lastname = 'Non';
-  // $firstname = 'Oui';
-  // $pseudo = "Yes";
-  // $password = "test";
-  // $birth_date = strtotime(date("d-m-Y"));
-  // $mail = "ouiOui@non.fr";
-/***********************/
 
 
 // get user password + hash it
