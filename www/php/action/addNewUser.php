@@ -1,45 +1,50 @@
 <?php
 require_once('../config.php');
 
+// convert response from angular
 $postRequest = file_get_contents("php://input");
 $request = json_decode($postRequest);
-// $result = $request->coucou;
 
 // get user lastname
-  if($request->lastname){
-    $lastname = htmlspecialchars($_POST['lastname'], ENT_QUOTES);
+// check if lastname exists
+  if(isset($request->lastname)){
+    $lastname = htmlspecialchars($request->lastname, ENT_QUOTES);
   }else{
     $lastname = "";
   }
 
 
 // get user firstname
-  if($request->firstname){
-    $firstname = htmlspecialchars($_POST['firstname'], ENT_QUOTES);
+// check if firstname exists
+  if(isset($request->firstname)){
+    $firstname = htmlspecialchars($request->firstname, ENT_QUOTES);
   }else{
     $firstname = "";
   }
 
 
 // get user pseudo
-  if($request->pseudo){
-    $pseudo = htmlspecialchars($_POST['pseudo'], ENT_QUOTES);
+// check if pseudo exists
+  if(isset($request->pseudo)){
+    $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
   }else{
     $pseudo = "";
   }
 
 
 // get user birth_date
-  if($request->birth_date){
-    $birth_date = htmlspecialchars($_POST['birth_date'], ENT_QUOTES);
+// check if birth_date exists
+  if(isset($request->birth_date)){
+    $birth_date = htmlspecialchars($request->birth_date, ENT_QUOTES);
   }else{
     $birth_date = "";
   }
 
 
 // get user mail
-  if($request->mail){
-    $mail = htmlspecialchars($_POST['mail'], ENT_QUOTES);
+// check if mail exists
+  if(isset($request->mail)){
+    $mail = htmlspecialchars($request->mail, ENT_QUOTES);
   }else{
     $mail = "";
   }
