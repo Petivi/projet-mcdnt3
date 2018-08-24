@@ -1,5 +1,5 @@
 <?php
-include_once "config.php";
+require_once('config.php');
 
 // if (isset($_POST['coucou'])) {
     // on affiche nos résultats
