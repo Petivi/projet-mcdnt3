@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
         });
         let user = {
             lastname: 'Bauman', firstname: 'Eric', pseudo: 'Neskwik',
-            password: 'coucou', birth_date: "29-02-1996"
+            password: 'coucou', birth_date: "29-02-1996", mail: 'coucou@laposte.net'
         };
         this.http.post("http://localhost/wow-planner-app/action/addNewUser.php", JSON.stringify(user)).subscribe(res => {
             console.log(res)
