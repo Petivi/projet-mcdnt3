@@ -1,9 +1,12 @@
 <?php
 require_once('../config.php');
 
+$postRequest = file_get_contents("php://input");
+$request = json_decode($postRequest);
+// $result = $request->coucou;
 
 // get user lastname
-  if(isset($_POST['lastname'])){
+  if($request->lastname){
     $lastname = htmlspecialchars($_POST['lastname'], ENT_QUOTES);
   }else{
     $lastname = "";
@@ -11,7 +14,7 @@ require_once('../config.php');
 
 
 // get user firstname
-  if(isset($_POST['firstname'])){
+  if($request->firstname){
     $firstname = htmlspecialchars($_POST['firstname'], ENT_QUOTES);
   }else{
     $firstname = "";
@@ -19,7 +22,7 @@ require_once('../config.php');
 
 
 // get user pseudo
-  if(isset($_POST['pseudo'])){
+  if($request->pseudo){
     $pseudo = htmlspecialchars($_POST['pseudo'], ENT_QUOTES);
   }else{
     $pseudo = "";
@@ -27,7 +30,7 @@ require_once('../config.php');
 
 
 // get user birth_date
-  if(isset($_POST['birth_date'])){
+  if($request->birth_date){
     $birth_date = htmlspecialchars($_POST['birth_date'], ENT_QUOTES);
   }else{
     $birth_date = "";
@@ -35,7 +38,7 @@ require_once('../config.php');
 
 
 // get user mail
-  if(isset($_POST['mail'])){
+  if($request->mail){
     $mail = htmlspecialchars($_POST['mail'], ENT_QUOTES);
   }else{
     $mail = "";
@@ -44,17 +47,17 @@ require_once('../config.php');
 
 /***********************/
 // TEST //
-  $lastname = 'Non';
-  $firstname = 'Oui';
-  $pseudo = "Yes";
-  $password = "test";
-  $birth_date = strtotime(date("d-m-Y"));
-  $mail = "ouiOui@non.fr";
+  // $lastname = 'Non';
+  // $firstname = 'Oui';
+  // $pseudo = "Yes";
+  // $password = "test";
+  // $birth_date = strtotime(date("d-m-Y"));
+  // $mail = "ouiOui@non.fr";
 /***********************/
 
 
 // get user password + hash it
-  // $password = htmlspecialchars($_POST['password'], ENT_QUOTES);
+  $password = htmlspecialchars($request->password, ENT_QUOTES);
   $password = password_hash($password, PASSWORD_DEFAULT);
 
 
