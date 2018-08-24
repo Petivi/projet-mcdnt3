@@ -1,9 +1,7 @@
 <?php
 require_once('../config.php');
+include "../convertAngularResponse.php";
 
-// convert response from angular
-$postRequest = file_get_contents("php://input");
-$request = json_decode($postRequest);
 
 
 // get user lastname

@@ -29,5 +29,14 @@ export class AppComponent implements OnInit {
         this.http.post("http://localhost/wow-planner-app/action/addNewUser.php", JSON.stringify(user)).subscribe(res => {
             console.log(res)
         });
+        let userConnection = {
+            pseudo: 'Neskwikk', password: 'coucou'
+        };
+        this.http.post("http://localhost/wow-planner-app/action/login.php", JSON.stringify(userConnection)).subscribe(res => {
+            console.log(res)
+        });
+        this.http.get("http://localhost/wow-planner-app/testSession.php").subscribe(res => {
+            console.log(res)
+        });
     }
 }
