@@ -4,20 +4,22 @@ include "../convertAngularResponse.php";
 
 // get user pseudo
 // check if pseudo exists
-  if(isset($request->pseudo)){
-    $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
+  if(isset($request->login)){
+    $login = htmlspecialchars($request->login, ENT_QUOTES);
   }else{
-    $pseudo = "";
+    $login = "";
   }
 
   // get password that user tried
   $password_tried = htmlspecialchars($request->password, ENT_QUOTES);
+  $account_password = "";
 
 
   // check if user exists
-  $check_pseudo_user = 'SELECT * FROM users WHERE pseudo LIKE :pseudo';
+  $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2)';
   $check_pseudo_user = $base->prepare($check_pseudo_user);
-  $check_pseudo_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+  $check_pseudo_user->bindValue('login1', $login, PDO::PARAM_STR);
+  $check_pseudo_user->bindValue('login2', $login, PDO::PARAM_STR);
   $check_pseudo_user->execute();
   while($pseudo_user = $check_pseudo_user->fetch())
   {
@@ -37,6 +39,7 @@ include "../convertAngularResponse.php";
   // check if the password linked to the account is correct
   if(password_verify($password_tried, $account_password)){
     // password correct
+
     $_SESSION['id'] = $account_id;
     $_SESSION['lastname'] = $account_lastname;
     $_SESSION['firstname'] = $account_firstname;
@@ -45,6 +48,7 @@ include "../convertAngularResponse.php";
     $_SESSION['mail'] = $account_mail;
     $_SESSION['permissions'] = $account_permissions;
     $_SESSION['active_account'] = $account_active_account;
+
     echo "Connection Accepted";
   }else {
     // password incorrect

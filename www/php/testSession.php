@@ -1,8 +1,9 @@
 <?php
 require_once('config.php');
+include "convertAngularResponse.php";
 
 
-echo $_SESSION['id'];
-echo $_SESSION['pseudo'];
+var_dump($_SESSION);
+var_dump($_COOKIE);
 
  ?>

@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
             console.log(res)
         });
         let userConnection = {
-            pseudo: 'Neskwikk', password: 'coucou'
+            login: 'coucouu@laposte.net', password: 'coucou'
         };
         this.http.post("http://localhost/wow-planner-app/action/login.php", JSON.stringify(userConnection)).subscribe(res => {
             console.log(res)

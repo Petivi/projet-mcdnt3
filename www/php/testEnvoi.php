@@ -1,5 +1,6 @@
 <?php
 require_once('config.php');
+include "convertAngularResponse.php";
 
 // if (isset($_POST['coucou'])) {
     // on affiche nos résultats
