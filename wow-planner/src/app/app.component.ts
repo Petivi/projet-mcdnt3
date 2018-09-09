@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
 
     constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
     ngOnInit() {
-        
+
     }
 }
