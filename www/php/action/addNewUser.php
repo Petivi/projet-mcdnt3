@@ -31,14 +31,6 @@ include "../convertAngularResponse.php";
   }
 
 
-// get user birth_date
-// check if birth_date exists
-  if(isset($request->birth_date)){
-    $birth_date = htmlspecialchars(strtotime($request->birth_date), ENT_QUOTES);
-  }else{
-    $birth_date = "";
-  }
-
 
 // get user mail
 // check if mail exists
@@ -87,19 +79,21 @@ include "../convertAngularResponse.php";
      echo "Pseudo already taken";
      exit();
    }else { // pseudo not taken
+     $created_date = strtotime(date('d-m-Y'));
      $active_account = 1; // 1 = active account and 0 = locked account
-     $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, birth_date, mail, active_account)
-     VALUES (:lastname, :firstname, :pseudo, :password, :birth_date, :mail, :active_account)';
+     $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, created_date, mail, active_account)
+     VALUES (:lastname, :firstname, :pseudo, :password, :created_date, :mail, :active_account)';
      $insert_new_user = $base->prepare($insert_new_user);
      $insert_new_user->bindValue('lastname', $lastname, PDO::PARAM_STR);
      $insert_new_user->bindValue('firstname', $firstname, PDO::PARAM_STR);
      $insert_new_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
      $insert_new_user->bindValue('password', $password, PDO::PARAM_STR);
-     $insert_new_user->bindValue('birth_date', $birth_date, PDO::PARAM_INT);
+     $insert_new_user->bindValue('created_date', $created_date, PDO::PARAM_INT);
      $insert_new_user->bindValue('mail', $mail, PDO::PARAM_STR);
      $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
      $insert_new_user->execute();
    }
  }
+
 
 ?>
