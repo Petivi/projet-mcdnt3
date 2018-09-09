@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from './app.service';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
+import { AppService } from './app.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title = 'app';
 
-    constructor(private _appService: AppService, private http: HttpClient) { }
+    constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
     ngOnInit() {
-        const headers = new Headers();
+        /* const headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         console.log(this._appService.getTest());
         this.http.get("http://localhost/wow-planner-app/test.php").subscribe(res => {
@@ -37,6 +37,6 @@ export class AppComponent implements OnInit {
         });
         this.http.get("http://localhost/wow-planner-app/testSession.php").subscribe(res => {
             console.log(res)
-        });
+        }); */
     }
 }
