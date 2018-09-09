@@ -32,7 +32,7 @@ export class AdminResolver implements Resolve<any> {
     }
 }
 @Injectable()
-export class CreationJoueurResolver implements Resolve<any> {
+export class InscriptionResolver implements Resolve<any> {
     constructor() { }
 
     resolve(route: ActivatedRouteSnapshot): Promise<any> {
@@ -103,6 +103,20 @@ export class PersonnageResolver implements Resolve<any> {
 }
 @Injectable()
 export class RechercheResolver implements Resolve<any> {
+    constructor() { }
+
+    resolve(route: ActivatedRouteSnapshot): Promise<any> {
+
+        return Observable.forkJoin([
+        ]).map(
+            (data: any) => {
+                return { accueilResolve: 'ça fonctionne'  };
+            }
+        ).toPromise();
+    }
+}
+@Injectable()
+export class CreationPersonnageResolver implements Resolve<any> {
     constructor() { }
 
     resolve(route: ActivatedRouteSnapshot): Promise<any> {

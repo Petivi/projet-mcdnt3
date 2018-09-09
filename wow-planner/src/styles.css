@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+.sous-deroulant{
+    display: none;
+}
+.deroulant:hover .sous-deroulant{
+    display: block;
+}
+.sous-deroulant li{
+    float: none;
+}
+.sous-deroulant li a{
+    color: black;
+}

@@ -2,14 +2,14 @@ import { RouterModule } from '@angular/router';
 
 import { AccueilComponent } from './accueil/accueil.component';
 import { AdminComponent } from './admin/admin.component';
-import { CreationJoueurComponent } from './creationJoueur/creationJoueur.component';
+import { InscriptionComponent } from './inscription/inscription.component';
 import { InfoUtilisateurComponent } from './infoUtilisateur/infoUtilisateur.component';
 import { ItemComponent } from './item/item.component';
 import { LoginComponent } from './login/login.component';
-import { PersonnageComponent } from './personnage/personnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
+import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 
-import { AccueilResolver, AdminResolver, CreationJoueurResolver, InfoUtilisateurResolver, ItemResolver, LoginResolver, PersonnageResolver, RechercheResolver } from './app.resolver';
+import { AccueilResolver, AdminResolver, InscriptionResolver, InfoUtilisateurResolver, ItemResolver, LoginResolver, PersonnageResolver, RechercheResolver, CreationPersonnageResolver } from './app.resolver';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -27,10 +27,10 @@ export const appRouting = RouterModule.forRoot([
         }
     },    
     {
-        path: 'creationJoueur',
-        component: CreationJoueurComponent,
+        path: 'inscription',
+        component: InscriptionComponent,
         resolve: {
-            resolve: CreationJoueurResolver
+            resolve: InscriptionResolver
         }
     },    
     {
@@ -55,10 +55,10 @@ export const appRouting = RouterModule.forRoot([
         }
     },    
     {
-        path: 'personnage',
-        component: PersonnageComponent,
+        path: 'creationPersonnage',
+        component: CreationPersonnageComponent,
         resolve: {
-            resolve: PersonnageResolver
+            resolve: CreationPersonnageResolver
         }
     },    
     {

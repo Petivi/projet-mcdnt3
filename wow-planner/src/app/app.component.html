@@ -1,2 +1,20 @@
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a [routerLink]="['/accueil']" class="brand-logo">Logo</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="deroulant">
+                    <a class="right">FR</a>
+                    <ul class="sous-deroulant">
+                        <li><a>FR</a></li>
+                        <li><a>EN</a></li>
+                    </ul>
+                </li>
+                <li><a [routerLink]="['/creationPersonnage']">Créer un personnage</a></li>
+                <li><a [routerLink]="['/inscription']">S'inscrire</a></li>
+                <li><a [routerLink]="['/login']">Connexion</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <router-outlet></router-outlet>
-
