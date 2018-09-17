@@ -1,6 +1,6 @@
 <?php
 require_once('config.php');
-include "convertAngularResponse.php";
+include "includedFiles.php";
 
 $test  = "blabla";
 

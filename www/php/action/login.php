@@ -1,6 +1,6 @@
 <?php
 require_once('../config.php');
-include "../convertAngularResponse.php";
+include "../includedFiles.php";
 
 // get user pseudo
 // check if pseudo exists
@@ -49,10 +49,12 @@ include "../convertAngularResponse.php";
       "active_account" => $account_active_account,
     );
 
-    echo json_encode($tabInfoUser);
+    // echo json_encode($tabInfoUser);
+    echo returnResponse($tabInfoUser);
   }else {
     // password incorrect
-    echo "Wrong pseudo/password";
+    echo returnError("Wrong pseudo/password");
+    // echo "Wrong pseudo/password";
     exit();
   }
 
