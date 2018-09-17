@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row" [formGroup]="inscriptionForm">
+    <div class="row" [formGroup]="wordForm">
         <div class="col s12">
             <div class="error" *ngIf="!valid">
                 {{error}}
@@ -20,7 +20,7 @@
                     <input class="input-field" type="text" id="fr" [(ngModel)]="word.msg_fr" formControlName="msg_fr">
                 </div>
                 <div class="input-field col s6">
-                    <label for="en">english word</label>
+                    <label for="en">English word</label>
                     <input class="input-field" type="text" id="en" [(ngModel)]="word.msg_en" formControlName="msg_en">
                 </div>
             </div>

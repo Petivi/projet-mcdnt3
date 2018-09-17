@@ -10,17 +10,13 @@ import { User } from '../model/app.model'
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, OnDestroy {
-    error: string = 'Les champes pseudo, mail, et mot de passe sont obligatoire';
+    error: string = 'Les champs pseudo/mail et mot de passe sont obligatoires';
     valid: boolean = true;
-    user: User = new User();
-    inscriptionForm: FormGroup;
+    user: any = {login: '', password: ''};
+    loginForm: FormGroup;
     controls = (value: any = {}) => ({
-        firstname: [value.firstname],
-        lastname: [value.lastname],
-        pseudo: [value.pseudo, Validators.required],
-        mail: [value.mail, Validators.required],
+        login: [value.login, Validators.required],
         password: [value.password, Validators.required],
-        cfPassword: [value.cfPassword, Validators.required],
     });
 
     constructor(private _formBuilder: FormBuilder, private _service: AppService) { }
@@ -34,12 +30,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     buildControl(value: any) {
-        this.inscriptionForm = this._formBuilder.group(this.controls(value));
+        this.loginForm = this._formBuilder.group(this.controls(value));
     }
 
     inscription() {
-        if (this.inscriptionForm.valid) {
-            this._service.post('action/addNewUser.php', this.user);
+        if (this.loginForm.valid) {
+            this._service.post('action/login.php', this.user);
         } else this.valid = false;
     }
 }

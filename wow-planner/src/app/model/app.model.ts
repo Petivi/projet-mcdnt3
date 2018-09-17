@@ -11,4 +11,5 @@ export class Word {
     msf_fr: string;
     msg_en: string;
     page: string;
+    pseudo: string;
 }

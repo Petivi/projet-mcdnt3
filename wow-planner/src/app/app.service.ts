@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { Word } from './model/app.model';
 
 @Injectable()
 export class AppService {
     urlServeur: string = 'http://localhost/wow-planner-app/';
+    words: Word[];;
     constructor(private _http: HttpClient) { }
 
     get(url: string, parametre: any = {}): any {
@@ -13,7 +15,7 @@ export class AppService {
         return this._http.get(this.urlServeur + url, { params: params })
             .toPromise()
             .then(res => {
-                return res
+                return JSON.parse(res['body']);
             });
     }
     post(url: string, value: any) {
@@ -25,5 +27,13 @@ export class AppService {
         value = JSON.stringify(value);
         return this._http.post(this.urlServeur + url, value, httpOptions)
         .toPromise();
+    }
+
+    getWords() {
+        return this._http.get(this.urlServeur + 'action/getWords.php')
+        .toPromise()
+        .then(res => {
+            console.log(JSON.parse(res['body']))
+        })
     }
 }
