@@ -13,6 +13,9 @@ export class AppComponent implements OnInit {
 
     constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
     ngOnInit() {
+        this.http.post("http://localhost/wow-planner-app/action/login.php", JSON.stringify({login: 'Parfaitement', password: 'coucou'})).subscribe(res => {
+            console.log(res);
+        });
 
     }
 }
