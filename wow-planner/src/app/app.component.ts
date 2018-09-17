@@ -13,6 +13,15 @@ export class AppComponent implements OnInit {
 
     constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
     ngOnInit() {
+      let user = {
+           lastname: 'Admin', firstname: 'Admin', pseudo: 'admin',
+           password: 'admin', mail: 'admin@admin.admin'
+       };
+       this.http.post("http://localhost/wow-planner-app/action/addNewUser.php", JSON.stringify(user)).catch((err) => {
+           return Observable.throw(err);
+       }).subscribe(res => {
+           console.log(res)
+       });
 
     }
 }
