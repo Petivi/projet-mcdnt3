@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppService } from './app.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CustomHttpInterceptor } from './common/customHttpInterceptor';
@@ -43,6 +43,7 @@ import { CreationPersonnageComponent } from './creationPersonnage/creationPerson
         appRouting
     ],
     providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
         AppService, AccueilResolver, AdminResolver, InscriptionResolver,
         InfoUtilisateurResolver, ItemResolver, LoginResolver, PersonnageResolver,
         RechercheResolver, CreationPersonnageResolver ],
