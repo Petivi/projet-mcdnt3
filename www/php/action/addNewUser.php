@@ -92,6 +92,8 @@ include "../convertAngularResponse.php";
      $insert_new_user->bindValue('mail', $mail, PDO::PARAM_STR);
      $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
      $insert_new_user->execute();
+
+     echo "Created";
    }
  }
 
