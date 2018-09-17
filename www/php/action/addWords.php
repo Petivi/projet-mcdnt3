@@ -1,12 +1,17 @@
 <?php
+require_once('../config.php');
+include "../includedFiles.php";
+
 
 // need user's pseudo to be check his permissions
 if(isset($request->pseudo)){
   $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
+  $user_permissions = "";
 
   // check if user exists
-  $check_user_info = 'SELECT * FROM users WHERE pseudo = $pseudo AND active_account LIKE 1';
+  $check_user_info = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND active_account LIKE 1';
   $check_user_info = $base->prepare($check_user_info);
+  $check_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
   $check_user_info->execute();
   while($user_info = $check_user_info->fetch())
   {
