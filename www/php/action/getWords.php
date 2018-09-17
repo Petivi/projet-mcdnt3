@@ -17,8 +17,8 @@ while($words = $get_words_language->fetch())
 
 // create a tab with the message name as index of the tab, and another tab with every language for the desired word
   $listWords[$msg_name] = array(
-    'fr' => $msg_fr,
-    'en' => $msg_en,
+    'msg_fr' => $msg_fr,
+    'msg_en' => $msg_en,
     'page' => $page,
   );
 }
