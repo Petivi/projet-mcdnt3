@@ -2,12 +2,12 @@
     <div class="row" [formGroup]="inscriptionForm">
         <div class="col s6 offset-s3">
             <div class="input-field col s12">
-                <label for="lastName">Nom</label>
-                <input class="input-field" type="text" id="lastName" [(ngModel)]="user.lastName" formControlName="lastName">
+                <label for="lastname">Nom</label>
+                <input class="input-field" type="text" id="lastname" [(ngModel)]="user.lastname" formControlName="lastname">
             </div>
             <div class="input-field col s12">
-                <label for="firstName">Prénom</label>
-                <input class="input-field" type="text" id="firstName" [(ngModel)]="user.firstName" formControlName="firstName">
+                <label for="firstname">Prénom</label>
+                <input class="input-field" type="text" id="firstname" [(ngModel)]="user.firstname" formControlName="firstname">
             </div>
             <div class="input-field col s12">
                 <label for="pseudo">Pseudo *</label>
@@ -26,9 +26,9 @@
                 <input class="input-field" type="password" id="cfPassword" [(ngModel)]="user.cfPassword" formControlName="cfPassword">
             </div>
             <div class="center col s12">
-                <button (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">Inscription</button>
+                <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">Inscription</button>
             </div>
-            <p>* Informations obligatoires</p>
+            <p class="mt-3">* Informations obligatoires</p>
         </div>
     </div>
 </div>

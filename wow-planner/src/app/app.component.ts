@@ -33,7 +33,5 @@ export class AppComponent implements OnInit {
         this.http.post("http://localhost/wow-planner-app/action/login.php", JSON.stringify(userConnection)).subscribe(res => {
             console.log(res);
         });
- 
-
     }
 }

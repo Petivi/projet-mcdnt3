@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AppService {
-    urlServeur: string = 'http://localhost/';
+    urlServeur: string = 'http://localhost/wow-planner-app/';
     constructor(private _http: HttpClient) { }
 
     get(url: string, parametre: any = {}): any {
@@ -16,15 +16,14 @@ export class AppService {
                 return res
             });
     }
-    post(url: string, value: any, parametre: any = {}) {
+    post(url: string, value: any) {
         let httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             })
         };
-        let parameters = parametre ? '{"filters": ' + JSON.stringify(parametre) + '}' : '';
-        let params = new HttpParams().set('filter', parameters);
-        return this._http.post(this.urlServeur + url + params, value, httpOptions)
+        value = JSON.stringify(value);
+        return this._http.post(this.urlServeur + url, value, httpOptions)
         .toPromise();
     }
 }

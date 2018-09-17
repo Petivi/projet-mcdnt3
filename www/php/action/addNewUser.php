@@ -1,6 +1,6 @@
 <?php
 require_once('../config.php');
-include "../convertAngularResponse.php";
+include "../includedFiles.php";
 
 
 
@@ -60,7 +60,7 @@ include "../convertAngularResponse.php";
  }
 
  if($existing_mail){  // mail taken
-   echo "Mail already taken";
+   echo returnError("Mail already taken");
    exit();
  }else {  // mail not taken
 
@@ -76,7 +76,7 @@ include "../convertAngularResponse.php";
    }
 
    if($existing_pseudo){ // pseudo taken
-     echo "Pseudo already taken";
+     echo returnError("Pseudo already taken");
      exit();
    }else { // pseudo not taken
      $created_date = strtotime(date('d-m-Y'));
@@ -92,8 +92,6 @@ include "../convertAngularResponse.php";
      $insert_new_user->bindValue('mail', $mail, PDO::PARAM_STR);
      $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
      $insert_new_user->execute();
-
-     echo "Created";
    }
  }
 

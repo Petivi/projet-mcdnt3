@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { AppService } from '../app.service'
+
 import { User } from '../model/app.model'
 
 @Component({
@@ -11,15 +13,15 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     user: User = new User();
     inscriptionForm: FormGroup;
     controls = (value: any = {}) => ({
-        firstName: [value.firstName],
-        lastName: [value.lastName],
+        firstname: [value.firstname],
+        lastname: [value.lastname],
         pseudo: [value.pseudo, Validators.required],
         mail: [value.mail, Validators.required],
         password: [value.password, Validators.required],
         cfPassword: [value.cfPassword, Validators.required],
     });
 
-    constructor(private _formBuilder: FormBuilder) { }
+    constructor(private _formBuilder: FormBuilder, private _service: AppService) { }
 
     ngOnInit() {
         this.buildControl({});
@@ -35,5 +37,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
     inscription() {
         console.log(this.user);
+        console.log(this.inscriptionForm)
+        this._service.post('action/addNewUser.php', this.user);
     }
 }
