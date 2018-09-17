@@ -10,6 +10,8 @@ import { User } from '../model/app.model'
     templateUrl: './inscription.component.html',
 })
 export class InscriptionComponent implements OnInit, OnDestroy {
+    error: string = 'Les champes pseudo, mail, et mot de passe sont obligatoire';
+    valid: boolean = true;
     user: User = new User();
     inscriptionForm: FormGroup;
     controls = (value: any = {}) => ({
@@ -36,8 +38,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     }
 
     inscription() {
-        console.log(this.user);
-        console.log(this.inscriptionForm)
-        this._service.post('action/addNewUser.php', this.user);
+        if(this.inscriptionForm.valid) {
+            this._service.post('action/addNewUser.php', this.user);
+        } else this.valid = false;        
     }
 }

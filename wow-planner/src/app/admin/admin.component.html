@@ -1,1 +1,32 @@
-<p>admin</p>
+<div class="container">
+    <div class="row" [formGroup]="inscriptionForm">
+        <div class="col s12">
+            <div class="error" *ngIf="!valid">
+                {{error}}
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <label for="msg_name">Nom du message</label>
+                    <input class="input-field" type="text" id="msg_name" [(ngModel)]="word.msg_name" formControlName="msg_name">
+                </div>
+                <div class="input-field col s6">
+                    <label for="page">Page</label>
+                    <input class="input-field" type="text" id="page" [(ngModel)]="word.page" formControlName="page">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <label for="fr">Mot en français</label>
+                    <input class="input-field" type="text" id="fr" [(ngModel)]="word.msg_fr" formControlName="msg_fr">
+                </div>
+                <div class="input-field col s6">
+                    <label for="en">english word</label>
+                    <input class="input-field" type="text" id="en" [(ngModel)]="word.msg_en" formControlName="msg_en">
+                </div>
+            </div>
+            <div class="center">
+                <button class="btn waves-effect waves-ligth" (click)="addWord()">Ajouter un mot</button>
+            </div>
+        </div>
+    </div>
+</div>

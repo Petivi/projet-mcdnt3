@@ -22,7 +22,6 @@
             ],
             "styles": [
               "./node_modules/materialize-css/dist/css/materialize.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": [

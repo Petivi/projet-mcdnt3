@@ -1,6 +1,9 @@
 <div class="container">
     <div class="row" [formGroup]="inscriptionForm">
         <div class="col s6 offset-s3">
+            <div class="error" *ngIf="!valid">
+                {{error}}
+            </div>
             <div class="input-field col s12">
                 <label for="lastname">Nom</label>
                 <input class="input-field" type="text" id="lastname" [(ngModel)]="user.lastname" formControlName="lastname">
@@ -28,7 +31,7 @@
             <div class="center col s12">
                 <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">Inscription</button>
             </div>
-            <p class="mt-3">* Informations obligatoires</p>
+            <p>* Informations obligatoires</p>
         </div>
     </div>
 </div>
