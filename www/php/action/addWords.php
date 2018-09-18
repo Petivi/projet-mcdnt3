@@ -3,25 +3,35 @@ require_once('../config.php');
 include "../includedFiles.php";
 
 
-// need user's pseudo to be check his permissions
-if(isset($request->pseudo)){
-  $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
-  $user_permissions = "";
-
-  // check if user exists
-  $check_user_info = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND active_account LIKE 1';
-  $check_user_info = $base->prepare($check_user_info);
-  $check_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-  $check_user_info->execute();
-  while($user_info = $check_user_info->fetch())
-  {
-    // get his permissions
-    $user_permissions = $user_info['permissions'];
+  if(isset($request->lastname)){
+    $lastname = htmlspecialchars($request->lastname, ENT_QUOTES);
+  }else{
+    $lastname = "";
+  }
+  if(isset($request->firstname)){
+    $firstname = htmlspecialchars($request->firstname, ENT_QUOTES);
+  }else{
+    $firstname = "";
+  }
+  if(isset($request->pseudo)){
+    $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
+  }else{
+    $pseudo = "";
+  }
+  if(isset($request->mail)){
+    $mail = htmlspecialchars($request->mail, ENT_QUOTES);
+  }else{
+    $mail = "";
+  }
+  if(isset($request->id)){
+    $id = htmlspecialchars($request->id, ENT_QUOTES);
+  }else{
+    $id = "";
   }
 
-  // if admin
-  if($user_permissions == 'masterofpuppets'){
 
+  // if admin
+  if(accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail)){
     // get message name and its translations + page to display on
     if(isset($request->msg_name)){
       $msg_name = htmlspecialchars($request->msg_name, ENT_QUOTES);
@@ -44,18 +54,30 @@ if(isset($request->pseudo)){
       $page = "";
     }
 
-    // insert the new word in database
-    $add_new_message = 'INSERT INTO messages (msg_name, msg_fr, msg_en, page)
-    VALUES (:msg_name, :msg_fr, :msg_en, :page)';
-    $add_new_message = $base->prepare($add_new_message);
-    $add_new_message->bindValue('msg_name', $msg_name, PDO::PARAM_STR);
-    $add_new_message->bindValue('msg_fr', $msg_fr, PDO::PARAM_STR);
-    $add_new_message->bindValue('msg_en', $msg_en, PDO::PARAM_STR);
-    $add_new_message->bindValue('page', $page, PDO::PARAM_STR);
-    $add_new_message->execute();
+    $words = false;
+    $check_msg_exists = 'SELECT * FROM messages WHERE msg_name LIKE :msg_name AND page LIKE :page';
+    $check_msg_exists = $base->prepare($check_msg_exists);
+    $check_msg_exists->bindValue('msg_name', $msg_name, PDO::PARAM_STR);
+    $check_msg_exists->bindValue('page', $page, PDO::PARAM_STR);
+    $check_msg_exists->execute();
+    while($msg_exists = $check_msg_exists->fetch())
+    {
+      $words = true;
+    }
 
+    if(!$words){
+      // insert the new word in database
+      $add_new_message = 'INSERT INTO messages (msg_name, msg_fr, msg_en, page)
+      VALUES (:msg_name, :msg_fr, :msg_en, :page)';
+      $add_new_message = $base->prepare($add_new_message);
+      $add_new_message->bindValue('msg_name', $msg_name, PDO::PARAM_STR);
+      $add_new_message->bindValue('msg_fr', $msg_fr, PDO::PARAM_STR);
+      $add_new_message->bindValue('msg_en', $msg_en, PDO::PARAM_STR);
+      $add_new_message->bindValue('page', $page, PDO::PARAM_STR);
+      $add_new_message->execute();
+    }
   }
-}
+
 
 
  ?>
