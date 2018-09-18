@@ -76,6 +76,9 @@ include "../includedFiles.php";
       $add_new_message->bindValue('page', $page, PDO::PARAM_STR);
       $add_new_message->execute();
     }
+    echo returnResponse("success");
+  }else {
+    echo returnError("error");
   }
 
 
