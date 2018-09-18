@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AppService } from '../app.service'
-
-import { User } from '../model/app.model'
 
 @Component({
     selector: 'login-cpt',
@@ -19,10 +18,16 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: [value.password, Validators.required],
     });
 
-    constructor(private _formBuilder: FormBuilder, private _service: AppService) { }
+    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        this.buildControl({});
+        // TODO: enlever la negation pour que ça marche
+        /* if(!this._appService.getUserConnected()) {
+            this._router.navigate(['/accueil']);
+        } else { */
+            this._appService.setPage('login');
+            this.buildControl({});
+        /* } */
     }
 
     ngOnDestroy() {
@@ -33,9 +38,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loginForm = this._formBuilder.group(this.controls(value));
     }
 
-    inscription() {
+    login() {
         if (this.loginForm.valid) {
-            this._service.post('action/login.php', this.user);
+            this._appService.connexion(this.user);
+            window.location.reload();
+            this._router.navigate(['/accueil']);
         } else this.valid = false;
-    }
+    }    
 }

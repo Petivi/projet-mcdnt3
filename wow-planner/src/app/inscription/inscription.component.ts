@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AppService } from '../app.service'
 
-import { User } from '../model/app.model'
+import { User, WordSimplified } from '../model/app.model'
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'inscription-cpt',
@@ -13,6 +14,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     error: string = 'Les champes pseudo, mail, et mot de passe sont obligatoire';
     valid: boolean = true;
     user: User = new User();
+    words: WordSimplified[] = [];
     inscriptionForm: FormGroup;
     controls = (value: any = {}) => ({
         firstname: [value.firstname],
@@ -23,10 +25,25 @@ export class InscriptionComponent implements OnInit, OnDestroy {
         cfPassword: [value.cfPassword, Validators.required],
     });
 
-    constructor(private _formBuilder: FormBuilder, private _service: AppService) { }
+    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        this.buildControl({});
+        if(this._appService.getUserConnected()) {
+            this._router.navigate(['/accueil']);
+        } else {
+            this._appService.setPage('inscription');
+            this.buildControl({});
+            this._appService.getWords('common').then(res => {
+                res.forEach(w => {
+                    this.words.push(w);
+                });
+                this._appService.getWords('inscription').then(res => {
+                    res.forEach(w => {
+                        this.words.push(w);
+                    });
+                });
+            });
+        }
     }
 
     ngOnDestroy() {
@@ -39,7 +56,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
     inscription() {
         if(this.inscriptionForm.valid) {
-            this._service.post('action/addNewUser.php', this.user);
-        } else this.valid = false;        
+            this._appService.post('action/addNewUser.php', this.user);
+            window.location.reload();
+        } else this.valid = false; 
     }
 }

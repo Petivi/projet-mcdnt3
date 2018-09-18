@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AppService } from '../app.service';
 
-import { Word } from '../model/app.model'
+import { Word, User } from '../model/app.model'
 
 
 @Component({
@@ -13,6 +14,7 @@ import { Word } from '../model/app.model'
 export class AdminComponent implements OnInit, OnDestroy {
     valid: boolean = true;
     tabWord: Word[] = [];
+    userConnected: User;
     word: Word = new Word();
     wordForm: FormGroup;
     controls = (value: any = {}) => ({
@@ -21,9 +23,14 @@ export class AdminComponent implements OnInit, OnDestroy {
         msg_fr: [value.msg_fr],
         msg_en: [value.msg_en],
     });
-    constructor(private _formBuilder: FormBuilder, private _service: AppService) { }
+    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
+        this.userConnected = this._appService.getUserConnected();
+        if(this.userConnected.firstname !== 'Admin') {
+            // TODO: tester si admin
+            this._router.navigate(['/accueil']);
+        }
         this.buildControl({});
     }
 
@@ -32,8 +39,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
 
     addWord() {
-        this.word.pseudo = 'admin';
-        this._service.post('action/addWords.php', this.word).then(res => {
+        this.word.pseudo = this.userConnected;
+        this._appService.post('action/addWords.php', this.word).then(res => {
             console.log(res)
         });
     }

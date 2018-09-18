@@ -1,18 +1,19 @@
-<div class="navbar-fixed" style="margin-bottom: 10px">
+<div class="navbar-fixed" *ngIf="words && words.length > 0" style="margin-bottom: 10px">
     <nav>
         <div class="nav-wrapper">
             <a [routerLink]="['/accueil']" class="brand-logo">Logo</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <ul id="nav-mobile" class="right">
                 <li class="deroulant">
-                    <a class="right">FR</a>
+                    <a class="right">{{langue.toUpperCase()}}</a>
                     <ul class="sous-deroulant">
-                        <li><a>FR</a></li>
-                        <li><a>EN</a></li>
+                        <li><a (click)="changeLangue()"><span *ngIf="langue==='en'">FR</span><span *ngIf="langue==='fr'">EN</span></a></li>
                     </ul>
                 </li>
-                <li><a [routerLink]="['/creationPersonnage']">Créer un personnage</a></li>
-                <li><a [routerLink]="['/inscription']">S'inscrire</a></li>
-                <li><a [routerLink]="['/login']">Connexion</a></li>
+                <li><a [routerLink]="['/creationPersonnage']">{{(words | filter : {msg_name: 'msg_creationperso'} : {col : 'value'})}}</a></li>
+                <li *ngIf="!userConnected"><a [routerLink]="['/inscription']">{{(words | filter : {msg_name: 'msg_registration'} : {col : 'value'})}}</a></li>
+                <li *ngIf="!userConnected"><a [routerLink]="['/login']">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</a></li>
+                <li *ngIf="userConnected"><a (click)="deconnexion()">{{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}</a></li>
+                <li *ngIf="userConnected && userConnected.pseudo === 'admin'"><a [routerLink]="['/admin']">Admin</a></li>
             </ul>
         </div>
     </nav>
