@@ -21,10 +21,12 @@ import { LoginComponent } from './login/login.component';
 import { PersonnageComponent } from './personnage/personnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
+import { FilterPipe } from './common/pipe/string.pipe';
 
 
 @NgModule({
     declarations: [
+        FilterPipe,
         AppComponent,
         AccueilComponent,
         AdminComponent,

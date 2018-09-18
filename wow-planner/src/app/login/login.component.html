@@ -1,22 +1,24 @@
 <div class="container">
-        <div class="row" [formGroup]="loginForm">
-            <div class="col s6 offset-s3">
-                <h1 class="title">Connexion</h1>
-                <div class="error" *ngIf="!valid">
-                    {{error}}
-                </div>
-                <div class="input-field col s12">
-                    <label for="login">Pseudo ou mail *</label>
-                    <input class="input-field" type="text" id="login" [(ngModel)]="user.login" formControlName="login">
-                </div>
-                <div class="input-field col s12">
-                    <label for="password">Mot de passe *</label>
-                    <input class="input-field" type="password" id="password" [(ngModel)]="user.password" formControlName="password">
-                </div>
-                <div class="center col s12">
-                    <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">Inscription</button>
-                </div>
-                <p>* Informations obligatoires</p>
+    <div class="row" [formGroup]="loginForm">
+        <div class="col s6 offset-s3">
+            <h1 class="title">Connexion</h1>
+            <div class="error" *ngIf="!valid">
+                {{error}}
+            </div>
+            <div class="input-field col s12">
+                <label for="login">Pseudo ou mail *</label>
+                <input class="input-field" type="text" id="login" [(ngModel)]="user.login" formControlName="login">
+            </div>
+            <div class="input-field col s12">
+                <label for="password">Mot de passe *</label>
+                <input class="input-field" type="password" id="password" [(ngModel)]="user.password" formControlName="password">
+            </div>
+            <div class="center col s12">
+                <button (click)="login()" class="btn waves-effect waves-ligth" style="width: 100%">Connexion</button>
+            </div>
+            <div class="row">
+                <p class="col s12">* Informations obligatoires</p>
             </div>
         </div>
     </div>
+</div>
