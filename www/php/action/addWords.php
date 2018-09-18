@@ -75,10 +75,12 @@ include "../includedFiles.php";
       $add_new_message->bindValue('msg_en', $msg_en, PDO::PARAM_STR);
       $add_new_message->bindValue('page', $page, PDO::PARAM_STR);
       $add_new_message->execute();
+      echo returnResponse("Mot ajouté");
+    }else {
+      echo returnError("Erreur, mot non ajouté");
     }
-    echo returnResponse("success");
   }else {
-    echo returnError("error");
+    echo returnError("Droits insuffisants");
   }
 
 
