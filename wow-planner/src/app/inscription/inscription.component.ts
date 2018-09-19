@@ -11,10 +11,12 @@ import { Router } from '@angular/router';
     templateUrl: './inscription.component.html',
 })
 export class InscriptionComponent implements OnInit, OnDestroy {
-    error: string = 'Les champes pseudo, mail, et mot de passe sont obligatoire';
+    errors: string[] = [];
     valid: boolean = true;
     user: User = new User();
     words: WordSimplified[] = [];
+    submitted: boolean = false;
+    cfPassword: string;
     inscriptionForm: FormGroup;
     controls = (value: any = {}) => ({
         firstname: [value.firstname],
@@ -28,19 +30,14 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        if(this._appService.getUserConnected()) {
+        if (this._appService.getUserConnected()) {
             this._router.navigate(['/accueil']);
         } else {
             this._appService.setPage('inscription');
             this.buildControl({});
-            this._appService.getWords('common').then(res => {
+            this._appService.getWords(['common', 'inscription']).then(res => {
                 res.forEach(w => {
                     this.words.push(w);
-                });
-                this._appService.getWords('inscription').then(res => {
-                    res.forEach(w => {
-                        this.words.push(w);
-                    });
                 });
             });
         }
@@ -55,9 +52,25 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     }
 
     inscription() {
-        if(this.inscriptionForm.valid) {
-            this._appService.post('action/addNewUser.php', this.user);
-            // window.location.reload();
-        } else this.valid = false;
+        this.errors = [];
+        console.log(this.words) 
+        this.submitted = true;
+        if (this.inscriptionForm.valid) {
+            if(this.user.password !== this.cfPassword) {
+                this._appService.post('action/addNewUser.php', {user: this.user, lang: this._appService.getLangue()});
+                //window.location.reload();
+            } else {
+                this.valid = false;
+                this.errors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
+            }
+        } else {
+            this.valid = false;
+            this.errors.push(this.words.find(w => w.msg_name === 'msg_errorForm').value);
+        } 
+        console.log(this.errors)
+    }
+
+    enter(e: KeyboardEvent) {
+        if (e.key === 'Enter') this.inscription();
     }
 }

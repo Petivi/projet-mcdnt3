@@ -3,7 +3,7 @@
         <div class="col s6 offset-s3">
             <h1>{{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</h1>
             <div class="error" *ngIf="!valid">
-                {{(words | filter : {msg_name: 'msg_errorForm'} : {col : 'value'})}}
+                <div *ngFor="let er of errors">{{er}}</div>
             </div>
             <div class="input-field col s12">
                 <label for="lastname">{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}</label>
@@ -31,7 +31,7 @@
             <div class="input-field col s12">
                 <label for="cfPassword">{{(words | filter : {msg_name: 'msg_passwordconfirm'} : {col : 'value'})}} *</label>
                 <input class="input-field" [ngClass]="{ 'invalid': submitted && inscriptionForm.controls.cfPassword.errors }" type="password"
-                    id="cfPassword" [(ngModel)]="user.cfPassword" formControlName="cfPassword">
+                    id="cfPassword" [(ngModel)]="cfPassword" formControlName="cfPassword">
             </div>
             <div class="center col s12">
                 <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words
