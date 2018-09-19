@@ -53,20 +53,19 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
     inscription() {
         this.errors = [];
-        console.log(this.words) 
+        console.log(this.words)
         this.submitted = true;
-        if (this.inscriptionForm.valid) {
-            if(this.user.password !== this.cfPassword) {
-                this._appService.post('action/addNewUser.php', {user: this.user, lang: this._appService.getLangue()});
-                //window.location.reload();
-            } else {
-                this.valid = false;
-                this.errors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
-            }
+        if (this.inscriptionForm.valid && this.user.password === this.cfPassword) {
+
+            this._appService.post('action/addNewUser.php', { user: this.user, lang: this._appService.getLangue() });
+            //window.location.reload();
         } else {
             this.valid = false;
             this.errors.push(this.words.find(w => w.msg_name === 'msg_errorForm').value);
-        } 
+        }
+        if (this.user.password !== this.cfPassword) {
+            this.errors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
+        }
         console.log(this.errors)
     }
 

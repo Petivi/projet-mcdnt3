@@ -18,10 +18,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.langue = this._appService.getLangue();
         this.userConnected = this._appService.getUserConnected();
-        this.getPageWords();
-        if(this._appService.getPage()) {
-            this._router.navigate(['/' + this._appService.getPage()]);
-        } else this._router.navigate(['/accueil']);
+        this.getPageWords();        
     }
 
     deconnexion() {
@@ -42,6 +39,9 @@ export class AppComponent implements OnInit {
                 this.words.push(w);
                 this.chargement = false;
             });
+            if(this._router.url === '/') {
+                this._router.navigate(['/accueil']);
+            }
         });
     }
 }

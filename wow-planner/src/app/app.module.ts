@@ -20,7 +20,7 @@ import { PersonnageComponent } from './personnage/personnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 import { FilterPipe } from './common/pipe/string.pipe';
-import { ConfirmCompt } from './confirmCompte/confirmCompte.component';
+import { ConfirmCompteComponent } from './confirmCompte/confirmCompte.component';
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import { ConfirmCompt } from './confirmCompte/confirmCompte.component';
         PersonnageComponent,
         RechercheComponent,
         CreationPersonnageComponent,
-        ConfirmCompt
+        ConfirmCompteComponent
     ],
     imports: [
         BrowserModule,

@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 
-import { ConfirmCompt } from './confirmCompte/confirmCompte.component';
+import { ConfirmCompteComponent } from './confirmCompte/confirmCompte.component';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -18,7 +18,7 @@ export const appRouting = RouterModule.forRoot([
     },    
     {
         path: 'confirm',
-        component: ConfirmCompt
+        component: ConfirmCompteComponent
     },    
     {
         path: 'admin',
