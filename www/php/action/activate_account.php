@@ -3,20 +3,22 @@ require_once('../config.php');
 include "../includedFiles.php";
 
   if(isset($_GET['token'])){
-    $code_activation = $_GET['token'];
+    $token_temp = $_GET['token'];
 
 
-    $get_user_info = 'SELECT * FROM users WHERE code_activation LIKE :code_activation';
+    $get_user_info = 'SELECT * FROM users WHERE token_temp LIKE :token_temp';
     $get_user_info = $base->prepare($get_user_info);
-    $get_user_info->bindValue('code_activation', $code_activation, PDO::PARAM_STR);
+    $get_user_info->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
     $get_user_info->execute();
     while($user_info = $get_user_info->fetch())
     {
       $userId = $user_info['id'];
 
-      $update_checked_mail = 'UPDATE users SET checked_mail = 1 WHERE id LIKE :id';
+      $token_temp = "";
+      $update_checked_mail = 'UPDATE users SET checked_mail = 1, token_temp = :token_temp WHERE id LIKE :id';
       $update_checked_mail = $base->prepare($update_checked_mail);
       $update_checked_mail->bindValue('id', $userId, PDO::PARAM_INT);
+      $update_checked_mail->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
       $update_checked_mail->execute();
     }
 
@@ -27,6 +29,7 @@ include "../includedFiles.php";
   if(strpos($url_server,  'localhost')){
     $url_server .= ":4200";
   };
+  $url_server .= "/confirm";
 
  ?>
 
