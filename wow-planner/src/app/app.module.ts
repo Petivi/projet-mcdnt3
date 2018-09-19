@@ -8,6 +8,8 @@ import { CustomHttpInterceptor } from './common/customHttpInterceptor';
 
 import { AppComponent } from './app.component';
 
+import Swal from 'sweetalert2'
+
 import { appRouting } from './app.routing';
 
 import { AccueilComponent } from './accueil/accueil.component';
@@ -19,8 +21,8 @@ import { LoginComponent } from './login/login.component';
 import { PersonnageComponent } from './personnage/personnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
+
 import { FilterPipe } from './common/pipe/string.pipe';
-import { ConfirmCompteComponent } from './confirmCompte/confirmCompte.component';
 
 
 @NgModule({
@@ -36,7 +38,6 @@ import { ConfirmCompteComponent } from './confirmCompte/confirmCompte.component'
         PersonnageComponent,
         RechercheComponent,
         CreationPersonnageComponent,
-        ConfirmCompteComponent
     ],
     imports: [
         BrowserModule,

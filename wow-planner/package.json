@@ -24,6 +24,7 @@
     "core-js": "^2.4.1",
     "materialize-css": "^1.0.0-rc.2",
     "rxjs": "^5.5.6",
+    "sweetalert2": "^7.26.29",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

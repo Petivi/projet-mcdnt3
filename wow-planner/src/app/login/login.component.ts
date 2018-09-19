@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
-import { AppService } from '../app.service'
-
+import { AppService } from '../app.service';
 import { WordSimplified } from '../model/app.model';
 
 @Component({
@@ -29,12 +29,20 @@ export class LoginComponent implements OnInit, OnDestroy {
             this._router.navigate(['/accueil']);
         } else {
             this._appService.setPage('login');
-            this._appService.getWords(['common', 'connexion']).then(res => {
+            this._appService.getWords(['common', 'connexion', 'confirmation']).then(res => {
                 res.forEach(w => {
                     this.words.push(w);
                 });
+                this.buildControl({});
+                if(this._router.url === ('/login/confirm')) {
+                    Swal({
+                        title: 'Confirmation',
+                        text: this.words.find(w => w.msg_name === 'msg_confirmation').value,
+                        type: 'success',
+                        confirmButtonText: 'OK',
+                    });
+                }
             });
-            this.buildControl({});
         }
     }
 
