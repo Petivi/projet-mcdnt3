@@ -1,23 +1,23 @@
-<div class="container">
+<div class="container" (keyup)="enter($event)" *ngIf="words && words.length > 0">
     <div class="row" [formGroup]="loginForm">
         <div class="col s6 offset-s3">
-            <h1 class="title">Connexion</h1>
+            <h1 class="title">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</h1>
             <div class="error" *ngIf="!valid">
-                {{error}}
+                {{(words | filter : {msg_name: 'msg_errorForm'} : {col : 'value'})}}
             </div>
             <div class="input-field col s12">
-                <label for="login">Pseudo ou mail *</label>
-                <input class="input-field" type="text" id="login" [(ngModel)]="user.login" formControlName="login">
+                <label for="login">Pseudo / mail *</label>
+                <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.login.errors }" type="text" id="login" [(ngModel)]="user.login" formControlName="login">
             </div>
             <div class="input-field col s12">
-                <label for="password">Mot de passe *</label>
-                <input class="input-field" type="password" id="password" [(ngModel)]="user.password" formControlName="password">
+                <label for="password">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.password.errors }" type="password" id="password" [(ngModel)]="user.password" formControlName="password">
             </div>
             <div class="center col s12">
-                <button (click)="login()" class="btn waves-effect waves-ligth" style="width: 100%">Connexion</button>
+                <button (click)="login()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</button>
             </div>
             <div class="row">
-                <p class="col s12">* Informations obligatoires</p>
+                <p class="col s12">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
             </div>
         </div>
     </div>

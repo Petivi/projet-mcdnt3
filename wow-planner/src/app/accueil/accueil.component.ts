@@ -12,7 +12,7 @@ export class AccueilComponent implements OnInit, OnDestroy {
     userConnected: User;
     constructor(private _appService: AppService) { }
 
-    ngOnInit() {        
+    ngOnInit() {
         this._appService.setPage('accueil');
         this.userConnected = this._appService.getUserConnected();
     }

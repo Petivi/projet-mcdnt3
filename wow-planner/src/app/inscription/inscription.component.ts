@@ -15,6 +15,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     valid: boolean = true;
     user: User = new User();
     words: WordSimplified[] = [];
+    submitted: boolean = false;
     inscriptionForm: FormGroup;
     controls = (value: any = {}) => ({
         firstname: [value.firstname],
@@ -28,19 +29,14 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        if(this._appService.getUserConnected()) {
+        if (this._appService.getUserConnected()) {
             this._router.navigate(['/accueil']);
         } else {
             this._appService.setPage('inscription');
             this.buildControl({});
-            this._appService.getWords('common').then(res => {
+            this._appService.getWords(['common', 'inscription']).then(res => {
                 res.forEach(w => {
                     this.words.push(w);
-                });
-                this._appService.getWords('inscription').then(res => {
-                    res.forEach(w => {
-                        this.words.push(w);
-                    });
                 });
             });
         }
@@ -55,9 +51,14 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     }
 
     inscription() {
-        if(this.inscriptionForm.valid) {
+        this.submitted = true;
+        if (this.inscriptionForm.valid) {
             this._appService.post('action/addNewUser.php', this.user);
             window.location.reload();
-        } else this.valid = false; 
+        } else this.valid = false;
+    }
+
+    enter(e: KeyboardEvent) {
+        if (e.key === 'Enter') this.inscription();
     }
 }

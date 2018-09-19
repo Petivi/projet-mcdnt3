@@ -1,7 +1,7 @@
 <div class="navbar-fixed" *ngIf="words && words.length > 0" style="margin-bottom: 10px">
     <nav>
         <div class="nav-wrapper">
-            <a [routerLink]="['/accueil']" class="brand-logo">Logo</a>
+            <a [routerLink]="['/accueil']" class="brand-logo">WOW Planner Logo</a>
             <ul id="nav-mobile" class="right">
                 <li class="deroulant">
                     <a class="right">{{langue.toUpperCase()}}</a>
@@ -14,8 +14,15 @@
                 <li *ngIf="!userConnected"><a [routerLink]="['/login']">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</a></li>
                 <li *ngIf="userConnected"><a (click)="deconnexion()">{{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}</a></li>
                 <li *ngIf="userConnected && userConnected.pseudo === 'admin'"><a [routerLink]="['/admin']">Admin</a></li>
+                <li *ngIf="userConnected && userConnected.pseudo !== 'admin'" class="deroulant"><a>{{userConnected.pseudo}}</a>
+                    <ul class="sous-deroulant pseudo">
+                        <li><a>future lien vers quelque chose</a></li>
+                        <li><a>future lien vers autre chose</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
 </div>
-<router-outlet></router-outlet>
+<div class="loader" *ngIf="chargement"></div>
+<router-outlet *ngIf="!chargement"></router-outlet>

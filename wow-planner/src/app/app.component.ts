@@ -11,20 +11,23 @@ import { User, WordSimplified } from './model/app.model';
 })
 export class AppComponent implements OnInit {
     words: WordSimplified[] = [];
+    chargement: boolean = true;
     userConnected: User;
     langue: string;
     constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
     ngOnInit() {
         this.langue = this._appService.getLangue();
         this.userConnected = this._appService.getUserConnected();
-        console.log(this.userConnected)
         this.getPageWords();
-        this._router.navigate(['/' + this._appService.getPage()]);
+        if(this._appService.getPage()) {
+            this._router.navigate(['/' + this._appService.getPage()]);
+        } else this._router.navigate(['/accueil']);
     }
 
     deconnexion() {
         this.userConnected = null;
         this._appService.deconnexion();
+        this._router.navigate(['/accueil']);
     }
 
     changeLangue() {
@@ -34,16 +37,11 @@ export class AppComponent implements OnInit {
     }
 
     getPageWords() {
-        this._appService.getWords('menu').then(res => {
+        this._appService.getWords(['menu', 'common']).then(res => {
             res.forEach(w => {
                 this.words.push(w);
+                this.chargement = false;
             });
-            this._appService.getWords('common').then(res => {
-                res.forEach(w => {
-                    this.words.push(w);
-                });
-            });
-            console.log(this.words)
         });
     }
 }

@@ -1,8 +1,16 @@
 .sous-deroulant{
-    display: none;
+    display: none;    
+}
+.sous-deroulant.pseudo {
+    position: absolute;
+    width: 242px; /* TODO: changer quand le menu aura hang */
+    right: 0;
 }
 .deroulant:hover .sous-deroulant{
     display: block;
+}
+.deroulant {
+    position: relative;
 }
 .sous-deroulant li{
     float: none;
@@ -17,4 +25,14 @@
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;
+}
+.loader {
+    position : fixed;
+    z-index: 9999;
+    background : url('assets/img/chargement.gif') 50% 50% no-repeat;
+    top : 0px;
+    left : 0px;
+    height : 100%;
+    width : 100%;
+    cursor : wait;
 }

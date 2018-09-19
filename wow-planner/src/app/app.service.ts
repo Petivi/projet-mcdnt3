@@ -47,11 +47,12 @@ export class AppService {
                 if (value.response) {
                     this.userConnected = value.response;
                     localStorage.setItem('userConnected', JSON.stringify(this.userConnected));
+                    sessionStorage.setItem('userConnected', JSON.stringify(this.userConnected));
                 }
             });
     }
 
-    getWords(page: string): Promise<any> {
+    getWords(page: string[]): Promise<any> {
         this.langue = this.getLangue();
         if (!this.words || this.words.length === 0) {
             return this._http.get(this.urlServeur + 'action/getWords.php')
@@ -72,14 +73,15 @@ export class AppService {
         }
     }
 
-    getWordsReturn(page) {
+    getWordsReturn(page: string[]) {
         let wordsReturn = [];
         this.words.forEach(w => {
-            if (w.page === page) {
-                wordsReturn.push({ page: w.page, msg_name: w.msg_name, value: (this.langue === 'fr' ? w.msg_fr : w.msg_en) })
-            }
+            page.forEach(p => {
+                if (w.page === p) {
+                    wordsReturn.push({ page: w.page, msg_name: w.msg_name, value: (this.langue === 'fr' ? w.msg_fr : w.msg_en) })
+                }
+            });
         });
-        this.words.filter(w => w.page === page);
         return wordsReturn;
     }
 
@@ -103,7 +105,7 @@ export class AppService {
     }
 
     getLangue() {
-        if(localStorage.getItem('langue')) {
+        if (localStorage.getItem('langue')) {
             return localStorage.getItem('langue');
         } else return 'fr';
     }
