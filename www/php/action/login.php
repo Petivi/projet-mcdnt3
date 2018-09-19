@@ -16,7 +16,7 @@ include "../includedFiles.php";
 
 
   // check if user exists
-  $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2) AND active_account LIKE 1';
+  $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2) AND active_account LIKE 1 AND checked_mail LIKE 1';
   $check_pseudo_user = $base->prepare($check_pseudo_user);
   $check_pseudo_user->bindValue('login1', $login, PDO::PARAM_STR);
   $check_pseudo_user->bindValue('login2', $login, PDO::PARAM_STR);

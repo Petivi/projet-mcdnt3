@@ -57,7 +57,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     inscription() {
         if(this.inscriptionForm.valid) {
             this._appService.post('action/addNewUser.php', this.user);
-            window.location.reload();
-        } else this.valid = false; 
+            // window.location.reload();
+        } else this.valid = false;
     }
 }
