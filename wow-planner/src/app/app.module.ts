@@ -8,7 +8,7 @@ import { CustomHttpInterceptor } from './common/customHttpInterceptor';
 
 import { AppComponent } from './app.component';
 
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 import { appRouting } from './app.routing';
 

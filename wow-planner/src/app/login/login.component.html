@@ -7,18 +7,21 @@
             </div>
             <div class="input-field col s12">
                 <label for="login">Pseudo / mail *</label>
-                <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.login.errors }" type="text" id="login" [(ngModel)]="user.login" formControlName="login">
+                <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.login.errors }" type="text"
+                    id="login" [(ngModel)]="user.login" formControlName="login">
             </div>
             <div class="input-field col s12">
                 <label for="password">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.password.errors }" type="password" id="password" [(ngModel)]="user.password" formControlName="password">
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.password.errors }" type="password" id="password"
+                    [(ngModel)]="user.password" formControlName="password">
             </div>
             <div class="center col s12">
-                <button (click)="login()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</button>
-            </div>
-            <div class="row">
-                <p class="col s12">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
+                <button (click)="login()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words | filter : {msg_name:
+                    'msg_connect'} : {col : 'value'})}}</button>
             </div>
         </div>
+    </div>
+    <div class="row center">
+        <p class="col s12">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
     </div>
 </div>

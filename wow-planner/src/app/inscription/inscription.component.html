@@ -30,16 +30,16 @@
             </div>
             <div class="input-field col s12">
                 <label for="cfPassword">{{(words | filter : {msg_name: 'msg_passwordconfirm'} : {col : 'value'})}} *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }" type="password"
-                    id="cfPassword" [(ngModel)]="cfPassword" formControlName="cfPassword">
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }"
+                    type="password" id="cfPassword" [(ngModel)]="cfPassword" formControlName="cfPassword">
             </div>
             <div class="center col s12">
                 <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words
                     | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</button>
             </div>
-            <div class="row">
-                <p class="col s12">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
-            </div>
         </div>
+    </div>
+    <div class="row center">
+        <p class="col s12">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
     </div>
 </div>
