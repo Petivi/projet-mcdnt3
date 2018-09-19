@@ -29,7 +29,7 @@ include "../includedFiles.php";
   if(strpos($url_server,  'localhost')){
     $url_server .= ":4200";
   };
-  $url_server .= "/confirm";
+  $url_server .= "/login\/confirm";
 
  ?>
 
