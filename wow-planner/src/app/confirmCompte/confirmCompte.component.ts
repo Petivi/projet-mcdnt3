@@ -5,16 +5,15 @@ import { AppService } from '../app.service';
 import { User } from '../model/app.model';
 
 @Component({
-    selector: 'accueil-cpt',
-    templateUrl: './accueil.component.html',
+    selector: 'confirm-compt-cpt',
+    template: 'ouit',
 })
-export class AccueilComponent implements OnInit, OnDestroy {
+export class ConfirmCompt implements OnInit, OnDestroy {
     userConnected: User;
+    message: string='ouit';
     constructor(private _appService: AppService) { }
 
     ngOnInit() {
-        this._appService.setPage('accueil');
-        this.userConnected = this._appService.getUserConnected();
     }
 
     ngOnDestroy() {

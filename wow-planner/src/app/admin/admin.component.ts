@@ -1,19 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AppService } from '../app.service';
 
-import { Word, User } from '../model/app.model'
+import { Word, User, WordSimplified } from '../model/app.model'
 
 
 @Component({
     selector: 'admin-cpt',
     templateUrl: './admin.component.html',
 })
-export class AdminComponent implements OnInit, OnDestroy {
+export class AdminComponent implements OnInit {
     valid: boolean = true;
-    tabWord: Word[] = [];
+    words: WordSimplified[] = [];
     userConnected: User;
     word: Word = new Word();
     wordForm: FormGroup;
@@ -32,10 +32,6 @@ export class AdminComponent implements OnInit, OnDestroy {
             this._router.navigate(['/accueil']);
         }
         this.buildControl({});
-    }
-
-    ngOnDestroy() {
-
     }
 
     addWord() {

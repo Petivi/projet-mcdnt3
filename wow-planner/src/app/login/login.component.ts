@@ -4,14 +4,18 @@ import { Router } from '@angular/router';
 
 import { AppService } from '../app.service'
 
+import { WordSimplified } from '../model/app.model';
+
 @Component({
     selector: 'login-cpt',
     templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, OnDestroy {
     error: string = 'Les champs pseudo/mail et mot de passe sont obligatoires';
+    words: WordSimplified[] = [];
     valid: boolean = true;
-    user: any = {login: '', password: ''};
+    user: any = { login: '', password: '' };
+    submitted: boolean = false;
     loginForm: FormGroup;
     controls = (value: any = {}) => ({
         login: [value.login, Validators.required],
@@ -21,13 +25,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        // TODO: enlever la negation pour que ça marche
-        /* if(!this._appService.getUserConnected()) {
+        if (this._appService.getUserConnected()) {
             this._router.navigate(['/accueil']);
-        } else { */
+        } else {
             this._appService.setPage('login');
+            this._appService.getWords(['common', 'connexion']).then(res => {
+                res.forEach(w => {
+                    this.words.push(w);
+                });
+            });
             this.buildControl({});
-        /* } */
+        }
     }
 
     ngOnDestroy() {
@@ -39,10 +47,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     login() {
+        this.submitted = true;
         if (this.loginForm.valid) {
             this._appService.connexion(this.user);
             window.location.reload();
             this._router.navigate(['/accueil']);
         } else this.valid = false;
-    }    
+    }
+
+    enter(e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+            this.login();
+        }
+    }
 }
