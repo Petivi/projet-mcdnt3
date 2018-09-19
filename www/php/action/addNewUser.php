@@ -6,7 +6,7 @@ include "../includedFiles.php";
 
 // get user lastname
 // check if lastname exists
-  if(isset($request->lastname)){
+  if(isset($requestUser->lastname)){
     $lastname = htmlspecialchars($request->lastname, ENT_QUOTES);
   }else{
     $lastname = "";
@@ -15,7 +15,7 @@ include "../includedFiles.php";
 
 // get user firstname
 // check if firstname exists
-  if(isset($request->firstname)){
+  if(isset($requestUser->firstname)){
     $firstname = htmlspecialchars($request->firstname, ENT_QUOTES);
   }else{
     $firstname = "";
@@ -24,7 +24,7 @@ include "../includedFiles.php";
 
 // get user pseudo
 // check if pseudo exists
-  if(isset($request->pseudo)){
+  if(isset($requestUser->pseudo)){
     $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
   }else{
     $pseudo = "";
@@ -34,7 +34,7 @@ include "../includedFiles.php";
 
 // get user mail
 // check if mail exists
-  if(isset($request->mail)){
+  if(isset($requestUser->mail)){
     $mail = htmlspecialchars($request->mail, ENT_QUOTES);
   }else{
     $mail = "";
@@ -43,9 +43,16 @@ include "../includedFiles.php";
 
 
 // get user password + hash it
-  $password = htmlspecialchars($request->password, ENT_QUOTES);
+  $password = htmlspecialchars($requestUser->password, ENT_QUOTES);
   $password = password_hash($password, PASSWORD_DEFAULT);
 
+  // get user lang
+  // check if lang exists
+    if(isset($request->lang)){
+      $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+    }else{
+      $lang = "";
+    }
 
 // sql request to check if mail is already taken
  $existing_mail = false;
@@ -117,7 +124,7 @@ include "../includedFiles.php";
        $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
        $insert_new_user->bindValue('code_activation', $code_activation, PDO::PARAM_STR);
        $insert_new_user->execute();
-       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $code_activation);
+       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $code_activation, $lang);
      }
    }
  }

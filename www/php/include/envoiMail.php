@@ -40,14 +40,13 @@ $emailCampaigns = new \SendinBlue\Client\Model\CreateEmailCampaign();
 //     echo 'Exception when calling EmailCampaignsApi->createEmailCampaign: ', $e->getMessage(), PHP_EOL;
 // }
 
-function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $code_activation){
+function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $code_activation, $lang){
   global $sendinblue_access_key;
   global $mail_no_reply;
   global $app_name;
   global $uri_activate_account;
   $urlServer = "http://" . $_SERVER['SERVER_NAME'];
   $activateLink = $urlServer.$uri_activate_account;
-  $lang = "fr";
   if($lang = "fr"){
     $subject = "Création de compte";
     $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."?token=".$code_activation."'>Cliquez sur ce lien pour activer votre compte</a>";
