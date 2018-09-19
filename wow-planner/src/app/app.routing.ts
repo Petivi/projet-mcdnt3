@@ -9,63 +9,43 @@ import { LoginComponent } from './login/login.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 
-import { AccueilResolver, AdminResolver, InscriptionResolver, InfoUtilisateurResolver, ItemResolver, LoginResolver, PersonnageResolver, RechercheResolver, CreationPersonnageResolver } from './app.resolver';
+import { ConfirmCompt } from './confirmCompte/confirmCompte.component';
 
 export const appRouting = RouterModule.forRoot([
     {
         path: 'accueil',
-        component: AccueilComponent,
-        resolve: {
-            resolve: AccueilResolver
-        }
+        component: AccueilComponent
+    },    
+    {
+        path: 'confirm',
+        component: ConfirmCompt
     },    
     {
         path: 'admin',
-        component: AdminComponent,
-        resolve: {
-            resolve: AdminResolver
-        }
+        component: AdminComponent
     },    
     {
         path: 'inscription',
-        component: InscriptionComponent,
-        resolve: {
-            resolve: InscriptionResolver
-        }
+        component: InscriptionComponent
     },    
     {
         path: 'infoUser',
-        component: InfoUtilisateurComponent,
-        resolve: {
-            resolve: InfoUtilisateurResolver
-        }
+        component: InfoUtilisateurComponent
     },    
     {
         path: 'item',
-        component: ItemComponent,
-        resolve: {
-            resolve: ItemResolver
-        }
+        component: ItemComponent
     },    
     {
         path: 'login',
-        component: LoginComponent,
-        resolve: {
-            resolve: LoginResolver
-        }
+        component: LoginComponent
     },    
     {
         path: 'creationPersonnage',
-        component: CreationPersonnageComponent,
-        resolve: {
-            resolve: CreationPersonnageResolver
-        }
+        component: CreationPersonnageComponent
     },    
     {
         path: 'recherche',
-        component: RechercheComponent,
-        resolve: {
-            resolve: RechercheResolver
-        }
+        component: RechercheComponent
     }
 ])

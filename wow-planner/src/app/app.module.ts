@@ -10,8 +10,6 @@ import { AppComponent } from './app.component';
 
 import { appRouting } from './app.routing';
 
-import { AccueilResolver, AdminResolver, InscriptionResolver, InfoUtilisateurResolver, ItemResolver, LoginResolver, PersonnageResolver, RechercheResolver, CreationPersonnageResolver } from './app.resolver';
-
 import { AccueilComponent } from './accueil/accueil.component';
 import { AdminComponent } from './admin/admin.component';
 import { InscriptionComponent } from './inscription/inscription.component';
@@ -22,6 +20,7 @@ import { PersonnageComponent } from './personnage/personnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 import { FilterPipe } from './common/pipe/string.pipe';
+import { ConfirmCompt } from './confirmCompte/confirmCompte.component';
 
 
 @NgModule({
@@ -36,7 +35,8 @@ import { FilterPipe } from './common/pipe/string.pipe';
         LoginComponent,
         PersonnageComponent,
         RechercheComponent,
-        CreationPersonnageComponent
+        CreationPersonnageComponent,
+        ConfirmCompt
     ],
     imports: [
         BrowserModule,
@@ -46,9 +46,8 @@ import { FilterPipe } from './common/pipe/string.pipe';
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
-        AppService, AccueilResolver, AdminResolver, InscriptionResolver,
-        InfoUtilisateurResolver, ItemResolver, LoginResolver, PersonnageResolver,
-        RechercheResolver, CreationPersonnageResolver ],
+        AppService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
