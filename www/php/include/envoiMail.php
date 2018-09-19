@@ -40,7 +40,7 @@ $emailCampaigns = new \SendinBlue\Client\Model\CreateEmailCampaign();
 //     echo 'Exception when calling EmailCampaignsApi->createEmailCampaign: ', $e->getMessage(), PHP_EOL;
 // }
 
-function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $code_activation, $lang){
+function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang){
   global $sendinblue_access_key;
   global $mail_no_reply;
   global $app_name;
@@ -49,10 +49,10 @@ function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $code_activation
   $activateLink = $urlServer.$uri_activate_account;
   if($lang = "fr"){
     $subject = "Création de compte";
-    $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."?token=".$code_activation."'>Cliquez sur ce lien pour activer votre compte</a>";
+    $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."?token=".$token_temp."'>Cliquez sur ce lien pour activer votre compte</a>";
   }else {
     $subject = "Account creation";
-    $html = "Hello ".$pseudo.", please <a href='".$activateLink."?token=".$code_activation."'>Click on that link to activate your account</a>";
+    $html = "Hello ".$pseudo.", please <a href='".$activateLink."?token=".$token_temp."'>Click on that link to activate your account</a>";
   }
   require('../PHPMail/V2.0/Mailin.php');
   $mailin = new Mailin('https://api.sendinblue.com/v2.0', $sendinblue_access_key, 5000);    //Optional parameter: Timeout in MS

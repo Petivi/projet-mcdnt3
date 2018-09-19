@@ -2,12 +2,14 @@
 require_once('../config.php');
 include "../includedFiles.php";
 
+// convert angular response (with more paramaters)
+$requestUser = $request->user;
 
 
 // get user lastname
 // check if lastname exists
   if(isset($requestUser->lastname)){
-    $lastname = htmlspecialchars($request->lastname, ENT_QUOTES);
+    $lastname = htmlspecialchars($requestUser->lastname, ENT_QUOTES);
   }else{
     $lastname = "";
   }
@@ -16,7 +18,7 @@ include "../includedFiles.php";
 // get user firstname
 // check if firstname exists
   if(isset($requestUser->firstname)){
-    $firstname = htmlspecialchars($request->firstname, ENT_QUOTES);
+    $firstname = htmlspecialchars($requestUser->firstname, ENT_QUOTES);
   }else{
     $firstname = "";
   }
@@ -25,7 +27,7 @@ include "../includedFiles.php";
 // get user pseudo
 // check if pseudo exists
   if(isset($requestUser->pseudo)){
-    $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
+    $pseudo = htmlspecialchars($requestUser->pseudo, ENT_QUOTES);
   }else{
     $pseudo = "";
   }
@@ -35,7 +37,7 @@ include "../includedFiles.php";
 // get user mail
 // check if mail exists
   if(isset($requestUser->mail)){
-    $mail = htmlspecialchars($request->mail, ENT_QUOTES);
+    $mail = htmlspecialchars($requestUser->mail, ENT_QUOTES);
   }else{
     $mail = "";
   }
@@ -95,25 +97,25 @@ include "../includedFiles.php";
      for ($i = 0; $i<6; $i++){
        $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
      }
-     $code_activation = $a1 . "-" . $a2;
+     $token_temp = $a1 . "-" . $a2;
 
-     $code_unique = true;
+     $token_unique = true;
      // check if activation code is unique
-     $check_code_activation = 'SELECT * FROM users WHERE code_activation LIKE :code_activation';
-     $check_code_activation = $base->prepare($check_code_activation);
-     $check_code_activation->bindValue('code_activation', $code_activation, PDO::PARAM_STR);
-     $check_code_activation->execute();
-     while($check_code = $check_code_activation->fetch())
+     $check_token_temp = 'SELECT * FROM users WHERE token_temp LIKE :token_temp';
+     $check_token_temp = $base->prepare($check_token_temp);
+     $check_token_temp->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
+     $check_token_temp->execute();
+     while($check_code = $check_token_temp->fetch())
      {
-       $code_unique = false;
+       $token_unique = false;
      }
 
      // activation code is unique
-     if($code_unique){
+     if($token_unique){
        $created_date = strtotime(date('d-m-Y'));
        $active_account = 1; // 1 = active account and 0 = locked account
-       $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, created_date, mail, active_account, code_activation)
-       VALUES (:lastname, :firstname, :pseudo, :password, :created_date, :mail, :active_account, :code_activation)';
+       $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, created_date, mail, active_account, token_temp)
+       VALUES (:lastname, :firstname, :pseudo, :password, :created_date, :mail, :active_account, :token_temp)';
        $insert_new_user = $base->prepare($insert_new_user);
        $insert_new_user->bindValue('lastname', $lastname, PDO::PARAM_STR);
        $insert_new_user->bindValue('firstname', $firstname, PDO::PARAM_STR);
@@ -122,9 +124,9 @@ include "../includedFiles.php";
        $insert_new_user->bindValue('created_date', $created_date, PDO::PARAM_INT);
        $insert_new_user->bindValue('mail', $mail, PDO::PARAM_STR);
        $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
-       $insert_new_user->bindValue('code_activation', $code_activation, PDO::PARAM_STR);
+       $insert_new_user->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
        $insert_new_user->execute();
-       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $code_activation, $lang);
+       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
      }
    }
  }
