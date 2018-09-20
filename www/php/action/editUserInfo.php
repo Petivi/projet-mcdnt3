@@ -51,8 +51,8 @@ if(isset($requestUser->mail)){
   $mail = "";
 }
 
-if(isset($requestUser->userId)){
-  $id = htmlspecialchars($requestUser->userId, ENT_QUOTES);
+if(isset($requestUser->id)){
+  $id = htmlspecialchars($requestUser->id, ENT_QUOTES);
 }else{
   $id = "";
 }
