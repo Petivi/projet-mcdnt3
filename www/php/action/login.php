@@ -56,7 +56,6 @@ include "../includedFiles.php";
           "firstname" => $account_firstname,
           "pseudo" => $account_pseudo,
           "mail" => $account_mail,
-          "active_account" => $account_active_account,
         );
 
         // so we return user info

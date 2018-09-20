@@ -57,11 +57,15 @@ if(isset($requestUser->id)){
   $id = "";
 }
 
+
+echo $lastname;
+echo $newLastname;
+
 $update_user_info = 'UPDATE users
  SET lastname = :newLastname,
      firstname = :newFirstname,
      pseudo = :newPseudo,
-     mail = :newMail,
+     mail = :newMail
  WHERE id LIKE :id
  AND active_account LIKE 1
  AND lastname LIKE :lastname
