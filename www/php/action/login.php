@@ -16,7 +16,7 @@ include "../includedFiles.php";
 
 
   // check if user exists
-  $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2) AND active_account LIKE 1 AND checked_mail LIKE 1';
+  $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2)';
   $check_pseudo_user = $base->prepare($check_pseudo_user);
   $check_pseudo_user->bindValue('login1', $login, PDO::PARAM_STR);
   $check_pseudo_user->bindValue('login2', $login, PDO::PARAM_STR);
@@ -33,6 +33,7 @@ include "../includedFiles.php";
     $account_mail = $user_info['mail'];
     $account_permissions = $user_info['permissions'];
     $account_active_account = $user_info['active_account'];
+    $account_checked_mail = $user_info['checked_mail'];
   }
 
 
@@ -40,17 +41,31 @@ include "../includedFiles.php";
   if(password_verify($password_tried, $account_password)){
     // password correct
 
-    $tabInfoUser = array(
-      "userId" => $account_id,
-      "lastname" => $account_lastname,
-      "firstname" => $account_firstname,
-      "pseudo" => $account_pseudo,
-      "mail" => $account_mail,
-      "active_account" => $account_active_account,
-    );
+    if($account_active_account == 0){ // account suspended (by admin)
+      echo returnError("Account Suspended");
+      exit();
+    }elseif ($account_active_account == 2) { // account deleted by user
+      echo returnError("Account Deleted");
+      exit();
+    }else { // account is active
 
-    // echo json_encode($tabInfoUser);
-    echo returnResponse($tabInfoUser);
+      if($account_checked_mail){ // mail is checked
+        $tabInfoUser = array(
+          "userId" => $account_id,
+          "lastname" => $account_lastname,
+          "firstname" => $account_firstname,
+          "pseudo" => $account_pseudo,
+          "mail" => $account_mail,
+          "active_account" => $account_active_account,
+        );
+
+        // so we return user info
+        echo returnResponse($tabInfoUser);
+      }else { // mail not activated
+        echo returnError("Account not activated");
+      }
+    }
+
   }else {
     // password incorrect
     echo returnError("Wrong pseudo/password");
