@@ -51,15 +51,12 @@ if(isset($requestUser->mail)){
   $mail = "";
 }
 
-if(isset($requestUser->id)){
+if(isset($requestUser->userId)){
   $id = htmlspecialchars($requestUser->userId, ENT_QUOTES);
 }else{
   $id = "";
 }
 
-
-echo $lastname;
-echo $newLastname;
 
 $update_user_info = 'UPDATE users
  SET lastname = :newLastname,
