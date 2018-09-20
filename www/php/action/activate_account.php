@@ -12,12 +12,12 @@ include "../includedFiles.php";
     $get_user_info->execute();
     while($user_info = $get_user_info->fetch())
     {
-      $userId = $user_info['id'];
+      $id = $user_info['id'];
 
       $token_temp = "";
       $update_checked_mail = 'UPDATE users SET checked_mail = 1, token_temp = :token_temp WHERE id LIKE :id';
       $update_checked_mail = $base->prepare($update_checked_mail);
-      $update_checked_mail->bindValue('id', $userId, PDO::PARAM_INT);
+      $update_checked_mail->bindValue('id', $id, PDO::PARAM_INT);
       $update_checked_mail->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
       $update_checked_mail->execute();
     }

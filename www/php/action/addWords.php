@@ -23,15 +23,15 @@ include "../includedFiles.php";
   }else{
     $mail = "";
   }
-  if(isset($request->pseudo->userId)){
-    $userId = htmlspecialchars($request->pseudo->userId, ENT_QUOTES);
+  if(isset($request->pseudo->id)){
+    $id = htmlspecialchars($request->pseudo->id, ENT_QUOTES);
   }else{
-    $userId = "";
+    $id = "";
   }
 
 
   // if admin
-  if(accessToAdminPermissions($userId, $lastname, $firstname, $pseudo, $mail)){
+  if(accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail)){
     // get message name and its translations + page to display on
     if(isset($request->msg_name)){
       $msg_name = htmlspecialchars($request->msg_name, ENT_QUOTES);
