@@ -28,6 +28,7 @@ if(isset($request->mail)){
 
 }else{
   echo returnError("No mail");
+  exit();
 }
 
  ?>
