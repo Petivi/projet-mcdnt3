@@ -7,7 +7,7 @@ include "../includedFiles.php";
 if(isset($request->mail)){
   $mail = htmlspecialchars($request->mail, ENT_QUOTES);
   $lang = htmlspecialchars($request->lang, ENT_QUOTES);
-  $token_temp = "";
+  $mail_exist = false;
 
   $get_user_info = 'SELECT * FROM users WHERE mail LIKE :mail AND checked_mail LIKE 0 AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
@@ -15,6 +15,7 @@ if(isset($request->mail)){
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
   {
+    $mail_exist = true;
     $firstname = $user_info['firstname'];
     $lastname = $user_info['lastname'];
     $pseudo = $user_info['pseudo'];
@@ -24,6 +25,10 @@ if(isset($request->mail)){
     if($token_temp != ""){
       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
     }
+  }
+
+  if(!$mail_exist){
+    echo returnError("Mail not valid");
   }
 
 }else{
