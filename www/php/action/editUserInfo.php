@@ -52,7 +52,7 @@ if(isset($requestUser->mail)){
 }
 
 if(isset($requestUser->id)){
-  $id = htmlspecialchars($requestUser->id, ENT_QUOTES);
+  $id = htmlspecialchars($requestUser->userId, ENT_QUOTES);
 }else{
   $id = "";
 }
