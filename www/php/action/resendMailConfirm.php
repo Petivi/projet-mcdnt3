@@ -21,7 +21,9 @@ if(isset($request->mail)){
     $mail = $user_info['mail'];
     $token_temp = $user_info['token_temp'];
 
-    sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
+    if($token_temp != ""){
+      sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
+    }
   }
 
 }else{
