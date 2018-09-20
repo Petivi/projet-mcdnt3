@@ -58,7 +58,7 @@ $requestUser = $request->user;
 
 // sql request to check if mail is already taken
  $existing_mail = false;
- $check_mail_user = 'SELECT * FROM users WHERE mail LIKE :mail';
+ $check_mail_user = 'SELECT * FROM users WHERE mail LIKE :mail AND active_account LIKE (0 OR 1)';
  $check_mail_user = $base->prepare($check_mail_user);
  $check_mail_user->bindValue('mail', $mail, PDO::PARAM_STR);
  $check_mail_user->execute();
@@ -74,7 +74,7 @@ $requestUser = $request->user;
  }else {  // mail not taken
 
    $existing_pseudo = false;
-   $check_pseudo_user = 'SELECT * FROM users WHERE pseudo LIKE :pseudo';
+   $check_pseudo_user = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND active_account LIKE (0 OR 1)';
    $check_pseudo_user = $base->prepare($check_pseudo_user);
    $check_pseudo_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
    $check_pseudo_user->execute();
