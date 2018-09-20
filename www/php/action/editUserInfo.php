@@ -2,8 +2,10 @@
 require_once('../config.php');
 include "../includedFiles.php";
 
+if(isset($request)){
 $requestUser = $request->user;
 $requestNewUser = $request->newUser;
+}
 
 /************New User Info*************************/
 if(isset($requestNewUser->lastname)){
@@ -57,28 +59,32 @@ if(isset($requestUser->id)){
   $id = "";
 }
 
+try {
+  $update_user_info = 'UPDATE users
+  SET lastname = :newLastname,
+  firstname = :newFirstname,
+  pseudo = :newPseudo,
+  mail = :newMail
+  WHERE id LIKE :id
+  AND active_account LIKE 1
+  AND lastname LIKE :lastname
+  AND firstname LIKE :firstname
+  AND pseudo LIKE :pseudo
+  AND mail LIKE :mail';
+  $update_user_info = $base->prepare($update_user_info);
+  $update_user_info->bindValue('id', $id, PDO::PARAM_INT);
+  $update_user_info->bindValue('newLastname', $newLastname, PDO::PARAM_STR);
+  $update_user_info->bindValue('newFirstname', $newFirstname, PDO::PARAM_STR);
+  $update_user_info->bindValue('newPseudo', $newPseudo, PDO::PARAM_STR);
+  $update_user_info->bindValue('newMail', $newMail, PDO::PARAM_STR);
+  $update_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
+  $update_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
+  $update_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+  $update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+  $update_user_info->execute();
+} catch (\Exception $e) {
 
-$update_user_info = 'UPDATE users
- SET lastname = :newLastname,
-     firstname = :newFirstname,
-     pseudo = :newPseudo,
-     mail = :newMail
- WHERE id LIKE :id
- AND active_account LIKE 1
- AND lastname LIKE :lastname
- AND firstname LIKE :firstname
- AND pseudo LIKE :pseudo
- AND mail LIKE :mail';
-$update_user_info = $base->prepare($update_user_info);
-$update_user_info->bindValue('id', $id, PDO::PARAM_INT);
-$update_user_info->bindValue('newLastname', $newLastname, PDO::PARAM_STR);
-$update_user_info->bindValue('newFirstname', $newFirstname, PDO::PARAM_STR);
-$update_user_info->bindValue('newPseudo', $newPseudo, PDO::PARAM_STR);
-$update_user_info->bindValue('newMail', $newMail, PDO::PARAM_STR);
-$update_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
-$update_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
-$update_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-$update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
-$update_user_info->execute();
+}
+
 
  ?>

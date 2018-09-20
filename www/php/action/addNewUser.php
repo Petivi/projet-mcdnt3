@@ -3,7 +3,9 @@ require_once('../config.php');
 include "../includedFiles.php";
 
 // convert angular response (with more paramaters)
+if(isset($request)){
 $requestUser = $request->user;
+}
 
 
 // get user lastname
@@ -88,16 +90,7 @@ $requestUser = $request->user;
      echo returnError("Pseudo already taken");
      exit();
    }else { // pseudo not taken
-     $alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
-     $a1 = "";
-     $a2 = "";
-     for ($i = 0; $i<3; $i++){
-       $a1 .= $alphabet[rand(0, strlen($alphabet)-1)];
-     }
-     for ($i = 0; $i<6; $i++){
-       $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
-     }
-     $token_temp = $a1 . "-" . $a2;
+     $token_temp = generateTokenTemp();
 
      $token_unique = true;
      // check if activation code is unique

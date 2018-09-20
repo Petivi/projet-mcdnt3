@@ -19,6 +19,8 @@ function returnResponse($responseMessage){
   return json_encode($responseTab);
 }
 
+
+//check if user has admin permissions
 function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail){
   global $base;
   $userExists = false;
@@ -47,4 +49,51 @@ function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail){
     return false;
   }
 }
+
+// generate a token for mails
+function generateTokenTemp(){
+  $alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+  $a1 = "";
+  $a2 = "";
+  for ($i = 0; $i<3; $i++){
+    $a1 .= $alphabet[rand(0, strlen($alphabet)-1)];
+  }
+  for ($i = 0; $i<6; $i++){
+    $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
+  }
+  $token_temp = $a1 . "-" . $a2;
+  return $token_temp;
+}
+
+function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password){
+  global $base;
+  $password_changed = false;
+  try {
+    $update_new_password = 'UPDATE users SET password = :password
+    WHERE id LIKE :id
+    AND lastname LIKE :lastname
+    AND firstname LIKE :firstname
+    AND pseudo LIKE :pseudo
+    AND mail LIKE :mail
+    AND active_account LIKE 1';
+    $update_new_password = $base->prepare($update_new_password);
+    $update_new_password->bindValue('lastname', $lastname, PDO::PARAM_STR);
+    $update_new_password->bindValue('firstname', $firstname, PDO::PARAM_STR);
+    $update_new_password->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+    $update_new_password->bindValue('mail', $mail, PDO::PARAM_STR);
+    $update_new_password->bindValue('id', $id, PDO::PARAM_INT);
+    $update_new_password->bindValue('password', $password, PDO::PARAM_STR);
+    $update_new_password->execute();
+    $password_changed = true;
+  } catch (\Exception $e) {
+
+  }
+  if($password_changed){
+    return true;
+  }else {
+    return false;
+  }
+
+}
+
  ?>
