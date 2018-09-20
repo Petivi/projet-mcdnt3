@@ -51,7 +51,7 @@ include "../includedFiles.php";
 
       if($account_checked_mail){ // mail is checked
         $tabInfoUser = array(
-          "userId" => $account_id,
+          "id" => $account_id,
           "lastname" => $account_lastname,
           "firstname" => $account_firstname,
           "pseudo" => $account_pseudo,
