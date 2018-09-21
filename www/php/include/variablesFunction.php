@@ -52,16 +52,17 @@ function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail){
 
 // generate a token for mails
 function generateTokenTemp(){
-  $alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+  $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789-";
   $a1 = "";
   $a2 = "";
   for ($i = 0; $i<3; $i++){
     $a1 .= $alphabet[rand(0, strlen($alphabet)-1)];
+    $a3 .= $alphabet[rand(0, strlen($alphabet)-1)];
   }
   for ($i = 0; $i<6; $i++){
     $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
   }
-  $token_temp = $a1 . "-" . $a2;
+  $token_temp = $a1 . "-" . $a2 . "-" . $a3;
   return $token_temp;
 }
 

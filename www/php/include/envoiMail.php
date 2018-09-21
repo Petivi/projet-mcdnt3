@@ -73,6 +73,9 @@ function sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $
   global $app_name;
   global $uri_reset_password;
   $urlServer = "http://" . $_SERVER['SERVER_NAME'];
+  if(strpos($url_server,  'localhost')){
+    $url_server .= ":4200";
+  };
   $activateLink = $urlServer.$uri_reset_password;
   if($lang == "fr"){
     $subject = "Réinitialisation de mot de passe";
