@@ -47,7 +47,7 @@ function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $la
   global $uri_activate_account;
   $urlServer = "http://" . $_SERVER['SERVER_NAME'];
   $activateLink = $urlServer.$uri_activate_account;
-  if($lang = "fr"){
+  if($lang == "fr"){
     $subject = "Création de compte";
     $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."?token=".$token_temp."'>Cliquez sur ce lien pour activer votre compte</a>";
   }else {
@@ -74,7 +74,7 @@ function sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $
   global $uri_reset_password;
   $urlServer = "http://" . $_SERVER['SERVER_NAME'];
   $activateLink = $urlServer.$uri_reset_password;
-  if($lang = "fr"){
+  if($lang == "fr"){
     $subject = "Réinitialisation de mot de passe";
     $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."/".$token_temp."'>Cliquez sur ce lien pour réinitialiser votre mot de passe</a>";
   }else {
