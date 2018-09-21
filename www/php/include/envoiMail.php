@@ -81,11 +81,11 @@ function sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $
   if($lang == "fr"){
     $subject = "Réinitialisation de mot de passe";
     $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."/".$token_temp."'>Cliquez sur ce lien pour réinitialiser votre mot de passe</a>
-    Votre lien est valable pendant ".$nb_jour_token_expiration;
+    <br>Votre lien est valable pendant ".$nb_jour_token_expiration;
   }else {
     $subject = "Password reset";
     $html = "Hello ".$pseudo.", please <a href='".$activateLink."/".$token_temp."'>Click on that link to reset your password</a>
-    Your link is available for ".$nb_jour_token_expiration;
+    <br>Your link is available ".$nb_jour_token_expiration;
   }
   require('../PHPMail/V2.0/Mailin.php');
   $mailin = new Mailin('https://api.sendinblue.com/v2.0', $sendinblue_access_key, 5000);    //Optional parameter: Timeout in MS

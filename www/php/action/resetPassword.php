@@ -59,11 +59,12 @@ if(isset($request->mail)){
       }
 
       sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
-      echo returnResponse("Mail Sent");
     }
+    echo returnResponse("Mail Sent");
 
   }else {
     echo returnError("No mail");
+    exit();
   }
 
 
