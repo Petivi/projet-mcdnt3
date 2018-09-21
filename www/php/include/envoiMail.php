@@ -45,7 +45,7 @@ function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $la
   global $mail_no_reply;
   global $app_name;
   global $uri_activate_account;
-  $urlServer = "http://" . $_SERVER['SERVER_NAME'];
+  global $urlServer;
   $activateLink = $urlServer.$uri_activate_account;
   if($lang == "fr"){
     $subject = "Création de compte";
@@ -72,7 +72,7 @@ function sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $
   global $mail_no_reply;
   global $app_name;
   global $uri_reset_password;
-  $urlServer = "http://" . $_SERVER['SERVER_NAME'];
+  global $urlServer;
   if(strpos($urlServer,  'localhost')){
     $urlServer .= ":4200";
   };
