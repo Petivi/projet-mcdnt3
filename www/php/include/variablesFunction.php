@@ -55,6 +55,7 @@ function generateTokenTemp(){
   $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789-";
   $a1 = "";
   $a2 = "";
+  $a3 = "";
   for ($i = 0; $i<3; $i++){
     $a1 .= $alphabet[rand(0, strlen($alphabet)-1)];
     $a3 .= $alphabet[rand(0, strlen($alphabet)-1)];
