@@ -63,6 +63,8 @@ if(isset($request->mail)){
   }else {
     echo returnError("No mail");
   }
+}elseif (isset($request->token_temp)) {
+  
 }else{ // no mail sent
   exit();
 }
