@@ -98,4 +98,14 @@ function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password)
 
 }
 
+
+function getLinkValidity($date_token_created){
+  global $token_expiration_time;
+  $today_date = strtotime(date('d-m-Y'));
+  if($today_date < ($date_token_created + $token_expiration_time)){
+    return = true;
+  }else {
+    return false;
+  }
+}
  ?>
