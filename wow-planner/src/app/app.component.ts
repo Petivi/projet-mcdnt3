@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.langue = this._appService.getLangue();
         this.userConnected = this._appService.getUserConnected();
-        this.getPageWords();        
+        this.getPageWords();
     }
 
     deconnexion() {
@@ -39,9 +39,11 @@ export class AppComponent implements OnInit {
                 this.words.push(w);
             });
             this.chargement = false;
-            if(this._router.url === '/') {
-                this._router.navigate(['/accueil']);
-            }
+            setTimeout(() => {
+                if (this._router.url === '/') {
+                    this._router.navigate(['/accueil']);
+                }
+            }, 100)
         });
     }
 }

@@ -29,7 +29,7 @@
                     id="password" [(ngModel)]="user.password" formControlName="password">
             </div>
             <div class="input-field col s12">
-                <label for="cfPassword">{{(words | filter : {msg_name: 'msg_passwordconfirm'} : {col : 'value'})}} *</label>
+                <label for="cfPassword">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
                 <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }"
                     type="password" id="cfPassword" [(ngModel)]="cfPassword" formControlName="cfPassword">
             </div>

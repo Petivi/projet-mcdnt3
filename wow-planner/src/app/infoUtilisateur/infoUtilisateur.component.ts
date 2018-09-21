@@ -78,33 +78,37 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
         this.wrongPass = false;
         this.submitted = true;
         this.passwordErrors = [];
-        if (this.newPassword === this.cfPassword) {
-            this._appService.post('action/editPassword.php', { user: this.userConnected, oldPassword: this.oldPassword, newPassword: this.newPassword })
-                .then(res => {
-                    if (res.error) {
-                        switch (res.error) {
-                            case 'Wrong password':
-                                if(!this.oldPassword) this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);      
-                                else this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_wrongPassword').value);
-                                this.wrongPass = true;
-                                break;
-                            case 'An Error Occured':
-                                this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_errorUnknown').value);
-                                break;
+        if (this.infoUserForm.controls.passwordGroup.valid) {
+
+            if (this.newPassword === this.cfPassword) {
+                this._appService.post('action/editPassword.php', { user: this.userConnected, oldPassword: this.oldPassword, newPassword: this.newPassword })
+                    .then(res => {
+                        if (res.error) {
+                            switch (res.error) {
+                                case 'Wrong password':
+                                    this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_wrongPassword').value);
+                                    this.wrongPass = true;
+                                    break;
+                                case 'An Error Occured':
+                                    this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_errorUnknown').value);
+                                    break;
+                            }
+                        } else if (res.response) {
+                            this.changePass = false;
+                            Swal({
+                                title: 'Confirmation',
+                                text: this.words.find(w => w.msg_name === 'msg_passwordChanged').value,
+                                type: 'success',
+                                confirmButtonText: 'OK',
+                            });
                         }
-                    } else if (res.response) {
-                        this.changePass = false;
-                        Swal({
-                            title: 'Confirmation',
-                            text: this.words.find(w => w.msg_name === 'msg_passwordChanged').value,
-                            type: 'success',
-                            confirmButtonText: 'OK',
-                        });
-                    }
-                });
-        } else {
-            this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
-            this.wrongCf = true;
+                    });
+            } else { // confirmation de mdp différente du nouveau mdp
+                this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
+                this.wrongCf = true;
+            }
+        } else { // input vide
+            this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);
         }
     }
 }

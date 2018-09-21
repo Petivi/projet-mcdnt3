@@ -14,10 +14,15 @@ import { setGrowl } from '../common/function';
 export class LoginComponent implements OnInit, OnDestroy {
     errors: string[] = [];
     words: WordSimplified[] = [];
+    newPassword: string;
+    cfPassword: string;
+    token: string;
+    newPass: boolean = false;
     linkMail: boolean = false;
     activGrowl: boolean = false;
     msgGrowl: any;
     newMailSent: boolean = false;
+    mailResetPass: boolean = false;
     valid: boolean = true;
     user: any = { login: '', password: '' };
     submitted: boolean = false;
@@ -25,12 +30,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     controls = (value: any = {}) => ({
         login: [value.login, Validators.required],
         password: [value.password, Validators.required],
+        newPassword: [value.newPassword],
+        cfPassword: [value.cfPassword],
     });
 
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        if (this._appService.getUserConnected()) {
+        if (this._appService.getUserConnected()) { // si quelqu'un est connecté il ne peut pas aller sur la page login donc on le renvoi a l'accueil
             this._router.navigate(['/accueil']);
         } else {
             this._appService.setPage('login');
@@ -38,14 +45,21 @@ export class LoginComponent implements OnInit, OnDestroy {
                 res.forEach(w => {
                     this.words.push(w);
                 });
+                console.log(this.words)
                 this.buildControl({});
-                if (this._router.url === ('/login/confirm')) {
+                if (this._router.url === ('/login/confirm')) { // si l'utilisateur a cliqué sur le lien pour activer son compte
                     Swal({
                         title: 'Confirmation',
                         text: this.words.find(w => w.msg_name === 'msg_confirmation').value,
                         type: 'success',
                         confirmButtonText: 'OK',
                     });
+                } else {
+                    let tabUrl = this._router.url.split('/');
+                    if (tabUrl[tabUrl.length - 1] !== 'login') { // si on a demandé un nouveau mdp et qu'on a le token dans l'url
+                        this.token = tabUrl[tabUrl.length - 1];
+                        this.newPass = true;
+                    }
                 }
             });
         }
@@ -102,7 +116,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
     }
 
-    newMail() {
+    newMail(type: number) { // type 0 = pas reçu type 1 = reset mdp
         Swal({
             title: this.words.find(w => w.msg_name === 'msg_inputMail').value,
             input: 'text',
@@ -112,22 +126,60 @@ export class LoginComponent implements OnInit, OnDestroy {
         }).then(res => {
             this.newMailSent = false;
             if (!res.dismiss) {
-                this._appService.post('action/resendMailConfirm.php', { mail: res.value, lang: this._appService.getLangue() })
-                    .then(res => {
-                        if (!res.error) {
-                            this.errors.splice(this.errors.findIndex(e => e === this.words.find(w => w.msg_name === 'msg_notActivated').value), 1);
-                            if (this.errors.length === 0) this.valid = true;
-                            this.newMailSent = true;
-                        } else {
-                            this.newMail();
-                            this.msgGrowl = { msg: setGrowl({ title: this.words.find(w => w.msg_name === 'msg_error').value, body: this.words.find(w => w.msg_name === 'msg_inputVide').value }) };
-                            this.activGrowl = true;
-                            setTimeout(() => {
-                                this.activGrowl = false;
-                            }, 8000);
-                        }
-                    });
+                if (res.value) {
+                    if (type === 0) {
+                        this._appService.post('action/resendMailConfirm.php', { mail: res.value, lang: this._appService.getLangue() })
+                            .then(res => {
+                                if (!res.error) {
+                                    this.errors.splice(this.errors.findIndex(e => e === this.words.find(w => w.msg_name === 'msg_notActivated').value), 1);
+                                    if (this.errors.length === 0) this.valid = true;
+                                    this.newMailSent = true;
+                                    setTimeout(() => {
+                                        this.newMailSent = false;
+                                    }, 10000);
+                                } else {
+                                    this.newMail(0);
+                                    this.msgGrowl = { msg: setGrowl({ title: this.words.find(w => w.msg_name === 'msg_error').value, body: this.words.find(w => w.msg_name === 'msg_inputVide').value }) };
+                                    this.activGrowl = true;
+                                    setTimeout(() => {
+                                        this.activGrowl = false;
+                                    }, 8000);
+                                }
+                            });
+                    }
+                    if (type === 1) {
+                        this._appService.post('action/resetPassword.php', { mail: res.value, lang: this._appService.getLangue() })
+                            .then(res => {
+                                if (res.response) {
+                                    console.log(res)
+                                    this.mailResetPass = true;
+                                    console.log(this.mailResetPass)
+                                    setTimeout(() => {
+                                        this.mailResetPass = false
+                                    }, 10000);
+                                }
+                            });
+                    }
+                }
             }
         });
+    }
+
+    newMdp() {
+        this.submitted = true;
+        if (this.newPassword === this.cfPassword && this.newPassword) {
+            this._appService.post('action/resetPassword.php', { token_temp: this.token, password: this.newPassword })
+                .then(res => {
+                    this.valid = true;
+                    console.log(res)
+                    if (res.error) {
+                        this.valid = false;
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_linkExpired').value);
+                        setTimeout(() => {
+                            this._router.navigate(['/login']);
+                        }, 3000);
+                    }
+                });
+        }
     }
 }

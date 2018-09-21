@@ -39,11 +39,15 @@ export const appRouting = RouterModule.forRoot([
         component: LoginComponent
     },    
     {
+        path: 'login/:token',
+        component: LoginComponent
+    },    
+    {
         path: 'creationPersonnage',
         component: CreationPersonnageComponent
     },    
     {
         path: 'recherche',
         component: RechercheComponent
-    }
+    },
 ])

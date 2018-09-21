@@ -9,7 +9,7 @@
                         <li><a (click)="changeLangue()"><span *ngIf="langue==='en'">FR</span><span *ngIf="langue==='fr'">EN</span></a></li>
                     </ul>
                 </li>
-                <li><a [routerLink]="['/creationPersonnage']">{{(words | filter : {msg_name: 'msg_creationperso'} : {col : 'value'})}}</a></li>
+                <li><a [routerLink]="['/creationPersonnage']">{{(words | filter : {msg_name: 'msg_creationPerso'} : {col : 'value'})}}</a></li>
                 <li *ngIf="!userConnected"><a [routerLink]="['/inscription']">{{(words | filter : {msg_name: 'msg_registration'} : {col : 'value'})}}</a></li>
                 <li *ngIf="!userConnected"><a [routerLink]="['/login']">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</a></li>
                 <li *ngIf="userConnected"><a (click)="deconnexion()">{{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}</a></li>

@@ -81,7 +81,7 @@
                     </div>
                     <div class="row" *ngIf="changePass">
                         <div class="col s6">
-                            <label>{{(words | filter : {msg_name: 'msg_passwordconfirm'} : {col : 'value'})}}</label>
+                            <label>{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}}</label>
                         </div>
                         <div class="col s6">
                             <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.cfPassword.errors || wrongCf) }" class="inputPerso" type="password" formControlName="cfPassword" [(ngModel)]="cfPassword">

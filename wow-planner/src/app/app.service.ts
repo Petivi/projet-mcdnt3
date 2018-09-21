@@ -61,7 +61,7 @@ export class AppService {
 
     getWords(page: string[]): Promise<any> {
         this.langue = this.getLangue();
-        if (!this.words || this.words.length === 0) {
+        if (!localStorage.getItem('words')) {
             return this._http.get(this.urlServeur + 'action/getWords.php')
                 .map(res => {
                     let data = JSON.parse(res['body']);
@@ -70,10 +70,12 @@ export class AppService {
                         data.response.forEach(word => {
                             this.words.push(word);
                         });
+                        localStorage.setItem('words', JSON.stringify(this.words));
                         return this.getWordsReturn(page);
                     }
                 }).toPromise();
         } else {
+            this.words = JSON.parse(localStorage.getItem('words'));
             return new Promise((resolve) => {
                 resolve(this.getWordsReturn(page));
             });
