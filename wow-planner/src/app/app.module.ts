@@ -1,17 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppService } from './app.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CustomHttpInterceptor } from './common/customHttpInterceptor';
 
-import { AppComponent } from './app.component';
-
-import Swal from 'sweetalert2';
+import { AppService } from './app.service';
 
 import { appRouting } from './app.routing';
 
+import { AppComponent } from './app.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { AdminComponent } from './admin/admin.component';
 import { InscriptionComponent } from './inscription/inscription.component';

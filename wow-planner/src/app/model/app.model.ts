@@ -4,8 +4,7 @@ export class User {
     pseudo: string;
     mail: string;
     password: string;
-    active_account: string;
-    userId: string;
+    id: string;
 }
 
 export class Word {

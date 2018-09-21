@@ -2,7 +2,7 @@
     <div class="row" [formGroup]="inscriptionForm">
         <div class="col s6 offset-s3">
             <h1>{{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</h1>
-            <div class="error" *ngIf="!valid">
+            <div class="error" *ngIf="!valid && errors.length>0">
                 <div *ngFor="let er of errors">{{er}}</div>
             </div>
             <div class="input-field col s12">
@@ -15,12 +15,12 @@
             </div>
             <div class="input-field col s12">
                 <label for="pseudo">Pseudo *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && inscriptionForm.controls.pseudo.errors }" type="text" id="pseudo"
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.pseudo.errors || pseudoTaken) }" type="text" id="pseudo"
                     [(ngModel)]="user.pseudo" formControlName="pseudo">
             </div>
             <div class="input-field col s12">
                 <label for="mail">Mail *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && inscriptionForm.controls.mail.errors }" type="text" id="mail"
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.mail.errors || mailTaken) }" type="text" id="mail"
                     [(ngModel)]="user.mail" formControlName="mail">
             </div>
             <div class="input-field col s12">

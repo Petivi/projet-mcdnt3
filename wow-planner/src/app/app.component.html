@@ -16,7 +16,7 @@
                 <li *ngIf="userConnected && userConnected.pseudo === 'admin'"><a [routerLink]="['/admin']">Admin</a></li>
                 <li *ngIf="userConnected && userConnected.pseudo !== 'admin'" class="deroulant"><a>{{userConnected.pseudo}}</a>
                     <ul class="sous-deroulant pseudo">
-                        <li><a>future lien vers quelque chose</a></li>
+                        <li><a [routerLink]="['/infoUser']">{{(words | filter : {msg_name: 'msg_infoUserLink'} : {col : 'value'})}}</a></li>
                         <li><a>future lien vers autre chose</a></li>
                     </ul>
                 </li>

@@ -36,3 +36,34 @@
     width : 100%;
     cursor : wait;
 }
+.link:hover{
+    cursor: pointer;
+}
+.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.growl {
+    position: fixed;
+    height: auto;
+    background-color: #00000099;
+    width: auto;
+    top: 65px;
+    right: 0;
+    color: white;
+    border: 3px solid #00000082;
+    border-right: 0;
+    border-radius: 21px 0 0 21px;
+    padding: 10px;
+    max-width: 500px;
+    z-index: 100000;
+}
+.inputPerso {
+    height: 2rem!important;
+}

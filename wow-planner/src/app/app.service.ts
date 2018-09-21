@@ -30,17 +30,23 @@ export class AppService {
         };
         value = JSON.stringify(value);
         return this._http.post(this.urlServeur + url, value, httpOptions)
-            .toPromise();
+            .toPromise()
+            .then(res => {
+                if(res['body']) {
+                    let value = JSON.parse(res['body']);
+                    return value;
+                } else return true;
+            });
     }
 
-    connexion(value: any) {
+    connexion(value: any): Promise<any> {
         let httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             })
         };
         value = JSON.stringify(value);
-        this._http.post(this.urlServeur + 'action/login.php', value, httpOptions)
+        return this._http.post(this.urlServeur + 'action/login.php', value, httpOptions)
             .toPromise()
             .then(res => {
                 let value = JSON.parse(res['body']);
@@ -48,7 +54,8 @@ export class AppService {
                     this.userConnected = value.response;
                     localStorage.setItem('userConnected', JSON.stringify(this.userConnected));
                     sessionStorage.setItem('userConnected', JSON.stringify(this.userConnected));
-                }
+                    return 'connected';
+                } else return value;
             });
     }
 

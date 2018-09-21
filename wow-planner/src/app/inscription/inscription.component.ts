@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2'
 
 import { AppService } from '../app.service'
 
@@ -14,6 +15,8 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     errors: string[] = [];
     valid: boolean = true;
     user: User = new User();
+    mailTaken: boolean = false;
+    pseudoTaken: boolean = false;
     words: WordSimplified[] = [];
     submitted: boolean = false;
     cfPassword: string;
@@ -52,19 +55,44 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     }
 
     inscription() {
+        this.valid = true;
+        this.mailTaken = false;
+        this.pseudoTaken = false;
         this.errors = [];
-        console.log(this.words)
         this.submitted = true;
         if (this.inscriptionForm.valid && this.user.password === this.cfPassword) {
-
-            this._appService.post('action/addNewUser.php', { user: this.user, lang: this._appService.getLangue() });
-            //window.location.reload();
+            this._appService.post('action/addNewUser.php', { user: this.user, lang: this._appService.getLangue() }).then(res => {
+                if (res.error) {
+                    this.valid = false;
+                    switch (res.error) {
+                        case 'Mail already taken':
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_mailTaken').value);
+                        this.mailTaken = true;
+                        break;
+                        case 'Pseudo already taken':
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_pseudoTaken').value);
+                        this.pseudoTaken = true;
+                        break;
+                    }
+                } else {
+                    Swal({
+                        title: 'Confirmation',
+                        text: this.words.find(w => w.msg_name === 'msg_creationCompte').value,
+                        type: 'success',
+                        confirmButtonText: 'OK',                        
+                    }).then(res => {
+                        this._router.navigate(['/login']);
+                    });
+                }
+            });
         } else {
             this.valid = false;
-            this.errors.push(this.words.find(w => w.msg_name === 'msg_errorForm').value);
-        }
-        if (this.user.password !== this.cfPassword) {
-            this.errors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
+            if (this.inscriptionForm.invalid) {
+                this.errors.push(this.words.find(w => w.msg_name === 'msg_errorForm').value);
+            }
+            if (this.user.password !== this.cfPassword) {
+                this.errors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
+            }
         }
         console.log(this.errors)
     }

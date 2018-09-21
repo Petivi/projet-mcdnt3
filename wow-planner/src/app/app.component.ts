@@ -37,8 +37,8 @@ export class AppComponent implements OnInit {
         this._appService.getWords(['menu', 'common']).then(res => {
             res.forEach(w => {
                 this.words.push(w);
-                this.chargement = false;
             });
+            this.chargement = false;
             if(this._router.url === '/') {
                 this._router.navigate(['/accueil']);
             }

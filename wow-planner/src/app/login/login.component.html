@@ -3,8 +3,9 @@
         <div class="col s6 offset-s3">
             <h1 class="title">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</h1>
             <div class="error" *ngIf="!valid">
-                {{(words | filter : {msg_name: 'msg_errorForm'} : {col : 'value'})}}
+                <div *ngFor="let e of errors">{{e}}</div>
             </div>
+            <div class="success" *ngIf="this.newMailSent">{{(words | filter : {msg_name: 'msg_creationCompte'} : {col : 'value'})}}</div>
             <div class="input-field col s12">
                 <label for="login">Pseudo / mail *</label>
                 <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.login.errors }" type="text"
@@ -19,9 +20,13 @@
                 <button (click)="login()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words | filter : {msg_name:
                     'msg_connect'} : {col : 'value'})}}</button>
             </div>
+            <div *ngIf="linkMail" class="col s12 link">
+                <a class="link" (click)="newMail()">{{(words | filter : {msg_name: 'msg_mailPasRecu'} : {col : 'value'})}}</a>
+            </div>
         </div>
     </div>
     <div class="row center">
         <p class="col s12">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
     </div>
+    <div *ngIf="activGrowl" class="growl" id="growl" [innerHTML]="msgGrowl.msg"></div>
 </div>
