@@ -37,7 +37,7 @@ if(isset($request->mail)){
       $token_temp = generateTokenTemp();
 
       try {
-        $update_checked_mail = 'UPDATE users
+        $update_token_temp = 'UPDATE users
         SET token_temp = :token_temp
         WHERE id LIKE :id
         AND lastname LIKE :lastname
@@ -64,7 +64,7 @@ if(isset($request->mail)){
     echo returnError("No mail");
   }
 }elseif (isset($request->token_temp)) {
-  
+
 }else{ // no mail sent
   exit();
 }
