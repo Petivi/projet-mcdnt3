@@ -47,8 +47,12 @@ $requestUser = $request->user;
 
 
 // get user password + hash it
+if(isset($requestUser->password)){
   $password = htmlspecialchars($requestUser->password, ENT_QUOTES);
   $password = password_hash($password, PASSWORD_DEFAULT);
+}else {
+  exit();
+}
 
   // get user lang
   // check if lang exists

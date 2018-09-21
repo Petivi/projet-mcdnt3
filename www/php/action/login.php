@@ -11,7 +11,11 @@ include "../includedFiles.php";
   }
 
   // get password that user tried
-  $password_tried = htmlspecialchars($request->password, ENT_QUOTES);
+  if(isset($request->password)){
+    $password_tried = htmlspecialchars($request->password, ENT_QUOTES);
+  }else {
+    exit();
+  }
   $account_password = "";
 
 
