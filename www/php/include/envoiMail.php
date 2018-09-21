@@ -67,4 +67,29 @@ $mailin->send_email($data);
 // var_dump($mailin->get_account());
 
 
+function sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $lang){
+  global $sendinblue_access_key;
+  global $mail_no_reply;
+  global $app_name;
+  global $uri_reset_password;
+  $urlServer = "http://" . $_SERVER['SERVER_NAME'];
+  $activateLink = $urlServer.$uri_reset_password;
+  if($lang = "fr"){
+    $subject = "Réinitialisation de mot de passe";
+    $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."?token=".$token_temp."'>Cliquez sur ce lien pour réinitialiser votre mot de passe</a>";
+  }else {
+    $subject = "Password reset";
+    $html = "Hello ".$pseudo.", please <a href='".$activateLink."?token=".$token_temp."'>Click on that link to reset your password</a>";
+  }
+  require('../PHPMail/V2.0/Mailin.php');
+  $mailin = new Mailin('https://api.sendinblue.com/v2.0', $sendinblue_access_key, 5000);    //Optional parameter: Timeout in MS
+  $data = array( "to" => array($mail=>$lastname." ".$firstname),
+  "from" => array($mail_no_reply, $app_name),
+  "subject" => $subject,
+  "html" => $html
+);
+
+$mailin->send_email($data);
+}
+
  ?>
