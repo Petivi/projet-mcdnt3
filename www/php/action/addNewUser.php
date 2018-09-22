@@ -109,21 +109,48 @@ if(isset($requestUser->password)){
 
      // activation code is unique
      if($token_unique){
-       $created_date = strtotime(date('d-m-Y'));
-       $active_account = 1; // 1 = active account and 0 = locked account
-       $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, created_date, mail, active_account, token_temp)
-       VALUES (:lastname, :firstname, :pseudo, :password, :created_date, :mail, :active_account, :token_temp)';
-       $insert_new_user = $base->prepare($insert_new_user);
-       $insert_new_user->bindValue('lastname', $lastname, PDO::PARAM_STR);
-       $insert_new_user->bindValue('firstname', $firstname, PDO::PARAM_STR);
-       $insert_new_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-       $insert_new_user->bindValue('password', $password, PDO::PARAM_STR);
-       $insert_new_user->bindValue('created_date', $created_date, PDO::PARAM_INT);
-       $insert_new_user->bindValue('mail', $mail, PDO::PARAM_STR);
-       $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
-       $insert_new_user->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
-       $insert_new_user->execute();
-       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
+       $mail_sent = false;
+       try {
+         $created_date = strtotime(date('d-m-Y'));
+         $active_account = 1; // 1 = active account and 0 = locked account
+         $date_token_created = strtotime(date('d-m-Y'));
+         $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, created_date, mail, active_account, token_temp, date_token_created)
+         VALUES (:lastname, :firstname, :pseudo, :password, :created_date, :mail, :active_account, :token_temp, :date_token_created)';
+         $insert_new_user = $base->prepare($insert_new_user);
+         $insert_new_user->bindValue('lastname', $lastname, PDO::PARAM_STR);
+         $insert_new_user->bindValue('firstname', $firstname, PDO::PARAM_STR);
+         $insert_new_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+         $insert_new_user->bindValue('password', $password, PDO::PARAM_STR);
+         $insert_new_user->bindValue('created_date', $created_date, PDO::PARAM_INT);
+         $insert_new_user->bindValue('mail', $mail, PDO::PARAM_STR);
+         $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
+         $insert_new_user->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
+         $insert_new_user->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
+         $insert_new_user->execute();
+
+         $get_new_user_id = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND mail LIKE :mail AND active_account LIKE 1';
+         $get_new_user_id = $base->prepare($get_new_user_id);
+         $get_new_user_id->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+         $get_new_user_id->bindValue('mail', $mail, PDO::PARAM_STR);
+         $get_new_user_id->execute();
+         while($user_id = $get_new_user_id->fetch())
+         {
+           $id = $user_id['id'];
+         }
+
+         $request_type = "New Account";
+         addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
+         sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
+         $mail_sent = true;
+       } catch (\Exception $e) {
+
+       }
+       if($mail_sent){
+         echo returnResponse("Mail Sent");
+       }else {
+         echo returnError("An Error Occured");
+       }
+
      }
    }
  }

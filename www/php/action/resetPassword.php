@@ -54,11 +54,15 @@ if(isset($request->mail)){
         $update_token_temp->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
         $update_token_temp->bindValue('mail', $mail, PDO::PARAM_STR);
         $update_token_temp->execute();
+
+
+        $request_type = 'Password Reset';
+        addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
+        sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
       } catch (\Exception $e) {
 
       }
 
-      sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
     }
     echo returnResponse("Mail Sent");
 
@@ -81,6 +85,7 @@ if(isset($request->mail)){
 
   $user_exists = false;
   $valid_link = false;
+  // get user info
   try {
     $get_user_info = 'SELECT * FROM users WHERE token_temp LIKE :token_temp AND checked_mail LIKE 1 AND active_account LIKE 1';
     $get_user_info = $base->prepare($get_user_info);

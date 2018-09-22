@@ -14,13 +14,17 @@ if(isset($request->mail)){
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
   {
-    $firstname = $user_info['firstname'];
+    $id = $user_info['id'];
     $lastname = $user_info['lastname'];
+    $firstname = $user_info['firstname'];
     $pseudo = $user_info['pseudo'];
     $mail = $user_info['mail'];
     $token_temp = $user_info['token_temp'];
+    $date_token_created = $user_info['date_token_created'];
 
     if($token_temp != ""){
+      $request_type = "New Mail Confirm";
+      addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
     }
   }

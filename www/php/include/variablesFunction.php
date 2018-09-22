@@ -108,4 +108,22 @@ function getLinkValidity($date_token_created){
     return false;
   }
 }
+
+function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created){
+  global $base;
+  $add_to_requests_list = 'INSERT INTO requests_list (user_id, user_lastname, user_firstname, user_pseudo, user_mail, request_token, request_type, request_date)
+  VALUES (:id, :lastname, :firstname, :pseudo, :mail, :token_temp, :request_type, :date_token_created)';
+  $add_to_requests_list = $base->prepare($add_to_requests_list);
+  $add_to_requests_list->bindValue('id', $id, PDO::PARAM_INT);
+  $add_to_requests_list->bindValue('lastname', $lastname, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('firstname', $firstname, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('mail', $mail, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('request_type', $request_type, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
+  $add_to_requests_list->execute();
+}
+
+
  ?>
