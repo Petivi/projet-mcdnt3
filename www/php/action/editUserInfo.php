@@ -59,32 +59,57 @@ if(isset($requestUser->id)){
   $id = "";
 }
 
+$user_exists = false;
 try {
-  $update_user_info = 'UPDATE users
-  SET lastname = :newLastname,
-  firstname = :newFirstname,
-  pseudo = :newPseudo,
-  mail = :newMail
-  WHERE id LIKE :id
-  AND active_account LIKE 1
-  AND lastname LIKE :lastname
-  AND firstname LIKE :firstname
-  AND pseudo LIKE :pseudo
-  AND mail LIKE :mail';
-  $update_user_info = $base->prepare($update_user_info);
-  $update_user_info->bindValue('id', $id, PDO::PARAM_INT);
-  $update_user_info->bindValue('newLastname', $newLastname, PDO::PARAM_STR);
-  $update_user_info->bindValue('newFirstname', $newFirstname, PDO::PARAM_STR);
-  $update_user_info->bindValue('newPseudo', $newPseudo, PDO::PARAM_STR);
-  $update_user_info->bindValue('newMail', $newMail, PDO::PARAM_STR);
-  $update_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
-  $update_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
-  $update_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-  $update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
-  $update_user_info->execute();
+  $get_user_info = 'SELECT * FROM users WHERE lastname LIKE :lastname AND firstname LIKE :firstname AND pseudo LIKE :pseudo AND mail LIKE :mail AND id LIKE :id AND active_account LIKE 1';
+  $get_user_info = $base->prepare($get_user_info);
+  $get_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
+  $get_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
+  $get_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+  $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+  $get_user_info->bindValue('id', $id, PDO::PARAM_INT);
+  $get_user_info->execute();
+  while($user_info = $get_user_info->fetch())
+  {
+    $user_exists = true;
+  }
 } catch (\Exception $e) {
-
+  exit();
 }
+
+
+if($user_exists){
+  try {
+    $update_user_info = 'UPDATE users
+    SET lastname = :newLastname,
+    firstname = :newFirstname,
+    pseudo = :newPseudo,
+    mail = :newMail
+    WHERE id LIKE :id
+    AND active_account LIKE 1
+    AND lastname LIKE :lastname
+    AND firstname LIKE :firstname
+    AND pseudo LIKE :pseudo
+    AND mail LIKE :mail';
+    $update_user_info = $base->prepare($update_user_info);
+    $update_user_info->bindValue('id', $id, PDO::PARAM_INT);
+    $update_user_info->bindValue('newLastname', $newLastname, PDO::PARAM_STR);
+    $update_user_info->bindValue('newFirstname', $newFirstname, PDO::PARAM_STR);
+    $update_user_info->bindValue('newPseudo', $newPseudo, PDO::PARAM_STR);
+    $update_user_info->bindValue('newMail', $newMail, PDO::PARAM_STR);
+    $update_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
+    $update_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
+    $update_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+    $update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+    $update_user_info->execute();
+  } catch (\Exception $e) {
+    echo returnError("An Error Occured");
+    exit();
+  }
+}else {
+  exit();
+}
+
 
 
  ?>

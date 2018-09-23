@@ -24,10 +24,13 @@ include "../includedFiles.php";
         $update_checked_mail->execute();
       }
     } catch (\Exception $e) {
-
+      echo returnError("An Error Occured");
+      exit();
     }
 
 
+  }else {
+    exit();
   }
 
   // check if we're in local or not

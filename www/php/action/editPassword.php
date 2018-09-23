@@ -48,6 +48,7 @@ if(isset($request->newPassword)){
 
 
 $user_exists = false;
+// check if user exists
 try {
   $get_user_info = 'SELECT * FROM users
   WHERE lastname LIKE :lastname
@@ -74,7 +75,8 @@ try {
     $account_password = $user_info['password'];
   }
 } catch (\Exception $e) {
-
+  echo returnError("An Error Occured");
+  exit();
 }
 
 
@@ -86,9 +88,11 @@ if($user_exists){
       echo returnResponse("Password changed");
     }else {
       echo returnError("An Error Occured");
+      exit();
     }
   }else {
     echo returnError("Wrong password");
+    exit();
   }
 }else { // trying to get someone's else info, so no response to this guy
   exit();

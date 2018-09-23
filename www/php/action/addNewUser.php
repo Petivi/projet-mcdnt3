@@ -143,7 +143,8 @@ if(isset($requestUser->password)){
          sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
          $mail_sent = true;
        } catch (\Exception $e) {
-
+         echo returnError("An Error Occured");
+         exit();
        }
        if($mail_sent){
          echo returnResponse("Mail Sent");
@@ -151,6 +152,9 @@ if(isset($requestUser->password)){
          echo returnError("An Error Occured");
        }
 
+     }else {
+       echo returnError("An Error Occured");
+       exit();
      }
    }
  }

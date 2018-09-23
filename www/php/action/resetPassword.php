@@ -29,7 +29,8 @@ if(isset($request->mail)){
         $id = $user_info['id'];
       }
     } catch (\Exception $e) {
-
+      echo returnError("An Error Occured");
+      exit();
     }
 
     // user found according to mail
@@ -60,7 +61,8 @@ if(isset($request->mail)){
         addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
         sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
       } catch (\Exception $e) {
-
+        echo returnError("An Error Occured");
+        exit();
       }
 
     }
@@ -102,7 +104,8 @@ if(isset($request->mail)){
       $date_token_created = date('d-m-Y', $user_info['date_token_created']);
     }
   } catch (\Exception $e) {
-
+    echo returnError("An Error Occured");
+    exit();
   }
 
   // check if link has expired
@@ -129,16 +132,19 @@ if(isset($request->mail)){
       $update_password->execute();
       $password_changed = true;
     } catch (\Exception $e) {
-
+      echo returnError("An Error Occured");
+      exit();
     }
     if($password_changed){
       echo returnResponse("Password changed");
     }else{
       echo returnError("An Error Occured");
+      exit();
     }
 
   }else {
     echo returnError("Link expired");
+    exit();
   }
 
 }else{ // no mail sent

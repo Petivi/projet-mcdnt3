@@ -24,7 +24,7 @@ try {
     ));
   }
 } catch (\Exception $e) {
-
+  exit();
 }
 
 // call our return function

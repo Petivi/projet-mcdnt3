@@ -88,7 +88,8 @@ function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password)
     $update_new_password->execute();
     $password_changed = true;
   } catch (\Exception $e) {
-
+    echo returnError("An Error Occured");
+    exit();
   }
   if($password_changed){
     return true;

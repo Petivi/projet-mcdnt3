@@ -41,7 +41,8 @@ include "../includedFiles.php";
       $account_checked_mail = $user_info['checked_mail'];
     }
   } catch (\Exception $e) {
-
+    echo returnError("An Error Occured");
+    exit();
   }
 
 
@@ -71,6 +72,7 @@ include "../includedFiles.php";
         echo returnResponse($tabInfoUser);
       }else { // mail not activated
         echo returnError("Account not activated");
+        exit();
       }
     }
 
