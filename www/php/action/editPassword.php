@@ -33,6 +33,11 @@ if(isset($requestUser->id)){
 }else{
   $id = "";
 }
+if(isset($requestUser->session_token)){
+  $session_token = htmlspecialchars($requestUser->session_token, ENT_QUOTES);
+}else{
+  $session_token = "";
+}
 
 if(isset($request->oldPassword)){
   $oldPassword = htmlspecialchars($request->oldPassword, ENT_QUOTES);
@@ -56,6 +61,7 @@ try {
   AND pseudo LIKE :pseudo
   AND mail LIKE :mail
   AND id LIKE :id
+  AND session_token LIKE :session_token
   AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
   $get_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
@@ -63,6 +69,7 @@ try {
   $get_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
   $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
   $get_user_info->bindValue('id', $id, PDO::PARAM_INT);
+  $get_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
   {
@@ -73,6 +80,7 @@ try {
     $account_mail = $user_info['mail'];
     $account_id = $user_info['id'];
     $account_password = $user_info['password'];
+    $account_session_token = $user_info['session_token'];
   }
 } catch (\Exception $e) {
   echo returnError("An Error Occured");
@@ -84,7 +92,7 @@ if($user_exists){
   if(password_verify($oldPassword, $account_password)){
     $password = password_hash($newPassword, PASSWORD_DEFAULT);
 
-    if(editUserPassword($account_lastname, $account_firstname, $account_pseudo, $account_mail, $account_id, $password)){
+    if(editUserPassword($account_lastname, $account_firstname, $account_pseudo, $account_mail, $account_id, $account_session_token, $password)){
       echo returnResponse("Password changed");
     }else {
       echo returnError("An Error Occured");

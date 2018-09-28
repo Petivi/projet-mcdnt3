@@ -60,12 +60,19 @@ include "../includedFiles.php";
     }else { // account is active
 
       if($account_checked_mail){ // mail is checked
+        $session_token = generateSessionToken();
+        $update_session_token = 'UPDATE users SET session_token = :session_token WHERE id LIKE :id AND active_account LIKE 1';
+        $update_session_token = $base->prepare($update_session_token);
+        $update_session_token->bindValue('id', $account_id, PDO::PARAM_INT);
+        $update_session_token->bindValue('session_token', $session_token, PDO::PARAM_STR);
+        $update_session_token->execute();
         $tabInfoUser = array(
           "id" => $account_id,
           "lastname" => $account_lastname,
           "firstname" => $account_firstname,
           "pseudo" => $account_pseudo,
           "mail" => $account_mail,
+          "session_token" => $session_token,
         );
 
         // so we return user info

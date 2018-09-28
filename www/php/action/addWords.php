@@ -3,35 +3,43 @@ require_once('../config.php');
 include "../includedFiles.php";
 
 
-  if(isset($request->pseudo->lastname)){
-    $lastname = htmlspecialchars($request->pseudo->lastname, ENT_QUOTES);
+if(isset($request)){
+  $request = $request->pseudo;
+}
+  if(isset($request->lastname)){
+    $lastname = htmlspecialchars($request->lastname, ENT_QUOTES);
   }else{
     $lastname = "";
   }
-  if(isset($request->pseudo->firstname)){
-    $firstname = htmlspecialchars($request->pseudo->firstname, ENT_QUOTES);
+  if(isset($request->firstname)){
+    $firstname = htmlspecialchars($request->firstname, ENT_QUOTES);
   }else{
     $firstname = "";
   }
-  if(isset($request->pseudo->pseudo)){
-    $pseudo = htmlspecialchars($request->pseudo->pseudo, ENT_QUOTES);
+  if(isset($request->pseudo)){
+    $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
   }else{
     $pseudo = "";
   }
-  if(isset($request->pseudo->mail)){
-    $mail = htmlspecialchars($request->pseudo->mail, ENT_QUOTES);
+  if(isset($request->mail)){
+    $mail = htmlspecialchars($request->mail, ENT_QUOTES);
   }else{
     $mail = "";
   }
-  if(isset($request->pseudo->id)){
-    $id = htmlspecialchars($request->pseudo->id, ENT_QUOTES);
+  if(isset($request->id)){
+    $id = htmlspecialchars($request->id, ENT_QUOTES);
   }else{
     $id = "";
+  }
+  if(isset($request->session_token)){
+    $session_token = htmlspecialchars($request->session_token, ENT_QUOTES);
+  }else{
+    $session_token = "";
   }
 
 
   // if admin
-  if(accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail)){
+  if(accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail, $session_token)){
     // get message name and its translations + page to display on
     if(isset($request->msg_name)){
       $msg_name = htmlspecialchars($request->msg_name, ENT_QUOTES);

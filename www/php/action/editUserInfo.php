@@ -58,15 +58,21 @@ if(isset($requestUser->id)){
 }else{
   $id = "";
 }
+if(isset($requestUser->session_token)){
+  $session_token = htmlspecialchars($requestUser->session_token, ENT_QUOTES);
+}else{
+  $session_token = "";
+}
 
 $user_exists = false;
 try {
-  $get_user_info = 'SELECT * FROM users WHERE lastname LIKE :lastname AND firstname LIKE :firstname AND pseudo LIKE :pseudo AND mail LIKE :mail AND id LIKE :id AND active_account LIKE 1';
+  $get_user_info = 'SELECT * FROM users WHERE lastname LIKE :lastname AND firstname LIKE :firstname AND pseudo LIKE :pseudo AND mail LIKE :mail AND id LIKE :id AND session_token LIKE :session_token AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
   $get_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
   $get_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
   $get_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
   $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+  $get_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
   $get_user_info->bindValue('id', $id, PDO::PARAM_INT);
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
@@ -90,7 +96,8 @@ if($user_exists){
     AND lastname LIKE :lastname
     AND firstname LIKE :firstname
     AND pseudo LIKE :pseudo
-    AND mail LIKE :mail';
+    AND mail LIKE :mail
+    AND session_token LIKE :session_token';
     $update_user_info = $base->prepare($update_user_info);
     $update_user_info->bindValue('id', $id, PDO::PARAM_INT);
     $update_user_info->bindValue('newLastname', $newLastname, PDO::PARAM_STR);
@@ -101,6 +108,7 @@ if($user_exists){
     $update_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
     $update_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
     $update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+    $update_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
     $update_user_info->execute();
   } catch (\Exception $e) {
     echo returnError("An Error Occured");
