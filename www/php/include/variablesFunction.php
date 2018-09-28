@@ -21,7 +21,7 @@ function returnResponse($responseMessage){
 
 
 //check if user has admin permissions
-function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail){
+function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail, $session_token){
   global $base;
   $userExists = false;
   $get_user_info = 'SELECT * FROM users
@@ -30,6 +30,7 @@ function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail){
    AND firstname LIKE :firstname
    AND pseudo LIKE :pseudo
    AND mail LIKE :mail
+   AND session_token LIKE :session_token
    AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
   $get_user_info->bindValue('id', $id, PDO::PARAM_INT);
@@ -37,6 +38,7 @@ function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail){
   $get_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
   $get_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
   $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+  $get_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
   {
@@ -67,7 +69,29 @@ function generateTokenTemp(){
   return $token_temp;
 }
 
-function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password){
+// generate a session token
+function generateSessionToken(){
+  $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789-";
+  $a1 = "";
+  $a2 = "";
+  $a3 = "";
+  $a4 = "";
+  for ($i = 0; $i<10; $i++){
+    $a1 .= $alphabet[rand(0, strlen($alphabet)-1)];
+    $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
+    $a3 .= $alphabet[rand(0, strlen($alphabet)-1)];
+    $a4 .= $alphabet[rand(0, strlen($alphabet)-1)];
+  }
+  $b1 = date('d');
+  $b2 = date('m');
+  $b3 = date('y');
+  $b4 = date('H');
+  $b5 = date('i');
+  $session_token = $b1 . $b2 . $b3 .  $a1 . $a2 . $a3 . $a4 . $b4 . $b5;
+  return $session_token;
+}
+
+function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password, $session_token){
   global $base;
   $password_changed = false;
   try {
@@ -77,6 +101,7 @@ function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password)
     AND firstname LIKE :firstname
     AND pseudo LIKE :pseudo
     AND mail LIKE :mail
+    AND session_token LIKE :session_token
     AND active_account LIKE 1';
     $update_new_password = $base->prepare($update_new_password);
     $update_new_password->bindValue('lastname', $lastname, PDO::PARAM_STR);
@@ -84,6 +109,7 @@ function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password)
     $update_new_password->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
     $update_new_password->bindValue('mail', $mail, PDO::PARAM_STR);
     $update_new_password->bindValue('id', $id, PDO::PARAM_INT);
+    $update_new_password->bindValue('session_token', $session_token, PDO::PARAM_STR);
     $update_new_password->bindValue('password', $password, PDO::PARAM_STR);
     $update_new_password->execute();
     $password_changed = true;
