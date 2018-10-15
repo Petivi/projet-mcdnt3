@@ -101,7 +101,7 @@ if(isset($request->mail)){
       $pseudo = $user_info['pseudo'];
       $mail = $user_info['mail'];
       $id = $user_info['id'];
-      $date_token_created = date('d-m-Y', $user_info['date_token_created']);
+      $date_token_created = $user_info['date_token_created'];
     }
   } catch (\Exception $e) {
     echo returnError("An Error Occured");
