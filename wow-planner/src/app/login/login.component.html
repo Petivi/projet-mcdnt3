@@ -1,21 +1,22 @@
 <div class="container" (keyup)="enter($event)" *ngIf="words && words.length > 0">
     <div class="row" [formGroup]="loginForm">
-        <div *ngIf="!newPass">
+        <div *ngIf="!newPass" formGroupName="loginGroup">
             <div class="col s6 offset-s3">
                 <h1 class="title">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</h1>
                 <div class="error" *ngIf="!valid">
                     <div *ngFor="let e of errors">{{e}}</div>
                 </div>
+                <div class="success" *ngIf="mailResetPass">{{(words | filter : {msg_name: 'msg_mailSent'} : {col : 'value'})}}</div>
                 <div class="success" *ngIf="newMailSent">{{(words | filter : {msg_name: 'msg_creationCompte'} : {col
                     : 'value'})}}</div>
                 <div class="input-field col s12">
                     <label for="login">Pseudo / mail *</label>
-                    <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.login.errors }" type="text"
+                    <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.login.errors }" type="text"
                         id="login" [(ngModel)]="user.login" formControlName="login">
                 </div>
                 <div class="input-field col s12">
                     <label for="password">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
-                    <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.password.errors }" type="password" id="password"
+                    <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.password.errors }" type="password" id="password"
                         [(ngModel)]="user.password" formControlName="password">
                 </div>
                 <div class="center col s12">
@@ -33,21 +34,21 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="newPass">
+        <div *ngIf="newPass" formGroupName="newPassGroup">
             <div class="col s6 offset-s3">
                 <h1 class="title">{{(words | filter : {msg_name: 'msg_resetMdp'} : {col : 'value'})}}</h1>
                 <div class="error" *ngIf="!valid">
                     <div *ngFor="let e of errors">{{e}}</div>
-                </div>
-                <div class="success" *ngIf="mailResetPass">ssssssssssss{{(words | filter : {msg_name: 'msg_mailSent'} : {col : 'value'})}}</div>
+                </div>      
+                <div class="success" *ngIf="reinitPass">{{(words | filter : {msg_name: 'msg_passwordChanged'} : {col : 'value'})}}</div>          
                 <div class="input-field col s12">
                     <label>{{(words | filter : {msg_name: 'msg_newPassword'} : {col : 'value'})}}</label>
-                    <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.newPassword.errors }" type="password"
+                    <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('newPassGroup').controls.newPassword.errors }" type="password"
                         [(ngModel)]="newPassword" formControlName="newPassword">
                 </div>
                 <div class="input-field col s12">
                     <label for="password">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
-                    <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.controls.cfPassword.errors }" type="password" [(ngModel)]="cfPassword"
+                    <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('newPassGroup').controls.cfPassword.errors }" type="password" [(ngModel)]="cfPassword"
                         formControlName="cfPassword">
                 </div>
                 <div class="center col s12">
