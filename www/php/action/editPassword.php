@@ -92,7 +92,7 @@ if($user_exists){
   if(password_verify($oldPassword, $account_password)){
     $password = password_hash($newPassword, PASSWORD_DEFAULT);
 
-    if(editUserPassword($account_lastname, $account_firstname, $account_pseudo, $account_mail, $account_id, $account_session_token, $password)){
+    if(editUserPassword($account_lastname, $account_firstname, $account_pseudo, $account_mail, $account_id, $password, $account_session_token)){
       echo returnResponse($display_response_password_changed);
     }else {
       echo returnError($display_error_error_occured);
