@@ -5,6 +5,7 @@ include "../includedFiles.php";
 
 if(isset($request->session_token)){
   $session_token = htmlspecialchars($request->session_token, ENT_QUOTES);
+  $tabInfoUser = array();
 
   $user_exists = false;
   $request_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token';
