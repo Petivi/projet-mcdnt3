@@ -116,6 +116,7 @@ if($user_exists){
     exit();
   }
 }else {
+  echo returnError('');
   exit();
 }
 
