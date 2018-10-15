@@ -3,7 +3,7 @@ require_once('../config.php');
 include "../includedFiles.php";
 
   if(isset($_GET['token'])){
-    $token_temp = $_GET['token'];
+    $token_temp = htmlspecialchars($_GET['token'], ENT_QUOTES);
 
     try {
       $get_user_info = 'SELECT * FROM users WHERE token_temp LIKE :token_temp';

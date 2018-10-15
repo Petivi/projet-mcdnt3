@@ -64,6 +64,7 @@ if(isset($requestUser->session_token)){
   $session_token = "";
 }
 
+
 $user_exists = false;
 try {
   $get_user_info = 'SELECT * FROM users WHERE lastname LIKE :lastname AND firstname LIKE :firstname AND pseudo LIKE :pseudo AND mail LIKE :mail AND id LIKE :id AND session_token LIKE :session_token AND active_account LIKE 1';
