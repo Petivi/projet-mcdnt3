@@ -28,10 +28,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     submitted: boolean = false;
     loginForm: FormGroup;
     controls = (value: any = {}) => ({
-        login: [value.login, Validators.required],
-        password: [value.password, Validators.required],
-        newPassword: [value.newPassword],
-        cfPassword: [value.cfPassword],
+        loginGroup: this._formBuilder.group({
+            login: [value.login, Validators.required],
+            password: [value.password, Validators.required],
+        }),
+        newPassGroup: this._formBuilder.group({
+            newPassword: [value.newPassword, Validators.required],
+            cfPassword: [value.cfPassword, Validators.required],
+        }),
     });
 
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
@@ -76,7 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     login() {
         this.errors = [];
         this.submitted = true;
-        if (this.loginForm.valid) {
+        if (this.loginForm.get('loginGroup').valid) {
             this._appService.connexion(this.user)
                 .then(res => {
                     if (res === 'connected') {
@@ -166,9 +170,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     newMdp() {
+        this.errors = [];
         this.submitted = true;
-        if (this.newPassword === this.cfPassword && this.newPassword) {
-            this._appService.post('action/resetPassword.php', { token_temp: this.token, password: this.newPassword })
+        console.log(this.loginForm)
+        if(this.loginForm.get('newPassGroup').valid) {
+            if (this.newPassword === this.cfPassword && this.newPassword) {
+                this._appService.post('action/resetPassword.php', { token_temp: this.token, password: this.newPassword })
                 .then(res => {
                     this.valid = true;
                     console.log(res)
@@ -180,6 +187,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                         }, 3000);
                     }
                 });
+            }
+        } else {
+            this.valid = false;
+            this.errors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);
         }
     }
 }
