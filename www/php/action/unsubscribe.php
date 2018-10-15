@@ -41,13 +41,13 @@ if($user_exists){
     $date_action = strtotime(date('d-m-Y H:i:s'));
     $token_temp = "";
     addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type_unsubscribe, $date_action);
-    returnResponse($display_response_account_deleted);
+    echo returnResponse($display_response_account_deleted);
   } catch (\Exception $e) {
-    returnError($display_error_error_occured);
+    echo returnError($display_error_error_occured);
     exit();
   }
 }else {
-  returnError($display_error_empty);
+  echo returnError($display_error_empty);
   exit();
 }
 

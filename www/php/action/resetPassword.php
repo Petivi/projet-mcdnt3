@@ -148,6 +148,7 @@ if(isset($request->mail)){
   }
 
 }else{ // no mail sent
+  echo returnError($display_error_empty_field);
   exit();
 }
 

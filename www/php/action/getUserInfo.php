@@ -48,7 +48,7 @@ if(isset($request->session_token)){
 
 
 }else { // no session_token sent, so we can't do anything
-  returnError($display_error_empty);
+  echo returnError($display_error_empty);
   exit();
 }
 

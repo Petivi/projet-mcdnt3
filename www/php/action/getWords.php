@@ -24,7 +24,7 @@ try {
     ));
   }
 } catch (\Exception $e) {
-  return returnError($display_error_empty);
+  echo returnError($display_error_empty);
   exit();
 }
 
