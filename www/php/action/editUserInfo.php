@@ -81,6 +81,7 @@ try {
     $user_exists = true;
   }
 } catch (\Exception $e) {
+  return returnError($display_error_empty);
   exit();
 }
 

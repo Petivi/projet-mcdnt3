@@ -51,6 +51,7 @@ if(isset($requestUser->password)){
   $password = htmlspecialchars($requestUser->password, ENT_QUOTES);
   $password = password_hash($password, PASSWORD_DEFAULT);
 }else {
+  return returnError($display_error_empty_field);
   exit();
 }
 

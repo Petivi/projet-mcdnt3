@@ -8,7 +8,6 @@ if(isset($request->session_token)){
   $session_token = htmlspecialchars($requestUser->session_token, ENT_QUOTES);
 }else{
   $session_token = "";
-  exit();
 }
 
 $user_exists = false;
@@ -45,9 +44,11 @@ if($user_exists){
     returnResponse($display_response_account_deleted);
   } catch (\Exception $e) {
     returnError($display_error_error_occured);
+    exit();
   }
 }else {
   returnError($display_error_empty);
+  exit();
 }
 
  ?>

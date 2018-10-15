@@ -103,6 +103,7 @@ if($user_exists){
     exit();
   }
 }else { // trying to get someone's else info, so no response to this guy
+  echo returnError($display_error_empty);
   exit();
 }
 

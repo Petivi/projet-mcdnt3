@@ -14,6 +14,7 @@ include "../includedFiles.php";
   if(isset($request->password)){
     $password_tried = htmlspecialchars($request->password, ENT_QUOTES);
   }else {
+    return returnError($display_error_empty_field);
     exit();
   }
   $account_password = "";
