@@ -42,19 +42,19 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
     constructor(private _appService: AppService, private _router: Router, private _formBuilder: FormBuilder) { }
 
     ngOnInit() {
-        if (!this._appService.getUserConnected()) {
+        if (!localStorage.getItem('userConnected')) {
             this._router.navigate(['/accueil']);
         } else {
-            this.userConnected = this._appService.getUserConnected();
-            this.newUser = Object.assign({}, this.userConnected);
-            this._appService.setPage('inscription');
-            this.buildControl({});
-            console.log(this.infoUserForm)
-            this._appService.getWords(['common', 'infoUser']).then(res => {
-                res.forEach(w => {
-                    this.words.push(w);
+            this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
+                this.userConnected = res;
+                this.newUser = Object.assign({}, this.userConnected);
+                this._appService.setPage('inscription');
+                this.buildControl({});
+                this._appService.getWords(['common', 'infoUser']).then(res => {
+                    res.forEach(w => {
+                        this.words.push(w);
+                    });
                 });
-                console.log(this.words)
             });
         }
     }
@@ -70,7 +70,11 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
     sendUser() {
         this.submitted = true;
         this.editMode = false;
-        this._appService.post('action/editUserInfo.php', { user: this.userConnected, newUser: this.newUser });
+        this._appService.post('action/editUserInfo.php', { user: this.userConnected, newUser: this.newUser }).then(res => {
+            if(res.response) {
+                this.userConnected = Object.assign({}, this.newUser);
+            }
+        });
     }
 
     sendPass() {
@@ -79,7 +83,6 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
         this.submitted = true;
         this.passwordErrors = [];
         if (this.infoUserForm.controls.passwordGroup.valid) {
-
             if (this.newPassword === this.cfPassword) {
                 this._appService.post('action/editPassword.php', { user: this.userConnected, oldPassword: this.oldPassword, newPassword: this.newPassword })
                     .then(res => {

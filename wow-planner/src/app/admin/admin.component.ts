@@ -26,12 +26,16 @@ export class AdminComponent implements OnInit {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        this.userConnected = this._appService.getUserConnected();
-        if(this.userConnected.firstname !== 'Admin') {
-            // TODO: tester si admin
-            this._router.navigate(['/accueil']);
-        }
-        this.buildControl({});
+        this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
+            if (!res.error) {
+                this.userConnected = res;
+                if (this.userConnected.firstname !== 'Admin') {
+                    // TODO: tester si admin
+                    this._router.navigate(['/accueil']);
+                }
+                this.buildControl({});
+            }
+        });
     }
 
     addWord() {
