@@ -40,7 +40,8 @@ AND lastname LIKE :lastname
 AND firstname LIKE :firstname
 AND pseudo LIKE :pseudo
 AND mail LIKE :mail
-AND session_token LIKE :session_token';
+AND session_token LIKE :session_token
+AND active_account LIKE 1';
 $update_session_token = $base->prepare($update_session_token);
 $update_session_token->bindValue('id', $id, PDO::PARAM_INT);
 $update_session_token->bindValue('lastname', $lastname, PDO::PARAM_STR);
