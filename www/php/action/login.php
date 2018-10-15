@@ -61,9 +61,13 @@ include "../includedFiles.php";
 
       if($account_checked_mail){ // mail is checked
         $session_token = generateSessionToken();
-        $update_session_token = 'UPDATE users SET session_token = :session_token WHERE id LIKE :id AND active_account LIKE 1';
+        $last_connection = strtotime(date('d-m-Y H:i:s'));
+        $update_session_token = 'UPDATE users
+        SET session_token = :session_token, last_connection = :last_connection
+        WHERE id LIKE :id AND active_account LIKE 1';
         $update_session_token = $base->prepare($update_session_token);
         $update_session_token->bindValue('id', $account_id, PDO::PARAM_INT);
+        $update_session_token->bindValue('last_connection', $last_connection, PDO::PARAM_INT);
         $update_session_token->bindValue('session_token', $session_token, PDO::PARAM_STR);
         $update_session_token->execute();
 
