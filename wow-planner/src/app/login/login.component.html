@@ -6,6 +6,7 @@
                 <div class="error" *ngIf="!valid">
                     <div *ngFor="let e of errors">{{e}}</div>
                 </div>
+                <div class="success" *ngIf="mailResetPass">{{(words | filter : {msg_name: 'msg_mailSent'} : {col : 'value'})}}</div>
                 <div class="success" *ngIf="newMailSent">{{(words | filter : {msg_name: 'msg_creationCompte'} : {col
                     : 'value'})}}</div>
                 <div class="input-field col s12">
@@ -38,8 +39,8 @@
                 <h1 class="title">{{(words | filter : {msg_name: 'msg_resetMdp'} : {col : 'value'})}}</h1>
                 <div class="error" *ngIf="!valid">
                     <div *ngFor="let e of errors">{{e}}</div>
-                </div>
-                <div class="success" *ngIf="mailResetPass">ssssssssssss{{(words | filter : {msg_name: 'msg_mailSent'} : {col : 'value'})}}</div>
+                </div>      
+                <div class="success" *ngIf="reinitPass">{{(words | filter : {msg_name: 'msg_passwordChanged'} : {col : 'value'})}}</div>          
                 <div class="input-field col s12">
                     <label>{{(words | filter : {msg_name: 'msg_newPassword'} : {col : 'value'})}}</label>
                     <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('newPassGroup').controls.newPassword.errors }" type="password"

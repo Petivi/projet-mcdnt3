@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     msgGrowl: any;
     newMailSent: boolean = false;
     mailResetPass: boolean = false;
+    reinitPass: boolean = false;
     valid: boolean = true;
     user: any = { login: '', password: '' };
     submitted: boolean = false;
@@ -116,7 +117,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     enter(e: KeyboardEvent) {
         if (e.key === 'Enter') {
-            this.login();
+            if (this.newPass) {
+                this.newMdp();
+            } else {
+                this.login();
+            }
         }
     }
 
@@ -155,12 +160,10 @@ export class LoginComponent implements OnInit, OnDestroy {
                         this._appService.post('action/resetPassword.php', { mail: res.value, lang: this._appService.getLangue() })
                             .then(res => {
                                 if (res.response) {
-                                    console.log(res)
                                     this.mailResetPass = true;
-                                    console.log(this.mailResetPass)
-                                    setTimeout(() => {
-                                        this.mailResetPass = false
-                                    }, 10000);
+                                } else {
+                                    this.errors = [];
+                                    this.errors.push(this.words.find(w => w.msg_name === 'msg_errorUnknown').value);
                                 }
                             });
                     }
@@ -172,23 +175,30 @@ export class LoginComponent implements OnInit, OnDestroy {
     newMdp() {
         this.errors = [];
         this.submitted = true;
-        console.log(this.loginForm)
-        if(this.loginForm.get('newPassGroup').valid) {
+        if (this.loginForm.get('newPassGroup').valid) {
             if (this.newPassword === this.cfPassword && this.newPassword) {
                 this._appService.post('action/resetPassword.php', { token_temp: this.token, password: this.newPassword })
-                .then(res => {
-                    this.valid = true;
-                    console.log(res)
-                    if (res.error) {
-                        this.valid = false;
-                        this.errors.push(this.words.find(w => w.msg_name === 'msg_linkExpired').value);
-                        setTimeout(() => {
-                            this._router.navigate(['/login']);
-                        }, 3000);
-                    }
-                });
+                    .then(res => {
+                        this.valid = true;
+                        console.log(res)
+                        if (res.error) {
+                            this.valid = false;
+                            this.errors.push(this.words.find(w => w.msg_name === 'msg_linkExpired').value);
+                            setTimeout(() => {
+                                this._router.navigate(['/login']);
+                            }, 3000);
+                        } else {
+                            this.reinitPass = true;
+                            setTimeout(() => {
+                                this._router.navigate(['/login']);
+                            }, 2000);
+                        }
+                    });
+            } else { //erreur entre la confirmation et le mot de passe
+                this.valid = false;
+                this.errors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
             }
-        } else {
+        } else { // champs vide
             this.valid = false;
             this.errors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);
         }

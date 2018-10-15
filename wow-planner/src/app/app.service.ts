@@ -32,7 +32,7 @@ export class AppService {
         return this._http.post(this.urlServeur + url, value, httpOptions)
             .toPromise()
             .then(res => {
-                if(res['body']) {
+                if (res['body']) {
                     let value = JSON.parse(res['body']);
                     return value;
                 } else return true;
@@ -61,25 +61,18 @@ export class AppService {
 
     getWords(page: string[]): Promise<any> {
         this.langue = this.getLangue();
-        if (!localStorage.getItem('words')) {
-            return this._http.get(this.urlServeur + 'action/getWords.php')
-                .map(res => {
-                    let data = JSON.parse(res['body']);
-                    if (data.response) {
-                        this.words = [];
-                        data.response.forEach(word => {
-                            this.words.push(word);
-                        });
-                        localStorage.setItem('words', JSON.stringify(this.words));
-                        return this.getWordsReturn(page);
-                    }
-                }).toPromise();
-        } else {
-            this.words = JSON.parse(localStorage.getItem('words'));
-            return new Promise((resolve) => {
-                resolve(this.getWordsReturn(page));
-            });
-        }
+        return this._http.get(this.urlServeur + 'action/getWords.php')
+            .map(res => {
+                let data = JSON.parse(res['body']);
+                if (data.response) {
+                    this.words = [];
+                    data.response.forEach(word => {
+                        this.words.push(word);
+                    });
+                    localStorage.setItem('words', JSON.stringify(this.words));
+                    return this.getWordsReturn(page);
+                }
+            }).toPromise();
     }
 
     getWordsReturn(page: string[]) {
