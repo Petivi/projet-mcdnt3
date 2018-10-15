@@ -5,7 +5,7 @@ include "../includedFiles.php";
 
 
 if(isset($request->session_token)){
-  $session_token = htmlspecialchars($requestUser->session_token, ENT_QUOTES);
+  $session_token = htmlspecialchars($request->session_token, ENT_QUOTES);
 }else{
   $session_token = "";
 }
@@ -31,6 +31,7 @@ if($user_exists){
   try {
     $request_unsubscribe_account = 'UPDATE users
     SET session_token = "",
+    token_temp = "",
     active_account = 2
     WHERE active_account LIKE 1
     AND session_token LIKE :session_token';
