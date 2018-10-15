@@ -17,6 +17,7 @@ $display_error_empty = '';
 $display_response_mail_sent = 'Mail Sent';
 $display_response_password_changed = 'Password changed';
 $display_response_info_changed = 'Info Changed';
+$display_response_account_deleted = 'Account Deleted';
 $display_response_empty = '';
 
 
@@ -24,6 +25,7 @@ $display_response_empty = '';
 $request_type_new_account = "New Account";
 $request_type_new_mail_confirm = "New Mail Confirm";
 $request_type_password_reset = "Password Reset";
+$request_type_unsubscribe = "Account Unsubscribe";
 
 
 // function called when you want to response an error with a simple message
@@ -163,13 +165,13 @@ function getLinkValidity($date_token_created){
   }
 }
 
-function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created){
+function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_action){
   global $base;
   global $request_type_new_account;
   global $request_type_new_mail_confirm;
   global $request_type_password_reset;
   $add_to_requests_list = 'INSERT INTO requests_list (user_id, user_lastname, user_firstname, user_pseudo, user_mail, request_token, request_type, request_date)
-  VALUES (:id, :lastname, :firstname, :pseudo, :mail, :token_temp, :request_type, :date_token_created)';
+  VALUES (:id, :lastname, :firstname, :pseudo, :mail, :token_temp, :request_type, :date_action)';
   $add_to_requests_list = $base->prepare($add_to_requests_list);
   $add_to_requests_list->bindValue('id', $id, PDO::PARAM_INT);
   $add_to_requests_list->bindValue('lastname', $lastname, PDO::PARAM_STR);
@@ -178,7 +180,7 @@ function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_te
   $add_to_requests_list->bindValue('mail', $mail, PDO::PARAM_STR);
   $add_to_requests_list->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
   $add_to_requests_list->bindValue('request_type', $request_type, PDO::PARAM_STR);
-  $add_to_requests_list->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
+  $add_to_requests_list->bindValue('date_action', $date_action, PDO::PARAM_INT);
   $add_to_requests_list->execute();
 }
 
