@@ -23,8 +23,8 @@ if(isset($request->mail)){
     $date_token_created = $user_info['date_token_created'];
 
     if($token_temp != ""){
-      $request_type = "New Mail Confirm";
-      addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
+      // new mail confirm
+      addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type_new_mail_confirm, $date_token_created);
       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
     }
   }

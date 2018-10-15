@@ -57,8 +57,8 @@ if(isset($request->mail)){
         $update_token_temp->execute();
 
 
-        $request_type = 'Password Reset';
-        addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
+        // password reset
+        addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type_password_reset, $date_token_created);
         sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
       } catch (\Exception $e) {
         echo returnError($display_error_error_occured);

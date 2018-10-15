@@ -138,8 +138,8 @@ if(isset($requestUser->password)){
            $id = $user_id['id'];
          }
 
-         $request_type = "New Account";
-         addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
+         // new account
+         addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type_new_account, $date_token_created);
          sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
          $mail_sent = true;
        } catch (\Exception $e) {

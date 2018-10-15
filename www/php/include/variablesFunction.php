@@ -1,5 +1,6 @@
 <?php
 
+// error
 $display_error_error_occured = 'An Error Occured';
 $display_error_link_expired = 'Link expired';
 $display_error_mail_taken = 'Mail already taken';
@@ -12,10 +13,18 @@ $display_error_account_not_activated = 'Account not activated';
 $display_error_wrong_pseudo_password = 'Wrong pseudo/password';
 $display_error_empty_field = 'Verify Empty Fields';
 $display_error_empty = '';
+// success
 $display_response_mail_sent = 'Mail Sent';
 $display_response_password_changed = 'Password changed';
 $display_response_info_changed = 'Info Changed';
 $display_response_empty = '';
+
+
+// request_type
+$request_type_new_account = "New Account";
+$request_type_new_mail_confirm = "New Mail Confirm";
+$request_type_password_reset = "Password Reset";
+
 
 // function called when you want to response an error with a simple message
 // index "error" will be considered as an error for angular (negative answer)
@@ -156,6 +165,9 @@ function getLinkValidity($date_token_created){
 
 function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created){
   global $base;
+  global $request_type_new_account;
+  global $request_type_new_mail_confirm;
+  global $request_type_password_reset;
   $add_to_requests_list = 'INSERT INTO requests_list (user_id, user_lastname, user_firstname, user_pseudo, user_mail, request_token, request_type, request_date)
   VALUES (:id, :lastname, :firstname, :pseudo, :mail, :token_temp, :request_type, :date_token_created)';
   $add_to_requests_list = $base->prepare($add_to_requests_list);
