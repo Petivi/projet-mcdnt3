@@ -14,7 +14,6 @@ export class AccueilComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._appService.setPage('accueil');
-        this.userConnected = this._appService.getUserConnected();
     }
 
     ngOnDestroy() {

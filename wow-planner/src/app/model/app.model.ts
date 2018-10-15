@@ -5,6 +5,7 @@ export class User {
     mail: string;
     password: string;
     id: string;
+    session_token: string;
 }
 
 export class Word {

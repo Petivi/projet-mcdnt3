@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 import { Word, User } from './model/app.model';
@@ -8,30 +8,22 @@ import { Word, User } from './model/app.model';
 export class AppService {
     urlServeur: string = 'http://localhost/wow-planner-app/';
     words: Word[];
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    }
     userConnected: User;
     langue: string;
     constructor(private _http: HttpClient) { }
 
-    get(url: string, parametre: any = {}): any {
-        let parametres = parametre ? '{"filters": ' + JSON.stringify(parametre) + '}' : '';
-        let params = new HttpParams().set('filter', parametres);
-        return this._http.get(this.urlServeur + url, { params: params })
-            .toPromise()
-            .then(res => {
-                return JSON.parse(res['body']);
-            });
-    }
-
     post(url: string, value: any) {
-        let httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            })
-        };
         value = JSON.stringify(value);
-        return this._http.post(this.urlServeur + url, value, httpOptions)
+        return this._http.post(this.urlServeur + url, value, this.httpOptions)
             .toPromise()
             .then(res => {
+                console.log(res)
+                console.log(JSON.parse(res['body']));
                 if (res['body']) {
                     let value = JSON.parse(res['body']);
                     return value;
@@ -40,20 +32,15 @@ export class AppService {
     }
 
     connexion(value: any): Promise<any> {
-        let httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            })
-        };
         value = JSON.stringify(value);
-        return this._http.post(this.urlServeur + 'action/login.php', value, httpOptions)
+        return this._http.post(this.urlServeur + 'action/login.php', value, this.httpOptions)
             .toPromise()
             .then(res => {
+                console.log(res)
                 let value = JSON.parse(res['body']);
                 if (value.response) {
                     this.userConnected = value.response;
                     localStorage.setItem('userConnected', JSON.stringify(this.userConnected));
-                    sessionStorage.setItem('userConnected', JSON.stringify(this.userConnected));
                     return 'connected';
                 } else return value;
             });
@@ -87,16 +74,37 @@ export class AppService {
         return wordsReturn;
     }
 
-    getUserConnected() {
-        if (localStorage.getItem('userConnected')) {
-            return JSON.parse(localStorage.getItem('userConnected'));
-        }
+    getUserConnected(value): any {
+        return this._http.post(this.urlServeur + 'action/getUserInfo.php', value, this.httpOptions)
+            .toPromise()
+            .then(res => {
+                console.log(JSON.parse(res['body']))
+                let returnRes = JSON.parse(res['body'])
+                if (returnRes.response) {
+                    returnRes.response.session_token = JSON.parse(value).session_token;
+                    return returnRes.response;
+                } else {
+                    console.log('oui')
+                    return null;
+                }
+            });
     }
+
+
+
 
     deconnexion() {
         if (localStorage.getItem('userConnected')) {
-            localStorage.removeItem('userConnected');
-            this.userConnected = null;
+            this.getUserConnected(localStorage.getItem('userConnected')).then(res => {
+                if (!res.error) {
+                    this.post('action/disconnection.php', res).then(res => {
+                        if (!res.error) {
+                            localStorage.removeItem('userConnected');
+                            this.userConnected = null;
+                        }
+                    });
+                }
+            });
         }
     }
 

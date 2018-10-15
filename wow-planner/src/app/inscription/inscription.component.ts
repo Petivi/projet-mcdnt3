@@ -33,7 +33,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        if (this._appService.getUserConnected()) {
+        if (localStorage.getItem('userConnected')) {
             this._router.navigate(['/accueil']);
         } else {
             this._appService.setPage('inscription');

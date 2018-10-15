@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 import { AppService } from './app.service';
+
 import { User, WordSimplified } from './model/app.model';
 
 @Component({
@@ -17,7 +19,10 @@ export class AppComponent implements OnInit {
     constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
     ngOnInit() {
         this.langue = this._appService.getLangue();
-        this.userConnected = this._appService.getUserConnected();
+        this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
+            console.log(res)
+            this.userConnected = res;
+        });
         this.getPageWords();
     }
 
@@ -44,6 +49,29 @@ export class AppComponent implements OnInit {
                     this._router.navigate(['/accueil']);
                 }
             }, 100)
+        });
+    }
+
+    desinscription() {
+        Swal({
+            title: 'Confirmation',
+            text: this.words.find(w => w.msg_name === 'msg_confirmationDesinscription').value,
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: this.words.find(w => w.msg_name === 'msg_cancel').value,
+        }).then(res => {
+            if (res.value) {
+                this._appService.post('action/unsubscribe.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
+                    Swal({
+                        title: 'Confirmation',
+                        text: this.words.find(w => w.msg_name === 'msg_confDesinscription').value,
+                        type: 'success',
+                        confirmButtonText: 'OK',                        
+                    }).then(res => {
+                        this._router.navigate(['/login']);
+                    });
+                });
+            }
         });
     }
 }

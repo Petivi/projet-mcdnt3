@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        if (this._appService.getUserConnected()) { // si quelqu'un est connecté il ne peut pas aller sur la page login donc on le renvoi a l'accueil
+        if (localStorage.getItem('userConnected')) { // si quelqu'un est connecté il ne peut pas aller sur la page login donc on le renvoi a l'accueil
             this._router.navigate(['/accueil']);
         } else {
             this._appService.setPage('login');
