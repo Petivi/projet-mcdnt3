@@ -29,7 +29,7 @@ if(isset($request->mail)){
         $id = $user_info['id'];
       }
     } catch (\Exception $e) {
-      echo returnError("An Error Occured");
+      echo returnError($display_error_error_occured);
       exit();
     }
 
@@ -61,15 +61,15 @@ if(isset($request->mail)){
         addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type, $date_token_created);
         sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
       } catch (\Exception $e) {
-        echo returnError("An Error Occured");
+        echo returnError($display_error_error_occured);
         exit();
       }
 
     }
-    echo returnResponse("Mail Sent");
+    echo returnResponse($display_response_mail_sent);
 
   }else {
-    echo returnError("No mail");
+    echo returnError($display_error_empty_field);
     exit();
   }
 
@@ -104,7 +104,7 @@ if(isset($request->mail)){
       $date_token_created = $user_info['date_token_created'];
     }
   } catch (\Exception $e) {
-    echo returnError("An Error Occured");
+    echo returnError($display_error_error_occured);
     exit();
   }
 
@@ -132,18 +132,18 @@ if(isset($request->mail)){
       $update_password->execute();
       $password_changed = true;
     } catch (\Exception $e) {
-      echo returnError("An Error Occured");
+      echo returnError($display_error_error_occured);
       exit();
     }
     if($password_changed){
-      echo returnResponse("Password changed");
+      echo returnResponse($display_response_password_changed);
     }else{
-      echo returnError("An Error Occured");
+      echo returnError($display_error_error_occured);
       exit();
     }
 
   }else {
-    echo returnError("Link expired");
+    echo returnError($display_error_link_expired);
     exit();
   }
 

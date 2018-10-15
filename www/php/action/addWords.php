@@ -85,11 +85,11 @@ if(isset($request)){
       $add_new_message->execute();
       echo returnResponse("Word Added");
     }else {
-      echo returnError("Error, word not added");
+      echo returnError($display_error_error_occured);
       exit();
     }
   }else {
-    echo returnError("Droits insuffisants");
+    echo returnError($display_error_insufficient_permissions);
     exit();
   }
 

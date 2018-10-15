@@ -1,5 +1,22 @@
 <?php
 
+$display_error_error_occured = 'An Error Occured';
+$display_error_link_expired = 'Link expired';
+$display_error_mail_taken = 'Mail already taken';
+$display_error_pseudo_taken = 'Pseudo already taken';
+$display_error_insufficient_permissions = 'Insufficient permissions';
+$display_error_wrong_password = 'Wrong password';
+$display_error_account_suspended = 'Account Suspended';
+$display_error_account_deleted = 'Account Deleted';
+$display_error_account_not_activated = 'Account not activated';
+$display_error_wrong_pseudo_password = 'Wrong pseudo/password';
+$display_error_empty_field = 'Verify Empty Fields';
+$display_error_empty = '';
+$display_response_mail_sent = 'Mail Sent';
+$display_response_password_changed = 'Password changed';
+$display_response_info_changed = 'Info Changed';
+$display_response_empty = '';
+
 // function called when you want to response an error with a simple message
 // index "error" will be considered as an error for angular (negative answer)
 function returnError($errorMessage){
@@ -93,6 +110,7 @@ function generateSessionToken(){
 
 function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password, $session_token){
   global $base;
+  global $display_error_error_occured;
   $password_changed = false;
   try {
     $update_new_password = 'UPDATE users SET password = :password
@@ -114,7 +132,7 @@ function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password,
     $update_new_password->execute();
     $password_changed = true;
   } catch (\Exception $e) {
-    echo returnError("An Error Occured");
+    echo returnError($display_error_error_occured);
     exit();
   }
   if($password_changed){

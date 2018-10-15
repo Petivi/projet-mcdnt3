@@ -24,7 +24,7 @@ include "../includedFiles.php";
         $update_checked_mail->execute();
       }
     } catch (\Exception $e) {
-      echo returnError("An Error Occured");
+      echo returnError($display_error_error_occured);
       exit();
     }
 

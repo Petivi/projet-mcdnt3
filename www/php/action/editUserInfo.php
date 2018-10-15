@@ -111,13 +111,13 @@ if($user_exists){
     $update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
     $update_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
     $update_user_info->execute();
-    echo returnResponse('Info Changed');
+    echo returnResponse($display_response_info_changed);
   } catch (\Exception $e) {
-    echo returnError("An Error Occured");
+    echo returnError($display_error_error_occured);
     exit();
   }
 }else {
-  echo returnError('');
+  echo returnError($display_error_empty);
   exit();
 }
 

@@ -39,7 +39,7 @@ if(isset($request->session_token)){
 
     echo returnResponse($tabInfoUser);
   }else {
-    echo returnError('An Error Occured');
+    echo returnError($display_error_error_occured);
   }
 
 

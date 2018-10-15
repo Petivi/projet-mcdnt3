@@ -50,5 +50,5 @@ $update_session_token->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
 $update_session_token->bindValue('mail', $mail, PDO::PARAM_STR);
 $update_session_token->bindValue('session_token', $session_token, PDO::PARAM_STR);
 $update_session_token->execute();
-echo returnResponse('');
+echo returnResponse($display_response_empty);
  ?>

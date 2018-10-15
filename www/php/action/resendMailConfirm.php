@@ -30,7 +30,7 @@ if(isset($request->mail)){
   }
 
 }else{
-  echo returnError("No mail");
+  echo returnError($display_error_empty_field);
   exit();
 }
 

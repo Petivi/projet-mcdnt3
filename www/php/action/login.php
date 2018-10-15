@@ -41,7 +41,7 @@ include "../includedFiles.php";
       $account_checked_mail = $user_info['checked_mail'];
     }
   } catch (\Exception $e) {
-    echo returnError("An Error Occured");
+    echo returnError($display_error_error_occured);
     exit();
   }
 
@@ -52,10 +52,10 @@ include "../includedFiles.php";
     // password correct
 
     if($account_active_account == 0){ // account suspended (by admin)
-      echo returnError("Account Suspended");
+      echo returnError($display_error_account_suspended);
       exit();
     }elseif ($account_active_account == 2) { // account deleted by user
-      echo returnError("Account Deleted");
+      echo returnError($display_error_account_deleted);
       exit();
     }else { // account is active
 
@@ -78,14 +78,14 @@ include "../includedFiles.php";
         // so we return user info
         echo returnResponse($tabInfoUser);
       }else { // mail not activated
-        echo returnError("Account not activated");
+        echo returnError($display_error_account_not_activated);
         exit();
       }
     }
 
   }else {
     // password incorrect
-    echo returnError("Wrong pseudo/password");
+    echo returnError($display_error_wrong_pseudo_password);
     // echo "Wrong pseudo/password";
     exit();
   }

@@ -75,7 +75,7 @@ if(isset($requestUser->password)){
  }
 
  if($existing_mail){  // mail taken
-   echo returnError("Mail already taken");
+   echo returnError($display_error_mail_taken);
    exit();
  }else {  // mail not taken
 
@@ -91,7 +91,7 @@ if(isset($requestUser->password)){
    }
 
    if($existing_pseudo){ // pseudo taken
-     echo returnError("Pseudo already taken");
+     echo returnError($display_error_pseudo_taken);
      exit();
    }else { // pseudo not taken
      $token_temp = generateTokenTemp();
@@ -143,17 +143,17 @@ if(isset($requestUser->password)){
          sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
          $mail_sent = true;
        } catch (\Exception $e) {
-         echo returnError("An Error Occured");
+         echo returnError($display_error_error_occured);
          exit();
        }
        if($mail_sent){
-         echo returnResponse("Mail Sent");
+         echo returnResponse($display_response_mail_sent);
        }else {
-         echo returnError("An Error Occured");
+         echo returnError($display_error_error_occured);
        }
 
      }else {
-       echo returnError("An Error Occured");
+       echo returnError($display_error_error_occured);
        exit();
      }
    }

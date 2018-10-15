@@ -83,7 +83,7 @@ try {
     $account_session_token = $user_info['session_token'];
   }
 } catch (\Exception $e) {
-  echo returnError("An Error Occured");
+  echo returnError($display_error_error_occured);
   exit();
 }
 
@@ -93,13 +93,13 @@ if($user_exists){
     $password = password_hash($newPassword, PASSWORD_DEFAULT);
 
     if(editUserPassword($account_lastname, $account_firstname, $account_pseudo, $account_mail, $account_id, $account_session_token, $password)){
-      echo returnResponse("Password changed");
+      echo returnResponse($display_response_password_changed);
     }else {
-      echo returnError("An Error Occured");
+      echo returnError($display_error_error_occured);
       exit();
     }
   }else {
-    echo returnError("Wrong password");
+    echo returnError($display_error_wrong_password);
     exit();
   }
 }else { // trying to get someone's else info, so no response to this guy
