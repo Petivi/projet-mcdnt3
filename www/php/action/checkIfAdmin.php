@@ -4,6 +4,7 @@ include "../includedFiles.php";
 
 $tabUser = getPostInfo($request);
 
+$account_permissions = "";
 $get_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token AND active_account LIKE 1 AND checked_mail LIKE 1';
 $get_user_info = $base->prepare($get_user_info);
 $get_user_info->bindValue('session_token', $tabUser['session_token'], PDO::PARAM_STR);
