@@ -62,14 +62,8 @@ if($user_exists){
         $update_user_info->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
         $update_user_info->bindValue('session_token', $tabUser['session_token'], PDO::PARAM_STR);
         $update_user_info->execute();
-        echo returnResponse($display_response_info_changed);
-      } catch (\Exception $e) {
-        echo returnError($display_error_error_occured);
-        exit();
-      }
 
-      if($tabUser['mail'] != $tabNewUser['mail']){
-        try {
+        if($tabUser['mail'] != $tabNewUser['mail']){
           $token_temp = generateTokenTemp();
           $date_token_created = strtotime(date('d-m-Y H:i:s'));
           $update_user_mail = 'UPDATE users
@@ -92,12 +86,13 @@ if($user_exists){
 
           addToRequestsList($tabUser['id'], $tabNewUser['lastname'], $tabNewUser['firstname'], $tabNewUser['pseudo'], $tabNewUser['mail'], $token_temp, $request_type_edit_mail, $date_token_created);
           sendMailEditMail($tabNewUser['lastname'], $tabNewUser['firstname'], $tabNewUser['pseudo'], $tabNewUser['mail'], $token_temp, $tabUser['lang']);
-          echo returnResponse($display_response_mail_sent);
-        } catch (\Exception $e) {
-          echo returnError($display_error_error_occured);
-          exit();
         }
+        echo returnResponse($display_response_info_changed);
+      } catch (\Exception $e) {
+        echo returnError($display_error_error_occured);
+        exit();
       }
+
 
 
     } // mail unique
