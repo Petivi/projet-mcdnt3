@@ -59,7 +59,7 @@ include "../includedFiles.php";
       echo returnError($display_error_account_deleted);
       exit();
     }else { // account is active
-
+      
       if($account_checked_mail){ // mail is checked
         $session_token = generateSessionToken();
         $last_connection = strtotime(date('d-m-Y H:i:s'));

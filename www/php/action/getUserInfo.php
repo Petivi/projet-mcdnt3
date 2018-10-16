@@ -22,6 +22,7 @@ if(isset($request->session_token)){
     $account_pseudo = $user_info['pseudo'];
     $account_password = $user_info['password'];
     $account_created_date = $user_info['created_date'];
+    $account_last_connection = $user_info['last_connection'];
     $account_mail = $user_info['mail'];
     $account_permissions = $user_info['permissions'];
     $account_active_account = $user_info['active_account'];
@@ -35,6 +36,7 @@ if(isset($request->session_token)){
       "firstname" => $account_firstname,
       "pseudo" => $account_pseudo,
       "mail" => $account_mail,
+      "last_connection" => $account_last_connection
     );
 
     echo returnResponse($tabInfoUser);

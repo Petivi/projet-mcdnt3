@@ -12,6 +12,7 @@ $display_error_account_deleted = 'Account Deleted';
 $display_error_account_not_activated = 'Account not activated';
 $display_error_wrong_pseudo_password = 'Wrong pseudo/password';
 $display_error_empty_field = 'Verify Empty Fields';
+$display_error_mail_activated = 'Mail Already Activated';
 $display_error_empty = '';
 // success
 $display_response_mail_sent = 'Mail Sent';
@@ -25,6 +26,7 @@ $display_response_empty = '';
 $request_type_new_account = "New Account";
 $request_type_new_mail_confirm = "New Mail Confirm";
 $request_type_edit_mail = "Edit Mail";
+$request_type_reset_mail = "Reset Mail";
 $request_type_password_reset = "Password Reset";
 $request_type_unsubscribe = "Account Unsubscribe";
 

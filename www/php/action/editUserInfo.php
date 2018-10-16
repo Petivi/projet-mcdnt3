@@ -6,6 +6,11 @@ include "../includedFiles.php";
 $tabUser = getPostInfo($request->user);
 $tabNewUser = getPostInfo($request->newUser);
 
+if(isset($request->lang)){
+  $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+}else {
+  $lang = "en";
+}
 
 
 $user_exists = false;
@@ -85,11 +90,12 @@ if($user_exists){
           $update_user_mail->execute();
 
           addToRequestsList($tabUser['id'], $tabNewUser['lastname'], $tabNewUser['firstname'], $tabNewUser['pseudo'], $tabNewUser['mail'], $token_temp, $request_type_edit_mail, $date_token_created);
-          sendMailEditMail($tabNewUser['lastname'], $tabNewUser['firstname'], $tabNewUser['pseudo'], $tabNewUser['mail'], $token_temp, $tabUser['lang']);
+          sendMailEditMail($tabNewUser['lastname'], $tabNewUser['firstname'], $tabNewUser['pseudo'], $tabNewUser['mail'], $token_temp, $lang);
         }
         echo returnResponse($display_response_info_changed);
       } catch (\Exception $e) {
         echo returnError($display_error_error_occured);
+        echo $e;
         exit();
       }
 
