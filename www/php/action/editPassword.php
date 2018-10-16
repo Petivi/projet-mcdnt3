@@ -4,40 +4,8 @@ include "../includedFiles.php";
 
 
 
-if(isset($request)){
-  $requestUser = $request->user;
-}
+$tabUser = getPostInfo($request->user);
 
-if(isset($requestUser->lastname)){
-  $lastname = htmlspecialchars($requestUser->lastname, ENT_QUOTES);
-}else{
-  $lastname = "";
-}
-if(isset($requestUser->firstname)){
-  $firstname = htmlspecialchars($requestUser->firstname, ENT_QUOTES);
-}else{
-  $firstname = "";
-}
-if(isset($requestUser->pseudo)){
-  $pseudo = htmlspecialchars($requestUser->pseudo, ENT_QUOTES);
-}else{
-  $pseudo = "";
-}
-if(isset($requestUser->mail)){
-  $mail = htmlspecialchars($requestUser->mail, ENT_QUOTES);
-}else{
-  $mail = "";
-}
-if(isset($requestUser->id)){
-  $id = htmlspecialchars($requestUser->id, ENT_QUOTES);
-}else{
-  $id = "";
-}
-if(isset($requestUser->session_token)){
-  $session_token = htmlspecialchars($requestUser->session_token, ENT_QUOTES);
-}else{
-  $session_token = "";
-}
 
 if(isset($request->oldPassword)){
   $oldPassword = htmlspecialchars($request->oldPassword, ENT_QUOTES);
@@ -64,12 +32,12 @@ try {
   AND session_token LIKE :session_token
   AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
-  $get_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
-  $get_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
-  $get_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-  $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
-  $get_user_info->bindValue('id', $id, PDO::PARAM_INT);
-  $get_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
+  $get_user_info->bindValue('lastname', $tabUser['lastname'], PDO::PARAM_STR);
+  $get_user_info->bindValue('firstname', $tabUser['firstname'], PDO::PARAM_STR);
+  $get_user_info->bindValue('pseudo', $tabUser['pseudo'], PDO::PARAM_STR);
+  $get_user_info->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+  $get_user_info->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
+  $get_user_info->bindValue('session_token', $tabUser['session_token'], PDO::PARAM_STR);
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
   {
