@@ -43,8 +43,8 @@ function getPostInfo($req){
   }else{
     $session_token = "";
   }
-  if(isset($request->login)){
-    $login = htmlspecialchars($request->login, ENT_QUOTES);
+  if(isset($req->login)){
+    $login = htmlspecialchars($req->login, ENT_QUOTES);
   }else{
     $login = "";
   }
