@@ -19,7 +19,6 @@ if(isset($request->user->password)){
 }
 $account_password = "";
 
-
 try {
   // check if user exists
   $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2)';
@@ -78,7 +77,7 @@ if(password_verify($password_tried, $account_password)){
         echo returnResponse($display_response_mail_sent);
       }
     }else {
-      echo returnError($display_error_mail_activated);
+      echo returnError($display_error_account_activated);
     }
 
   }

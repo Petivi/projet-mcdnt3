@@ -46,4 +46,3 @@ $tabUser = getPostInfo($request->pseudo);
 
 
  ?>
-$tabUser['mail']
