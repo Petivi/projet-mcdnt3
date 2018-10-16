@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Testability } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
 
@@ -14,20 +14,20 @@ import { Router } from '@angular/router';
 export class InscriptionComponent implements OnInit, OnDestroy {
     errors: string[] = [];
     valid: boolean = true;
-    user: User = new User();
+    user: User = new User({});
     mailTaken: boolean = false;
     pseudoTaken: boolean = false;
     words: WordSimplified[] = [];
     submitted: boolean = false;
     cfPassword: string;
     inscriptionForm: FormGroup;
-    controls = (value: any = {}) => ({
-        firstname: [value.firstname],
-        lastname: [value.lastname],
-        pseudo: [value.pseudo, Validators.required],
-        mail: [value.mail, Validators.required],
-        password: [value.password, Validators.required],
-        cfPassword: [value.cfPassword, Validators.required],
+    controls = () => ({
+        firstname: [this.user && this.user.firstname ? this.user.firstname : ''],
+        lastname: [this.user && this.user.lastname ? this.user.lastname : ''],
+        pseudo: [this.user && this.user.pseudo ? this.user.pseudo : '', Validators.required],
+        mail: [this.user && this.user.mail ? this.user.mail : '', Validators.required],
+        password: [this.user && this.user.password ? this.user.password : '', Validators.required],
+        cfPassword: [this.cfPassword ? this.cfPassword : '', Validators.required],
     });
 
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
@@ -37,7 +37,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
             this._router.navigate(['/accueil']);
         } else {
             this._appService.setPage('inscription');
-            this.buildControl({});
+            this.buildControl();
             this._appService.getWords(['common', 'inscription']).then(res => {
                 res.forEach(w => {
                     this.words.push(w);
@@ -50,8 +50,21 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
     }
 
-    buildControl(value: any) {
-        this.inscriptionForm = this._formBuilder.group(this.controls(value));
+    buildControl() {
+        this.inscriptionForm = this._formBuilder.group(this.controls());
+        this.inscriptionForm.valueChanges.subscribe(() => {
+            this.bindFormModel();
+        });
+    }
+
+    bindFormModel() {
+        for (let k in this.inscriptionForm.value) {
+            if (k === 'cfPassword') this[k] = this.inscriptionForm.value[k];
+            else {
+                this.user[k] = this.inscriptionForm.value[k];
+            }
+        }
+        this.user = new User({ ...this.user, ...this.inscriptionForm.value });
     }
 
     inscription() {
@@ -66,20 +79,20 @@ export class InscriptionComponent implements OnInit, OnDestroy {
                     this.valid = false;
                     switch (res.error) {
                         case 'Mail already taken':
-                        this.errors.push(this.words.find(w => w.msg_name === 'msg_mailTaken').value);
-                        this.mailTaken = true;
-                        break;
+                            this.errors.push(this.words.find(w => w.msg_name === 'msg_mailTaken').value);
+                            this.mailTaken = true;
+                            break;
                         case 'Pseudo already taken':
-                        this.errors.push(this.words.find(w => w.msg_name === 'msg_pseudoTaken').value);
-                        this.pseudoTaken = true;
-                        break;
+                            this.errors.push(this.words.find(w => w.msg_name === 'msg_pseudoTaken').value);
+                            this.pseudoTaken = true;
+                            break;
                     }
                 } else {
                     Swal({
                         title: 'Confirmation',
                         text: this.words.find(w => w.msg_name === 'msg_creationCompte').value,
                         type: 'success',
-                        confirmButtonText: 'OK',                        
+                        confirmButtonText: 'OK',
                     }).then(res => {
                         this._router.navigate(['/login']);
                     });

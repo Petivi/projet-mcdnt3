@@ -6,32 +6,32 @@
                 <div *ngFor="let er of errors">{{er}}</div>
             </div>
             <div class="input-field col s12">
-                <label for="lastname">{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}</label>
-                <input autofocus class="input-field" type="text" id="lastname" [(ngModel)]="user.lastname" formControlName="lastname">
+                <label>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}</label>
+                <input autofocus class="input-field" type="text" formControlName="lastname">
             </div>
             <div class="input-field col s12">
-                <label for="firstname">{{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}</label>
-                <input class="input-field" type="text" id="firstname" [(ngModel)]="user.firstname" formControlName="firstname">
+                <label>{{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}</label>
+                <input class="input-field" type="text" formControlName="firstname">
             </div>
             <div class="input-field col s12">
-                <label for="pseudo">Pseudo *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.pseudo.errors || pseudoTaken) }" type="text" id="pseudo"
-                    [(ngModel)]="user.pseudo" formControlName="pseudo">
+                <label>Pseudo *</label>
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.pseudo.errors || pseudoTaken) }"
+                    type="text" formControlName="pseudo">
             </div>
             <div class="input-field col s12">
-                <label for="mail">Mail *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.mail.errors || mailTaken) }" type="text" id="mail"
-                    [(ngModel)]="user.mail" formControlName="mail">
+                <label>Mail *</label>
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.mail.errors || mailTaken) }"
+                    type="text" formControlName="mail">
             </div>
             <div class="input-field col s12">
-                <label for="password">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && inscriptionForm.controls.password.errors }" type="password"
-                    id="password" [(ngModel)]="user.password" formControlName="password">
+                <label>{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
+                <input class="input-field" [ngClass]="{ 'invalid': submitted && inscriptionForm.controls.password.errors }"
+                    type="password" formControlName="password">
             </div>
             <div class="input-field col s12">
-                <label for="cfPassword">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
+                <label>{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
                 <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }"
-                    type="password" id="cfPassword" [(ngModel)]="cfPassword" formControlName="cfPassword">
+                    type="password" formControlName="cfPassword">
             </div>
             <div class="center col s12">
                 <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words

@@ -5,7 +5,8 @@
                 <div class="card-content">
                     <div class="center row">
                         <div class="col s12 center">
-                            <button (click)="(editMode = true)" class="btn">{{(words | filter : {msg_name: 'msg_modifCompte'}
+                            <button (click)="(editMode = true)" class="btn">{{(words | filter : {msg_name:
+                                'msg_modifCompte'}
                                 : {col : 'value'})}}</button>
                         </div>
                     </div>
@@ -15,35 +16,38 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col s6" for="lastname">{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}</label>
+                        <label class="col s6" for="lastname">{{(words | filter : {msg_name: 'msg_name'} : {col :
+                            'value'})}}</label>
                         <span class="col s6" *ngIf="!editMode">{{userConnected.lastname}}</span>
                         <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="lastname" id="lastname" [(ngModel)]="newUser.lastname">
+                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="lastname" id="lastname">
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col s6" for="firstname">{{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}</label>
+                        <label class="col s6" for="firstname">{{(words | filter : {msg_name: 'msg_firstname'} : {col :
+                            'value'})}}</label>
                         <span class="col s6" *ngIf="!editMode">{{userConnected.firstname}}</span>
                         <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="firstname" id="firstname" [(ngModel)]="newUser.firstname">
+                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="firstname" id="firstname">
                         </div>
                     </div>
                     <div class="row">
                         <label class="col s6" for="pseudo">Pseudo</label>
                         <span class="col s6" *ngIf="!editMode">{{userConnected.pseudo}}</span>
                         <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="pseudo" id="pseudo" [(ngModel)]="newUser.pseudo">
+                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="pseudo" id="pseudo">
                         </div>
                     </div>
                     <div class="row">
                         <label class="col s6" for="mail">Mail</label>
                         <span class="col s6" *ngIf="!editMode">{{userConnected.mail}}</span>
                         <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="mail" id="mail" [(ngModel)]="newUser.mail">
+                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="mail" id="mail">
                         </div>
                     </div>
                     <div class="center row">
-                        <button *ngIf="editMode" (click)="sendUser()" class="btn center">{{(words | filter : {msg_name: 'msg_enregistrer'}
+                        <button *ngIf="editMode" (click)="sendUser()" class="btn center">{{(words | filter : {msg_name:
+                            'msg_enregistrer'}
                             : {col : 'value'})}}</button>
                     </div>
                 </div>
@@ -54,7 +58,8 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="col s12 center">
-                            <button (click)="(changePass = true)" class="btn">{{(words | filter : {msg_name: 'msg_changePass'}
+                            <button (click)="(changePass = true)" class="btn">{{(words | filter : {msg_name:
+                                'msg_changePass'}
                                 : {col : 'value'})}}</button>
                         </div>
                     </div>
@@ -68,7 +73,8 @@
                             <label>{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}}</label>
                         </div>
                         <div class="col s6">
-                            <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.oldPassword.errors || wrongPass) }" class="inputPerso" type="password" formControlName="oldPassword" [(ngModel)]="oldPassword">
+                            <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.oldPassword.errors || wrongPass) }"
+                                class="inputPerso" type="password" formControlName="oldPassword">
                         </div>
                     </div>
                     <div class="row" *ngIf="changePass">
@@ -76,7 +82,8 @@
                             <label>{{(words | filter : {msg_name: 'msg_newPassword'} : {col : 'value'})}}</label>
                         </div>
                         <div class="col s6">
-                            <input [ngClass]="{ 'invalid': submitted && infoUserForm.controls.passwordGroup.controls.newPassword.errors }" class="inputPerso" type="password" formControlName="newPassword" [(ngModel)]="newPassword">
+                            <input [ngClass]="{ 'invalid': submitted && infoUserForm.controls.passwordGroup.controls.newPassword.errors }"
+                                class="inputPerso" type="password" formControlName="newPassword">
                         </div>
                     </div>
                     <div class="row" *ngIf="changePass">
@@ -84,12 +91,14 @@
                             <label>{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}}</label>
                         </div>
                         <div class="col s6">
-                            <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.cfPassword.errors || wrongCf) }" class="inputPerso" type="password" formControlName="cfPassword" [(ngModel)]="cfPassword">
+                            <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.cfPassword.errors || wrongCf) }"
+                                class="inputPerso" type="password" formControlName="cfPassword">
                         </div>
                     </div>
                     <div class="row" *ngIf="changePass">
                         <div class="col s12 center">
-                            <button (click)="sendPass()" class="btn">{{(words | filter : {msg_name: 'msg_enregistrer'} :
+                            <button (click)="sendPass()" class="btn">{{(words | filter : {msg_name: 'msg_enregistrer'}
+                                :
                                 {col : 'value'})}}</button>
                         </div>
                     </div>

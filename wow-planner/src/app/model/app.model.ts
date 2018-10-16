@@ -6,6 +6,13 @@ export class User {
     password: string;
     id: string;
     session_token: string;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }
 
 export class Word {
@@ -14,9 +21,23 @@ export class Word {
     msg_en: string;
     page: string;
     pseudo: any;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }
 
 export class WordSimplified {
     msg_name: string;
     value: string;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }

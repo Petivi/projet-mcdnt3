@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.langue = this._appService.getLangue();
         this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
-            console.log(res)
             this.userConnected = res;
         });
         this.getPageWords();

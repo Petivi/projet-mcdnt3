@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     this.words.push(w);
                 });
                 console.log(this.words)
-                this.buildControl({});
+                this.buildControl();
                 if (this._router.url === ('/login/confirm')) { // si l'utilisateur a cliqué sur le lien pour activer son compte
                     Swal({
                         title: 'Confirmation',
@@ -74,8 +74,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     }
 
-    buildControl(value: any) {
-        this.loginForm = this._formBuilder.group(this.controls(value));
+    buildControl() {
+        this.loginForm = this._formBuilder.group(this.controls());
+        this.loginForm.valueChanges.subscribe(() => {
+            this.bindModelForm();
+        });
+    }
+
+    bindModelForm() {
+        for (let k in this.loginForm.get('loginGroup').value) {
+            this.user[k] = this.loginForm.get('loginGroup').value[k];
+        }
+        for (let k in this.loginForm.get('newPassGroup').value) {
+            this[k] = this.loginForm.get('newPassGroup').value[k];
+        }
     }
 
     login() {

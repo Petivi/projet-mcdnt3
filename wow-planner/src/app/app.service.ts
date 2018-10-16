@@ -84,7 +84,7 @@ export class AppService {
                     returnRes.response.session_token = JSON.parse(value).session_token;
                     return returnRes.response;
                 } else {
-                    console.log('oui')
+                    localStorage.removeItem('userConnected');
                     return null;
                 }
             });

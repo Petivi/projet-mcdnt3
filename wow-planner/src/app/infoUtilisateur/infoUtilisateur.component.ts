@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 import { AppService } from '../app.service';
 
 import { WordSimplified, User } from '../model/app.model';
-import Swal from 'sweetalert2';
 
 @Component({
     selector: 'info-utilisateur-cpt',
@@ -26,17 +26,17 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
     cfPassword: string;
     newPassword: string;
     infoUserForm: FormGroup;
-    controls = (value: any = {}) => ({
+    controls = () => ({
         profileGroup: this._formBuilder.group({
-            firstname: [value.firstname],
-            lastname: [value.lastname],
-            pseudo: [value.pseudo],
-            mail: [value.mail],
+            firstname: [this.newUser && this.newUser.firstname ? this.newUser.firstname : ''],
+            lastname: [this.newUser && this.newUser.lastname ? this.newUser.lastname : ''],
+            pseudo: [this.newUser && this.newUser.pseudo ? this.newUser.pseudo : ''],
+            mail: [this.newUser && this.newUser.mail ? this.newUser.mail : ''],
         }),
         passwordGroup: this._formBuilder.group({
-            oldPassword: [value.password, Validators.required],
-            newPassword: [value.newPassword, Validators.required],
-            cfPassword: [value.cfPassword, Validators.required],
+            oldPassword: [this.oldPassword && this.oldPassword ? this.oldPassword : '', Validators.required],
+            newPassword: [this.newPassword && this.newPassword ? this.newPassword : '', Validators.required],
+            cfPassword: [this.cfPassword && this.cfPassword ? this.cfPassword : '', Validators.required],
         })
     });
     constructor(private _appService: AppService, private _router: Router, private _formBuilder: FormBuilder) { }
@@ -49,7 +49,7 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
                 this.userConnected = res;
                 this.newUser = Object.assign({}, this.userConnected);
                 this._appService.setPage('inscription');
-                this.buildControl({});
+                this.buildControl();
                 this._appService.getWords(['common', 'infoUser']).then(res => {
                     res.forEach(w => {
                         this.words.push(w);
@@ -63,15 +63,27 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
 
     }
 
-    buildControl(value: any) {
-        this.infoUserForm = this._formBuilder.group(this.controls(value));
+    buildControl() {
+        this.infoUserForm = this._formBuilder.group(this.controls());
+        this.infoUserForm.valueChanges.subscribe(() => {
+            this.bindFormModel();
+        });
+    }
+
+    bindFormModel() {
+        for (let k in this.infoUserForm.get('profileGroup').value) {
+            this.newUser[k] = this.infoUserForm.get('profileGroup').value[k];
+        }
+        for (let k in this.infoUserForm.get('passwordGroup').value) {
+            this[k] = this.infoUserForm.get('passwordGroup').value[k];
+        }
     }
 
     sendUser() {
         this.submitted = true;
         this.editMode = false;
-        this._appService.post('action/editUserInfo.php', { user: this.userConnected, newUser: this.newUser }).then(res => {
-            if(res.response) {
+        this._appService.post('action/editUserInfo.php', { user: this.userConnected, newUser: this.newUser, lang: this._appService.getLangue()}).then(res => {
+            if (res.response) {
                 this.userConnected = Object.assign({}, this.newUser);
             }
         });
