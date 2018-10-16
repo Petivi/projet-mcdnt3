@@ -36,7 +36,7 @@ if(isset($request->mail)){
     // user found according to mail
     if($user_exists){
       $token_temp = generateTokenTemp();
-      $date_token_created = strtotime(date('d-m-Y'));
+      $date_token_created = strtotime(date('d-m-Y H:i:s'));
 
       try {
         $update_token_temp = 'UPDATE users

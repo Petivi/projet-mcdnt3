@@ -2,65 +2,15 @@
 require_once('../config.php');
 include "../includedFiles.php";
 
-
-if(isset($request)){
-  $request = $request->pseudo;
-}
-  if(isset($request->lastname)){
-    $lastname = htmlspecialchars($request->lastname, ENT_QUOTES);
-  }else{
-    $lastname = "";
-  }
-  if(isset($request->firstname)){
-    $firstname = htmlspecialchars($request->firstname, ENT_QUOTES);
-  }else{
-    $firstname = "";
-  }
-  if(isset($request->pseudo)){
-    $pseudo = htmlspecialchars($request->pseudo, ENT_QUOTES);
-  }else{
-    $pseudo = "";
-  }
-  if(isset($request->mail)){
-    $mail = htmlspecialchars($request->mail, ENT_QUOTES);
-  }else{
-    $mail = "";
-  }
-  if(isset($request->id)){
-    $id = htmlspecialchars($request->id, ENT_QUOTES);
-  }else{
-    $id = "";
-  }
-  if(isset($request->session_token)){
-    $session_token = htmlspecialchars($request->session_token, ENT_QUOTES);
-  }else{
-    $session_token = "";
-  }
+$tabUser = getPostInfo($request->pseudo);
 
 
   // if admin
-  if(accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail, $session_token)){
+  if(accessToAdminPermissions($tabUser['id'], $tabUser['lastname'], $tabUser['firstname'], $tabUser['pseudo'], $tabUser['mail'], $tabUser['session_token'])){
     // get message name and its translations + page to display on
-    if(isset($request->msg_name)){
-      $msg_name = htmlspecialchars($request->msg_name, ENT_QUOTES);
-    }else{
-      $msg_name = "";
-    }
-    if(isset($request->msg_fr)){
-      $msg_fr = htmlspecialchars($request->msg_fr, ENT_QUOTES);
-    }else{
-      $msg_fr = "";
-    }
-    if(isset($request->msg_en)){
-      $msg_en = htmlspecialchars($request->msg_en, ENT_QUOTES);
-    }else{
-      $msg_en = "";
-    }
-    if(isset($request->page)){
-      $page = htmlspecialchars($request->page, ENT_QUOTES);
-    }else{
-      $page = "";
-    }
+
+    $tabUser = getPostInfo($request);
+
 
     $words = false;
     $check_msg_exists = 'SELECT * FROM messages WHERE msg_name LIKE :msg_name AND page LIKE :page';
@@ -96,3 +46,4 @@ if(isset($request)){
 
 
  ?>
+$tabUser['mail']
