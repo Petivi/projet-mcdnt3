@@ -6,7 +6,11 @@ include "../includedFiles.php";
 
 if(isset($request->mail)){
   $mail = htmlspecialchars($request->mail, ENT_QUOTES);
-  $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+  if(isset($request->lang)){
+    $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+  }else {
+    $lang = "en";
+  }
 
   $get_user_info = 'SELECT * FROM users WHERE mail LIKE :mail AND checked_mail LIKE 0 AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);

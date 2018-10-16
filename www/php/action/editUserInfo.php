@@ -64,6 +64,12 @@ if(isset($requestUser->session_token)){
   $session_token = "";
 }
 
+if(isset($request->lang)){
+  $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+}else {
+  $lang = "en";
+}
+
 
 $user_exists = false;
 try {
@@ -87,37 +93,80 @@ try {
 
 
 if($user_exists){
-  try {
-    $update_user_info = 'UPDATE users
-    SET lastname = :newLastname,
-    firstname = :newFirstname,
-    pseudo = :newPseudo,
-    mail = :newMail
-    WHERE id LIKE :id
-    AND active_account LIKE 1
-    AND lastname LIKE :lastname
-    AND firstname LIKE :firstname
-    AND pseudo LIKE :pseudo
-    AND mail LIKE :mail
-    AND session_token LIKE :session_token';
-    $update_user_info = $base->prepare($update_user_info);
-    $update_user_info->bindValue('id', $id, PDO::PARAM_INT);
-    $update_user_info->bindValue('newLastname', $newLastname, PDO::PARAM_STR);
-    $update_user_info->bindValue('newFirstname', $newFirstname, PDO::PARAM_STR);
-    $update_user_info->bindValue('newPseudo', $newPseudo, PDO::PARAM_STR);
-    $update_user_info->bindValue('newMail', $newMail, PDO::PARAM_STR);
-    $update_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
-    $update_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
-    $update_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-    $update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
-    $update_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
-    $update_user_info->execute();
-    echo returnResponse($display_response_info_changed);
-  } catch (\Exception $e) {
-    echo returnError($display_error_error_occured);
-    exit();
-  }
-}else {
+
+  if(returnCheckPseudo($newPseudo, $id)){
+    echo returnError($display_error_pseudo_taken);
+  }else {
+
+    if (returnCheckMail($newMail, $id)) {
+      echo returnError($display_error_mail_taken);
+    }else {
+
+      try {
+        $update_user_info = 'UPDATE users
+        SET lastname = :newLastname,
+        firstname = :newFirstname,
+        pseudo = :newPseudo
+        WHERE id LIKE :id
+        AND active_account LIKE 1
+        AND lastname LIKE :lastname
+        AND firstname LIKE :firstname
+        AND pseudo LIKE :pseudo
+        AND mail LIKE :mail
+        AND session_token LIKE :session_token';
+        $update_user_info = $base->prepare($update_user_info);
+        $update_user_info->bindValue('id', $id, PDO::PARAM_INT);
+        $update_user_info->bindValue('newLastname', $newLastname, PDO::PARAM_STR);
+        $update_user_info->bindValue('newFirstname', $newFirstname, PDO::PARAM_STR);
+        $update_user_info->bindValue('newPseudo', $newPseudo, PDO::PARAM_STR);
+        $update_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
+        $update_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
+        $update_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+        $update_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+        $update_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
+        $update_user_info->execute();
+        echo returnResponse($display_response_info_changed);
+      } catch (\Exception $e) {
+        echo returnError($display_error_error_occured);
+        exit();
+      }
+
+      if($mail != $newMail){
+        try {
+          $token_temp = generateTokenTemp();
+          $date_token_created = strtotime(date('d-m-Y H:i:s'));
+          $update_user_mail = 'UPDATE users
+          SET mail = :newMail,
+          checked_mail = 0,
+          date_token_created = :date_token_created,
+          token_temp = :token_temp
+          WHERE id LIKE :id
+          AND active_account LIKE 1
+          AND mail LIKE :mail
+          AND session_token LIKE :session_token';
+          $update_user_mail = $base->prepare($update_user_mail);
+          $update_user_mail->bindValue('id', $id, PDO::PARAM_INT);
+          $update_user_mail->bindValue('newMail', $newMail, PDO::PARAM_STR);
+          $update_user_mail->bindValue('mail', $oldMail, PDO::PARAM_STR);
+          $update_user_mail->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
+          $update_user_mail->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
+          $update_user_mail->bindValue('session_token', $session_token, PDO::PARAM_STR);
+          $update_user_mail->execute();
+          
+          addToRequestsList($account_id, $account_lastname, $account_firstname, $account_pseudo, $newMail, $token_temp, $request_type_edit_mail, $date_token_created);
+          sendMailEditMail($account_lastname, $account_firstname, $account_pseudo, $newMail, $token_temp, $lang);
+          echo returnResponse($display_response_mail_sent);
+        } catch (\Exception $e) {
+          echo returnError($display_error_error_occured);
+          exit();
+        }
+      }
+
+
+    } // mail unique
+  } // pseudo unique
+
+}else { // user doesn't exists
   echo returnError($display_error_empty);
   exit();
 }

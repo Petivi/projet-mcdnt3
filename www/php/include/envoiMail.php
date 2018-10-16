@@ -64,6 +64,32 @@ function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $la
 
 $mailin->send_email($data);
 }
+
+
+function sendMailEditMail($lastname, $firstname, $pseudo, $mail, $token_temp, $lang){
+  global $sendinblue_access_key;
+  global $mail_no_reply;
+  global $app_name;
+  global $uri_activate_account;
+  global $urlServer;
+  $activateLink = $urlServer.$uri_activate_account;
+  if($lang == "fr"){
+    $subject = "Edition du mail";
+    $html = "Bonjour ".$pseudo.", veuillez <a href='".$activateLink."?token=".$token_temp."'>Cliquez sur ce lien pour vérifier votre nouvelle adresse mail</a>";
+  }else {
+    $subject = "Mail edit";
+    $html = "Hello ".$pseudo.", please <a href='".$activateLink."?token=".$token_temp."'>Click on that link to verify your new mail adress</a>";
+  }
+  require('../PHPMail/V2.0/Mailin.php');
+  $mailin = new Mailin('https://api.sendinblue.com/v2.0', $sendinblue_access_key, 5000);    //Optional parameter: Timeout in MS
+  $data = array( "to" => array($mail=>$lastname." ".$firstname),
+  "from" => array($mail_no_reply, $app_name),
+  "subject" => $subject,
+  "html" => $html
+);
+
+$mailin->send_email($data);
+}
 // var_dump($mailin->get_account());
 
 
@@ -86,6 +112,33 @@ function sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $
     $subject = "Password reset";
     $html = "Hello ".$pseudo.", please <a href='".$activateLink."/".$token_temp."'>Click on that link to reset your password</a>
     <br>Your link is available ".$nb_jour_token_expiration;
+  }
+  require('../PHPMail/V2.0/Mailin.php');
+  $mailin = new Mailin('https://api.sendinblue.com/v2.0', $sendinblue_access_key, 5000);    //Optional parameter: Timeout in MS
+  $data = array( "to" => array($mail=>$lastname." ".$firstname),
+  "from" => array($mail_no_reply, $app_name),
+  "subject" => $subject,
+  "html" => $html
+);
+
+$mailin->send_email($data);
+}
+
+
+function sendMailUnsubscribe($lastname, $firstname, $pseudo, $mail, $token_temp, $lang){
+  global $sendinblue_access_key;
+  global $mail_no_reply;
+  global $app_name;
+  global $uri_reset_password;
+  global $urlServer;
+  global $nb_jour_token_expiration;
+
+  if($lang == "fr"){
+    $subject = "Suppression de compte";
+    $html = "Bonjour ".$pseudo.", nous vous confirmons la suppression de votre compte";
+  }else {
+    $subject = "Password reset";
+    $html = "Hello ".$pseudo.", we confirm to you that your account has been successfully deleted";
   }
   require('../PHPMail/V2.0/Mailin.php');
   $mailin = new Mailin('https://api.sendinblue.com/v2.0', $sendinblue_access_key, 5000);    //Optional parameter: Timeout in MS

@@ -24,6 +24,7 @@ $display_response_empty = '';
 // request_type
 $request_type_new_account = "New Account";
 $request_type_new_mail_confirm = "New Mail Confirm";
+$request_type_edit_mail = "Edit Mail";
 $request_type_password_reset = "Password Reset";
 $request_type_unsubscribe = "Account Unsubscribe";
 
@@ -82,6 +83,7 @@ function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail, $s
 
 // generate a token for mails
 function generateTokenTemp(){
+  global $base;
   $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789-";
   $a1 = "";
   $a2 = "";
@@ -95,6 +97,23 @@ function generateTokenTemp(){
   }
   $token_temp = $a1 . "-" . $a2 . "-" . $a3;
   return $token_temp;
+
+  $existing_token = false;
+  $check_token_existing = 'SELECT * FROM users WHERE token_temp LIKE :token_temp AND active_account LIKE (0 OR 1)';
+  $check_token_existing = $base->prepare($check_token_existing);
+  $check_token_existing->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
+  $check_token_existing->execute();
+  while($token_existing = $check_token_existing->fetch())
+  {
+    // pseudo already taken
+    $existing_token = true;
+  }
+
+  if(!$existing_token){
+    return $token_temp;
+  }else {
+    generateTokenTemp();
+  }
 }
 
 // generate a session token
@@ -184,5 +203,41 @@ function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_te
   $add_to_requests_list->execute();
 }
 
+
+function returnCheckMail($mail, $id){
+  global $base;
+  // sql request to check if mail is already taken
+   $existing_mail = false;
+   $check_mail_user = 'SELECT * FROM users WHERE mail LIKE :mail AND id NOT LIKE :id AND active_account LIKE (0 OR 1)';
+   $check_mail_user = $base->prepare($check_mail_user);
+   $check_mail_user->bindValue('mail', $mail, PDO::PARAM_STR);
+   $check_mail_user->bindValue('id', $id, PDO::PARAM_INT);
+   $check_mail_user->execute();
+   while($mail_user = $check_mail_user->fetch())
+   {
+     // mail already taken
+     $existing_mail = true;
+   }
+
+   return $existing_mail;
+}
+
+function returnCheckPseudo($pseudo, $id){
+  global $base;
+  // check if pseudo is already taken
+  $existing_pseudo = false;
+  $check_pseudo_user = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND id NOT LIKE :id AND active_account LIKE (0 OR 1)';
+  $check_pseudo_user = $base->prepare($check_pseudo_user);
+  $check_pseudo_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+  $check_pseudo_user->bindValue('id', $id, PDO::PARAM_INT);
+  $check_pseudo_user->execute();
+  while($pseudo_user = $check_pseudo_user->fetch())
+  {
+    // pseudo already taken
+    $existing_pseudo = true;
+  }
+
+   return $existing_pseudo;
+}
 
  ?>

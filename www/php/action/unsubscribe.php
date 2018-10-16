@@ -10,6 +10,12 @@ if(isset($request->session_token)){
   $session_token = "";
 }
 
+if(isset($request->lang)){
+  $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+}else {
+  $lang = "en";
+}
+
 $user_exists = false;
 $get_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token AND checked_mail LIKE 1 AND active_account LIKE 1';
 $get_user_info = $base->prepare($get_user_info);
@@ -42,6 +48,7 @@ if($user_exists){
     $date_action = strtotime(date('d-m-Y H:i:s'));
     $token_temp = "";
     addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type_unsubscribe, $date_action);
+    sendMailUnsubscribe($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
     echo returnResponse($display_response_account_deleted);
   } catch (\Exception $e) {
     echo returnError($display_error_error_occured);

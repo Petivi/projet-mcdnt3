@@ -57,64 +57,31 @@ if(isset($requestUser->password)){
 
   // get user lang
   // check if lang exists
-    if(isset($request->lang)){
-      $lang = htmlspecialchars($request->lang, ENT_QUOTES);
-    }else{
-      $lang = "";
-    }
+  if(isset($request->lang)){
+    $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+  }else {
+    $lang = "en";
+  }
 
-// sql request to check if mail is already taken
- $existing_mail = false;
- $check_mail_user = 'SELECT * FROM users WHERE mail LIKE :mail AND active_account LIKE (0 OR 1)';
- $check_mail_user = $base->prepare($check_mail_user);
- $check_mail_user->bindValue('mail', $mail, PDO::PARAM_STR);
- $check_mail_user->execute();
- while($mail_user = $check_mail_user->fetch())
- {
-   // mail already taken
-   $existing_mail = true;
- }
 
- if($existing_mail){  // mail taken
+ if(returnCheckMail($mail, 0)){  // mail taken
    echo returnError($display_error_mail_taken);
    exit();
  }else {  // mail not taken
 
-   $existing_pseudo = false;
-   $check_pseudo_user = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND active_account LIKE (0 OR 1)';
-   $check_pseudo_user = $base->prepare($check_pseudo_user);
-   $check_pseudo_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-   $check_pseudo_user->execute();
-   while($pseudo_user = $check_pseudo_user->fetch())
-   {
-     // pseudo already taken
-     $existing_pseudo = true;
-   }
-
-   if($existing_pseudo){ // pseudo taken
+   if(returnCheckPseudo($pseudo, 0)){ // pseudo taken
      echo returnError($display_error_pseudo_taken);
      exit();
    }else { // pseudo not taken
      $token_temp = generateTokenTemp();
 
-     $token_unique = true;
-     // check if activation code is unique
-     $check_token_temp = 'SELECT * FROM users WHERE token_temp LIKE :token_temp';
-     $check_token_temp = $base->prepare($check_token_temp);
-     $check_token_temp->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
-     $check_token_temp->execute();
-     while($check_code = $check_token_temp->fetch())
-     {
-       $token_unique = false;
-     }
-
      // activation code is unique
-     if($token_unique){
+     if($token_temp){
        $mail_sent = false;
        try {
          $created_date = strtotime(date('d-m-Y'));
          $active_account = 1; // 1 = active account and 0 = locked account
-         $date_token_created = strtotime(date('d-m-Y'));
+         $date_token_created = strtotime(date('d-m-Y H:i:s'));
          $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, created_date, mail, active_account, token_temp, date_token_created)
          VALUES (:lastname, :firstname, :pseudo, :password, :created_date, :mail, :active_account, :token_temp, :date_token_created)';
          $insert_new_user = $base->prepare($insert_new_user);
