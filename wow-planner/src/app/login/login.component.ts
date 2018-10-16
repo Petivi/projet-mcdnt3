@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -15,13 +15,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     errors: string[] = [];
     words: WordSimplified[] = [];
     newPassword: string;
+    mail: string = '';
     cfPassword: string;
     token: string;
+    nouveauMail: boolean = false;
     newPass: boolean = false;
     linkMail: boolean = false;
     activGrowl: boolean = false;
     msgGrowl: any;
-    newMailSent: boolean = false;
     mailResetPass: boolean = false;
     reinitPass: boolean = false;
     valid: boolean = true;
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         loginGroup: this._formBuilder.group({
             login: [value.login, Validators.required],
             password: [value.password, Validators.required],
+            mail: [this.mail ? this.mail : ''],
         }),
         newPassGroup: this._formBuilder.group({
             newPassword: [value.newPassword, Validators.required],
@@ -83,7 +85,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     bindModelForm() {
         for (let k in this.loginForm.get('loginGroup').value) {
-            this.user[k] = this.loginForm.get('loginGroup').value[k];
+            if (k === 'mail') {
+                this.mail = this.loginForm.get('loginGroup').value[k];
+            } else {
+                this.user[k] = this.loginForm.get('loginGroup').value[k];
+            }
         }
         for (let k in this.loginForm.get('newPassGroup').value) {
             this[k] = this.loginForm.get('newPassGroup').value[k];
@@ -131,6 +137,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (e.key === 'Enter') {
             if (this.newPass) {
                 this.newMdp();
+            } else if (this.nouveauMail) {
+                this.sendNewMail();
             } else {
                 this.login();
             }
@@ -145,7 +153,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             confirmButtonText: 'OK', // faire les text des swal
             cancelButtonText: this.words.find(w => w.msg_name === 'msg_cancel').value,
         }).then(res => {
-            this.newMailSent = false;
+            this.user = false;
             if (!res.dismiss) {
                 if (res.value) {
                     if (type === 0) {
@@ -154,9 +162,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                                 if (!res.error) {
                                     this.errors.splice(this.errors.findIndex(e => e === this.words.find(w => w.msg_name === 'msg_notActivated').value), 1);
                                     if (this.errors.length === 0) this.valid = true;
-                                    this.newMailSent = true;
+                                    this.user = true;
                                     setTimeout(() => {
-                                        this.newMailSent = false;
+                                        this.user = false;
                                     }, 10000);
                                 } else {
                                     this.newMail(0);
@@ -214,5 +222,21 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.valid = false;
             this.errors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);
         }
+    }
+
+    mailInvalide() {
+        this.nouveauMail = true;
+        this.errors = [];
+        this.valid = true;
+
+    }
+
+    sendNewMail() {
+        this.user.mail = this.mail;
+        console.log(this.user)
+        this._appService.post('action/resetMail.php', { user: this.user, lang: this._appService.getLangue() })
+            .then(res => {
+                console.log(res)
+            });
     }
 }
