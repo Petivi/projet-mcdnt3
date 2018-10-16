@@ -32,8 +32,8 @@ if(accessToAdminPermissions($tabUser['session_token'])){
         'firstname' => $user_list['firstname'],
         'mail' => $user_list['mail'],
         'pseudo' => $user_list['pseudo'],
-        'created_date' => date('d-m-y H:i:s',$user_list['created_date']),
-        'last_connection' => date('d-m-y H:i:s,'$user_list['last_connection']),
+        'created_date' => date('d-m-y H:i:s', $user_list['created_date']),
+        'last_connection' => date('d-m-y H:i:s', $user_list['last_connection']),
         'active_account' => $user_list['active_account'],
         'checked_mail' => $user_list['checked_mail']
       ));
