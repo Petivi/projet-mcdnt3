@@ -5,7 +5,7 @@
 if(is_file('../../config.php')){
   require_once('../../config.php');
 }else {
-  require_once('../config');
+  require_once('../config.php');
 }
 
 # ------------------
