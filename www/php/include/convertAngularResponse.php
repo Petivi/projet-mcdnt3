@@ -80,6 +80,7 @@ function getPostInfo($req){
     "id" => $id,
     "lang" => $lang,
     "session_token" => $session_token,
+    "login" => $login,
     "msg_name" => $msg_name,
     "msg_fr" => $msg_fr,
     "msg_en" => $msg_en,
