@@ -2,7 +2,7 @@
 require_once('../config.php');
 include "../includedFiles.php";
 
-$tabUser = getPostInfo($request);
+$tabUser = getPostInfo($request->user);
 if(isset($request->lang)){
   $lang = htmlspecialchars($request->lang, ENT_QUOTES);
 }else {
@@ -11,8 +11,8 @@ if(isset($request->lang)){
 
 
 // get password that user tried
-if(isset($request->password)){
-  $password_tried = htmlspecialchars($request->password, ENT_QUOTES);
+if(isset($request->user->password)){
+  $password_tried = htmlspecialchars($request->user->password, ENT_QUOTES);
 }else {
   return returnError($display_error_empty_field);
   exit();
