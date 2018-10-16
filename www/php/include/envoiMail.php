@@ -1,13 +1,24 @@
 <?php
 
-require_once('../config.php');
+// require_once('../config.php');
+
+if(is_file('../../config.php')){
+  require_once('../../config.php');
+}else {
+  require_once('../config');
+}
 
 # ------------------
 # Create a campaign\
 # ------------------
 
 # Include the SendinBlue library\
-require_once("../vendor/autoload.php");
+// require_once("../vendor/autoload.php");
+if(is_file('../../vendor/autoload.php')){
+  require_once('../../vendor/autoload.php');
+}else {
+  require_once('../vendor/autoload.php');
+}
 
 # Instantiate the client\
 SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey("api-key", $sendinblue_api_key);
