@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12 center">
+            <div class="row">
+                <h1 class="col s12">GESTION DE COMPTE</h1>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <table class="highlight centered">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Pseudo</th>
+                                <th>Mail</th>
+                                <th>Création du compte</th>
+                                <th>Derniere connexion</th>
+                                <th>Compte activé</th>
+                                <th>Mail confirmé</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            <tr *ngFor="let u of users">
+                                <td>{{u.lastname}}</td>
+                                <td>{{u.firstname}}</td>
+                                <td>{{u.pseudo}}</td>
+                                <td>{{u.mail}}</td>
+                                <td>{{u.created_date}}</td>
+                                <td>{{u.last_connection}}</td>
+                                <td>{{u.active_account}}</td>
+                                <td>{{u.checked_mail}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

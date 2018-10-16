@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { PersonnageComponent } from './personnage/personnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
+import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
 
 import { FilterPipe } from './common/pipe/string.pipe';
 
@@ -36,6 +37,7 @@ import { FilterPipe } from './common/pipe/string.pipe';
         PersonnageComponent,
         RechercheComponent,
         CreationPersonnageComponent,
+        GestionCompteComponent,
     ],
     imports: [
         BrowserModule,

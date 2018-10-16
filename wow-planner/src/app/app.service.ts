@@ -90,9 +90,6 @@ export class AppService {
             });
     }
 
-
-
-
     deconnexion() {
         if (localStorage.getItem('userConnected')) {
             this.getUserConnected(localStorage.getItem('userConnected')).then(res => {

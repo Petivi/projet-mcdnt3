@@ -225,6 +225,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     mailInvalide() {
+        this.mailResetPass = false;
         this.nouveauMail = true;
         this.errors = [];
         this.valid = true;
@@ -232,11 +233,36 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     sendNewMail() {
+        this.errors = [];
+        this.valid = true;
         this.user.mail = this.mail;
-        console.log(this.user)
         this._appService.post('action/resetMail.php', { user: this.user, lang: this._appService.getLangue() })
             .then(res => {
-                console.log(res)
+                if(res.response) {
+                    this.nouveauMail = false;
+                    this.mailResetPass = true;
+                } else {
+                    this.valid = false;
+                    this.mailResetPass = false;
+                    if(res.error === 'Account Suspended') {
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_suspended').value);
+                    }
+                    if(res.error === 'Account Deleted') {
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_deleted').value);
+                    }
+                    if(res.error === 'Mail already taken') {
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_mailTaken').value);
+                    }
+                    if(res.error === 'Account Activated') {
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_accountActivated').value);
+                    }
+                    if(res.error === 'Wrong pseudo/password') {
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_wrongLoginPassword').value);
+                    }
+                    if(res.error === 'An Error Occured') {
+                        this.errors.push(this.words.find(w => w.msg_name === 'msg_errorUnknown').value);
+                    }
+                }
             });
     }
 }

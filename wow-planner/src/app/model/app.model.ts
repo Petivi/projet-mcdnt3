@@ -6,6 +6,10 @@ export class User {
     password: string;
     id: string;
     session_token: string;
+    active_account:string;
+    checked_mail:string;
+    created_date:string;
+    last_connection:string;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {

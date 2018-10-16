@@ -67,3 +67,6 @@
 .inputPerso {
     height: 2rem!important;
 }
+table.highlight tbody tr:hover{
+    background-color: rgba(181, 181, 181, 0.5);
+}

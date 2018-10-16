@@ -16,17 +16,17 @@
                     {{(words | filter : {msg_name: 'msg_sendNewMail'} : {col : 'value'})}}
                 </div>
                 <div class="input-field col s12">
-                    <label>Pseudo / mail *</label>
+                    <label class="active">Pseudo / mail *</label>
                     <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.login.errors }"
                         type="text" formControlName="login">
                 </div>
                 <div class="input-field col s12">
-                    <label>{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
+                    <label class="active">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
                     <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.password.errors }"
                         type="password" formControlName="password">
                 </div>
                 <div class="input-field col s12" *ngIf="nouveauMail">
-                    <label>Mail *</label>
+                    <label class="active">Mail *</label>
                     <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.mail.errors }"
                         type="text" formControlName="mail">
                 </div>
@@ -64,12 +64,12 @@
                 <div class="success" *ngIf="reinitPass">{{(words | filter : {msg_name: 'msg_passwordChanged'} : {col :
                     'value'})}}</div>
                 <div class="input-field col s12">
-                    <label>{{(words | filter : {msg_name: 'msg_newPassword'} : {col : 'value'})}}</label>
+                    <label class="active">{{(words | filter : {msg_name: 'msg_newPassword'} : {col : 'value'})}}</label>
                     <input autofocus class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('newPassGroup').controls.newPassword.errors }"
                         type="password" formControlName="newPassword">
                 </div>
                 <div class="input-field col s12">
-                    <label>{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
+                    <label class="active">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
                     <input class="input-field" [ngClass]="{ 'invalid': submitted && loginForm.get('newPassGroup').controls.cfPassword.errors }"
                         type="password" formControlName="cfPassword">
                 </div>
