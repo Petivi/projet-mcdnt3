@@ -12,7 +12,7 @@ $display_error_account_deleted = 'Account Deleted';
 $display_error_account_not_activated = 'Account not activated';
 $display_error_wrong_pseudo_password = 'Wrong pseudo/password';
 $display_error_empty_field = 'Verify Empty Fields';
-$display_error_mail_activated = 'Mail Already Activated';
+$display_error_account_activated = 'Account Already Activated';
 $display_error_empty = '';
 // success
 $display_response_mail_sent = 'Mail Sent';
@@ -52,23 +52,14 @@ function returnResponse($responseMessage){
 
 
 //check if user has admin permissions
-function accessToAdminPermissions($id, $lastname, $firstname, $pseudo, $mail, $session_token){
+function accessToAdminPermissions($session_token){
   global $base;
   $userExists = false;
   $get_user_info = 'SELECT * FROM users
-   WHERE id LIKE :id
-   AND lastname LIKE :lastname
-   AND firstname LIKE :firstname
-   AND pseudo LIKE :pseudo
-   AND mail LIKE :mail
-   AND session_token LIKE :session_token
-   AND active_account LIKE 1';
+   WHERE session_token LIKE :session_token
+   AND active_account LIKE 1
+   AND checked_mail LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
-  $get_user_info->bindValue('id', $id, PDO::PARAM_INT);
-  $get_user_info->bindValue('lastname', $lastname, PDO::PARAM_STR);
-  $get_user_info->bindValue('firstname', $firstname, PDO::PARAM_STR);
-  $get_user_info->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-  $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
   $get_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
