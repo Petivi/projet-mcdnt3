@@ -30,6 +30,7 @@ if(isset($request->mail)){
       // new mail confirm
       addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_temp, $request_type_new_mail_confirm, $date_token_created);
       sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $lang);
+      echo returnResponse($display_response_mail_sent);
     }
   }
 
