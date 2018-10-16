@@ -62,14 +62,17 @@ export class AppComponent implements OnInit {
         }).then(res => {
             if (res.value) {
                 this._appService.post('action/unsubscribe.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
-                    Swal({
-                        title: 'Confirmation',
-                        text: this.words.find(w => w.msg_name === 'msg_confDesinscription').value,
-                        type: 'success',
-                        confirmButtonText: 'OK',                        
-                    }).then(res => {
-                        this._router.navigate(['/login']);
-                    });
+                    if (res.response) {
+                        localStorage.removeItem('userConnected');
+                        Swal({
+                            title: 'Confirmation',
+                            text: this.words.find(w => w.msg_name === 'msg_confDesinscription').value,
+                            type: 'success',
+                            confirmButtonText: 'OK',
+                        }).then(res => {
+                            this._router.navigate(['/login']);
+                        });
+                    }
                 });
             }
         });
