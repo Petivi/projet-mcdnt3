@@ -176,7 +176,7 @@ function generateRefToken(){
   }
 
   if(!$existing_token){
-    return $ref_token;
+    return $request_ref;
   }else {
     generateRefToken();
   }
