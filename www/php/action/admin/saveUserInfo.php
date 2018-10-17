@@ -32,7 +32,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
   }
 
   if($user_exists){
-    if(returnCheckPseudo($tabVictim['pseudo'])){
+    if(returnCheckPseudo($tabVictim['pseudo']),$tabVictim['id']){
       echo returnError($display_error_pseudo_taken);
       exit();
     }else {
@@ -58,6 +58,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
 
   }else {
     echo returnError($display_error_empty);
+    exit();
   }
 
 
