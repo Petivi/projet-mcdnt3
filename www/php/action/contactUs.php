@@ -22,7 +22,7 @@ if($tabUser['contact_mail'] && $tabUser['contact_subject'] && $tabUser['contact_
   $add_request_contact->execute();
 
 
-
+  echo returnResponse($display_response_empty);
 }else {
   echo returnError($display_error_empty_field);
 }
