@@ -57,17 +57,17 @@ function getPostInfo($req){
 
 
   if(isset($req->contact_mail)){
-    $contact_mail = htmlspecialchars($request->contact_mail, ENT_QUOTES);
+    $contact_mail = htmlspecialchars($req->contact_mail, ENT_QUOTES);
   }else{
     $contact_mail = "";
   }
   if(isset($req->contact_subject)){
-    $contact_subject = htmlspecialchars($request->contact_subject, ENT_QUOTES);
+    $contact_subject = htmlspecialchars($req->contact_subject, ENT_QUOTES);
   }else{
     $contact_subject = "";
   }
   if(isset($req->contact_text)){
-    $contact_text = htmlspecialchars($request->contact_text, ENT_QUOTES);
+    $contact_text = htmlspecialchars($req->contact_text, ENT_QUOTES);
   }else{
     $contact_text = "";
   }
