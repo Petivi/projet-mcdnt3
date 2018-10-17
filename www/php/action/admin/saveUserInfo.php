@@ -1,4 +1,5 @@
 <?php
+var_dump('oui');;
 require_once('../../config.php');
 include "../../includedFiles.php";
 
