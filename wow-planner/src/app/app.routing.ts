@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
+import { ContactComponent } from './contact/contact.component';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -54,5 +55,9 @@ export const appRouting = RouterModule.forRoot([
     {
         path: 'recherche',
         component: RechercheComponent
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
     },
 ])

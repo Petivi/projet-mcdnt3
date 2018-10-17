@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row">
-        <div class="col s12 center">
+        <div class="col center" *ngIf="!userActif">
             <div class="row">
-                <h1 class="col s12">GESTION DE COMPTE</h1>
+                <h1 class="col text-center">GESTION DE COMPTE</h1>
             </div>
             <div class="row">
-                <div class="col s12">
-                    <table class="highlight centered">
-                        <thead>
+                <div class="col">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
                             <tr>
                                 <th>Nom</th>
                                 <th>Prenom</th>
@@ -15,23 +15,118 @@
                                 <th>Mail</th>
                                 <th>Création du compte</th>
                                 <th>Derniere connexion</th>
-                                <th>Compte activé</th>
-                                <th>Mail confirmé</th>
+                                <th>Compte</th>
+                                <th>Confirmation mail</th>
                             </tr>
                         </thead>
-                        <tbody>                            
-                            <tr *ngFor="let u of users">
+                        <tbody>
+                            <tr class="clickable" *ngFor="let u of users" (click)="showUser(u)">
                                 <td>{{u.lastname}}</td>
                                 <td>{{u.firstname}}</td>
                                 <td>{{u.pseudo}}</td>
                                 <td>{{u.mail}}</td>
                                 <td>{{u.created_date}}</td>
                                 <td>{{u.last_connection}}</td>
-                                <td>{{u.active_account}}</td>
-                                <td>{{u.checked_mail}}</td>
+                                <td>{{u.libelle_active_account}}</td>
+                                <td>{{u.libelle_checked_mail}}</td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+        <!-- si on est sur un utilisateur ****************************************************************************************** -->
+        <div class="col" *ngIf="userActif">
+            <div class="row">
+                <div class="col-md-2">
+                    <button (click)="retour()" class="btn btn-dark">
+                        {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+                    </button>
+                </div>
+            </div>
+            <div class="row" [formGroup]="userForm">
+                <div class="col-md-6 offset-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <button (click)="(editMode = true)" class="btn btn-primary">
+                                        {{(words | filter : {msg_name: 'msg_modifCompte'} : {col : 'value'})}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row" *ngIf="profilErrors && profilErrors.length > 0">
+                                <div class="col error">
+                                    <div *ngFor="let error of profilErrors">{{error}}</div>
+                                </div>
+                            </div>
+                            <div formGroupName="userGroup">
+                                <div class="row form-group">
+                                    <label class="col-md-4" for="lastname">
+                                        {{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}
+                                    </label>
+                                    <span class="col" *ngIf="!editMode">{{userActif.lastname}}</span>
+                                    <div class="col">
+                                        <input class="form-control" *ngIf="editMode" type="text" formControlName="lastname"
+                                            id="lastname">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-md-4" for="firstname">
+                                        {{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}
+                                    </label>
+                                    <span class="col" *ngIf="!editMode">{{userActif.firstname}}</span>
+                                    <div class="col">
+                                        <input class="form-control" *ngIf="editMode" type="text" formControlName="firstname"
+                                            id="firstname">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-md-4" for="pseudo">Pseudo</label>
+                                    <span class="col" *ngIf="!editMode">{{userActif.pseudo}}</span>
+                                    <div class="col">
+                                        <input class="form-control" *ngIf="editMode" type="text" formControlName="pseudo"
+                                            id="pseudo">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-md-4" for="pseudo">Compte</label>
+                                    <span class="col" *ngIf="!editMode">{{userActif.libelle_active_account}}</span>
+                                    <div class="col" *ngIf="editMode">
+                                        <select class="form-control" formControlName="active_account">
+                                            <option *ngFor="let ca of typeCompteActif" [value]="ca.code">{{ca.value}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div formGroupName="adminGroup" *ngIf="editMode">
+                                <div class="row form-group">
+                                    <label class="col" for="pseudo">Modification apportée</label>
+                                    <div class="col">
+                                        <input class="form-control" formControlName="action">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col" for="pseudo">Raison de cette modification</label>
+                                    <div class="col">
+                                        <textarea class="form-control" formControlName="raison">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" *ngIf="editMode">
+                            <div class="text-center row">
+                                <div class="col">
+                                    <button (click)="sendUser()" class="btn btn-success">
+                                        {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

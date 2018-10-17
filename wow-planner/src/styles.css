@@ -1,16 +1,45 @@
+/* GENERAL */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+.clickable:hover {
+    cursor: pointer;
+}
+.invalid {
+    border-color: #dc3545;
+}
+/* FIN GENERAL */
+/* MENU */
+.menu{
+    background-color: #dfdfdf;
+    z-index: 99999;
+    padding: 0 2rem 0 2rem !important;
+}
+menu.deroulant {
+    position: relative;
+}
 .sous-deroulant{
-    display: none;    
+    background-color: #dfdfdf;
+    display: none;
+    padding-left: 0;
 }
 .sous-deroulant.pseudo {
+    list-style-type: none;
     position: absolute;
-    width: 242px; /* TODO: changer quand le menu aura hang */
     right: 0;
 }
-.deroulant:hover .sous-deroulant{
-    display: block;
+.navbar-right {
+    justify-content: flex-end;
 }
-.deroulant {
-    position: relative;
+li.nav-item {
+    cursor: pointer;
+}
+li.nav-item:hover {
+    background-color: #eeecec;
+}
+.deroulant:hover .sous-deroulant{    
+    display: block;
+    width: max-content;
+    cursor: pointer;
 }
 .sous-deroulant li{
     float: none;

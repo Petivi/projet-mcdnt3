@@ -1,13 +1,11 @@
 <div class="container">
     <div class="row" [formGroup]="wordForm">
-        <div class="col s6 offset-s3">
-            <div class="error" *ngIf="!valid">
-                {{error}}
-            </div>
-            <div class="card z-depth-2">
-                <div class="card-content">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="title text-center">Administration !</h1>
+            <div class="card">
+                <div class="card-header">
                     <div class="row">
-                        <a class="col s12" [routerLink]="['gestionCompte']">Gestion de compte</a>                        
+                        <a class="col" [routerLink]="['gestionCompte']">Gestion de compte</a>
                     </div>
                 </div>
             </div>
