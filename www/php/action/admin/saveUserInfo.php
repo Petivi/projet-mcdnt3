@@ -37,7 +37,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
   }
 
   if($user_exists){
-    if(returnCheckPseudo($tabVictim['pseudo'])){
+    if(returnCheckPseudo($tabVictim['pseudo'], "35")){
       echo returnError($display_error_pseudo_taken);
       exit();
     }else {
