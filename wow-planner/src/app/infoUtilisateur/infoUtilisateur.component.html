@@ -12,9 +12,9 @@
                     </div>
                 </div>
                 <div class="card-body form-group">
-                    <div class="row" *ngIf="profilErrors && profilErrors.length > 0">
-                        <div class="col error">
-                            <div *ngFor="let error of profilErrors">{{error}}</div>
+                    <div class="row alert alert-danger" *ngIf="profileErrors && profileErrors.length > 0">
+                        <div class="col">
+                            <div *ngFor="let error of profileErrors">{{error}}</div>
                         </div>
                     </div>
                     <div class="row form-group">
@@ -43,7 +43,8 @@
                         </label>
                         <span class="col-md-6" *ngIf="!editMode">{{userConnected.pseudo}}</span>
                         <div class="col-md-6">
-                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="pseudo"
+                            <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.profileGroup.controls.pseudo.errors) }"
+                                class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="pseudo"
                                 id="pseudo">
                         </div>
                     </div>
@@ -51,8 +52,15 @@
                         <label class="col-md-6" for="mail">Mail</label>
                         <span class="col-md-6" *ngIf="!editMode">{{userConnected.mail}}</span>
                         <div class="col-md-6">
-                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="mail"
-                                id="mail">
+                            <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.profileGroup.controls.mail.errors) }"
+                                class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="mail" id="mail">
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="editMode">
+                        <div class="col">
+                            <button (click)="desinscription()" class="btn btn-warning">
+                                {{(words | filter : {msg_name: 'msg_btnDesinscrire'} : {col : 'value'})}}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -79,8 +87,8 @@
                     </div>
                 </div>
                 <div class="card-body" *ngIf="changePass">
-                    <div class="row" *ngIf="passwordErrors && passwordErrors.length > 0">
-                        <div class="col error">
+                    <div class="row alert alert-danger" *ngIf="passwordErrors && passwordErrors.length > 0">
+                        <div class="col">
                             <div *ngFor="let error of passwordErrors">{{error}}</div>
                         </div>
                     </div>

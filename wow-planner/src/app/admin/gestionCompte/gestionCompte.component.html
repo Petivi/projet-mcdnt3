@@ -51,7 +51,7 @@
                             <div class="row text-center">
                                 <div class="col">
                                     <button (click)="(editMode = true)" class="btn btn-primary">
-                                        {{(words | filter : {msg_name: 'msg_modifCompte'} : {col : 'value'})}}
+                                        {{(words | filter : {msg_name: 'msg_modifier'} : {col : 'value'})}}
                                     </button>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <label class="col-md-4" for="pseudo">Pseudo</label>
+                                    <label class="col-md-4" for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} : {col : 'value'})}}</label>
                                     <span class="col" *ngIf="!editMode">{{userActif.pseudo}}</span>
                                     <div class="col">
                                         <input class="form-control" *ngIf="editMode" type="text" formControlName="pseudo"

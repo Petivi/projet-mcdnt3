@@ -34,15 +34,10 @@
                         {{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}
                     </a>
                 </li>
-                <li class="nav-item" *ngIf="userConnected">
-                    <a class="nav-link" (click)="deconnexion()">
-                        {{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}
-                    </a>
-                </li>
                 <li class="nav-item" *ngIf="userConnected && userConnected.pseudo === 'admin'">
                     <a class="nav-link" [routerLink]="['/admin']">Admin</a>
                 </li>
-                <li class="nav-item dropdown deroulant" *ngIf="userConnected && userConnected.pseudo !== 'admin'">
+                <li class="nav-item dropdown deroulant" *ngIf="userConnected">
                     <a class="nav-link" id="navbarDropdownPseudo">{{userConnected.pseudo}}</a>
                     <ul class="sous-deroulant pseudo" aria-labelledby="navbarDropdownPseudo">
                         <li class="nav-item">
@@ -50,9 +45,9 @@
                                 {{(words | filter : {msg_name: 'msg_infoUserLink'} : {col : 'value'})}}
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" (click)="desinscription()">
-                                {{(words | filter : {msg_name: 'msg_btnDesinscrire'} : {col : 'value'})}}
+                        <li class="nav-item" *ngIf="userConnected">
+                            <a class="nav-link" (click)="deconnexion()">
+                                {{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}
                             </a>
                         </li>
                     </ul>

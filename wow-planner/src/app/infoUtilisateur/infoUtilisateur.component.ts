@@ -30,8 +30,8 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
         profileGroup: this._formBuilder.group({
             firstname: [this.newUser && this.newUser.firstname ? this.newUser.firstname : ''],
             lastname: [this.newUser && this.newUser.lastname ? this.newUser.lastname : ''],
-            pseudo: [this.newUser && this.newUser.pseudo ? this.newUser.pseudo : ''],
-            mail: [this.newUser && this.newUser.mail ? this.newUser.mail : ''],
+            pseudo: [this.newUser && this.newUser.pseudo ? this.newUser.pseudo : '', Validators.required],
+            mail: [this.newUser && this.newUser.mail ? this.newUser.mail : '', Validators.required],
         }),
         passwordGroup: this._formBuilder.group({
             oldPassword: [this.oldPassword && this.oldPassword ? this.oldPassword : '', Validators.required],
@@ -80,25 +80,30 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
     }
 
     sendUser() {
+        this.profileErrors = [];
+        this.submitted = true;
         this.editMode = false;
-        if (this.infoUserForm.get('profilGroup').dirty) {
-            this.submitted = true;
-            this._appService.post('action/editUserInfo.php', { user: this.userConnected, newUser: this.newUser, lang: this._appService.getLangue() }).then(res => {
-                if (res.response) {
-                    this.userConnected = Object.assign({}, this.newUser);
-                }
-            });
+        if (this.infoUserForm.get('profileGroup').dirty) {
+            if (this.infoUserForm.get('profileGroup').valid) {
+                this._appService.post('action/editUserInfo.php', { user: this.userConnected, newUser: this.newUser, lang: this._appService.getLangue() }).then(res => {
+                    if (res.response) {
+                        this.userConnected = Object.assign({}, this.newUser);
+                    }
+                });
+            } else {
+                this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_mailAndPseudoRequired').value);
+            }
         }
     }
 
     sendPass() {
-        this.changePass = false;
         if (this.infoUserForm.get('passwordGroup').dirty) {
-            this.wrongCf = false;
-            this.wrongPass = false;
             this.submitted = true;
             this.passwordErrors = [];
+            this.wrongCf = false;
+            this.wrongPass = false;
             if (this.infoUserForm.controls.passwordGroup.valid) {
+                this.changePass = false;
                 if (this.newPassword === this.cfPassword) {
                     this._appService.post('action/editPassword.php', { user: this.userConnected, oldPassword: this.oldPassword, newPassword: this.newPassword })
                         .then(res => {
@@ -129,6 +134,36 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
             } else { // input vide
                 this.passwordErrors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);
             }
+        } else { //si les champs ne sont pas dirty
+            this.changePass = false;
         }
+    }
+
+    desinscription() {
+        Swal({
+            title: 'Confirmation',
+            text: this.words.find(w => w.msg_name === 'msg_confirmationDesinscription').value,
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: this.words.find(w => w.msg_name === 'msg_cancel').value,
+        }).then(res => {
+            if (res.value) {
+                this._appService.post('action/unsubscribe.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
+                    if (res.response) {
+                        localStorage.removeItem('userConnected');
+                        this.userConnected = null;
+                        Swal({
+                            title: 'Confirmation',
+                            text: this.words.find(w => w.msg_name === 'msg_confDesinscription').value,
+                            type: 'success',
+                            confirmButtonText: 'OK',
+                        }).then(res => {
+                            this._router.navigate(['/login']);
+                            window.location.reload();
+                        });
+                    }
+                });
+            }
+        });
     }
 }
