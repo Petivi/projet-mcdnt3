@@ -56,25 +56,20 @@ function getPostInfo($req){
 
 
 
-  if(isset($req->msg_name)){
-    $msg_name = htmlspecialchars($request->msg_name, ENT_QUOTES);
+  if(isset($req->contact_mail)){
+    $contact_mail = htmlspecialchars($request->contact_mail, ENT_QUOTES);
   }else{
-    $msg_name = "";
+    $contact_mail = "";
   }
-  if(isset($req->msg_fr)){
-    $msg_fr = htmlspecialchars($request->msg_fr, ENT_QUOTES);
+  if(isset($req->contact_subject)){
+    $contact_subject = htmlspecialchars($request->contact_subject, ENT_QUOTES);
   }else{
-    $msg_fr = "";
+    $contact_subject = "";
   }
-  if(isset($req->msg_en)){
-    $msg_en = htmlspecialchars($request->msg_en, ENT_QUOTES);
+  if(isset($req->contact_text)){
+    $contact_text = htmlspecialchars($request->contact_text, ENT_QUOTES);
   }else{
-    $msg_en = "";
-  }
-  if(isset($req->page)){
-    $page = htmlspecialchars($request->page, ENT_QUOTES);
-  }else{
-    $page = "";
+    $contact_text = "";
   }
 
   $tabInfoUser = [
@@ -87,10 +82,10 @@ function getPostInfo($req){
     "session_token" => $session_token,
     "login" => $login,
     "active_account" => $active_account,
-    "msg_name" => $msg_name,
-    "msg_fr" => $msg_fr,
-    "msg_en" => $msg_en,
-    "page" => $page,
+    "contact_mail" => $contact_mail,
+    "contact_subject" => $contact_subject,
+    "contact_text" => $contact_text,
+
   ];
   return $tabInfoUser;
 }

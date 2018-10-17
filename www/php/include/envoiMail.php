@@ -187,14 +187,14 @@ function sendMailProfilEditedByAdmin($lastname, $firstname, $pseudo, $mail, $lan
     $subject = "Compte modifié par un administrateur";
     $html = $mail_header ."
         Bonjour <span style=font-weight:bold;>".$pseudo."</span>, nous vous informons que votre compte a été modifié par un administrateur.
-        <br>Pour de plus ample informations, connectez-vous sur le site et contactez-nous.
+        <br>Pour de plus ample informations, connectez-vous sur le site et allez à la rubrique nous contacter.
         <br><br>Si votre pseudo a été modifié, veuillez utiliser le nouveau pour vous connecter, ou bien utiliser votre adresse mail.
         ".$mail_footer;
   }else {
     $subject = "Account edited by an administrator";
     $html = $mail_header."
     Hello <span style=font-weight:bold;>".$pseudo."</span>, we inform you that your account has been modified by an administrator.
-    <br>For further information, connect to the site and contact us.
+    <br>For further information, connect to the site and go to the section contact us.
     <br><br>If your username has been changed, please use the new one to login, or use your e-mail.
     ".$mail_footer;
   }

@@ -89,7 +89,6 @@ function generateTokenTemp(){
     $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
   }
   $token_temp = $a1 . "-" . $a2 . "-" . $a3;
-  return $token_temp;
 
   $existing_token = false;
   $check_token_existing = 'SELECT * FROM users WHERE token_temp LIKE :token_temp AND active_account LIKE (0 OR 1)';
@@ -98,7 +97,6 @@ function generateTokenTemp(){
   $check_token_existing->execute();
   while($token_existing = $check_token_existing->fetch())
   {
-    // pseudo already taken
     $existing_token = true;
   }
 
@@ -111,6 +109,7 @@ function generateTokenTemp(){
 
 // generate a session token
 function generateSessionToken(){
+  global $base;
   $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789-";
   $a1 = "";
   $a2 = "";
@@ -128,8 +127,61 @@ function generateSessionToken(){
   $b4 = date('H');
   $b5 = date('i');
   $session_token = $b1 . $b2 . $b3 .  $a1 . $a2 . $a3 . $a4 . $b4 . $b5;
-  return $session_token;
+
+
+  $existing_token = false;
+  $check_token_existing = 'SELECT * FROM users WHERE session_token LIKE :session_token AND active_account LIKE (0 OR 1)';
+  $check_token_existing = $base->prepare($check_token_existing);
+  $check_token_existing->bindValue('session_token', $session_token, PDO::PARAM_STR);
+  $check_token_existing->execute();
+  while($token_existing = $check_token_existing->fetch())
+  {
+    $existing_token = true;
+  }
+
+  if(!$existing_token){
+    return $session_token;
+  }else {
+    generateSessionToken();
+  }
 }
+
+
+function generateRefToken(){
+  global $base;
+  $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789-";
+  $a1 = "";
+  $a2 = "";
+  $a3 = "";
+  $a3 = "";
+  for ($i = 0; $i<10; $i++){
+    $a1 .= $alphabet[rand(0, strlen($alphabet)-1)];
+    $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
+  }
+  $b1 = date('d');
+  $b2 = date('m');
+  $b3 = date('y');
+  $b4 = date('H');
+  $b5 = date('i');
+  $request_ref = $b1 . $b2 . $a1 . $a2 . $b4 . $b5;
+
+  $existing_token = false;
+  $check_token_existing = 'SELECT * FROM requests_contact_list WHERE request_ref LIKE :request_ref';
+  $check_token_existing = $base->prepare($check_token_existing);
+  $check_token_existing->bindValue('request_ref', $request_ref, PDO::PARAM_STR);
+  $check_token_existing->execute();
+  while($token_existing = $check_token_existing->fetch())
+  {
+    $existing_token = true;
+  }
+
+  if(!$existing_token){
+    return $ref_token;
+  }else {
+    generateRefToken();
+  }
+}
+
 
 function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password, $session_token){
   global $base;
