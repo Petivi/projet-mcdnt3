@@ -181,7 +181,10 @@ function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_te
   global $base;
   global $request_type_new_account;
   global $request_type_new_mail_confirm;
+  global $request_type_edit_mail;
+  global $request_type_reset_mail;
   global $request_type_password_reset;
+  global $request_type_unsubscribe;
   $add_to_requests_list = 'INSERT INTO requests_list (user_id, user_lastname, user_firstname, user_pseudo, user_mail, request_token, request_type, request_date)
   VALUES (:id, :lastname, :firstname, :pseudo, :mail, :token_temp, :request_type, :date_action)';
   $add_to_requests_list = $base->prepare($add_to_requests_list);
@@ -192,6 +195,19 @@ function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_te
   $add_to_requests_list->bindValue('mail', $mail, PDO::PARAM_STR);
   $add_to_requests_list->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
   $add_to_requests_list->bindValue('request_type', $request_type, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('date_action', $date_action, PDO::PARAM_INT);
+  $add_to_requests_list->execute();
+}
+
+function addToAdminUsersManagement($admin_id, $user_id, $action, $comment, $date_action){
+  global $base;
+  $add_to_requests_list = 'INSERT INTO admin_users_management (admin_id, user_id, action, comment, date_action)
+  VALUES (:admin_id, :user_id, :action, :comment, :date_action)';
+  $add_to_requests_list = $base->prepare($add_to_requests_list);
+  $add_to_requests_list->bindValue('admin_id', $admin_id, PDO::PARAM_INT);
+  $add_to_requests_list->bindValue('user_id', $user_id, PDO::PARAM_INT);
+  $add_to_requests_list->bindValue('action', $action, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('comment', $comment, PDO::PARAM_STR);
   $add_to_requests_list->bindValue('date_action', $date_action, PDO::PARAM_INT);
   $add_to_requests_list->execute();
 }
@@ -231,6 +247,45 @@ function returnCheckPseudo($pseudo, $id){
   }
 
    return $existing_pseudo;
+}
+
+function getIdFromSessionToken($session_token){
+  global $base;
+  $user_exists = false;
+  $check_user_id = 'SELECT * FROM users WHERE session_token LIKE :session_token';
+  $check_user_id = $base->prepare($check_user_id);
+  $check_user_id->bindValue('session_token', $session_token, PDO::PARAM_STR);
+  $check_user_id->execute();
+  while($user_id = $check_user_id->fetch())
+  {
+    $user_exists = true;
+    $id = $user_id['id'];
+  }
+  if($user_exists){
+    return $id;
+  }else {
+    return false;
+  }
+}
+
+
+function getLangFromId($id){
+  global $base;
+  $user_exists = false;
+  $check_user_lang = 'SELECT * FROM users WHERE id LIKE :id';
+  $check_user_lang = $base->prepare($check_user_lang);
+  $check_user_lang->bindValue('id', $id, PDO::PARAM_INT);
+  $check_user_lang->execute();
+  while($user_lang = $check_user_lang->fetch())
+  {
+    $user_exists = true;
+    $lang = $user_lang['lang'];
+  }
+  if($user_exists){
+    return $lang;
+  }else {
+    return false;
+  }
 }
 
  ?>
