@@ -9,6 +9,7 @@ $tabVictim = getPostInfo($request->user);
 
 var_dump($tabUser);
 var_dump($tabVictim);
+echo $tabVictim['id'];
 
 if(accessToAdminPermissions($tabUser['session_token'])){
   if(isset($request->action)){
@@ -36,7 +37,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
   }
 
   if($user_exists){
-    if(returnCheckPseudo($tabVictim['pseudo']), 35){
+    if(returnCheckPseudo($tabVictim['pseudo']), $tabVictim['id']){
       echo returnError($display_error_pseudo_taken);
       exit();
     }else {

@@ -48,6 +48,11 @@ function getPostInfo($req){
   }else{
     $login = "";
   }
+  if(isset($req->active_account)){
+    $active_account = htmlspecialchars($req->active_account, ENT_QUOTES);
+  }else{
+    $active_account = "";
+  }
 
 
 
@@ -81,6 +86,7 @@ function getPostInfo($req){
     "lang" => $lang,
     "session_token" => $session_token,
     "login" => $login,
+    "active_account" => $active_account,
     "msg_name" => $msg_name,
     "msg_fr" => $msg_fr,
     "msg_en" => $msg_en,
