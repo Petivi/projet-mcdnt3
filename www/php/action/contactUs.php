@@ -17,8 +17,8 @@ if($tabUser['contact_mail'] && $tabUser['contact_subject'] && $tabUser['contact_
   $add_request_contact->bindValue('user_mail', $tabUser['user_mail'], PDO::PARAM_STR);
   $add_request_contact->bindValue('request_subject', $tabUser['request_subject'], PDO::PARAM_STR);
   $add_request_contact->bindValue('request_text', $tabUser['request_text'], PDO::PARAM_STR);
-  $add_request_contact->bindValue('request_ref', $tabUser['request_ref'], PDO::PARAM_STR);
-  $add_request_contact->bindValue('request_date', $tabUser['request_date'], PDO::PARAM_INT);
+  $add_request_contact->bindValue('request_ref', $request_ref, PDO::PARAM_STR);
+  $add_request_contact->bindValue('request_date', $request_date, PDO::PARAM_INT);
   $add_request_contact->execute();
 
 
