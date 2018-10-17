@@ -1,15 +1,10 @@
 <?php
-echo "oui";
 require_once('../../config.php');
 include "../../includedFiles.php";
 
 
 $tabUser = getPostInfo($request);
 $tabVictim = getPostInfo($request->user);
-
-var_dump($tabUser);
-var_dump($tabVictim);
-echo $tabVictim['id'];
 
 if(accessToAdminPermissions($tabUser['session_token'])){
   if(isset($request->action)){
