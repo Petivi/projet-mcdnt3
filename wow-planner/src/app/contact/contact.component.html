@@ -1,0 +1,47 @@
+<div class="container" (keyup)="enter($event)" *ngIf="words && words.length > 0">
+    <div class="row" [formGroup]="contactForm">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="contact_mail">
+                                {{(words | filter : {msg_name: 'msg_yourAdress'} : {col : 'value'})}}
+                            </label>
+                            <input autofocus id="contact_mail" class="form-control" [ngClass]="{ 'invalid': submitted && contactForm.controls.contact_mail.errors }"
+                                type="text" formControlName="contact_mail">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="contact_subject">
+                                {{(words | filter : {msg_name: 'msg_contactSujet'} : {col : 'value'})}}
+                            </label>
+                            <input autofocus id="contact_subject" class="form-control" [ngClass]="{ 'invalid': submitted && contactForm.controls.contact_subject.errors }"
+                                type="text" formControlName="contact_subject">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="contact_text">
+                                Message
+                            </label>
+                            <textarea autofocus id="contact_text" class="form-control" [ngClass]="{ 'invalid': submitted && contactForm.controls.contact_text.errors }"
+                                type="text" formControlName="contact_text">
+                </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="center col text-center">
+                            <button (click)="envoyer()" class="btn btn-success">
+                                {{(words | filter : {msg_name: 'msg_send'} : {col : 'value'})}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

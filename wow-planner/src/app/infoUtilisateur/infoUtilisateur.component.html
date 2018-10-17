@@ -1,105 +1,123 @@
 <div class="container" *ngIf="words && words.length > 0 && userConnected">
     <div class="row" [formGroup]="infoUserForm">
-        <div class="col s6" formGroupName="profileGroup">
-            <div class="card z-depth-2">
-                <div class="card-content">
-                    <div class="center row">
-                        <div class="col s12 center">
-                            <button (click)="(editMode = true)" class="btn">{{(words | filter : {msg_name:
-                                'msg_modifCompte'}
-                                : {col : 'value'})}}</button>
+        <div class="col-md-6" formGroupName="profileGroup">
+            <div class="card">
+                <div class="card-header">
+                    <div class="text-center row">
+                        <div class="col">
+                            <button (click)="(editMode = true)" class="btn btn-primary">
+                                {{(words | filter : {msg_name: 'msg_modifCompte'} : {col : 'value'})}}
+                            </button>
                         </div>
                     </div>
+                </div>
+                <div class="card-body form-group">
                     <div class="row" *ngIf="profilErrors && profilErrors.length > 0">
-                        <div class="col s12 error">
+                        <div class="col error">
                             <div *ngFor="let error of profilErrors">{{error}}</div>
                         </div>
                     </div>
-                    <div class="row">
-                        <label class="col s6" for="lastname">{{(words | filter : {msg_name: 'msg_name'} : {col :
-                            'value'})}}</label>
-                        <span class="col s6" *ngIf="!editMode">{{userConnected.lastname}}</span>
-                        <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="lastname" id="lastname">
+                    <div class="row form-group">
+                        <label class="col-md-6" for="lastname">
+                            {{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}
+                        </label>
+                        <span class="col-md-6" *ngIf="!editMode">{{userConnected.lastname}}</span>
+                        <div class="col-md-6">
+                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="lastname"
+                                id="lastname">
                         </div>
                     </div>
-                    <div class="row">
-                        <label class="col s6" for="firstname">{{(words | filter : {msg_name: 'msg_firstname'} : {col :
-                            'value'})}}</label>
-                        <span class="col s6" *ngIf="!editMode">{{userConnected.firstname}}</span>
-                        <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="firstname" id="firstname">
+                    <div class="row form-group">
+                        <label class="col-md-6" for="firstname">
+                            {{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}
+                        </label>
+                        <span class="col-md-6" *ngIf="!editMode">{{userConnected.firstname}}</span>
+                        <div class="col-md-6">
+                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="firstname"
+                                id="firstname">
                         </div>
                     </div>
-                    <div class="row">
-                        <label class="col s6" for="pseudo">Pseudo</label>
-                        <span class="col s6" *ngIf="!editMode">{{userConnected.pseudo}}</span>
-                        <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="pseudo" id="pseudo">
+                    <div class="row form-group">
+                        <label class="col-md-6" for="pseudo">
+                            {{(words | filter : {msg_name: 'msg_pseudo'} : {col : 'value'})}}
+                        </label>
+                        <span class="col-md-6" *ngIf="!editMode">{{userConnected.pseudo}}</span>
+                        <div class="col-md-6">
+                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="pseudo"
+                                id="pseudo">
                         </div>
                     </div>
-                    <div class="row">
-                        <label class="col s6" for="mail">Mail</label>
-                        <span class="col s6" *ngIf="!editMode">{{userConnected.mail}}</span>
-                        <div class="col s6">
-                            <input class="inputPerso" *ngIf="editMode" type="text" formControlName="mail" id="mail">
+                    <div class="row form-group">
+                        <label class="col-md-6" for="mail">Mail</label>
+                        <span class="col-md-6" *ngIf="!editMode">{{userConnected.mail}}</span>
+                        <div class="col-md-6">
+                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="mail"
+                                id="mail">
                         </div>
                     </div>
-                    <div class="center row">
-                        <button *ngIf="editMode" (click)="sendUser()" class="btn center">{{(words | filter : {msg_name:
-                            'msg_enregistrer'}
-                            : {col : 'value'})}}</button>
+                </div>
+                <div class="card-footer" *ngIf="editMode">
+                    <div class="row">
+                        <div class="text-center col">
+                            <button (click)="sendUser()" class="btn btn-success">
+                                {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col s6" formGroupName="passwordGroup">
-            <div class="card z-depth-2">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col s12 center">
-                            <button (click)="(changePass = true)" class="btn">{{(words | filter : {msg_name:
-                                'msg_changePass'}
-                                : {col : 'value'})}}</button>
+        <div class="col-md-6" formGroupName="passwordGroup">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row form-group">
+                        <div class="col text-center">
+                            <button (click)="(changePass = true)" class="btn btn-primary">
+                                {{(words | filter : {msg_name: 'msg_changePass'} : {col : 'value'})}}
+                            </button>
                         </div>
                     </div>
+                </div>
+                <div class="card-body" *ngIf="changePass">
                     <div class="row" *ngIf="passwordErrors && passwordErrors.length > 0">
-                        <div class="col s12 error">
+                        <div class="col error">
                             <div *ngFor="let error of passwordErrors">{{error}}</div>
                         </div>
                     </div>
-                    <div class="row" *ngIf="changePass">
-                        <div class="col s6">
+                    <div class="row form-group">
+                        <div class="col-md-6">
                             <label>{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}}</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.oldPassword.errors || wrongPass) }"
-                                class="inputPerso" type="password" formControlName="oldPassword">
+                                class="inputPerso form-control" type="password" formControlName="oldPassword">
                         </div>
                     </div>
-                    <div class="row" *ngIf="changePass">
-                        <div class="col s6">
+                    <div class="row form-group">
+                        <div class="col-md-6">
                             <label>{{(words | filter : {msg_name: 'msg_newPassword'} : {col : 'value'})}}</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && infoUserForm.controls.passwordGroup.controls.newPassword.errors }"
-                                class="inputPerso" type="password" formControlName="newPassword">
+                                class="inputPerso form-control" type="password" formControlName="newPassword">
                         </div>
                     </div>
-                    <div class="row" *ngIf="changePass">
-                        <div class="col s6">
+                    <div class="row form-group">
+                        <div class="col-md-6">
                             <label>{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}}</label>
                         </div>
-                        <div class="col s6">
+                        <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.cfPassword.errors || wrongCf) }"
-                                class="inputPerso" type="password" formControlName="cfPassword">
+                                class="inputPerso form-control" type="password" formControlName="cfPassword">
                         </div>
                     </div>
-                    <div class="row" *ngIf="changePass">
-                        <div class="col s12 center">
-                            <button (click)="sendPass()" class="btn">{{(words | filter : {msg_name: 'msg_enregistrer'}
-                                :
-                                {col : 'value'})}}</button>
+                </div>
+                <div class="card-footer" *ngIf="changePass">
+                    <div class="row">
+                        <div class="col text-center">
+                            <button (click)="sendPass()" class="btn btn-success">
+                                {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
+                            </button>
                         </div>
                     </div>
                 </div>

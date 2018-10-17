@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
     langue: string;
     constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
     ngOnInit() {
+        console.log(navigator.language);
         this.langue = this._appService.getLangue();
         this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
             this.userConnected = res;
@@ -63,6 +64,7 @@ export class AppComponent implements OnInit {
                 this._appService.post('action/unsubscribe.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
                     if (res.response) {
                         localStorage.removeItem('userConnected');
+                        this.userConnected = null;
                         Swal({
                             title: 'Confirmation',
                             text: this.words.find(w => w.msg_name === 'msg_confDesinscription').value,

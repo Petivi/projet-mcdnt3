@@ -1,45 +1,63 @@
 <div class="container" *ngIf="words && words.length > 0" (keyup)="enter($event)">
-    <div class="row" [formGroup]="inscriptionForm">
-        <div class="col s6 offset-s3">
-            <h1>{{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</h1>
-            <div class="error" *ngIf="!valid && errors.length>0">
-                <div *ngFor="let er of errors">{{er}}</div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center">{{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</h1>
+                    <div class="error" *ngIf="!valid && errors.length>0">
+                        <div *ngFor="let er of errors">{{er}}</div>
+                    </div>
+                </div>
             </div>
-            <div class="input-field col s12">
-                <label>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}</label>
-                <input autofocus class="input-field" type="text" formControlName="lastname">
-            </div>
-            <div class="input-field col s12">
-                <label>{{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}</label>
-                <input class="input-field" type="text" formControlName="firstname">
-            </div>
-            <div class="input-field col s12">
-                <label>Pseudo *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.pseudo.errors || pseudoTaken) }"
-                    type="text" formControlName="pseudo">
-            </div>
-            <div class="input-field col s12">
-                <label>Mail *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.mail.errors || mailTaken) }"
-                    type="text" formControlName="mail">
-            </div>
-            <div class="input-field col s12">
-                <label>{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && inscriptionForm.controls.password.errors }"
-                    type="password" formControlName="password">
-            </div>
-            <div class="input-field col s12">
-                <label>{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
-                <input class="input-field" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }"
-                    type="password" formControlName="cfPassword">
-            </div>
-            <div class="center col s12">
-                <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">{{(words
-                    | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</button>
+            <form [formGroup]="inscriptionForm">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="lastname">{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}</label>
+                        <input id="lastname" class="form-control" autofocus type="text" formControlName="lastname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="firstname">{{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}</label>
+                        <input id="firstname" class="form-control" type="text" formControlName="firstname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} : {col : 'value'})}} *</label>
+                        <input id="pseudo" class="form-control" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.pseudo.errors || pseudoTaken) }"
+                            type="text" formControlName="pseudo">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="mail">Mail *</label>
+                        <input id="mail" class="form-control" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.mail.errors || mailTaken) }"
+                            type="text" formControlName="mail">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="password">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
+                        <input id="password" class="form-control" [ngClass]="{ 'invalid': submitted && inscriptionForm.controls.password.errors }"
+                            type="password" formControlName="password">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="passConf">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
+                        <input id="passConf" class="form-control" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }"
+                            type="password" formControlName="cfPassword">
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">
+                    {{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</button>
             </div>
         </div>
     </div>
-    <div class="row center">
-        <p class="col s12">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
+    <div class="row text-center">
+        <p class="col">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
     </div>
 </div>

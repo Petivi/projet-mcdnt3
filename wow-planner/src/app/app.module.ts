@@ -20,6 +20,7 @@ import { PersonnageComponent } from './personnage/personnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
+import { ContactComponent } from './contact/contact.component';
 
 import { FilterPipe } from './common/pipe/string.pipe';
 
@@ -38,12 +39,13 @@ import { FilterPipe } from './common/pipe/string.pipe';
         RechercheComponent,
         CreationPersonnageComponent,
         GestionCompteComponent,
+        ContactComponent,
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         ReactiveFormsModule, FormsModule,
-        appRouting
+        appRouting,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },

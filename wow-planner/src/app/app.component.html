@@ -1,23 +1,60 @@
-<div class="navbar-fixed" *ngIf="words && words.length > 0" style="margin-bottom: 10px">
-    <nav>
-        <div class="nav-wrapper">
-            <a [routerLink]="['/accueil']" class="brand-logo">WOW Planner Logo</a>
-            <ul id="nav-mobile" class="right">
-                <li class="deroulant">
-                    <a class="right">{{langue.toUpperCase()}}</a>
-                    <ul class="sous-deroulant">
-                        <li><a (click)="changeLangue()"><span *ngIf="langue==='en'">FR</span><span *ngIf="langue==='fr'">EN</span></a></li>
+<div *ngIf="words && words.length > 0" style="margin-bottom: 10px">
+    <nav class="navbar navbar-expand-lg navbar-light menu">
+        <a [routerLink]="['/accueil']" class="navbar-brand">WOW Planner Logo</a>
+        <div class="collapse navbar-collapse navbar-right">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown deroulant">
+                    <a class="nav-link" id="navbarDropdownLangue">{{langue.toUpperCase()}}</a>
+                    <ul class="sous-deroulant pseudo" aria-labelledby="navbarDropdownLangue">
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="changeLangue()">
+                                <span *ngIf="langue==='en'">FR</span>
+                                <span *ngIf="langue==='fr'">EN</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                <li><a [routerLink]="['/creationPersonnage']">{{(words | filter : {msg_name: 'msg_creationPerso'} : {col : 'value'})}}</a></li>
-                <li *ngIf="!userConnected"><a [routerLink]="['/inscription']">{{(words | filter : {msg_name: 'msg_registration'} : {col : 'value'})}}</a></li>
-                <li *ngIf="!userConnected"><a [routerLink]="['/login']">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</a></li>
-                <li *ngIf="userConnected"><a (click)="deconnexion()">{{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}</a></li>
-                <li *ngIf="userConnected && userConnected.pseudo === 'admin'"><a [routerLink]="['/admin']">Admin</a></li>
-                <li *ngIf="userConnected && userConnected.pseudo !== 'admin'" class="deroulant"><a>{{userConnected.pseudo}}</a>
-                    <ul class="sous-deroulant pseudo">
-                        <li><a [routerLink]="['/infoUser']">{{(words | filter : {msg_name: 'msg_infoUserLink'} : {col : 'value'})}}</a></li>
-                        <li><a (click)="desinscription()">{{(words | filter : {msg_name: 'msg_btnDesinscrire'} : {col : 'value'})}}</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/contact']">
+                        {{(words | filter : {msg_name: 'msg_nousContacter'} : {col : 'value'})}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/creationPersonnage']">
+                        {{(words | filter : {msg_name: 'msg_creationPerso'} : {col : 'value'})}}
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="!userConnected">
+                    <a class="nav-link" [routerLink]="['/inscription']">
+                        {{(words | filter : {msg_name: 'msg_registration'} : {col : 'value'})}}
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="!userConnected">
+                    <a class="nav-link" [routerLink]="['/login']">
+                        {{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="userConnected">
+                    <a class="nav-link" (click)="deconnexion()">
+                        {{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="userConnected && userConnected.pseudo === 'admin'">
+                    <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+                </li>
+                <li class="nav-item dropdown deroulant" *ngIf="userConnected && userConnected.pseudo !== 'admin'">
+                    <a class="nav-link" id="navbarDropdownPseudo">{{userConnected.pseudo}}</a>
+                    <ul class="sous-deroulant pseudo" aria-labelledby="navbarDropdownPseudo">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/infoUser']">
+                                {{(words | filter : {msg_name: 'msg_infoUserLink'} : {col : 'value'})}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="desinscription()">
+                                {{(words | filter : {msg_name: 'msg_btnDesinscrire'} : {col : 'value'})}}
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
