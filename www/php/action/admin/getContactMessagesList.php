@@ -21,7 +21,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
       'request_subject' => Chiffrement::decrypt($messages_list['request_subject']),
       'request_text' => Chiffrement::decrypt($messages_list['request_text']),
       'request_ref' => $messages_list['request_ref'],
-      'request_date' => date('d/m/Y', $messages_list['created_date']),
+      'request_date' => date('d/m/Y H:i:s', $messages_list['created_date']),
       'request_closed' => $messages_list['request_closed'],
     ));
   }
