@@ -34,9 +34,6 @@
                         {{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}
                     </a>
                 </li>
-                <li class="nav-item" *ngIf="userConnected && userConnected.pseudo === 'admin'">
-                    <a class="nav-link" [routerLink]="['/admin']">Admin</a>
-                </li>
                 <li class="nav-item dropdown deroulant" *ngIf="userConnected">
                     <a class="nav-link" id="navbarDropdownPseudo">{{userConnected.pseudo}}</a>
                     <ul class="sous-deroulant pseudo" aria-labelledby="navbarDropdownPseudo">
@@ -49,6 +46,9 @@
                             <a class="nav-link" (click)="deconnexion()">
                                 {{(words | filter : {msg_name: 'msg_signout'} : {col : 'value'})}}
                             </a>
+                        </li>
+                        <li class="nav-item" *ngIf="userConnected && compteAdmin">
+                            <a class="nav-link" [routerLink]="['/admin']">BO</a>
                         </li>
                     </ul>
                 </li>

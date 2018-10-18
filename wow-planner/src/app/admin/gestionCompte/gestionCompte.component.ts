@@ -13,7 +13,9 @@ import { Word, User } from '../../model/app.model'
 })
 export class GestionCompteComponent implements OnInit {
     editMode: boolean = false;
+    submitted: boolean = false;
     words: Word[] = [];
+    errors: string [] = [];
     typeCompteActif: any[] = [{code: 0, value: 'Bannis'}, {code: 1, value: 'Actif'}, {code: 2, value: 'Supprimé'}];
 
     raison: string = '';
@@ -21,11 +23,12 @@ export class GestionCompteComponent implements OnInit {
     userActif: User = null;
     users: User[] = [];
     userForm: FormGroup;
+
     controls = () => ({
         userGroup: this._formBuilder.group({
             firstname: [this.userActif && this.userActif.firstname ? this.userActif.firstname : ''],
             lastname: [this.userActif && this.userActif.lastname ? this.userActif.lastname : ''],
-            pseudo: [this.userActif && this.userActif.pseudo ? this.userActif.pseudo : ''],
+            pseudo: [this.userActif && this.userActif.pseudo ? this.userActif.pseudo : '', Validators.required],
             active_account: [this.userActif && this.userActif.active_account ? this.userActif.active_account : ''],
         }),
         adminGroup: this._formBuilder.group({
@@ -33,6 +36,7 @@ export class GestionCompteComponent implements OnInit {
             raison: [this.raison, Validators.required],
         }),
     });
+
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
@@ -45,7 +49,7 @@ export class GestionCompteComponent implements OnInit {
             this._appService.post('action/admin/usersManagement.php', JSON.parse(localStorage.getItem('userConnected')))
                 .then(res => {
                     if (res.response && res.response.length > 0) {
-                        this.users = res.response
+                        this.users = res.response;
                         this.users.forEach(u => {
                             switch (u.checked_mail) {
                                 case '0':
@@ -88,26 +92,32 @@ export class GestionCompteComponent implements OnInit {
 
     retour() {
         this.userActif = null;
-        this.editMode = false
+        this.editMode = false;
+        this.errors = [];
     }
 
     showUser(user: User) {
         this.userActif = user;
-        console.log(this.userActif)
         this.buildControl();
     }
 
     sendUser() {
-        this.editMode = false;
+        this.errors = [];
+        this.submitted = true;
         if(this.userForm.dirty) {
-            let session_token = JSON.parse(localStorage.getItem('userConnected')).session_token;
-            this._appService.post('action/admin/saveUserInfo.php',
-            {session_token: session_token, action: this.action, comment: this.raison, user: this.userActif}).then(res => {
-                console.log(res)
-                if (res.error) {
-                    this._router.navigate(['/accueil']);
-                }
-            });
+            if(this.userForm.valid) {
+                this.submitted = false;
+                this.editMode = false;
+                let session_token = JSON.parse(localStorage.getItem('userConnected')).session_token;
+                this._appService.post('action/admin/saveUserInfo.php',
+                {session_token: session_token, action: this.action, comment: this.raison, user: this.userActif}).then(res => {
+                    if (res.error) {
+                        this._router.navigate(['/accueil']);
+                    }
+                });
+            } else { //champs pseudo Modif ou raison vide
+                this.errors.push('Les champs pseudo, modification et raison sont obligatoires');
+            }
         }
     }
 }
