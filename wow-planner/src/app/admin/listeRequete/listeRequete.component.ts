@@ -16,6 +16,7 @@ export class ListeRequeteComponent implements OnInit {
 
     valid: boolean = true;
     ttRequete: Requete[] = [];
+    requeteActive: Requete = null;
 
     controls = () => ({
     });
@@ -45,5 +46,13 @@ export class ListeRequeteComponent implements OnInit {
     }
 
     bindModelForm() {
+    }
+
+    showRequete(requette: Requete) {
+        this.requeteActive = requette;
+    }
+
+    retour() {
+        this.requeteActive = null
     }
 }

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 
 import { AppService } from '../app.service'
 
-import { User, WordSimplified } from '../model/app.model'
+import { User, Word } from '../model/app.model'
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     user: User = new User({});
     mailTaken: boolean = false;
     pseudoTaken: boolean = false;
-    words: WordSimplified[] = [];
+    words: Word[] = [];
     submitted: boolean = false;
     cfPassword: string;
     inscriptionForm: FormGroup;

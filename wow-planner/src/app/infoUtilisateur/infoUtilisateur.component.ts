@@ -5,14 +5,14 @@ import Swal from 'sweetalert2';
 
 import { AppService } from '../app.service';
 
-import { WordSimplified, User } from '../model/app.model';
+import { Word, User } from '../model/app.model';
 
 @Component({
     selector: 'info-utilisateur-cpt',
     templateUrl: './infoUtilisateur.component.html',
 })
 export class InfoUtilisateurComponent implements OnInit, OnDestroy {
-    words: WordSimplified[] = [];
+    words: Word[] = [];
     passwordErrors: string[] = [];
     profileErrors: string[] = [];
     editMode: boolean = false;
