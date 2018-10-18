@@ -10,6 +10,7 @@ import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
 import { ContactComponent } from './contact/contact.component';
+import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -23,6 +24,10 @@ export const appRouting = RouterModule.forRoot([
     {
         path: 'admin/gestionCompte',
         component: GestionCompteComponent,
+    },
+    {
+        path: 'admin/listeRequete',
+        component: ListeRequeteComponent,
     },
     {
         path: 'inscription',

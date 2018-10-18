@@ -23,6 +23,7 @@ import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.comp
 import { ContactComponent } from './contact/contact.component';
 
 import { FilterPipe } from './common/pipe/string.pipe';
+import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { FilterPipe } from './common/pipe/string.pipe';
         CreationPersonnageComponent,
         GestionCompteComponent,
         ContactComponent,
+        ListeRequeteComponent,
     ],
     imports: [
         BrowserModule,

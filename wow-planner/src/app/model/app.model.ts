@@ -23,10 +23,11 @@ export class User {
 
 export class Word {
     msg_name: string;
+    value: string;
     msg_fr: string;
     msg_en: string;
     page: string;
-    pseudo: any;
+    pseudo: string;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {
@@ -36,9 +37,11 @@ export class Word {
     }
 }
 
-export class WordSimplified {
-    msg_name: string;
-    value: string;
+export class Requete {
+    mail: string;
+    sujet: string;
+    text: string;
+    request_closed: string;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {

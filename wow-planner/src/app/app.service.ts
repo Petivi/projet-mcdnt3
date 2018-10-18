@@ -22,8 +22,6 @@ export class AppService {
         return this._http.post(this.urlServeur + url, value, this.httpOptions)
             .toPromise()
             .then(res => {
-                console.log(res)
-                console.log(JSON.parse(res['body']));
                 if (res['body']) {
                     let value = JSON.parse(res['body']);
                     return value;
@@ -108,7 +106,6 @@ export class AppService {
     setLangue(langue: string) {
         localStorage.setItem('langue', langue);
         this.langue = langue;
-        console.log(this.langue);
     }
 
     getLangue() {

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AppService } from '../app.service';
 
-import { Word, User, WordSimplified } from '../model/app.model'
+import { Word } from '../model/app.model'
 
 
 @Component({
@@ -13,7 +13,9 @@ import { Word, User, WordSimplified } from '../model/app.model'
 })
 export class ContactComponent implements OnInit {
 
+    errors: string[] = [];
     words: Word[] = [];
+    mailSent: boolean = false;
     submitted: boolean = false;
     contact_subject: string = '';
     contact_mail: string = '';
@@ -32,6 +34,7 @@ export class ContactComponent implements OnInit {
             res.forEach(w => {
                 this.words.push(w);
             });
+            console.log(this.words)
         });
         this.buildControl();
     }
@@ -54,13 +57,19 @@ export class ContactComponent implements OnInit {
     }
 
     envoyer() {
+        this.errors =  [];
         this.submitted = true;
         if(this.contactForm.valid) {
             this._appService.post('action/contactUs.php', {contact_mail: this.contact_mail, contact_subject: this.contact_subject, contact_text: this.contact_text})
             .then(res => {
                 console.log(res);
-                this.submitted = false;
+                if(res.response !== null) {
+                    this.submitted = false;
+                    this.mailSent = true;
+                }
             });
+        } else {
+            this.errors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);
         }
     }
 

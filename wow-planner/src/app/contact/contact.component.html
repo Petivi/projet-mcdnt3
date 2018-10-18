@@ -3,6 +3,16 @@
         <div class="col-md-6 offset-md-3">
             <div class="card">
                 <div class="card-body">
+                    <div class="row" *ngIf="errors && errors.length > 0">
+                        <div class="col alert alert-danger">
+                            <div *ngFor="let error of errors">{{error}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="success col" *ngIf="mailSent">
+                            {{(words | filter : {msg_name: 'msg_contactEffectue'} : {col : 'value'})}}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="contact_mail">
@@ -27,8 +37,7 @@
                                 Message
                             </label>
                             <textarea autofocus id="contact_text" class="form-control" [ngClass]="{ 'invalid': submitted && contactForm.controls.contact_text.errors }"
-                                type="text" formControlName="contact_text">
-                </textarea>
+                                type="text" formControlName="contact_text"></textarea>
                         </div>
                     </div>
                 </div>

@@ -57,9 +57,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="row" *ngIf="profilErrors && profilErrors.length > 0">
-                                <div class="col error">
-                                    <div *ngFor="let error of profilErrors">{{error}}</div>
+                            <div class="row" *ngIf="errors && errors.length > 0">
+                                <div class="col alert alert-danger">
+                                    <div *ngFor="let error of errors">{{error}}</div>
                                 </div>
                             </div>
                             <div formGroupName="userGroup">
@@ -87,12 +87,13 @@
                                     <label class="col-md-4" for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} : {col : 'value'})}}</label>
                                     <span class="col" *ngIf="!editMode">{{userActif.pseudo}}</span>
                                     <div class="col">
-                                        <input class="form-control" *ngIf="editMode" type="text" formControlName="pseudo"
+                                        <input [ngClass]="{ 'invalid': submitted && (userForm.controls.userGroup.controls.pseudo.errors) }" 
+                                        class="form-control" *ngIf="editMode" type="text" formControlName="pseudo"
                                             id="pseudo">
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <label class="col-md-4" for="pseudo">Compte</label>
+                                    <label class="col-md-4" for="compte">Compte</label>
                                     <span class="col" *ngIf="!editMode">{{userActif.libelle_active_account}}</span>
                                     <div class="col" *ngIf="editMode">
                                         <select class="form-control" formControlName="active_account">
@@ -103,15 +104,15 @@
                             </div>
                             <div formGroupName="adminGroup" *ngIf="editMode">
                                 <div class="row form-group">
-                                    <label class="col" for="pseudo">Modification apportée</label>
+                                    <label class="col" for="modif">Modification apportée</label>
                                     <div class="col">
-                                        <input class="form-control" formControlName="action">
+                                        <input id="modif" [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.action.errors) }" class="form-control" formControlName="action">
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <label class="col" for="pseudo">Raison de cette modification</label>
+                                    <label class="col" for="raison">Raison de cette modification</label>
                                     <div class="col">
-                                        <textarea class="form-control" formControlName="raison">
+                                        <textarea [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.raison.errors) }" id="raison" class="form-control" formControlName="raison">
                                         </textarea>
                                     </div>
                                 </div>
