@@ -358,8 +358,8 @@ function editContactMessageStatut($id, $statut){
     SET request_closed = :statut
     WHERE id LIKE :id';
     $update_messages_statut = $base->prepare($update_messages_statut);
-    $update_messages_statut->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
-    $update_messages_statut->bindValue('statut', $tabUser['statut'], PDO::PARAM_INT);
+    $update_messages_statut->bindValue('id', $id, PDO::PARAM_INT);
+    $update_messages_statut->bindValue('statut', $statut, PDO::PARAM_INT);
     $update_messages_statut->execute();
     $statut_updated = true;
   } catch (\Exception $e) {
