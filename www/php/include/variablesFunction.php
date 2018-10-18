@@ -356,7 +356,7 @@ function editContactMessageStatut($id, $statut){
   try {
     $update_messages_statut = 'UPDATE requests_contact_list
     SET request_closed = :statut
-    WHERE id LIKE :id';
+    WHERE id LIKE :id AND request_close LIKE 0';
     $update_messages_statut = $base->prepare($update_messages_statut);
     $update_messages_statut->bindValue('id', $id, PDO::PARAM_INT);
     $update_messages_statut->bindValue('statut', $statut, PDO::PARAM_INT);
