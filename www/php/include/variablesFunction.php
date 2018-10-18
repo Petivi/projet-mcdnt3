@@ -154,16 +154,16 @@ function generateRefToken(){
   $a2 = "";
   $a3 = "";
   $a3 = "";
-  for ($i = 0; $i<10; $i++){
+  for ($i = 0; $i<5; $i++){
     $a1 .= $alphabet[rand(0, strlen($alphabet)-1)];
-    $a2 .= $alphabet[rand(0, strlen($alphabet)-1)];
   }
   $b1 = date('d');
   $b2 = date('m');
   $b3 = date('y');
   $b4 = date('H');
   $b5 = date('i');
-  $request_ref = $b1 . $b2 . $b3 .  $a1 . $a2 . $b4 . $b5;
+  $b6 = date('s');
+  $request_ref = $b1 . $b2 . $b3 .  $a1 . $b4 . $b5 . $b6;
 
   $existing_token = false;
   $check_token_existing = 'SELECT * FROM requests_contact_list WHERE request_ref LIKE :request_ref';
