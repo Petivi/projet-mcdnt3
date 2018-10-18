@@ -55,6 +55,13 @@ function getPostInfo($req){
   }
 
 
+  if(isset($req->data)){
+    $data = htmlspecialchars($req->data, ENT_QUOTES);
+  }else{
+    $data = "";
+  }
+
+
 
   if(isset($req->contact_mail)){
     $contact_mail = htmlspecialchars($req->contact_mail, ENT_QUOTES);
@@ -82,6 +89,7 @@ function getPostInfo($req){
     "session_token" => $session_token,
     "login" => $login,
     "active_account" => $active_account,
+    "data" => $data,
     "contact_mail" => $contact_mail,
     "contact_subject" => $contact_subject,
     "contact_text" => $contact_text,

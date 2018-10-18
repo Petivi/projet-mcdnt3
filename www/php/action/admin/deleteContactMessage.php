@@ -3,7 +3,7 @@ require_once('../../config.php');
 include "../../includedFiles.php";
 
 $tabUser = getPostInfo($request);
-
+$tabUser['id'] = intval($tabUser['id']);
 
 if(accessToAdminPermissions($tabUser['session_token']) && $tabUser['id']){
 
@@ -19,7 +19,7 @@ if(accessToAdminPermissions($tabUser['session_token']) && $tabUser['id']){
 
 
 }else {
-  echo returnError($display_error_empty);
+  echo returnError($display_error_insufficient_permissions);
   exit();
 }
 

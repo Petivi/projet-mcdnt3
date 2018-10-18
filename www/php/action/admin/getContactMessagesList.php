@@ -43,7 +43,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
     exit();
   }
 }else {
-  echo returnError($display_error_empty);
+  echo returnError($display_error_insufficient_permissions);
   exit();
 }
 
