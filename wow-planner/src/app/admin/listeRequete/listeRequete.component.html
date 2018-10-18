@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="clickable" *ngFor="let r of ttRequete" (click)="showRequete(r)">
+                            <tr *ngFor="let r of ttRequete">
                                 <td>{{r.id}}</td>
                                 <td>{{r.request_date}}</td>
                                 <td>{{r.user_mail}}</td>
@@ -27,6 +27,9 @@
                                 <td>
                                     <button class="icon-button" (click)="supprimer(r)" title="supprimer">
                                         <i class="fa fa-trash"></i>
+                                    </button>
+                                    <button class="icon-button" (click)="showRequete(r)" title="supprimer">
+                                        <i class="fa fa-edit"></i>
                                     </button>
                                 </td>
                             </tr>
