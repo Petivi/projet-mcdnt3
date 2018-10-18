@@ -30,6 +30,12 @@ export class ListeRequeteComponent implements OnInit {
             } else {
                 this._appService.post('action/admin/getContactMessagesList.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
                     console.log(res)
+                    if(res.response && res.response.length > 0) {
+                        this.ttRequete = res.response;
+                        this.ttRequete.forEach(r => {
+                            r.libelle_request_closed = r.request_closed === '0' ? 'non' : 'oui';
+                        });
+                    };
                 });
             }
         });

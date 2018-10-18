@@ -6,16 +6,23 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <table class="table table-hover">
+                    <table class="table table-hover text-center">
                         <thead class="thead-light">
                             <tr>
+                                <th>id</th>
+                                <th>Date de la requete</th>
                                 <th>Mail utilisateur</th>
                                 <th>Sujet du message</th>
                                 <th>requete traité</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="clickable" *ngFor="" (click)="showUser(u)">
+                            <tr class="clickable" *ngFor="let r of ttRequete" (click)="showRequete(r)">
+                                <td>{{r.id}}</td>
+                                <td>{{r.request_date}}</td>
+                                <td>{{r.user_mail}}</td>
+                                <td>{{r.request_subject}}</td>
+                                <td>{{r.libelle_request_closed}}</td>
                             </tr>
                         </tbody>
                     </table>

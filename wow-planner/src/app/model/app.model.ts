@@ -38,10 +38,14 @@ export class Word {
 }
 
 export class Requete {
-    mail: string;
-    sujet: string;
-    text: string;
+    id: string;
+    user_mail: string;
+    request_date: string;
+    request_subject: string;
+    request_text: string;
     request_closed: string;
+    request_ref: string;
+    libelle_request_closed: string;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {
