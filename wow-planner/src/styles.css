@@ -1,11 +1,14 @@
 /* GENERAL */
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "~font-awesome/css/font-awesome.css";
 .clickable:hover {
     cursor: pointer;
 }
 .invalid {
     border-color: #dc3545 !important;
+}
+.container-bo {
+    width: 90%;
+    margin-right: auto;
+    margin-left: 1em;
 }
 .icon-button {
     background-color: #f0f8ff00;
