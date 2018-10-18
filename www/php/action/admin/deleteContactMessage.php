@@ -14,7 +14,7 @@ if(accessToAdminPermissions($tabUser['session_token']) && $tabUser['id']){
   $update_messages_statut = $base->prepare($update_messages_statut);
   $update_messages_statut->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
   $update_messages_statut->execute();
-  returnResponse($display_response_empty);
+  echo returnResponse($display_response_empty);
 
 
 

@@ -17,7 +17,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
 
   $tabMessagesList = array();
   $messages_exists = false;
-  $request_messages_list = 'SELECT * FROM requests_contact_list WHERE request_closed = 0 OR 1 ORDER BY request_date ASC LIMIT :items_per_page OFFSET :offsetPage';
+  $request_messages_list = 'SELECT * FROM requests_contact_list WHERE (request_closed = 0 OR request_closed = 1) ORDER BY request_date ASC LIMIT :items_per_page OFFSET :offsetPage';
   $request_messages_list = $base->prepare($request_messages_list);
   $request_messages_list->bindValue('items_per_page', $items_per_page, PDO::PARAM_INT);
   $request_messages_list->bindValue('offsetPage', $offsetPage, PDO::PARAM_INT);
