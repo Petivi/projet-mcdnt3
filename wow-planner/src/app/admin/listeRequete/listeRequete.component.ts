@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { AppService } from '../../app.service';
 
 import { Requete } from '../../model/app.model'
+import { timingSafeEqual } from 'crypto';
 
 
 @Component({
@@ -13,43 +15,36 @@ import { Requete } from '../../model/app.model'
 })
 
 export class ListeRequeteComponent implements OnInit {
-
     valid: boolean = true;
     ttRequete: Requete[] = [];
     requeteActive: Requete = null;
     token: string = null;
-
-
-    controls = () => ({
-    });
+    reponse: string = '';
+    setReponse: boolean = false; //affiche le formulaire de reponse
 
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
         if (localStorage.getItem('userConnected')) this.token = JSON.parse(localStorage.getItem('userConnected')).session_token;
         else this.token = null;
-        this.buildControl();
         this._appService.post('action/checkIfAdmin.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
             if (res.error) {
                 this._router.navigate(['/accueil']);
             } else {
-                this._appService.post('action/admin/getContactMessagesList.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
-                    console.log(res)
-                    if (res.response && res.response.length > 0) {
-                        this.ttRequete = res.response;
-                        this.ttRequete.forEach(r => {
-                            r.libelle_request_closed = r.request_closed === '0' ? 'non' : 'oui';
-                        });
-                    };
-                });
+                this.getMessages();
             }
         });
     }
 
-    buildControl() {
-    }
-
-    bindModelForm() {
+    getMessages() {
+        this._appService.post('action/admin/getContactMessagesList.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
+            if (res.response && res.response.length > 0) {
+                this.ttRequete = res.response;
+                this.ttRequete.forEach(r => {
+                    r.libelle_request_closed = r.request_closed === '0' ? 'non' : 'oui';
+                });
+            };
+        });
     }
 
     showRequete(requette: Requete) {
@@ -61,11 +56,44 @@ export class ListeRequeteComponent implements OnInit {
     }
 
     supprimer(requete) {
-        console.log(requete)
-        console.log(this.token)
-        if (this.token) {
-            this._appService.post('action/admin/deleteContactMessage.php', { session_token: this.token, id: requete.id }).then(res => {
-                console.log(res);
+        Swal({
+            title: 'Confirmation',
+            text: 'Etes vous sur de vouloir supprimer la requête ' + requete.id,
+            showCancelButton: true,
+            confirmButtonText: 'Oui',
+            cancelButtonText: 'Non',
+        }).then(res => {
+            if (res.value && this.token) {
+                this._appService.post('action/admin/deleteContactMessage.php', { session_token: this.token, id: requete.id }).then(res => {
+                    if (res.response) {
+                        this.getMessages();
+                    }
+                });
+            }
+        });
+    }
+
+    sendResponse() {
+        if (this.requeteActive) {
+            Swal({
+                title: 'Confirmation',
+                text: 'Un mail va être envoyé a cette adresse : ' + this.requeteActive.user_mail + ', confirmez vous cet envoie ?',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non',
+            }).then(res => {
+                if(res.value) {
+                    this._appService.post('action/admin/answerContactMessage.php',
+                    { session_token: this.token, id: this.requeteActive.id, mail: this.requeteActive.user_mail, data: this.reponse, request_ref: this.requeteActive.request_ref })
+                    .then(res => {
+                        if (res.response) {
+                            this.getMessages();
+                            this.setReponse = false;
+                            this.reponse = '';
+                            this.requeteActive = null;
+                        }
+                    });
+                }
             });
         }
     }

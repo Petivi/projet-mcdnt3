@@ -17,10 +17,11 @@
                                 <th>Derniere connexion</th>
                                 <th>Compte</th>
                                 <th>Confirmation mail</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="clickable" *ngFor="let u of users" (click)="showUser(u)">
+                            <tr *ngFor="let u of users">
                                 <td>{{u.lastname}}</td>
                                 <td>{{u.firstname}}</td>
                                 <td>{{u.pseudo}}</td>
@@ -29,6 +30,11 @@
                                 <td>{{u.last_connection}}</td>
                                 <td>{{u.libelle_active_account}}</td>
                                 <td>{{u.libelle_checked_mail}}</td>
+                                <td>
+                                    <button class="icon-button" (click)="showUser(u)" title="voir">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -50,7 +56,7 @@
                         <div class="card-header">
                             <div class="row text-center">
                                 <div class="col">
-                                    <button (click)="(editMode = true)" class="btn btn-primary">
+                                    <button (click)="(editMode = !editMode)" class="btn btn-primary">
                                         {{(words | filter : {msg_name: 'msg_modifier'} : {col : 'value'})}}
                                     </button>
                                 </div>
@@ -84,11 +90,12 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <label class="col-md-4" for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} : {col : 'value'})}}</label>
+                                    <label class="col-md-4" for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} :
+                                        {col : 'value'})}}</label>
                                     <span class="col" *ngIf="!editMode">{{userActif.pseudo}}</span>
                                     <div class="col">
-                                        <input [ngClass]="{ 'invalid': submitted && (userForm.controls.userGroup.controls.pseudo.errors) }" 
-                                        class="form-control" *ngIf="editMode" type="text" formControlName="pseudo"
+                                        <input [ngClass]="{ 'invalid': submitted && (userForm.controls.userGroup.controls.pseudo.errors) }"
+                                            class="form-control" *ngIf="editMode" type="text" formControlName="pseudo"
                                             id="pseudo">
                                     </div>
                                 </div>
@@ -106,13 +113,15 @@
                                 <div class="row form-group">
                                     <label class="col" for="modif">Modification apportée</label>
                                     <div class="col">
-                                        <input id="modif" [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.action.errors) }" class="form-control" formControlName="action">
+                                        <input id="modif" [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.action.errors) }"
+                                            class="form-control" formControlName="action">
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <label class="col" for="raison">Raison de cette modification</label>
                                     <div class="col">
-                                        <textarea [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.raison.errors) }" id="raison" class="form-control" formControlName="raison">
+                                        <textarea [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.raison.errors) }"
+                                            id="raison" class="form-control" formControlName="raison">
                                         </textarea>
                                     </div>
                                 </div>

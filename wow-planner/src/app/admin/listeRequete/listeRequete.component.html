@@ -1,41 +1,49 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="row">
-                <h1 class="col text-center">Liste des requetes utilisateur</h1>
+            <div class="card"  *ngIf="!requeteActive">
+                <div class="card-header">
+                    <div class="row">
+                        <h1 class="col text-center">Liste des requetes utilisateur</h1>
+                    </div>
+                </div>
+                <div class="car-body">
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-hover text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Date de la requête</th>
+                                        <th>Mail utilisateur</th>
+                                        <th>Sujet du message</th>
+                                        <th>Requête traitée</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let r of ttRequete">
+                                        <td>{{r.id}}</td>
+                                        <td>{{r.request_date}}</td>
+                                        <td>{{r.user_mail}}</td>
+                                        <td>{{r.request_subject}}</td>
+                                        <td>{{r.libelle_request_closed}}</td>
+                                        <td>
+                                            <button class="icon-button" (click)="supprimer(r)" title="supprimer">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <button class="icon-button" (click)="showRequete(r)" title="voir">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div class="col" *ngIf="!requeteActive">
-                    <table class="table table-hover text-center">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>id</th>
-                                <th>Date de la requete</th>
-                                <th>Mail utilisateur</th>
-                                <th>Sujet du message</th>
-                                <th>requete traité</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let r of ttRequete">
-                                <td>{{r.id}}</td>
-                                <td>{{r.request_date}}</td>
-                                <td>{{r.user_mail}}</td>
-                                <td>{{r.request_subject}}</td>
-                                <td>{{r.libelle_request_closed}}</td>
-                                <td>
-                                    <button class="icon-button" (click)="supprimer(r)" title="supprimer">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    <button class="icon-button" (click)="showRequete(r)" title="supprimer">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <div class="col" *ngIf="requeteActive">
                     <div class="row mb-2">
                         <div class="col-md-2">
@@ -45,16 +53,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 offset-md-2">
+                        <div class="col-md-6 offset-md-3">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col">
                                             <h4>Requete {{requeteActive.id}}</h4>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="control-label">Traitée :</label>
+                                        </div>
+                                        <div class="col">
+                                            {{requeteActive.libelle_request_closed}}
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col">
                                             <label class="control-label">Date :</label>
@@ -90,11 +106,8 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
-                                        <div class="col">
-                                            <button class="btn btn-primary" (click)="(setReponse = true)">Répondre</button>
-                                        </div>
-                                        <div class="col text-right">
-                                            <button class="btn btn-success">Requête traitée</button>
+                                        <div class="col text-center">
+                                            <button class="btn btn-primary" (click)="(setReponse = !setReponse)">Répondre</button>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +119,7 @@
                                 <div class="card-body">
                                     <div class="row form-group">
                                         <div class="col">
-                                            <textarea class="form-control"></textarea>
+                                            <textarea rows="10" [(ngModel)]="reponse" [ngClass]="{ 'invalid': submitted && !reponse }" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>

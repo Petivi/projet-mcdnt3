@@ -19,15 +19,17 @@ export const appRouting = RouterModule.forRoot([
     },
     {
         path: 'admin',
-        component: AdminComponent,        
-    },
-    {
-        path: 'admin/gestionCompte',
-        component: GestionCompteComponent,
-    },
-    {
-        path: 'admin/listeRequete',
-        component: ListeRequeteComponent,
+        component: AdminComponent,     
+        children: [
+            {
+                path: 'gestionCompte',
+                component: GestionCompteComponent,
+            },
+            {
+                path: 'listeRequete',
+                component: ListeRequeteComponent,
+            },
+        ]   
     },
     {
         path: 'inscription',
