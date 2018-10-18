@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import Swal from 'sweetalert2';
 
 import { AppService } from './app.service';
 
@@ -50,32 +49,5 @@ export class AppComponent implements OnInit {
                 }
             }, 100)
         });
-    }
-
-    desinscription() {
-        Swal({
-            title: 'Confirmation',
-            text: this.words.find(w => w.msg_name === 'msg_confirmationDesinscription').value,
-            showCancelButton: true,
-            confirmButtonText: 'OK',
-            cancelButtonText: this.words.find(w => w.msg_name === 'msg_cancel').value,
-        }).then(res => {
-            if (res.value) {
-                this._appService.post('action/unsubscribe.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
-                    if (res.response) {
-                        localStorage.removeItem('userConnected');
-                        this.userConnected = null;
-                        Swal({
-                            title: 'Confirmation',
-                            text: this.words.find(w => w.msg_name === 'msg_confDesinscription').value,
-                            type: 'success',
-                            confirmButtonText: 'OK',
-                        }).then(res => {
-                            this._router.navigate(['/login']);
-                        });
-                    }
-                });
-            }
-        });
-    }
+    }    
 }

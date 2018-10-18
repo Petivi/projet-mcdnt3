@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col">
                     <h1 class="text-center">{{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</h1>
-                    <div class="error" *ngIf="!valid && errors.length>0">
+                    <div class="alert alert-danger" *ngIf="!valid && errors.length>0">
                         <div *ngFor="let er of errors">{{er}}</div>
                     </div>
                 </div>
@@ -45,15 +45,19 @@
                 </div>
                 <div class="row">
                     <div class="form-group col">
-                        <label for="passConf">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
+                        <label for="passConf">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col :
+                            'value'})}} *</label>
                         <input id="passConf" class="form-control" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }"
                             type="password" formControlName="cfPassword">
                     </div>
                 </div>
             </form>
             <div class="row">
-                <button type="submit" (click)="inscription()" class="btn waves-effect waves-ligth" style="width: 100%">
-                    {{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}</button>
+                <div class="col">
+                    <button type="submit" (click)="inscription()" class="btn btn-primary" style="width: 100%">
+                        {{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
