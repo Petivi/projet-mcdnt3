@@ -27,9 +27,9 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
     $messages_exists = true;
     array_push($tabMessagesList,array(
       'id' => $messages_list['id'],
-      'user_mail' => Chiffrement::decrypt($messages_list['user_mail']),
-      'request_subject' => Chiffrement::decrypt($messages_list['request_subject']),
-      'request_text' => Chiffrement::decrypt($messages_list['request_text']),
+      'user_mail' => htmlspecialchars_decode(Chiffrement::decrypt($messages_list['user_mail']), ENT_QUOTES),
+      'request_subject' => htmlspecialchars_decode(Chiffrement::decrypt($messages_list['request_subject']), ENT_QUOTES),
+      'request_text' => htmlspecialchars_decode(Chiffrement::decrypt($messages_list['request_text']), ENT_QUOTES),
       'request_ref' => $messages_list['request_ref'],
       'request_date' => date('d/m/Y H:i:s', $messages_list['request_date']),
       'request_closed' => $messages_list['request_closed'],
