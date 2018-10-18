@@ -57,15 +57,19 @@ export class ContactComponent implements OnInit {
     }
 
     envoyer() {
+        this.mailSent = false;
         this.errors =  [];
         this.submitted = true;
         if(this.contactForm.valid) {
             this._appService.post('action/contactUs.php', {contact_mail: this.contact_mail, contact_subject: this.contact_subject, contact_text: this.contact_text})
             .then(res => {
-                console.log(res);
                 if(res.response !== null) {
                     this.submitted = false;
-                    this.mailSent = true;
+                    
+                    for(let k in this.contactForm.value) {
+                        this.contactForm.controls[k].reset();
+                    }
+
                 }
             });
         } else {

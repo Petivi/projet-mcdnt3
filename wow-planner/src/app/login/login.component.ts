@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
 import { AppService } from '../app.service';
-import { WordSimplified } from '../model/app.model';
+import { Word } from '../model/app.model';
 import { setGrowl } from '../common/function';
 
 @Component({
@@ -13,7 +13,7 @@ import { setGrowl } from '../common/function';
 })
 export class LoginComponent implements OnInit, OnDestroy {
     errors: string[] = [];
-    words: WordSimplified[] = [];
+    words: Word[] = [];
     newPassword: string;
     mail: string = '';
     cfPassword: string;

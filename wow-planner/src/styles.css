@@ -7,6 +7,14 @@
 .invalid {
     border-color: #dc3545 !important;
 }
+.icon-button {
+    background-color: #f0f8ff00;
+    border: none;
+    cursor: pointer;
+}
+.control-label {
+    font-weight: 500;
+}
 /* FIN GENERAL */
 /* MENU */
 .menu{
