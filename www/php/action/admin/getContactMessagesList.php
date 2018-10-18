@@ -1,6 +1,6 @@
 <?php
-require_once('../config.php');
-include "../includedFiles.php";
+require_once('../../config.php');
+include "../../includedFiles.php";
 
 $tabUser = getPostInfo($request);
 
