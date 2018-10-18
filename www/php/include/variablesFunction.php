@@ -349,4 +349,31 @@ function calcOffsetPage($page){
   return $offset;
 }
 
+function editContactMessageStatut($id, $statut){
+  global $base;
+  $statut = intval($statut);
+  $statut_updated = false;
+  try {
+    $update_messages_statut = 'UPDATE requests_contact_list
+    SET request_closed = :statut
+    WHERE id LIKE :id';
+    $update_messages_statut = $base->prepare($update_messages_statut);
+    $update_messages_statut->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
+    $update_messages_statut->bindValue('statut', $tabUser['statut'], PDO::PARAM_INT);
+    $update_messages_statut->execute();
+    $statut_updated = true;
+  } catch (\Exception $e) {
+    echo returnError($display_error_error_occured);
+    exit();
+  }
+
+  if($statut_updated){
+    return true;
+  }else {
+    return false;
+  }
+
+}
+
+
  ?>

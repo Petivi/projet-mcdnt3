@@ -8,13 +8,12 @@ $tabUser['id'] = intval($tabUser['id']);
 if(accessToAdminPermissions($tabUser['session_token']) && $tabUser['id']){
 
   // request_closed = 2 --> request deleted
-  $update_messages_statut = 'UPDATE requests_contact_list
-  SET request_closed = 2
-  WHERE id LIKE :id';
-  $update_messages_statut = $base->prepare($update_messages_statut);
-  $update_messages_statut->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
-  $update_messages_statut->execute();
-  echo returnResponse($display_response_empty);
+  if(editContactMessageStatut($tabUser['id'], 2)){
+    echo returnResponse($display_response_empty);
+  }else {
+    echo returnError($display_error_error_occured);
+    exit();
+  }
 
 
 

@@ -207,4 +207,24 @@ function sendMailProfilEditedByAdmin($lastname, $firstname, $pseudo, $mail, $lan
   $mailin->send_email($data);
 }
 
+
+function sendMailAnswerContactMessage($mail, $data, $request_ref){
+  global $mail_no_reply;
+  global $app_name;
+  global $mailin;
+  global $mail_header;
+  global $mail_footer;
+
+    $subject = "Request : " . $request_ref;
+    $html = $mail_header . $data .$mail_footer;
+
+  $data = array( "to" => array($mail=>" "),
+  "from" => array($mail_no_reply, $app_name),
+  "subject" => $subject,
+  "html" => $html
+  );
+
+  $mailin->send_email($data);
+}
+
  ?>

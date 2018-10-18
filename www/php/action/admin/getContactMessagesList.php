@@ -2,10 +2,10 @@
 require_once('../../config.php');
 include "../../includedFiles.php";
 
-$tabUser = getPostInfo($request);
+$tabInfo = getPostInfo($request);
 
 
-if(accessToAdminPermissions($tabUser['session_token'])){
+if(accessToAdminPermissions($tabInfo['session_token'])){
 
   if(isset($request->page)){
     $nb_page = htmlspecialchars($request->page, ENT_QUOTES);
