@@ -13,13 +13,13 @@ $display_error_account_not_activated = 'Account not activated';
 $display_error_wrong_pseudo_password = 'Wrong pseudo/password';
 $display_error_empty_field = 'Verify Empty Fields';
 $display_error_account_activated = 'Account Already Activated';
-$display_error_empty = '';
+$display_error_empty = 'false';
 // success
 $display_response_mail_sent = 'Mail Sent';
 $display_response_password_changed = 'Password changed';
 $display_response_info_changed = 'Info Changed';
 $display_response_account_deleted = 'Account Deleted';
-$display_response_empty = '';
+$display_response_empty = 'true';
 
 
 // request_type
