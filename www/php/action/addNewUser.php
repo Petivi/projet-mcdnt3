@@ -44,12 +44,12 @@ if(isset($request->user->password)){
          $insert_new_user = 'INSERT INTO users (lastname, firstname, pseudo, password, created_date, mail, active_account, token_temp, date_token_created)
          VALUES (:lastname, :firstname, :pseudo, :password, :created_date, :mail, :active_account, :token_temp, :date_token_created)';
          $insert_new_user = $base->prepare($insert_new_user);
-         $insert_new_user->bindValue('lastname', $tabUser['lastname'], PDO::PARAM_STR);
-         $insert_new_user->bindValue('firstname', $tabUser['firstname'], PDO::PARAM_STR);
-         $insert_new_user->bindValue('pseudo', $tabUser['pseudo'], PDO::PARAM_STR);
+         $insert_new_user->bindValue('lastname', Chiffrement::crypt($tabUser['lastname']), PDO::PARAM_STR);
+         $insert_new_user->bindValue('firstname', Chiffrement::crypt($tabUser['firstname']), PDO::PARAM_STR);
+         $insert_new_user->bindValue('pseudo', Chiffrement::crypt($tabUser['pseudo']), PDO::PARAM_STR);
          $insert_new_user->bindValue('password', $password, PDO::PARAM_STR);
          $insert_new_user->bindValue('created_date', $created_date, PDO::PARAM_INT);
-         $insert_new_user->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+         $insert_new_user->bindValue('mail', Chiffrement::crypt($tabUser['mail']), PDO::PARAM_STR);
          $insert_new_user->bindValue('active_account', $active_account, PDO::PARAM_INT);
          $insert_new_user->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
          $insert_new_user->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
@@ -57,8 +57,8 @@ if(isset($request->user->password)){
 
          $get_new_user_id = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND mail LIKE :mail AND active_account LIKE 1';
          $get_new_user_id = $base->prepare($get_new_user_id);
-         $get_new_user_id->bindValue('pseudo', $tabUser['pseudo'], PDO::PARAM_STR);
-         $get_new_user_id->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+         $get_new_user_id->bindValue('pseudo', Chiffrement::crypt($tabUser['pseudo']), PDO::PARAM_STR);
+         $get_new_user_id->bindValue('mail', Chiffrement::crypt($tabUser['mail']), PDO::PARAM_STR);
          $get_new_user_id->execute();
          while($user_id = $get_new_user_id->fetch())
          {

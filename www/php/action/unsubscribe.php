@@ -15,10 +15,10 @@ while($user_info = $get_user_info->fetch())
 {
   $user_exists = true;
   $id = $user_info['id'];
-  $lastname = $user_info['lastname'];
-  $firstname = $user_info['firstname'];
-  $pseudo = $user_info['pseudo'];
-  $mail = $user_info['mail'];
+  $lastname = Chiffrement::decrypt($user_info['lastname']);
+  $firstname = Chiffrement::decrypt($user_info['firstname']);
+  $pseudo = Chiffrement::decrypt($user_info['pseudo']);
+  $mail = Chiffrement::decrypt($user_info['mail']);
   $token_temp = $user_info['token_temp'];
 }
 

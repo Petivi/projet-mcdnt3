@@ -17,10 +17,10 @@ $user_exists = false;
 try {
   $get_user_info = 'SELECT * FROM users WHERE lastname LIKE :lastname AND firstname LIKE :firstname AND pseudo LIKE :pseudo AND mail LIKE :mail AND id LIKE :id AND session_token LIKE :session_token AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
-  $get_user_info->bindValue('lastname', $tabUser['lastname'], PDO::PARAM_STR);
-  $get_user_info->bindValue('firstname', $tabUser['firstname'], PDO::PARAM_STR);
-  $get_user_info->bindValue('pseudo', $tabUser['pseudo'], PDO::PARAM_STR);
-  $get_user_info->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+  $get_user_info->bindValue('lastname', Chiffrement::crypt($tabUser['lastname']), PDO::PARAM_STR);
+  $get_user_info->bindValue('firstname', Chiffrement::crypt($tabUser['firstname']), PDO::PARAM_STR);
+  $get_user_info->bindValue('pseudo', Chiffrement::crypt($tabUser['pseudo']), PDO::PARAM_STR);
+  $get_user_info->bindValue('mail', Chiffrement::crypt($tabUser['mail']), PDO::PARAM_STR);
   $get_user_info->bindValue('session_token', $tabUser['session_token'], PDO::PARAM_STR);
   $get_user_info->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
   $get_user_info->execute();
@@ -58,13 +58,13 @@ if($user_exists){
         AND session_token LIKE :session_token';
         $update_user_info = $base->prepare($update_user_info);
         $update_user_info->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
-        $update_user_info->bindValue('newLastname', $tabNewUser['lastname'], PDO::PARAM_STR);
-        $update_user_info->bindValue('newFirstname', $tabNewUser['firstname'], PDO::PARAM_STR);
-        $update_user_info->bindValue('newPseudo', $tabNewUser['pseudo'], PDO::PARAM_STR);
-        $update_user_info->bindValue('lastname', $tabUser['lastname'], PDO::PARAM_STR);
-        $update_user_info->bindValue('firstname', $tabUser['firstname'], PDO::PARAM_STR);
-        $update_user_info->bindValue('pseudo', $tabUser['pseudo'], PDO::PARAM_STR);
-        $update_user_info->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+        $update_user_info->bindValue('newLastname', Chiffrement::crypt($tabNewUser['lastname']), PDO::PARAM_STR);
+        $update_user_info->bindValue('newFirstname', Chiffrement::crypt($tabNewUser['firstname']), PDO::PARAM_STR);
+        $update_user_info->bindValue('newPseudo', Chiffrement::crypt($tabNewUser['pseudo']), PDO::PARAM_STR);
+        $update_user_info->bindValue('lastname', Chiffrement::crypt($tabUser['lastname']), PDO::PARAM_STR);
+        $update_user_info->bindValue('firstname', Chiffrement::crypt($tabUser['firstname']), PDO::PARAM_STR);
+        $update_user_info->bindValue('pseudo', Chiffrement::crypt($tabUser['pseudo']), PDO::PARAM_STR);
+        $update_user_info->bindValue('mail', Chiffrement::crypt($tabUser['mail']), PDO::PARAM_STR);
         $update_user_info->bindValue('session_token', $tabUser['session_token'], PDO::PARAM_STR);
         $update_user_info->execute();
 
@@ -82,8 +82,8 @@ if($user_exists){
           AND session_token LIKE :session_token';
           $update_user_mail = $base->prepare($update_user_mail);
           $update_user_mail->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
-          $update_user_mail->bindValue('newMail', $tabNewUser['mail'], PDO::PARAM_STR);
-          $update_user_mail->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+          $update_user_mail->bindValue('newMail', Chiffrement::crypt($tabNewUser['mail']), PDO::PARAM_STR);
+          $update_user_mail->bindValue('mail', Chiffrement::crypt($tabUser['mail']), PDO::PARAM_STR);
           $update_user_mail->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
           $update_user_mail->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
           $update_user_mail->bindValue('session_token', $tabUser['session_token'], PDO::PARAM_STR);

@@ -163,7 +163,7 @@ function generateRefToken(){
   $b3 = date('y');
   $b4 = date('H');
   $b5 = date('i');
-  $request_ref = $b1 . $b2 . $a1 . $a2 . $b4 . $b5;
+  $request_ref = $b1 . $b2 . $b3 .  $a1 . $a2 . $b4 . $b5;
 
   $existing_token = false;
   $check_token_existing = 'SELECT * FROM requests_contact_list WHERE request_ref LIKE :request_ref';
@@ -197,10 +197,10 @@ function editUserPassword($lastname, $firstname, $pseudo, $mail, $id, $password,
     AND session_token LIKE :session_token
     AND active_account LIKE 1';
     $update_new_password = $base->prepare($update_new_password);
-    $update_new_password->bindValue('lastname', $lastname, PDO::PARAM_STR);
-    $update_new_password->bindValue('firstname', $firstname, PDO::PARAM_STR);
-    $update_new_password->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-    $update_new_password->bindValue('mail', $mail, PDO::PARAM_STR);
+    $update_new_password->bindValue('lastname', Chiffrement::crypt($lastname), PDO::PARAM_STR);
+    $update_new_password->bindValue('firstname', Chiffrement::crypt($firstname), PDO::PARAM_STR);
+    $update_new_password->bindValue('pseudo', Chiffrement::crypt($pseudo), PDO::PARAM_STR);
+    $update_new_password->bindValue('mail', Chiffrement::crypt($mail), PDO::PARAM_STR);
     $update_new_password->bindValue('id', $id, PDO::PARAM_INT);
     $update_new_password->bindValue('session_token', $session_token, PDO::PARAM_STR);
     $update_new_password->bindValue('password', $password, PDO::PARAM_STR);
@@ -241,10 +241,10 @@ function addToRequestsList($id, $lastname, $firstname, $pseudo, $mail, $token_te
   VALUES (:id, :lastname, :firstname, :pseudo, :mail, :token_temp, :request_type, :date_action)';
   $add_to_requests_list = $base->prepare($add_to_requests_list);
   $add_to_requests_list->bindValue('id', $id, PDO::PARAM_INT);
-  $add_to_requests_list->bindValue('lastname', $lastname, PDO::PARAM_STR);
-  $add_to_requests_list->bindValue('firstname', $firstname, PDO::PARAM_STR);
-  $add_to_requests_list->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-  $add_to_requests_list->bindValue('mail', $mail, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('lastname', Chiffrement::crypt($lastname), PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('firstname', Chiffrement::crypt($firstname), PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('pseudo', Chiffrement::crypt($pseudo), PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('mail', Chiffrement::crypt($mail), PDO::PARAM_STR);
   $add_to_requests_list->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
   $add_to_requests_list->bindValue('request_type', $request_type, PDO::PARAM_STR);
   $add_to_requests_list->bindValue('date_action', $date_action, PDO::PARAM_INT);
@@ -271,7 +271,7 @@ function returnCheckMail($mail, $id){
    $existing_mail = false;
    $check_mail_user = 'SELECT * FROM users WHERE mail LIKE :mail AND id NOT LIKE :id AND active_account LIKE (0 OR 1)';
    $check_mail_user = $base->prepare($check_mail_user);
-   $check_mail_user->bindValue('mail', $mail, PDO::PARAM_STR);
+   $check_mail_user->bindValue('mail', Chiffrement::crypt($mail), PDO::PARAM_STR);
    $check_mail_user->bindValue('id', $id, PDO::PARAM_INT);
    $check_mail_user->execute();
    while($mail_user = $check_mail_user->fetch())
@@ -289,7 +289,7 @@ function returnCheckPseudo($pseudo, $id){
   $existing_pseudo = false;
   $check_pseudo_user = 'SELECT * FROM users WHERE pseudo LIKE :pseudo AND id NOT LIKE :id AND active_account LIKE (0 OR 1)';
   $check_pseudo_user = $base->prepare($check_pseudo_user);
-  $check_pseudo_user->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
+  $check_pseudo_user->bindValue('pseudo', Chiffrement::crypt($pseudo), PDO::PARAM_STR);
   $check_pseudo_user->bindValue('id', $id, PDO::PARAM_INT);
   $check_pseudo_user->execute();
   while($pseudo_user = $check_pseudo_user->fetch())
@@ -331,7 +331,7 @@ function getLangFromId($id){
   while($user_lang = $check_user_lang->fetch())
   {
     $user_exists = true;
-    $lang = $user_lang['lang'];
+    $lang = strtolower($user_lang['lang']);
   }
   if($user_exists){
     return $lang;

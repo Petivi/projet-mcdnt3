@@ -45,9 +45,9 @@ if(accessToAdminPermissions($tabUser['session_token'])){
       WHERE id LIKE :id';
       $update_user_infos = $base->prepare($update_user_infos);
       $update_user_infos->bindValue('id', $tabVictim['id'], PDO::PARAM_INT);
-      $update_user_infos->bindValue('lastname', $tabVictim['lastname'], PDO::PARAM_STR);
-      $update_user_infos->bindValue('firstname', $tabVictim['firstname'], PDO::PARAM_STR);
-      $update_user_infos->bindValue('pseudo', $tabVictim['pseudo'], PDO::PARAM_STR);
+      $update_user_infos->bindValue('lastname', Chiffrement::crypt($tabVictim['lastname']), PDO::PARAM_STR);
+      $update_user_infos->bindValue('firstname', Chiffrement::crypt($tabVictim['firstname']), PDO::PARAM_STR);
+      $update_user_infos->bindValue('pseudo', Chiffrement::crypt($tabVictim['pseudo']), PDO::PARAM_STR);
       $update_user_infos->bindValue('active_account', $tabVictim['active_account'], PDO::PARAM_INT);
       $update_user_infos->execute();
       addToAdminUsersManagement($admin_id, $tabVictim['id'], $action, $comment, $date_action);

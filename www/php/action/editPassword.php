@@ -32,20 +32,20 @@ try {
   AND session_token LIKE :session_token
   AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
-  $get_user_info->bindValue('lastname', $tabUser['lastname'], PDO::PARAM_STR);
-  $get_user_info->bindValue('firstname', $tabUser['firstname'], PDO::PARAM_STR);
-  $get_user_info->bindValue('pseudo', $tabUser['pseudo'], PDO::PARAM_STR);
-  $get_user_info->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+  $get_user_info->bindValue('lastname', Chiffrement::crypt($tabUser['lastname']), PDO::PARAM_STR);
+  $get_user_info->bindValue('firstname', Chiffrement::crypt($tabUser['firstname']), PDO::PARAM_STR);
+  $get_user_info->bindValue('pseudo', Chiffrement::crypt($tabUser['pseudo']), PDO::PARAM_STR);
+  $get_user_info->bindValue('mail', Chiffrement::crypt($tabUser['mail']), PDO::PARAM_STR);
   $get_user_info->bindValue('id', $tabUser['id'], PDO::PARAM_INT);
   $get_user_info->bindValue('session_token', $tabUser['session_token'], PDO::PARAM_STR);
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
   {
     $user_exists = true;
-    $account_lastname = $user_info['lastname'];
-    $account_firstname = $user_info['firstname'];
-    $account_pseudo = $user_info['pseudo'];
-    $account_mail = $user_info['mail'];
+    $account_lastname = Chiffrement::decrypt($user_info['lastname']);
+    $account_firstname = Chiffrement::decrypt($user_info['firstname']);
+    $account_pseudo = Chiffrement::decrypt($user_info['pseudo']);
+    $account_mail = Chiffrement::decrypt($user_info['mail']);
     $account_id = $user_info['id'];
     $account_password = $user_info['password'];
     $account_session_token = $user_info['session_token'];

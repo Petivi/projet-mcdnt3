@@ -17,15 +17,15 @@ if(isset($request->mail)){
     try {
       $get_user_info = 'SELECT * FROM users WHERE mail LIKE :mail AND checked_mail LIKE 1 AND active_account LIKE 1';
       $get_user_info = $base->prepare($get_user_info);
-      $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+      $get_user_info->bindValue('mail', Chiffrement::crypt($mail), PDO::PARAM_STR);
       $get_user_info->execute();
       while($user_info = $get_user_info->fetch())
       {
         $user_exists = true;
-        $firstname = $user_info['firstname'];
-        $lastname = $user_info['lastname'];
-        $pseudo = $user_info['pseudo'];
-        $mail = $user_info['mail'];
+        $firstname = Chiffrement::decrypt($user_info['firstname']);
+        $lastname = Chiffrement::decrypt($user_info['lastname']);
+        $pseudo = Chiffrement::decrypt($user_info['pseudo']);
+        $mail = Chiffrement::decrypt($user_info['mail']);
         $id = $user_info['id'];
       }
     } catch (\Exception $e) {
@@ -50,10 +50,10 @@ if(isset($request->mail)){
         $update_token_temp->bindValue('id', $id, PDO::PARAM_INT);
         $update_token_temp->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
         $update_token_temp->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
-        $update_token_temp->bindValue('lastname', $lastname, PDO::PARAM_STR);
-        $update_token_temp->bindValue('firstname', $firstname, PDO::PARAM_STR);
-        $update_token_temp->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-        $update_token_temp->bindValue('mail', $mail, PDO::PARAM_STR);
+        $update_token_temp->bindValue('lastname', Chiffrement::crypt($lastname), PDO::PARAM_STR);
+        $update_token_temp->bindValue('firstname', Chiffrement::crypt($firstname), PDO::PARAM_STR);
+        $update_token_temp->bindValue('pseudo', Chiffrement::crypt($pseudo), PDO::PARAM_STR);
+        $update_token_temp->bindValue('mail', Chiffrement::crypt($mail), PDO::PARAM_STR);
         $update_token_temp->execute();
 
 
@@ -96,10 +96,10 @@ if(isset($request->mail)){
     while($user_info = $get_user_info->fetch())
     {
       $user_exists = true;
-      $firstname = $user_info['firstname'];
-      $lastname = $user_info['lastname'];
-      $pseudo = $user_info['pseudo'];
-      $mail = $user_info['mail'];
+      $firstname = Chiffrement::decrypt($user_info['firstname']);
+      $lastname = Chiffrement::decrypt($user_info['lastname']);
+      $pseudo = Chiffrement::decrypt($user_info['pseudo']);
+      $mail = Chiffrement::decrypt($user_info['mail']);
       $id = $user_info['id'];
       $date_token_created = $user_info['date_token_created'];
     }
@@ -124,10 +124,10 @@ if(isset($request->mail)){
       $update_password = $base->prepare($update_password);
       $update_password->bindValue('id', $id, PDO::PARAM_INT);
       $update_password->bindValue('token_temp', $token_temp, PDO::PARAM_STR);
-      $update_password->bindValue('lastname', $lastname, PDO::PARAM_STR);
-      $update_password->bindValue('firstname', $firstname, PDO::PARAM_STR);
-      $update_password->bindValue('pseudo', $pseudo, PDO::PARAM_STR);
-      $update_password->bindValue('mail', $mail, PDO::PARAM_STR);
+      $update_password->bindValue('lastname', Chiffrement::crypt($lastname), PDO::PARAM_STR);
+      $update_password->bindValue('firstname', Chiffrement::crypt($firstname), PDO::PARAM_STR);
+      $update_password->bindValue('pseudo', Chiffrement::crypt($pseudo), PDO::PARAM_STR);
+      $update_password->bindValue('mail', Chiffrement::crypt($mail), PDO::PARAM_STR);
       $update_password->bindValue('password', $password, PDO::PARAM_STR);
       $update_password->execute();
       $password_changed = true;

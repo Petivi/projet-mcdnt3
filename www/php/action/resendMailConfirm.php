@@ -14,15 +14,15 @@ if(isset($request->mail)){
 
   $get_user_info = 'SELECT * FROM users WHERE mail LIKE :mail AND checked_mail LIKE 0 AND active_account LIKE 1';
   $get_user_info = $base->prepare($get_user_info);
-  $get_user_info->bindValue('mail', $mail, PDO::PARAM_STR);
+  $get_user_info->bindValue('mail', Chiffrement::crypt($mail), PDO::PARAM_STR);
   $get_user_info->execute();
   while($user_info = $get_user_info->fetch())
   {
     $id = $user_info['id'];
-    $lastname = $user_info['lastname'];
-    $firstname = $user_info['firstname'];
-    $pseudo = $user_info['pseudo'];
-    $mail = $user_info['mail'];
+    $lastname = Chiffrement::decrypt($user_info['lastname']);
+    $firstname = Chiffrement::decrypt($user_info['firstname']);
+    $pseudo = Chiffrement::decrypt($user_info['pseudo']);
+    $mail = Chiffrement::decrypt($user_info['mail']);
     $token_temp = $user_info['token_temp'];
     $date_token_created = $user_info['date_token_created'];
 

@@ -23,19 +23,19 @@ try {
   // check if user exists
   $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2)';
   $check_pseudo_user = $base->prepare($check_pseudo_user);
-  $check_pseudo_user->bindValue('login1', $tabUser['login'], PDO::PARAM_STR);
-  $check_pseudo_user->bindValue('login2', $tabUser['login'], PDO::PARAM_STR);
+  $check_pseudo_user->bindValue('login1', Chiffrement::crypt($tabUser['login']), PDO::PARAM_STR);
+  $check_pseudo_user->bindValue('login2', Chiffrement::crypt($tabUser['login']), PDO::PARAM_STR);
   $check_pseudo_user->execute();
   while($user_info = $check_pseudo_user->fetch())
   {
     // get his informations
     $account_id = $user_info['id'];
-    $account_lastname = $user_info['lastname'];
-    $account_firstname = $user_info['firstname'];
-    $account_pseudo = $user_info['pseudo'];
+    $account_lastname = Chiffrement::decrypt($user_info['lastname']);
+    $account_firstname = Chiffrement::decrypt($user_info['firstname']);
+    $account_pseudo = Chiffrement::decrypt($user_info['pseudo']);
     $account_password = $user_info['password'];
     $account_created_date = $user_info['created_date'];
-    $account_mail = $user_info['mail'];
+    $account_mail = Chiffrement::decrypt($user_info['mail']);
     $account_permissions = $user_info['permissions'];
     $account_active_account = $user_info['active_account'];
     $account_checked_mail = $user_info['checked_mail'];
@@ -68,7 +68,7 @@ if(password_verify($password_tried, $account_password)){
         WHERE id LIKE :id AND active_account LIKE 1 AND checked_mail LIKE 0';
         $update_mail_user = $base->prepare($update_mail_user);
         $update_mail_user->bindValue('id', $account_id, PDO::PARAM_INT);
-        $update_mail_user->bindValue('mail', $tabUser['mail'], PDO::PARAM_STR);
+        $update_mail_user->bindValue('mail', Chiffrement::crypt($tabUser['mail']), PDO::PARAM_STR);
         $update_mail_user->bindValue('date_token_created', $date_token_created, PDO::PARAM_INT);
         $update_mail_user->execute();
 

@@ -17,13 +17,13 @@ if(isset($request->session_token)){
     $user_exists = true;
     // get his informations
     $account_id = $user_info['id'];
-    $account_lastname = $user_info['lastname'];
-    $account_firstname = $user_info['firstname'];
-    $account_pseudo = $user_info['pseudo'];
+    $account_lastname = Chiffrement::decrypt($user_info['lastname']);
+    $account_firstname = Chiffrement::decrypt($user_info['firstname']);
+    $account_pseudo = Chiffrement::decrypt($user_info['pseudo']);
     $account_password = $user_info['password'];
     $account_created_date = $user_info['created_date'];
     $account_last_connection = $user_info['last_connection'];
-    $account_mail = $user_info['mail'];
+    $account_mail = Chiffrement::decrypt($user_info['mail']);
     $account_permissions = $user_info['permissions'];
     $account_active_account = $user_info['active_account'];
     $account_checked_mail = $user_info['checked_mail'];

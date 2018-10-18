@@ -19,10 +19,10 @@ if(accessToAdminPermissions($tabUser['session_token'])){
     {
       array_push($tabUserList,array(
         'id' => $user_list['id'],
-        'lastname' => $user_list['lastname'],
-        'firstname' => $user_list['firstname'],
-        'mail' => $user_list['mail'],
-        'pseudo' => $user_list['pseudo'],
+        'lastname' => Chiffrement::decrypt($user_list['lastname']),
+        'firstname' => Chiffrement::decrypt($user_list['firstname']),
+        'mail' => Chiffrement::decrypt($user_list['mail']),
+        'pseudo' => Chiffrement::decrypt($user_list['pseudo']),
         'created_date' => date('d/m/Y', $user_list['created_date']),
         'last_connection' => date('d/m/Y H:i:s', $user_list['last_connection']),
         'active_account' => $user_list['active_account'],

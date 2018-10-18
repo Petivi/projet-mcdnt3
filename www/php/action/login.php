@@ -24,19 +24,19 @@ include "../includedFiles.php";
     // check if user exists
     $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2)';
     $check_pseudo_user = $base->prepare($check_pseudo_user);
-    $check_pseudo_user->bindValue('login1', $login, PDO::PARAM_STR);
-    $check_pseudo_user->bindValue('login2', $login, PDO::PARAM_STR);
+    $check_pseudo_user->bindValue('login1', Chiffrement::crypt($login), PDO::PARAM_STR);
+    $check_pseudo_user->bindValue('login2', Chiffrement::crypt($login), PDO::PARAM_STR);
     $check_pseudo_user->execute();
     while($user_info = $check_pseudo_user->fetch())
     {
       // get his informations
       $account_id = $user_info['id'];
-      $account_lastname = $user_info['lastname'];
-      $account_firstname = $user_info['firstname'];
-      $account_pseudo = $user_info['pseudo'];
+      $account_lastname = Chiffrement::decrypt($user_info['lastname']);
+      $account_firstname = Chiffrement::decrypt($user_info['firstname']);
+      $account_pseudo = Chiffrement::decrypt($user_info['pseudo']);
       $account_password = $user_info['password'];
       $account_created_date = $user_info['created_date'];
-      $account_mail = $user_info['mail'];
+      $account_mail = Chiffrement::decrypt($user_info['mail']);
       $account_permissions = $user_info['permissions'];
       $account_active_account = $user_info['active_account'];
       $account_checked_mail = $user_info['checked_mail'];
@@ -59,7 +59,7 @@ include "../includedFiles.php";
       echo returnError($display_error_account_deleted);
       exit();
     }else { // account is active
-      
+
       if($account_checked_mail){ // mail is checked
         $session_token = generateSessionToken();
         $last_connection = strtotime(date('d-m-Y H:i:s'));
