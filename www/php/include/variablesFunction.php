@@ -31,6 +31,9 @@ $request_type_password_reset = "Password Reset";
 $request_type_unsubscribe = "Account Unsubscribe";
 
 
+
+$items_per_page = 10;
+
 // function called when you want to response an error with a simple message
 // index "error" will be considered as an error for angular (negative answer)
 function returnError($errorMessage){
@@ -338,6 +341,12 @@ function getLangFromId($id){
   }else {
     return false;
   }
+}
+
+function calcOffsetPage($page){
+  global $items_per_page;
+  $offset = ($page - 1) * $items_per_page;
+  return $offset;
 }
 
  ?>
