@@ -16,6 +16,17 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
   $offsetPage = calcOffsetPage($nb_page); // calc offset to return correct values
   $nb_item = 0; // initialize total items
 
+
+  $request_total_items = 'SELECT COUNT(*) AS nb_page FROM requests_contact_list';
+  $request_total_items = $base->prepare($request_total_items);
+  $request_total_items->execute();
+  while($total_items = $request_total_items->fetch()){
+    $nb_item =  $total_items['nb_page'];
+  }
+  $total_page = calcNbPage($nb_item);
+
+  
+
   $tabMessagesList = array();
   $tabNbPage = array();
   $messages_exists = false;
@@ -27,7 +38,6 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
   while($messages_list = $request_messages_list->fetch())
   {
     $messages_exists = true;
-    $nb_item++;
     array_push($tabMessagesList,array(
       'id' => $messages_list['id'],
       'user_mail' => htmlspecialchars_decode(Chiffrement::decrypt($messages_list['user_mail']), ENT_QUOTES),
@@ -38,9 +48,6 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
       'request_closed' => $messages_list['request_closed'],
     ));
   }
-
-  $total_page = calcNbPage($nb_item);
-  var_dump($total_page);
 
   $tabFinal = array();
   $tabFinal['valeur'] = $tabMessagesList;
