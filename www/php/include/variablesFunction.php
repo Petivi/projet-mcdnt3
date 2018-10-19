@@ -349,6 +349,13 @@ function calcOffsetPage($page){
   return $offset;
 }
 
+function calcNbPage($nb_item){
+  global $items_per_page;
+    $total_page = ceil($nb_item /$items_per_page);
+    return $total_page;
+}
+
+
 function editContactMessageStatut($id, $statut){
   global $base;
   $statut = intval($statut);
