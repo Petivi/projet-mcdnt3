@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { PaginationComponent } from '../../common/pagination/pagination.component'
+
 import { AppService } from '../../app.service';
 
 import { Word, User } from '../../model/app.model'
@@ -99,6 +101,10 @@ export class GestionCompteComponent implements OnInit {
     showUser(user: User) {
         this.userActif = user;
         this.buildControl();
+    }
+
+    changePage(event) {
+        console.log(event);
     }
 
     sendUser() {

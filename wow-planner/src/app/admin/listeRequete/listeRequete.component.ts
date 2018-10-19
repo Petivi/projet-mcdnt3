@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
+import { PaginationComponent } from '../../common/pagination/pagination.component'
+
 import { AppService } from '../../app.service';
 
 import { Requete } from '../../model/app.model';
@@ -18,7 +20,10 @@ export class ListeRequeteComponent implements OnInit {
     ttRequete: Requete[] = [];
     requeteActive: Requete = null;
     token: string = null;
+    ttPageAff: string[] = [];
     reponse: string = '';
+    page: string = '1';
+    totalPage: string = '1';
     setReponse: boolean = false; //affiche le formulaire de reponse
 
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
@@ -30,15 +35,18 @@ export class ListeRequeteComponent implements OnInit {
             if (res.error) {
                 this._router.navigate(['/accueil']);
             } else {
-                this.getMessages();
+                this.getMessages(this.page);
             }
         });
     }
 
-    getMessages() {
-        this._appService.post('action/admin/getContactMessagesList.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
-            if (res.response && res.response.length > 0) {
-                this.ttRequete = res.response;
+    getMessages(page: string) {
+        this._appService.post('action/admin/getContactMessagesList.php', {session_token: this.token, page: page}).then(res => {
+            if (res.response) {
+                this.ttRequete = res.response.valeur;
+                for(let i = 1; i < res.response.total_page+1; i++) {
+                    this.ttPageAff.push(i.toString());
+                }
                 this.ttRequete.forEach(r => {
                     r.libelle_request_closed = r.request_closed === '0' ? 'non' : 'oui';
                 });
@@ -54,6 +62,10 @@ export class ListeRequeteComponent implements OnInit {
         this.requeteActive = null
     }
 
+    changePage(event) {
+        this.getMessages(event);
+    }
+
     supprimer(requete) {
         Swal({
             title: 'Confirmation',
@@ -65,7 +77,7 @@ export class ListeRequeteComponent implements OnInit {
             if (res.value && this.token) {
                 this._appService.post('action/admin/deleteContactMessage.php', { session_token: this.token, id: requete.id }).then(res => {
                     if (res.response) {
-                        this.getMessages();
+                        this.getMessages(this.page);
                     }
                 });
             }
@@ -86,7 +98,7 @@ export class ListeRequeteComponent implements OnInit {
                     { session_token: this.token, id: this.requeteActive.id, mail: this.requeteActive.user_mail, data: this.reponse, request_ref: this.requeteActive.request_ref })
                     .then(res => {
                         if (res.response) {
-                            this.getMessages();
+                            this.getMessages(this.page);
                             this.setReponse = false;
                             this.reponse = '';
                             this.requeteActive = null;
