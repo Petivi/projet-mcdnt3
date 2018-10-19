@@ -349,8 +349,16 @@ function calcOffsetPage($page){
   return $offset;
 }
 
-function calcNbPage($nb_item){
+function calcNbPage($table_name){
   global $items_per_page;
+  global $base;
+
+  $request_total_items = "SELECT COUNT(*) AS nb_page FROM $table_name";
+  $request_total_items = $base->prepare($request_total_items);
+  $request_total_items->execute();
+  while($total_items = $request_total_items->fetch()){
+    $nb_item =  $total_items['nb_page'];
+  }
     $total_page = ceil($nb_item /$items_per_page);
     return $total_page;
 }
