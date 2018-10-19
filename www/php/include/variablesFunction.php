@@ -366,6 +366,12 @@ function calcNbPage($table_name){
     return $total_page;
 }
 
+function calcNbPageWithoutTable($nb_item){
+  global $items_per_page;
+  $total_page = ceil($nb_item / $items_per_page);
+  return $total_page;
+}
+
 
 function editContactMessageStatut($id, $statut){
   global $base;
