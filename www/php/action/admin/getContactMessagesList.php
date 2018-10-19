@@ -40,6 +40,7 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
   }
 
   $total_page = calcNbPage($nb_item);
+  var_dump($total_page);
 
   $tabFinal = array();
   $tabFinal['valeur'] = $tabMessagesList;
