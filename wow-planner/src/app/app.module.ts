@@ -24,6 +24,7 @@ import { ContactComponent } from './contact/contact.component';
 
 import { FilterPipe } from './common/pipe/string.pipe';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
+import { PaginationComponent } from './common/pagination/pagination.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.compone
         GestionCompteComponent,
         ContactComponent,
         ListeRequeteComponent,
+        PaginationComponent,
     ],
     imports: [
         BrowserModule,
