@@ -8,14 +8,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
 
   $admin_id = getIdFromSessionToken($tabUser['session_token']);
 
-  if(isset($request->page)){
-    $nb_page = htmlspecialchars($request->page, ENT_QUOTES);
-  }else {
-    $nb_page = 1;
-  }
-
-  
-  $offsetPage = calcOffsetPage($nb_page); // calc offset to return correct values
+  $offsetPage = calcOffsetPage($tabUser['nb_page']); // calc offset to return correct values
   $table_name = 'users'; // name of our table name (in our db)
   $total_page = calcNbPage($table_name); // send the table name (in our db) and we'll have the number of page to display
 
@@ -55,7 +48,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
   }
 
 }else {
-  echo returnError($display_error_empty);
+  echo returnError($display_error_insufficient_permissions);
 }
 
 

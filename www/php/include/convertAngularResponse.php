@@ -60,6 +60,11 @@ function getPostInfo($req){
   }else{
     $data = "";
   }
+  if(isset($req->page)){
+    $nb_page = htmlspecialchars($req->page, ENT_QUOTES);
+  }else {
+    $nb_page = 1;
+  }
 
 
 
@@ -90,6 +95,7 @@ function getPostInfo($req){
     "login" => $login,
     "active_account" => $active_account,
     "data" => $data,
+    "nb_page" => $nb_page,
     "contact_mail" => $contact_mail,
     "contact_subject" => $contact_subject,
     "contact_text" => $contact_text,

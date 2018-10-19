@@ -7,13 +7,8 @@ $tabInfo = getPostInfo($request);
 
 if(accessToAdminPermissions($tabInfo['session_token'])){
 
-  if(isset($request->page)){
-    $nb_page = htmlspecialchars($request->page, ENT_QUOTES);
-  }else {
-    $nb_page = 1;
-  }
 
-  $offsetPage = calcOffsetPage($nb_page); // calc offset to return correct values
+  $offsetPage = calcOffsetPage($tabUser['nb_page']); // calc offset to return correct values
   $table_name = 'requests_contact_list'; // name of our table name (in our db)
   $total_page = calcNbPage($table_name); // send the table name (in our db) and we'll have the number of page to display
 
