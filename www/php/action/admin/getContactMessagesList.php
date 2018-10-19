@@ -14,18 +14,10 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
   }
 
   $offsetPage = calcOffsetPage($nb_page); // calc offset to return correct values
-  $nb_item = 0; // initialize total items
+  $table_name = 'requests_contact_list'; // name of our table name (in our db)
+  $total_page = calcNbPage($table_name); // send the table name (in our db) and we'll have the number of page to display
 
 
-  $request_total_items = 'SELECT COUNT(*) AS nb_page FROM requests_contact_list';
-  $request_total_items = $base->prepare($request_total_items);
-  $request_total_items->execute();
-  while($total_items = $request_total_items->fetch()){
-    $nb_item =  $total_items['nb_page'];
-  }
-  $total_page = calcNbPage($nb_item);
-
-  
 
   $tabMessagesList = array();
   $tabNbPage = array();
