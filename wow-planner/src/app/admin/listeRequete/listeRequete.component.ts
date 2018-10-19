@@ -20,7 +20,7 @@ export class ListeRequeteComponent implements OnInit {
     ttRequete: Requete[] = [];
     requeteActive: Requete = null;
     token: string = null;
-    ttPageAff: string[] = [];
+    ttPage: string[] = [];
     reponse: string = '';
     page: string = '1';
     totalPage: string = '1';
@@ -44,9 +44,11 @@ export class ListeRequeteComponent implements OnInit {
         this._appService.post('action/admin/getContactMessagesList.php', {session_token: this.token, page: page}).then(res => {
             if (res.response) {
                 this.ttRequete = res.response.valeur;
-                for(let i = 1; i < res.response.total_page+1; i++) {
-                    this.ttPageAff.push(i.toString());
+                this.ttPage = [];
+                for(let i = 1; i < res.response.total_page + 1; i++) {
+                    this.ttPage.push(i.toString());
                 }
+                console.log(this.ttPage)
                 this.ttRequete.forEach(r => {
                     r.libelle_request_closed = r.request_closed === '0' ? 'non' : 'oui';
                 });

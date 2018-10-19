@@ -1,12 +1,20 @@
-<div class="row text-center">
-    <div class="col-md-2">
+<div class="text-center pager">
+    <button class="clickable icon-button" (click)="btnSetPage('debut')">
         <i class="fa fa-angle-double-left"></i>
+    </button>
+    <button class="clickable icon-button" (click)="btnSetPage('moins')">
         <i class="fa fa-angle-left mr-2"></i>
-        <span *ngFor="let p of ttPageAff" (click)="setPage(p)">
-            {{p}}
-        </span>
-        <span *ngIf="totalPage > 3">&nbsp;...</span>
+    </button>
+    <span *ngIf="ttPageAff[0] !== ttPage[0]">&nbsp;...</span>
+    <button class="clickable icon-button" [ngClass]="{'active': p === '1'}" *ngFor="let p of ttPageAff" (click)="setPage(p)">
+        {{p}}
+    </button>
+    <span *ngIf="ttPageAff[ttPageAff.length-1] !== ttPage[ttPage.length-1]">&nbsp;...</span>
+    <button class="clickable icon-button" (click)="btnSetPage('plus')">
         <i class="fa fa-angle-right ml-2"></i>
+    </button>
+    <button class="clickable icon-button" (click)="btnSetPage('fin')">
         <i class="fa fa-angle-double-right"></i>
-    </div>
+    </button>
+    <div>Page: {{this.page}}</div>
 </div>

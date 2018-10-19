@@ -37,7 +37,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <pagination-cpt [ttPageAff]="ttPageAff" (changePage)="changePage($event)"></pagination-cpt>
+                    <pagination-cpt *ngIf="ttPage && ttPage.length > 0" [ttPage]="ttPage" (changePage)="changePage($event)"></pagination-cpt>
                 </div>
             </div>
         </div>

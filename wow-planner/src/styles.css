@@ -1,4 +1,13 @@
 /* GENERAL */
+body {
+    margin-bottom: 5% !important;
+}
+.pager {
+    font-size: 1.2rem;
+}
+.pager .clickable:hover {
+    color: rgb(0, 4, 252);
+}
 .clickable:hover {
     cursor: pointer;
 }
