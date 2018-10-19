@@ -26,36 +26,38 @@ export class PaginationComponent implements OnInit {
     }
 
     setPage(value: string, sens: string = null) {
-        this.page = value;
-        if(!sens) {
-            if (this.ttPageAff.indexOf(this.page) === this.ttPageAff.length - 1 && this.ttPage.indexOf(this.page) !== this.ttPage.length - 1) {
-                let tt = [];
-                this.ttPageAff.forEach(p => {
-                    let page = +p;
-                    page++;
-                    p = page.toString();
-                    tt.push(p);
-                });
-                this.ttPageAff = tt;
-            }
-            if (this.ttPageAff.indexOf(this.page) === 0 && this.ttPage.indexOf(this.page) !== 0) {
-                let tt = [];
-                this.ttPageAff.forEach(p => {
-                    let page = +p;
-                    page--;
-                    p = page.toString();
-                    tt.push(p);
-                });
-                this.ttPageAff = tt;
-            }
-        } else {
-            if(sens === 'debut') {
-                this.ttPageAff = this.ttPage.slice(0, 5);
+        if (this.page !== value) {
+            this.page = value;
+            if (!sens) {
+                if (this.ttPageAff.indexOf(this.page) === this.ttPageAff.length - 1 && this.ttPage.indexOf(this.page) !== this.ttPage.length - 1) {
+                    let tt = [];
+                    this.ttPageAff.forEach(p => {
+                        let page = +p;
+                        page++;
+                        p = page.toString();
+                        tt.push(p);
+                    });
+                    this.ttPageAff = tt;
+                }
+                if (this.ttPageAff.indexOf(this.page) === 0 && this.ttPage.indexOf(this.page) !== 0) {
+                    let tt = [];
+                    this.ttPageAff.forEach(p => {
+                        let page = +p;
+                        page--;
+                        p = page.toString();
+                        tt.push(p);
+                    });
+                    this.ttPageAff = tt;
+                }
             } else {
-                this.ttPageAff = this.ttPage.slice(this.ttPage.length - 5, this.ttPage.length);
+                if (sens === 'debut') {
+                    this.ttPageAff = this.ttPage.slice(0, 5);
+                } else {
+                    this.ttPageAff = this.ttPage.slice(this.ttPage.length - 5, this.ttPage.length);
+                }
             }
+            this.changePage.emit(value);
         }
-        this.changePage.emit(value);
     }
 
     btnSetPage(signe: string) {

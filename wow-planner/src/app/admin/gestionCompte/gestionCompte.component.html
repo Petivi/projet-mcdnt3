@@ -8,7 +8,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <table class="table table-hover">
+                    <table class="table table-hover text-center">
                         <thead class="thead-light">
                             <tr>
                                 <th>Nom</th>
@@ -22,7 +22,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngIf="users && users.length > 0">
                             <tr *ngFor="let u of users">
                                 <td>{{u.lastname}}</td>
                                 <td>{{u.firstname}}</td>
@@ -39,8 +39,15 @@
                                 </td>
                             </tr>
                         </tbody>
+                        <tbody *ngIf="!users || users.length === 0">
+                            <tr>
+                                <td colspan=9>Il n'y a pas d'utilisateur.</td>
+                            </tr>
+                        </tbody>
                     </table>
-                    <pagination-cpt (changePage)="changePage($event)"></pagination-cpt>
+                    <div *ngIf="users && users.length > 0">
+                        <pagination-cpt [ttPage]="ttPage" (changePage)="changePage($event)"></pagination-cpt>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +68,7 @@
                         <div class="row text-center">
                             <div class="col">
                                 <button (click)="(editMode = !editMode)" class="btn btn-primary">
-                                    {{(words | filter : {msg_name: 'msg_modifier'} : {col : 'value'})}}
+                                    {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
                                 </button>
                             </div>
                         </div>

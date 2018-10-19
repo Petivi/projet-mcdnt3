@@ -23,7 +23,6 @@ export class ListeRequeteComponent implements OnInit {
     ttPage: string[] = [];
     reponse: string = '';
     page: string = '1';
-    totalPage: string = '1';
     setReponse: boolean = false; //affiche le formulaire de reponse
 
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
@@ -48,7 +47,6 @@ export class ListeRequeteComponent implements OnInit {
                 for(let i = 1; i < res.response.total_page + 1; i++) {
                     this.ttPage.push(i.toString());
                 }
-                console.log(this.ttPage)
                 this.ttRequete.forEach(r => {
                     r.libelle_request_closed = r.request_closed === '0' ? 'non' : 'oui';
                 });
