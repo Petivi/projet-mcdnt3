@@ -352,14 +352,17 @@ function calcOffsetPage($page){
 function calcNbPage($table_name){
   global $items_per_page;
   global $base;
-
-  $request_total_items = "SELECT COUNT(*) AS nb_page FROM $table_name";
+  $add_where = "";
+  if($table_name === "requests_contact_list"){
+    $add_where = "WHERE (request_closed = 0 OR request_closed = 1)";
+  }
+  $request_total_items = "SELECT COUNT(*) AS nb_page FROM $table_name $add_where";
   $request_total_items = $base->prepare($request_total_items);
   $request_total_items->execute();
   while($total_items = $request_total_items->fetch()){
     $nb_item =  $total_items['nb_page'];
   }
-    $total_page = ceil($nb_item /$items_per_page);
+    $total_page = ceil($nb_item / $items_per_page);
     return $total_page;
 }
 
