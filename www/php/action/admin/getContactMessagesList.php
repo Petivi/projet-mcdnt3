@@ -14,6 +14,8 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
   }
 
   $offsetPage = calcOffsetPage($nb_page);
+  $nb_item = 0;
+  $total_page = 0;
 
   $tabMessagesList = array();
   $messages_exists = false;
@@ -25,6 +27,7 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
   while($messages_list = $request_messages_list->fetch())
   {
     $messages_exists = true;
+    $nb_item++;
     array_push($tabMessagesList,array(
       'id' => $messages_list['id'],
       'user_mail' => htmlspecialchars_decode(Chiffrement::decrypt($messages_list['user_mail']), ENT_QUOTES),
@@ -36,7 +39,13 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
     ));
   }
 
+  $total_page = ceil($nb_item /$items_per_page);
+
+
   if($messages_exists){
+    array_push($tabMessagesList,array(
+      'total_page' => $total_page,
+    ));
     echo returnResponse($tabMessagesList);
   }else {
     echo returnError($display_error_empty);
