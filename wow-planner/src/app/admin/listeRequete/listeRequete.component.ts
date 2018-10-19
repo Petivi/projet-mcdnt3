@@ -5,8 +5,7 @@ import Swal from 'sweetalert2';
 
 import { AppService } from '../../app.service';
 
-import { Requete } from '../../model/app.model'
-import { timingSafeEqual } from 'crypto';
+import { Requete } from '../../model/app.model';
 
 
 @Component({

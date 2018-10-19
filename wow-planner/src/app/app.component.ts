@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
         this.langue = this._appService.getLangue();
         this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
             this.userConnected = res;
+            console.log(res)
         });
         this.getPageWords();
         this.checkAdmin();
