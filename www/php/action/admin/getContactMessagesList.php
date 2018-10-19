@@ -13,8 +13,8 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
     $nb_page = 1;
   }
 
-  $offsetPage = calcOffsetPage($nb_page);
-  $nb_item = 0;
+  $offsetPage = calcOffsetPage($nb_page); // calc offset to return correct values
+  $nb_item = 0; // initialize total items
 
   $tabMessagesList = array();
   $tabNbPage = array();
