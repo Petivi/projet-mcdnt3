@@ -15,9 +15,9 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
 
   $offsetPage = calcOffsetPage($nb_page);
   $nb_item = 0;
-  $total_page = 0;
 
   $tabMessagesList = array();
+  $tabNbPage = array();
   $messages_exists = false;
   $request_messages_list = 'SELECT * FROM requests_contact_list WHERE (request_closed = 0 OR request_closed = 1) ORDER BY request_date ASC LIMIT :items_per_page OFFSET :offsetPage';
   $request_messages_list = $base->prepare($request_messages_list);
@@ -39,14 +39,15 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
     ));
   }
 
-  $total_page = ceil($nb_item /$items_per_page);
+  $total_page = calcNbPage($nb_item);
 
+  $tabFinal = array();
+  $tabFinal['valeur'] = $tabMessagesList;
+  $tabFinal['total_page'] = $total_page;
 
   if($messages_exists){
-    array_push($tabMessagesList,array(
-      'total_page' => $total_page,
-    ));
-    echo returnResponse($tabMessagesList);
+
+    echo returnResponse($tabFinal);
   }else {
     echo returnError($display_error_empty);
     exit();
