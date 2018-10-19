@@ -8,7 +8,7 @@ $tabInfo = getPostInfo($request);
 if(accessToAdminPermissions($tabInfo['session_token'])){
 
 
-  $offsetPage = calcOffsetPage($tabUser['nb_page']); // calc offset to return correct values
+  $offsetPage = calcOffsetPage($tabInfo['nb_page']); // calc offset to return correct values
 
 
 
@@ -27,7 +27,7 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
     $user_mail = htmlspecialchars_decode(Chiffrement::decrypt($messages_list['user_mail']));
     $request_subject = htmlspecialchars_decode(Chiffrement::decrypt($messages_list['request_subject']));
     $request_ref = $messages_list['request_ref'];
-    if((stripos($id, $tabUser['data'])) || (stripos($user_mail, $tabUser['data'])) || (stripos($request_subject, $tabUser['data'])) || (stripos($request_ref, $tabUser['data']))){
+    if((stripos($id, $tabInfo['data'])) || (stripos($user_mail, $tabInfo['data'])) || (stripos($request_subject, $tabInfo['data'])) || (stripos($request_ref, $tabInfo['data']))){
       $messages_exists = true;
       $nb_item++;
       array_push($tabMessagesList,array(
