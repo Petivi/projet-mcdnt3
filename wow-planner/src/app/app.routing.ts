@@ -11,6 +11,7 @@ import { CreationPersonnageComponent } from './creationPersonnage/creationPerson
 import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
 import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
+import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -28,6 +29,10 @@ export const appRouting = RouterModule.forRoot([
             {
                 path: 'listeRequete',
                 component: ListeRequeteComponent,
+            },
+            {
+                path: 'gestionLog',
+                component: GestionLogComponent,
             },
         ]   
     },

@@ -88,6 +88,11 @@ export class AppService {
             });
     }
 
+    getToken() {
+        if (localStorage.getItem('userConnected')) return JSON.parse(localStorage.getItem('userConnected')).session_token;
+        else return null;
+    }
+
     deconnexion() {
         if (localStorage.getItem('userConnected')) {
             this.getUserConnected(localStorage.getItem('userConnected')).then(res => {

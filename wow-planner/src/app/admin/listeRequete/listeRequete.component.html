@@ -30,7 +30,7 @@
                                     <button class="icon-button" (click)="supprimer(r)" title="supprimer">
                                         <i class="fa fa-trash"></i>
                                     </button>
-                                    <button class="icon-button" (click)="showRequete(r)" title="voir">
+                                    <button class="icon-button" (click)="(requeteActive = r)" title="voir">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </td>
@@ -52,7 +52,7 @@
             <div class="col" *ngIf="requeteActive">
                 <div class="row mb-2">
                     <div class="col-md-2">
-                        <button (click)="retour()" class="btn btn-dark">
+                        <button (click)="(requeteActive = null)" class="btn btn-dark">
                             Retour liste
                         </button>
                     </div>

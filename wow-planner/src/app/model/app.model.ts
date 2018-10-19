@@ -54,3 +54,37 @@ export class Requete {
         }
     }
 }
+
+export class LogUser {
+    id: string;
+    request_date: string;
+    request_token: string;
+    request_type: string;
+    user_firstname: string;
+    user_id: string;
+    user_lastname: string;
+    user_mail: string;
+    user_pseudo: string;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}
+
+export class LogUserManagement {
+    id: string;
+    action: string;
+    comment: string;
+    date_action: string;
+    user_id: string;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}

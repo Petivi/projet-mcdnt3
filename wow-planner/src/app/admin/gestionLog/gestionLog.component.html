@@ -1,0 +1,166 @@
+<div class="row" *ngIf="!logActif">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <h1 class="col text-center">Liste des logs {{logSelected}}</h1>
+                </div>
+                <div class="row text-center">
+                    <div class="col">
+                        <button class="btn btn-primary" (click)="changeTypeLog('user')">
+                            Logs utilisateur
+                        </button>
+                        <button class="btn btn-primary" (click)="changeTypeLog('admin')">
+                            Logs admin
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row ml-3 mt-2 mb-2">
+                        <div class="col-md-3">
+                            <label class="control-label">Filtre</label>
+                            <input type="text" [(ngModel)]="strFiltre" (change)="filtre()">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-hover text-center" *ngIf="logSelected === 'user'">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Type</th>
+                                        <th>id utilisateur</th>
+                                        <th>Pseudo</th>
+                                        <th>Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="ttLogsUsers && ttLogsUsers.length > 0">
+                                    <tr *ngFor="let l of ttLogsUsers">
+                                        <td>{{l.id}}</td>
+                                        <td>{{l.request_type}}</td>
+                                        <td>{{l.user_id}}</td>
+                                        <td>{{l.user_pseudo}}</td>
+                                        <td>{{l.request_date}}</td>
+                                        <td>
+                                            <button class="icon-button" (click)="showLog(l)" title="voir">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!ttLogsUsers || ttLogsUsers.length === 0">
+                                    <tr>
+                                        <td colspan=9>Il n'y a pas de logs.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-hover text-center" *ngIf="logSelected === 'admin'">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                        <th>id utilisateur</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="ttLogsUsersManagement && ttLogsUsersManagement.length > 0">
+                                    <tr *ngFor="let l of ttLogsUsersManagement">
+                                        <td>{{l.id}}</td>
+                                        <td>{{l.date_action}}</td>
+                                        <td>{{l.action}}</td>
+                                        <td>{{l.user_id}}</td>
+                                        <td>
+                                            <button class="icon-button" (click)="showLog(l)" title="voir">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!ttLogsUsersManagement || ttLogsUsersManagement.length === 0">
+                                    <tr>
+                                        <td colspan=9>Il n'y a pas de logs.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="ttLogsUsersManagement && ttLogsUsersManagement.length > 0 && ttPage && ttPage.length > 0">
+                                <pagination-cpt [ttPage]="ttPage" (changePage)="changePage($event)"></pagination-cpt>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="logActif">
+    <div class="col">
+        <div class="row mb-2">
+            <div class="col-md-2">
+                <button (click)="(logActif = null)" class="btn btn-dark">
+                    Retour liste
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h4>Détail log {{logActif.id}}</h4>
+                    </div>
+                    <div class="card-body" *ngIf="logSelected === 'user'">
+                        <div class="row">
+                            <label class="control-label col">Date l'évènement :</label>
+                            <div class="col">{{logActif.request_date}}</div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col">Type d'évènement :</label>
+                            <div class="col">{{logActif.request_type}}</div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col">Utilisateur :</label>
+                        </div>
+                        <div class="row">
+                            <span class="col">Nom :</span>
+                            <div class="col">{{logActif.user_lastname}}</div>
+                        </div>
+                        <div class="row">
+                            <span class="col">Prénom :</span>
+                            <div class="col">{{logActif.user_firstname}}</div>
+                        </div>
+                        <div class="row">
+                            <span class="col">Mail :</span>
+                            <div class="col">{{logActif.user_mail}}</div>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="logSelected === 'admin'">
+                        <div class="row">
+                            <label class="control-label col">Date l'évènement :</label>
+                            <div class="col">{{logActif.date_action}}</div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col">Action :</label>
+                            <div class="col">{{logActif.action}}</div>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col">Raison :</label>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        {{logActif.comment}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

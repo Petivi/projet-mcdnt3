@@ -28,9 +28,8 @@ export class ListeRequeteComponent implements OnInit {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        if (localStorage.getItem('userConnected')) this.token = JSON.parse(localStorage.getItem('userConnected')).session_token;
-        else this.token = null;
-        this._appService.post('action/checkIfAdmin.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
+        this.token = this._appService.getToken();
+        this._appService.post('action/checkIfAdmin.php', {session_token: this.token}).then(res => {
             if (res.error) {
                 this._router.navigate(['/accueil']);
             } else {
@@ -52,14 +51,6 @@ export class ListeRequeteComponent implements OnInit {
                 });
             };
         });
-    }
-
-    showRequete(requette: Requete) {
-        this.requeteActive = requette;
-    }
-
-    retour() {
-        this.requeteActive = null
     }
 
     changePage(event) {

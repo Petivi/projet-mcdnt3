@@ -44,8 +44,7 @@ export class GestionCompteComponent implements OnInit {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        if (localStorage.getItem('userConnected')) this.token = JSON.parse(localStorage.getItem('userConnected')).session_token;
-        else this.token = null;
+        this.token = this._appService.getToken();
         this.buildControl();
         this._appService.getWords(['common', 'gestionCompte', 'infoUser']).then(res => {
             res.forEach(w => {

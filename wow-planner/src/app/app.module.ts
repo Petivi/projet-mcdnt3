@@ -5,10 +5,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CustomHttpInterceptor } from './common/customHttpInterceptor';
 
-import { AppService } from './app.service';
-
-import { appRouting } from './app.routing';
-
 import { AppComponent } from './app.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { AdminComponent } from './admin/admin.component';
@@ -21,10 +17,15 @@ import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
 import { ContactComponent } from './contact/contact.component';
-
-import { FilterPipe } from './common/pipe/string.pipe';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 import { PaginationComponent } from './common/pagination/pagination.component';
+import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
+
+import { AppService } from './app.service';
+
+import { appRouting } from './app.routing';
+
+import { FilterPipe } from './common/pipe/string.pipe';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { PaginationComponent } from './common/pagination/pagination.component';
         ContactComponent,
         ListeRequeteComponent,
         PaginationComponent,
+        GestionLogComponent,
     ],
     imports: [
         BrowserModule,
