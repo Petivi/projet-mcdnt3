@@ -8,45 +8,56 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <table class="table table-hover text-center">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>Pseudo</th>
-                                <th>Mail</th>
-                                <th>Création du compte</th>
-                                <th>Derniere connexion</th>
-                                <th>Compte</th>
-                                <th>Confirmation mail</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="users && users.length > 0">
-                            <tr *ngFor="let u of users">
-                                <td>{{u.lastname}}</td>
-                                <td>{{u.firstname}}</td>
-                                <td>{{u.pseudo}}</td>
-                                <td>{{u.mail}}</td>
-                                <td>{{u.created_date}}</td>
-                                <td>{{u.last_connection}}</td>
-                                <td>{{u.libelle_active_account}}</td>
-                                <td>{{u.libelle_checked_mail}}</td>
-                                <td>
-                                    <button class="icon-button" (click)="showUser(u)" title="voir">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="!users || users.length === 0">
-                            <tr>
-                                <td colspan=9>Il n'y a pas d'utilisateur.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div *ngIf="users && users.length > 0">
-                        <pagination-cpt [ttPage]="ttPage" (changePage)="changePage($event)"></pagination-cpt>
+                    <div class="row ml-3 mt-2 mb-2">
+                        <div class="col-md-3">
+                            <label class="control-label">Filtre</label>
+                            <input type="text" [(ngModel)]="strFiltre" (input)="getUsers()">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+
+                            <table class="table table-hover text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Pseudo</th>
+                                        <th>Mail</th>
+                                        <th>Création du compte</th>
+                                        <th>Derniere connexion</th>
+                                        <th>Compte</th>
+                                        <th>Confirmation mail</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="users && users.length > 0">
+                                    <tr *ngFor="let u of users">
+                                        <td>{{u.lastname}}</td>
+                                        <td>{{u.firstname}}</td>
+                                        <td>{{u.pseudo}}</td>
+                                        <td>{{u.mail}}</td>
+                                        <td>{{u.created_date}}</td>
+                                        <td>{{u.last_connection}}</td>
+                                        <td>{{u.libelle_active_account}}</td>
+                                        <td>{{u.libelle_checked_mail}}</td>
+                                        <td>
+                                            <button class="icon-button" (click)="showUser(u)" title="voir">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!users || users.length === 0">
+                                    <tr>
+                                        <td colspan=9>Il n'y a pas d'utilisateur.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="users && users.length > 0">
+                                <pagination-cpt [ttPage]="ttPage" (changePage)="changePage($event)"></pagination-cpt>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

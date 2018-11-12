@@ -14,6 +14,7 @@ import { Word, User } from '../../model/app.model'
     templateUrl: './gestionCompte.component.html',
 })
 export class GestionCompteComponent implements OnInit {
+    strFiltre: string = '';
     editMode: boolean = false;
     submitted: boolean = false;
     words: Word[] = [];
@@ -50,7 +51,6 @@ export class GestionCompteComponent implements OnInit {
             res.forEach(w => {
                 this.words.push(w);
             });
-            console.log(this.words)
             this.getUsers(this.page);
         });
     }
@@ -69,8 +69,10 @@ export class GestionCompteComponent implements OnInit {
         }
     }
 
-    getUsers(page: string) {
-        this._appService.post('action/admin/usersManagement.php', {session_token: this.token, page: page})
+    getUsers(page: string = this.page) {
+        console.log('coucou')
+        this.page = page;
+        this._appService.post('action/admin/filterUsersManagement.php', {session_token: this.token, page: this.page, data: this.strFiltre})
             .then(res => {
                 if (res.response) {
                     this.users = res.response.valeur;
@@ -115,7 +117,7 @@ export class GestionCompteComponent implements OnInit {
     }
 
     changePage(event) {
-        console.log(event);
+        this.getUsers(event);
     }
 
     sendUser() {

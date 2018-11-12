@@ -16,6 +16,7 @@ import { Requete } from '../../model/app.model';
 })
 
 export class ListeRequeteComponent implements OnInit {
+    strFiltre: string = '';
     valid: boolean = true;
     ttRequete: Requete[] = [];
     requeteActive: Requete = null;
@@ -33,13 +34,14 @@ export class ListeRequeteComponent implements OnInit {
             if (res.error) {
                 this._router.navigate(['/accueil']);
             } else {
-                this.getMessages(this.page);
+                this.getMessages();
             }
         });
     }
 
-    getMessages(page: string) {
-        this._appService.post('action/admin/getContactMessagesList.php', {session_token: this.token, page: page}).then(res => {
+    getMessages(page: string = this.page) {
+        this.page = page;
+        this._appService.post('action/admin/filterGetContactMessagesList.php', {session_token: this.token, page: page, data: this.strFiltre}).then(res => {
             if (res.response) {
                 this.ttRequete = res.response.valeur;
                 this.ttPage = [];
@@ -53,10 +55,6 @@ export class ListeRequeteComponent implements OnInit {
         });
     }
 
-    changePage(event) {
-        this.getMessages(event);
-    }
-
     supprimer(requete) {
         Swal({
             title: 'Confirmation',
@@ -68,7 +66,7 @@ export class ListeRequeteComponent implements OnInit {
             if (res.value && this.token) {
                 this._appService.post('action/admin/deleteContactMessage.php', { session_token: this.token, id: requete.id }).then(res => {
                     if (res.response) {
-                        this.getMessages(this.page);
+                        this.getMessages();
                     }
                 });
             }
@@ -89,7 +87,7 @@ export class ListeRequeteComponent implements OnInit {
                     { session_token: this.token, id: this.requeteActive.id, mail: this.requeteActive.user_mail, data: this.reponse, request_ref: this.requeteActive.request_ref })
                     .then(res => {
                         if (res.response) {
-                            this.getMessages(this.page);
+                            this.getMessages();
                             this.setReponse = false;
                             this.reponse = '';
                             this.requeteActive = null;
