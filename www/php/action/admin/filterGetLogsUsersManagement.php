@@ -28,16 +28,19 @@ if(accessToAdminPermissions($tabUser['session_token'])){
     {
       $user_id = $logs_management_list['user_id'];
       $action = $logs_management_list['action'];
-      if((stristr($user_id, $tabUser['data'])) || (stristr($action, $tabUser['data']))){
-        $nb_item++;
-        array_push($tabLogsList,array(
-          'id' => $logs_management_list['id'],
-          'user_id' => $logs_management_list['user_id'],
-          'action' => $logs_management_list['action'],
-          'comment' => $logs_management_list['comment'],
-          'date_action' => date('d/m/Y H:i:s', $logs_management_list['date_action']),
-        ));
+      if($tabUser['data'] != ""){
+        if((stristr($user_id, $tabUser['data'])) || (stristr($action, $tabUser['data']))){
+          $nb_item++;
+          array_push($tabLogsList,array(
+            'id' => $logs_management_list['id'],
+            'user_id' => $logs_management_list['user_id'],
+            'action' => $logs_management_list['action'],
+            'comment' => $logs_management_list['comment'],
+            'date_action' => date('d/m/Y H:i:s', $logs_management_list['date_action']),
+          ));
+        }
       }else {
+        $nb_item++;
         array_push($tabLogsListFull,array(
           'id' => $logs_management_list['id'],
           'user_id' => $logs_management_list['user_id'],

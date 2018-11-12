@@ -34,20 +34,23 @@ if(accessToAdminPermissions($tabUser['session_token'])){
       $firstname = Chiffrement::decrypt($user_list['firstname']);
       $mail = Chiffrement::decrypt($user_list['mail']);
       $pseudo = Chiffrement::decrypt($user_list['pseudo']);
-      if((stristr($id, $tabUser['data'])) || (stristr($lastname, $tabUser['data'])) || (stristr($firstname, $tabUser['data'])) || (stristr($mail, $tabUser['data'])) || (stristr($pseudo, $tabUser['data']))){
-        $nb_item++;
-        array_push($tabUserList,array(
-          'id' => $user_list['id'],
-          'lastname' => Chiffrement::decrypt($user_list['lastname']),
-          'firstname' => Chiffrement::decrypt($user_list['firstname']),
-          'mail' => Chiffrement::decrypt($user_list['mail']),
-          'pseudo' => Chiffrement::decrypt($user_list['pseudo']),
-          'created_date' => date('d/m/Y', $user_list['created_date']),
-          'last_connection' => date('d/m/Y H:i:s', $user_list['last_connection']),
-          'active_account' => $user_list['active_account'],
-          'checked_mail' => $user_list['checked_mail']
-        ));
+      if($tabUser['data'] != ""){
+        if((stristr($id, $tabUser['data'])) || (stristr($lastname, $tabUser['data'])) || (stristr($firstname, $tabUser['data'])) || (stristr($mail, $tabUser['data'])) || (stristr($pseudo, $tabUser['data']))){
+          $nb_item++;
+          array_push($tabUserList,array(
+            'id' => $user_list['id'],
+            'lastname' => Chiffrement::decrypt($user_list['lastname']),
+            'firstname' => Chiffrement::decrypt($user_list['firstname']),
+            'mail' => Chiffrement::decrypt($user_list['mail']),
+            'pseudo' => Chiffrement::decrypt($user_list['pseudo']),
+            'created_date' => date('d/m/Y', $user_list['created_date']),
+            'last_connection' => date('d/m/Y H:i:s', $user_list['last_connection']),
+            'active_account' => $user_list['active_account'],
+            'checked_mail' => $user_list['checked_mail']
+          ));
+        }
       }else {
+        $nb_item++;
         array_push($tabUserListFull,array(
           'id' => $user_list['id'],
           'lastname' => Chiffrement::decrypt($user_list['lastname']),
