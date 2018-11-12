@@ -45,6 +45,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
           ));
         }
       }else {
+        $nb_item++;
         array_push($tabLogsListFull,array(
           'id' => $logs_list['id'],
           'user_id' => $logs_list['user_id'],
