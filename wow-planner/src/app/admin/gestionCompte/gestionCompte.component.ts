@@ -72,7 +72,7 @@ export class GestionCompteComponent implements OnInit {
     getUsers(page: string = this.page) {
         console.log('coucou')
         this.page = page;
-        this._appService.post('action/admin/filterUsersManagement.php', {session_token: this.token, page: this.page, data: this.strFiltre})
+        this._appService.post('action/admin/filterUsersManagement.php', { session_token: this.token, page: this.page, data: this.strFiltre })
             .then(res => {
                 if (res.response) {
                     this.users = res.response.valeur;
@@ -132,6 +132,9 @@ export class GestionCompteComponent implements OnInit {
                     { session_token: session_token, action: this.action, comment: this.raison, user: this.userActif }).then(res => {
                         if (res.error) {
                             this._router.navigate(['/accueil']);
+                        } else {
+                            this.raison = '';
+                            this.action = '';
                         }
                     });
             } else { //champs pseudo Modif ou raison vide
