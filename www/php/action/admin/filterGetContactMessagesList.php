@@ -27,7 +27,7 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
     $user_mail = htmlspecialchars_decode(Chiffrement::decrypt($messages_list['user_mail']));
     $request_subject = htmlspecialchars_decode(Chiffrement::decrypt($messages_list['request_subject']));
     $request_ref = $messages_list['request_ref'];
-    if($tabUser['data'] != ""){
+    if($tabInfo['data'] != ""){
       if((stristr($id, $tabInfo['data'])) || (stristr($user_mail, $tabInfo['data'])) || (stristr($request_subject, $tabInfo['data'])) || (stristr($request_ref, $tabInfo['data']))){
         $messages_exists = true;
         $nb_item++;
@@ -58,7 +58,7 @@ if(accessToAdminPermissions($tabInfo['session_token'])){
 
 
   $tabFinal = array();
-  if($tabUser['data']){ // if we have a filter
+  if($tabInfo['data']){ // if we have a filter
     $tabFinal = $tabMessagesList; // get filtered tab
   }else {
     $tabFinal = $tabMessagesListFull; // else get the full tab
