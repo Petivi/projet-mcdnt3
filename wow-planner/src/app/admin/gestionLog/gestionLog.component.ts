@@ -27,6 +27,7 @@ export class GestionLogComponent implements OnInit {
     constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
+        console.log(this.ttPage)
         this.token = this._appService.getToken();
         this._appService.post('action/checkIfAdmin.php', { session_token: this.token }).then(res => {
             if (res.error) {
@@ -38,6 +39,7 @@ export class GestionLogComponent implements OnInit {
     }
 
     getLogs(page: string) {
+        console.log(page)
         let path: string = this.logSelected === 'user' ? 'getLogsUsers.php' : 'getLogsUsersManagement.php';
         this._appService.post('action/admin/' + path, { session_token: this.token, page: page }).then(res => {
             if (res.response) {

@@ -86,8 +86,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div *ngIf="ttLogsUsersManagement && ttLogsUsersManagement.length > 0 && ttPage && ttPage.length > 0">
-                                <pagination-cpt [ttPage]="ttPage" (changePage)="changePage($event)"></pagination-cpt>
+                            <div *ngIf="ttLogsUsersManagement && ttLogsUsersManagement.length > 0 && logSelected !== 'user' && ttPage && ttPage.length > 0">
+                                <pagination-cpt [ttPage]="ttPage" (changePage)="getLogs($event)"></pagination-cpt>
+                            </div>
+                            <div *ngIf="ttLogsUsers && ttLogsUsers.length > 0 && logSelected === 'user' && ttPage && ttPage.length > 0">
+                                <pagination-cpt [ttPage]="ttPage" (changePage)="getLogs($event)"></pagination-cpt>
                             </div>
                         </div>
                     </div>

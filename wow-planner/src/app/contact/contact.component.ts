@@ -58,19 +58,23 @@ export class ContactComponent implements OnInit {
 
     envoyer() {
         this.mailSent = false;
-        this.errors =  [];
+        this.errors = [];
         this.submitted = true;
-        if(this.contactForm.valid) {
-            this._appService.post('action/contactUs.php', {contact_mail: this.contact_mail, contact_subject: this.contact_subject, contact_text: this.contact_text})
-            .then(res => {
-                if(res.response) {
-                    this.mailSent = true;
-                    this.submitted = false;                    
-                    for(let k in this.contactForm.value) {
-                        this.contactForm.controls[k].reset();
-                    }
-                }
-            });
+        if (this.contactForm.valid) {
+            if (this.contact_mail.includes('@')) {
+                this._appService.post('action/contactUs.php', { contact_mail: this.contact_mail, contact_subject: this.contact_subject, contact_text: this.contact_text })
+                    .then(res => {
+                        if (res.response) {
+                            this.mailSent = true;
+                            this.submitted = false;
+                            for (let k in this.contactForm.value) {
+                                this.contactForm.controls[k].reset();
+                            }
+                        }
+                    });
+            } else {
+                this.errors.push(this.words.find(w => w.msg_name === 'msg_mailInvalid').value);
+            }
         } else {
             this.errors.push(this.words.find(w => w.msg_name === 'msg_inputVide').value);
         }
