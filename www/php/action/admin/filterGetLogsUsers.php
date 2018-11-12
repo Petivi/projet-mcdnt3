@@ -29,19 +29,21 @@ if(accessToAdminPermissions($tabUser['session_token'])){
       $user_pseudo = Chiffrement::decrypt($logs_list['user_pseudo']);
       $user_mail = Chiffrement::decrypt($logs_list['user_mail']);
       $request_type = $logs_list['request_type'];
-      if((stristr($user_id, $tabUser['data'])) || (stristr($user_lastname, $tabUser['data'])) || (stristr($user_firstname, $tabUser['data'])) || (stristr($user_pseudo, $tabUser['data'])) || (stristr($user_mail, $tabUser['data'])) || (stristr($request_type, $tabUser['data']))){
-        $nb_item++;
-        array_push($tabLogsList,array(
-          'id' => $logs_list['id'],
-          'user_id' => $logs_list['user_id'],
-          'user_lastname' => Chiffrement::decrypt($logs_list['user_lastname']),
-          'user_firstname' => Chiffrement::decrypt($logs_list['user_firstname']),
-          'user_pseudo' => Chiffrement::decrypt($logs_list['user_pseudo']),
-          'user_mail' => Chiffrement::decrypt($logs_list['user_mail']),
-          'request_token' => $logs_list['request_token'],
-          'request_type' => $logs_list['request_type'],
-          'request_date' => date('d/m/Y H:i:s', $logs_list['request_date']),
-        ));
+      if($tabUser['data'] != ""){
+        if((stristr($user_id, $tabUser['data'])) || (stristr($user_pseudo, $tabUser['data'])) || (stristr($request_type, $tabUser['data']))){
+          $nb_item++;
+          array_push($tabLogsList,array(
+            'id' => $logs_list['id'],
+            'user_id' => $logs_list['user_id'],
+            'user_lastname' => Chiffrement::decrypt($logs_list['user_lastname']),
+            'user_firstname' => Chiffrement::decrypt($logs_list['user_firstname']),
+            'user_pseudo' => Chiffrement::decrypt($logs_list['user_pseudo']),
+            'user_mail' => Chiffrement::decrypt($logs_list['user_mail']),
+            'request_token' => $logs_list['request_token'],
+            'request_type' => $logs_list['request_type'],
+            'request_date' => date('d/m/Y H:i:s', $logs_list['request_date']),
+          ));
+        }
       }else {
         array_push($tabLogsListFull,array(
           'id' => $logs_list['id'],
