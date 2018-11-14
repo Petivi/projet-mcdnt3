@@ -127,13 +127,7 @@ include "../includedFiles.php";
           $nb_attempts = $total_attempts['nb_attempts'];
           if($nb_attempts >= $max_amount_fail_connection){ // if there are too many fails
             $account_blocked_account++;
-            if($account_blocked_account == 1){ // level 1 security blocked_account
-              // there $account_blocked_account = 1, so it's useless using it as a multiplier, but in case we want to add the level 2 of security in the "if"
-              // which would mean that at level 2 it would still be 10 min of account blocked
-              $date_unblocked_time = ($date_action + $timing_blocked_account)*$account_blocked_account; // just add the block time
-            }else {
-              $date_unblocked_time = $date_action + (($timing_blocked_account*$blocked_account_multiplier)*$account_blocked_account); // ex with 10 min : ((600*1.5)*2) = 1800 = 30min for a lvl 2 security
-            }
+            $date_unblocked_time =$date_action + $timing_blocked_account; // just add the block time
             $request_edit_user_account_blocked = "UPDATE users
             SET blocked_account = $account_blocked_account,
             date_unblocked_account = '$date_unblocked_time'
