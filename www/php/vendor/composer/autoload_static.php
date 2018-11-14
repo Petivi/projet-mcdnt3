@@ -15,6 +15,7 @@ class ComposerStaticInitb567783cee38480b9adc9c476eb3effd
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Component\\OptionsResolver\\' => 34,
             'SendinBlue\\Client\\' => 18,
         ),
         'P' => 
@@ -27,9 +28,17 @@ class ComposerStaticInitb567783cee38480b9adc9c476eb3effd
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
+        'B' => 
+        array (
+            'BlizzardApi\\' => 12,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Component\\OptionsResolver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/options-resolver',
+        ),
         'SendinBlue\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/sendinblue/api-v3-sdk/lib',
@@ -49,6 +58,10 @@ class ComposerStaticInitb567783cee38480b9adc9c476eb3effd
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'BlizzardApi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/logansua/blizzard-api-client/src',
         ),
     );
 

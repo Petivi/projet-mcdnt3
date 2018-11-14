@@ -187,7 +187,7 @@ function sendMailProfilEditedByAdmin($lastname, $firstname, $pseudo, $mail, $lan
     $subject = "Compte modifié par un administrateur";
     $html = $mail_header ."
         Bonjour <span style=font-weight:bold;>".$pseudo."</span>, nous vous informons que votre compte a été modifié par un administrateur.
-        <br>Pour de plus ample informations, connectez-vous sur le site et allez à la rubrique nous contacter.
+        <br>Pour de plus amples informations, connectez-vous sur le site et allez à la rubrique nous contacter.
         <br><br>Si votre pseudo a été modifié, veuillez utiliser le nouveau pour vous connecter, ou bien utiliser votre adresse mail.
         ".$mail_footer;
   }else {
@@ -219,6 +219,40 @@ function sendMailAnswerContactMessage($mail, $data, $request_ref){
     $html = $mail_header . $data .$mail_footer;
 
   $data = array( "to" => array($mail=>" "),
+  "from" => array($mail_no_reply, $app_name),
+  "subject" => $subject,
+  "html" => $html
+  );
+
+  $mailin->send_email($data);
+}
+
+
+function sendMailAccountBlocked($lastname, $firstname, $pseudo, $mail, $lang, $date_unblocked_time){
+  global $mail_no_reply;
+  global $app_name;
+  global $mailin;
+  global $mail_header;
+  global $mail_footer;
+
+  $date = date('d/m/Y H:i:s', $date_unblocked_time);
+
+  if($lang == "fr"){
+    $subject = "Compte bloqué temporairement";
+    $html = $mail_header ."
+        Bonjour <span style=font-weight:bold;>".$pseudo."</span>, suite à de trop nombreuses tentatives de connexion et par mesure de sécurité, votre compte est bloqué jusqu'à : $date.
+        <br>Si vous n'êtes pas à l'origine de ces tentatives, nous vous invitons à vous connecter et à modifier vos informations de connexion.
+        <br><br>Veillez à ne jamais divulguer vos informations de connexion à qui que ce soit.
+        ".$mail_footer;
+  }else {
+    $subject = "Account temporarily blocked";
+    $html = $mail_header."
+    Hello <span style=font-weight:bold;>".$pseudo."</span>, following too many login attempts and as a security measure, your account is blocked until : $date.
+    <br>If you're not behind these attempts, we invite you to sign in and change your login information.
+    <br><br>Make sure you never divulge your login information to anyone.
+    ".$mail_footer;
+  }
+  $data = array( "to" => array($mail=>$lastname." ".$firstname),
   "from" => array($mail_no_reply, $app_name),
   "subject" => $subject,
   "html" => $html

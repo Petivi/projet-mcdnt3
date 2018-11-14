@@ -187,6 +187,59 @@
         ]
     },
     {
+        "name": "logansua/blizzard-api-client",
+        "version": "v2.0.2",
+        "version_normalized": "2.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/LogansUA/blizzard-api-php-client.git",
+            "reference": "8e568a7767feb0ce5978800aab688ebc621c97ec"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/LogansUA/blizzard-api-php-client/zipball/8e568a7767feb0ce5978800aab688ebc621c97ec",
+            "reference": "8e568a7767feb0ce5978800aab688ebc621c97ec",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": "^6.2",
+            "php": ">=5.6.0",
+            "symfony/options-resolver": "^3.0"
+        },
+        "time": "2017-03-15T13:51:17+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "BlizzardApi\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oleg Kachinskiy",
+                "email": "logansoleg@gmail.com",
+                "role": "Creator"
+            },
+            {
+                "name": "Community",
+                "homepage": "https://github.com/LogansUA/blizzard-api-php-client/graphs/contributors",
+                "role": "Contributors"
+            }
+        ],
+        "description": "API client for blizzard API written in PHP",
+        "homepage": "https://github.com/LogansUA/blizzard-api-php-client",
+        "keywords": [
+            "api",
+            "blizzard",
+            "client",
+            "world of warcraft"
+        ]
+    },
+    {
         "name": "psr/http-message",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -297,6 +350,62 @@
             "sdk",
             "sendinblue",
             "swagger"
+        ]
+    },
+    {
+        "name": "symfony/options-resolver",
+        "version": "v3.3.6",
+        "version_normalized": "3.3.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/options-resolver.git",
+            "reference": "ff48982d295bcac1fd861f934f041ebc73ae40f0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/options-resolver/zipball/ff48982d295bcac1fd861f934f041ebc73ae40f0",
+            "reference": "ff48982d295bcac1fd861f934f041ebc73ae40f0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9"
+        },
+        "time": "2017-04-12T14:14:56+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\OptionsResolver\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony OptionsResolver Component",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "config",
+            "configuration",
+            "options"
         ]
     }
 ]

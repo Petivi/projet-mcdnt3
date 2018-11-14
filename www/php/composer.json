@@ -1,5 +1,6 @@
 {
     "require": {
-        "sendinblue/api-v3-sdk": "^6.0.0"
+        "sendinblue/api-v3-sdk": "^6.0.0",
+        "logansua/blizzard-api-client": "^2.0"
     }
 }
