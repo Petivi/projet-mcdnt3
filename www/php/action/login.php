@@ -52,11 +52,8 @@ include "../includedFiles.php";
   if(isset($account_id)){
     $date_now = strtotime(date('d-m-Y H:i:s'));
     if($account_blocked_account != 0 && ($date_now < $account_date_unblocked_account)){ // if account is blocked
-      $display_unblocked_time = date('d/m/Y H:i:s', $account_date_unblocked_account);
-      $tabDateUnblocked = array(
-        "unblocked" => $display_unblocked_time
-      );
-      echo returnError($tabDateUnblocked); // display an error with time for unblocked account
+      echo returnError($display_error_account_blocked); // display an error with time for unblocked account
+      exit();
     }else { // account is not blocked
 
       // check if the password linked to the account is correct
