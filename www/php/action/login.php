@@ -22,9 +22,9 @@ include "../includedFiles.php";
 
   try {
     // check if user exists
-    $check_pseudo_user = 'SELECT * FROM users WHERE (pseudo=:login1 OR mail=:login2)';
+    $check_pseudo_user = 'SELECT * FROM users WHERE (mail=:login2)';
     $check_pseudo_user = $base->prepare($check_pseudo_user);
-    $check_pseudo_user->bindValue('login1', Chiffrement::crypt($login), PDO::PARAM_STR);
+    //$check_pseudo_user->bindValue('login1', Chiffrement::crypt($login), PDO::PARAM_STR);
     $check_pseudo_user->bindValue('login2', Chiffrement::crypt($login), PDO::PARAM_STR);
     $check_pseudo_user->execute();
     while($user_info = $check_pseudo_user->fetch())
