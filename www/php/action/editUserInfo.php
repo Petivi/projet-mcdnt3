@@ -45,7 +45,7 @@ if($user_exists){
     }else { // mail is unique
 
       if(returnCheckLogin($tabNewUser['login'], $tabUser['id'])){
-
+        echo returnError($display_error_login_taken);
       }else { // login is unique
 
         try {
