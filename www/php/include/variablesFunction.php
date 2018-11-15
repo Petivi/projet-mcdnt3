@@ -5,6 +5,7 @@ $display_error_error_occured = 'An Error Occured';
 $display_error_link_expired = 'Link expired';
 $display_error_mail_taken = 'Mail already taken';
 $display_error_pseudo_taken = 'Pseudo already taken';
+$display_error_login_taken = 'Login already taken';
 $display_error_insufficient_permissions = 'Insufficient permissions';
 $display_error_wrong_password = 'Wrong password';
 $display_error_account_suspended = 'Account Suspended';
