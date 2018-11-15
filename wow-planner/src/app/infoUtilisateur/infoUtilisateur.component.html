@@ -56,6 +56,15 @@
                                 class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="mail" id="mail">
                         </div>
                     </div>
+                    <div class="row form-group">
+                        <label class="col-md-6" for="login">{{(words | filter : {msg_name: 'msg_identifiant'} : {col :
+                            'value'})}}</label>
+                        <span class="col-md-6" *ngIf="!editMode">{{userConnected.login}}</span>
+                        <div class="col-md-6">
+                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="login"
+                                id="login">
+                        </div>
+                    </div>
                     <div class="row" *ngIf="editMode">
                         <div class="col">
                             <button (click)="desinscription()" class="btn btn-warning">

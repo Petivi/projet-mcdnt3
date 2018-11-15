@@ -13,6 +13,9 @@
                         <button class="btn btn-primary" (click)="changeTypeLog('admin')">
                             Logs admin
                         </button>
+                        <button class="btn btn-primary" (click)="changeTypeLog('account')">
+                            Logs compte
+                        </button>
                     </div>
                 </div>
             </div>
@@ -29,9 +32,8 @@
                             <table class="table table-hover text-center" *ngIf="logSelected === 'user'">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>id</th>
-                                        <th>Type</th>
                                         <th>id utilisateur</th>
+                                        <th>Type</th>
                                         <th>Pseudo</th>
                                         <th>Date</th>
                                         <th></th>
@@ -39,9 +41,8 @@
                                 </thead>
                                 <tbody *ngIf="ttLogsUsers && ttLogsUsers.length > 0">
                                     <tr *ngFor="let l of ttLogsUsers">
-                                        <td>{{l.id}}</td>
-                                        <td>{{l.request_type}}</td>
                                         <td>{{l.user_id}}</td>
+                                        <td>{{l.request_type}}</td>
                                         <td>{{l.user_pseudo}}</td>
                                         <td>{{l.request_date}}</td>
                                         <td>
@@ -57,22 +58,45 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <table class="table table-hover text-center" *ngIf="logSelected === 'account'">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Id utilisateur</th>
+                                        <th>Adresse ip</th>
+                                        <th>Login essayé</th>
+                                        <th>Date blocage</th>
+                                        <th>Date déblocage</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="ttLogsUsersBlocked && ttLogsUsersBlocked.length > 0">
+                                    <tr *ngFor="let l of ttLogsUsersBlocked">
+                                        <td>{{l.user_id}}</td>
+                                        <td>{{l.user_ip}}</td>
+                                        <td>{{l.login_tried}}</td>
+                                        <td>{{l.date_blocked}}</td>
+                                        <td>{{l.date_unblocked}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!ttLogsUsersBlocked || ttLogsUsersBlocked.length === 0">
+                                    <tr>
+                                        <td colspan=9>Il n'y a pas de logs.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <table class="table table-hover text-center" *ngIf="logSelected === 'admin'">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>id</th>
-                                        <th>Date</th>
-                                        <th>Action</th>
                                         <th>id utilisateur</th>
+                                        <th>Action</th>
+                                        <th>Date</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="ttLogsUsersManagement && ttLogsUsersManagement.length > 0">
                                     <tr *ngFor="let l of ttLogsUsersManagement">
-                                        <td>{{l.id}}</td>
-                                        <td>{{l.date_action}}</td>
-                                        <td>{{l.action}}</td>
                                         <td>{{l.user_id}}</td>
+                                        <td>{{l.action}}</td>
+                                        <td>{{l.date_action}}</td>
                                         <td>
                                             <button class="icon-button" (click)="showLog(l)" title="voir">
                                                 <i class="fa fa-eye"></i>
@@ -90,6 +114,9 @@
                                 <pagination-cpt [ttPage]="ttPage" (changePage)="getLogs($event)"></pagination-cpt>
                             </div>
                             <div *ngIf="ttLogsUsers && ttLogsUsers.length > 0 && logSelected === 'user' && ttPage && ttPage.length > 0">
+                                <pagination-cpt [ttPage]="ttPage" (changePage)="getLogs($event)"></pagination-cpt>
+                            </div>
+                            <div *ngIf="ttLogsUsersBlocked && ttLogsUsersBlocked.length > 0 && logSelected === 'account' && ttPage && ttPage.length > 0">
                                 <pagination-cpt [ttPage]="ttPage" (changePage)="getLogs($event)"></pagination-cpt>
                             </div>
                         </div>

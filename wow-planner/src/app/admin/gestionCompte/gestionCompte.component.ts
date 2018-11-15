@@ -70,7 +70,6 @@ export class GestionCompteComponent implements OnInit {
     }
 
     getUsers(page: string = this.page) {
-        console.log('coucou')
         this.page = page;
         this._appService.post('action/admin/filterUsersManagement.php', { session_token: this.token, page: this.page, data: this.strFiltre })
             .then(res => {

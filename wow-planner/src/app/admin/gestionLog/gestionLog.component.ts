@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PaginationComponent } from '../../common/pagination/pagination.component'
 
 import { AppService } from '../../app.service';
 
-import { User, LogUser, LogUserManagement } from '../../model/app.model'
+import { LogUser, LogUserManagement, LogUserBlocked } from '../../model/app.model'
 
 @Component({
     selector: 'gestion-log-cpt',
@@ -21,10 +20,11 @@ export class GestionLogComponent implements OnInit {
     ttPage: string[] = [];
     page: string = '1';
     ttLogsUsers: LogUser[] = [];
+    ttLogsUsersBlocked: LogUserBlocked[] = [];
     ttLogsUsersManagement: LogUserManagement[] = [];
     logSelected: string = 'user';
 
-    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
+    constructor(private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
         this.token = this._appService.getToken();
@@ -39,13 +39,28 @@ export class GestionLogComponent implements OnInit {
 
     getLogs(page: string = this.page) {
         this.page = page ? page : this.page;
-        let path: string = this.logSelected === 'user' ? 'filterGetLogsUsers.php' : 'filterGetLogsUsersManagement.php';
+        let path: string;
+        switch (this.logSelected) {
+            case 'user':
+                path = 'filterGetLogsUsers.php';
+                break;
+            case 'admin':
+                path = 'filterGetLogsUsersManagement.php';
+                break;
+            case 'account':
+                path = 'filterGetLogsUsersBlocked.php';
+                break;
+        }
         this._appService.post('action/admin/' + path, { session_token: this.token, page: this.page, data: this.strFiltre }).then(res => {
             if (res.response) {
-                if(this.logSelected === 'user') {
+                if (this.logSelected === 'user') {
                     this.ttLogsUsers = res.response.valeur;
-                } else {
+                } else if (this.logSelected === 'admin') {
                     this.ttLogsUsersManagement = res.response.valeur;
+                } else if (this.logSelected === 'account') {
+                    console.log('ui')
+                    this.ttLogsUsersBlocked = res.response.valeur;
+                    console.log(this.ttLogsUsersBlocked)
                 }
                 this.ttPage = [];
                 for (let i = 1; i < res.response.total_page + 1; i++) {

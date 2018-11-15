@@ -53,6 +53,13 @@
                 </div>
             </form>
             <div class="row">
+                <div class="col">    
+                    <div class="alert alert-success">
+                        {{(words | filter : {msg_name: 'msg_editLoginPossible'} : {col : 'value'})}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col">
                     <button type="submit" (click)="inscription()" class="btn btn-primary" style="width: 100%">
                         {{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}

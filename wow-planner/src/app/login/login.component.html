@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="form-group col">
                     <label for="login">
-                        {{(words | filter : {msg_name: 'msg_pseudo'} : {col : 'value'})}} / mail *
+                        {{(words | filter : {msg_name: 'msg_loginMail'} : {col : 'value'})}} *
                     </label>
                     <input autofocus id="login" class="form-control" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.login.errors }"
                         type="text" formControlName="login">

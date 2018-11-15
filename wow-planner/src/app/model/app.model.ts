@@ -3,6 +3,7 @@ export class User {
     lastname: string;
     pseudo: string;
     mail: string;
+    login: string;
     password: string;
     id: string;
     session_token: string;
@@ -65,6 +66,22 @@ export class LogUser {
     user_lastname: string;
     user_mail: string;
     user_pseudo: string;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}
+
+export class LogUserBlocked {
+    id: string;
+    user_id: string;
+    user_ip: string;
+    date_blocked: string;
+    date_unblocked: string;
+    login_tried: string;
     constructor(info: any) {
         for (let k in info) {
             if (info.hasOwnProperty(k)) {

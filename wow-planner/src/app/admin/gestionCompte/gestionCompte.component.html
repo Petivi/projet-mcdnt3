@@ -20,6 +20,7 @@
                             <table class="table table-hover text-center">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th>Id utilisateur</th>
                                         <th>Nom</th>
                                         <th>Prenom</th>
                                         <th>Pseudo</th>
@@ -33,6 +34,7 @@
                                 </thead>
                                 <tbody *ngIf="users && users.length > 0">
                                     <tr *ngFor="let u of users">
+                                        <td>{{u.id}}</td>
                                         <td>{{u.lastname}}</td>
                                         <td>{{u.firstname}}</td>
                                         <td>{{u.pseudo}}</td>

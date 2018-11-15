@@ -123,6 +123,12 @@ export class LoginComponent implements OnInit, OnDestroy {
                                 case 'Wrong pseudo/password':
                                     this.errors.push(this.words.find(w => w.msg_name === 'msg_wrongLoginPassword').value);
                                     break;
+                                case 'Account Blocked':
+                                    this.errors.push(this.words.find(w => w.msg_name === 'msg_cptBlocked').value);
+                                    break;
+                                default:
+                                    this.errors.push(this.words.find(w => w.msg_name === 'msg_wrongLoginPassword').value);
+                                    break;
                             }
                         }
                     }
@@ -238,28 +244,28 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.user.mail = this.mail;
         this._appService.post('action/resetMail.php', { user: this.user, lang: this._appService.getLangue() })
             .then(res => {
-                if(res.response) {
+                if (res.response) {
                     this.nouveauMail = false;
                     this.mailResetPass = true;
                 } else {
                     this.valid = false;
                     this.mailResetPass = false;
-                    if(res.error === 'Account Suspended') {
+                    if (res.error === 'Account Suspended') {
                         this.errors.push(this.words.find(w => w.msg_name === 'msg_suspended').value);
                     }
-                    if(res.error === 'Account Deleted') {
+                    if (res.error === 'Account Deleted') {
                         this.errors.push(this.words.find(w => w.msg_name === 'msg_deleted').value);
                     }
-                    if(res.error === 'Mail already taken') {
+                    if (res.error === 'Mail already taken') {
                         this.errors.push(this.words.find(w => w.msg_name === 'msg_mailTaken').value);
                     }
-                    if(res.error === 'Account Activated') {
+                    if (res.error === 'Account Activated') {
                         this.errors.push(this.words.find(w => w.msg_name === 'msg_accountActivated').value);
                     }
-                    if(res.error === 'Wrong pseudo/password') {
+                    if (res.error === 'Wrong pseudo/password') {
                         this.errors.push(this.words.find(w => w.msg_name === 'msg_wrongLoginPassword').value);
                     }
-                    if(res.error === 'An Error Occured') {
+                    if (res.error === 'An Error Occured') {
                         this.errors.push(this.words.find(w => w.msg_name === 'msg_errorUnknown').value);
                     }
                 }
