@@ -312,8 +312,8 @@ function returnCheckLogin($login, $id){
   $existing_login = false;
   $check_login_user = 'SELECT * FROM users WHERE login LIKE :login AND id NOT LIKE :id AND active_account LIKE (0 OR 1)';
   $check_login_user = $base->prepare($check_login_user);
-  $check_login_user->bindValue('pseudo', Chiffrement::crypt($login), PDO::PARAM_STR);
-  $check_logino_user->bindValue('id', $id, PDO::PARAM_INT);
+  $check_login_user->bindValue('login', Chiffrement::crypt($login), PDO::PARAM_STR);
+  $check_login_user->bindValue('id', $id, PDO::PARAM_INT);
   $check_login_user->execute();
   while($login_user = $check_login_user->fetch())
   {
