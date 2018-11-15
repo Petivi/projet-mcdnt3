@@ -20,6 +20,7 @@ if(isset($request->session_token)){
     $account_lastname = Chiffrement::decrypt($user_info['lastname']);
     $account_firstname = Chiffrement::decrypt($user_info['firstname']);
     $account_pseudo = Chiffrement::decrypt($user_info['pseudo']);
+    $account_login = Chiffrement::decrypt($user_info['login']);
     $account_password = $user_info['password'];
     $account_created_date = $user_info['created_date'];
     $account_last_connection = $user_info['last_connection'];
@@ -35,6 +36,7 @@ if(isset($request->session_token)){
       "lastname" => $account_lastname,
       "firstname" => $account_firstname,
       "pseudo" => $account_pseudo,
+      "login" => $account_login,
       "mail" => $account_mail,
       "last_connection" => $account_last_connection
     );
