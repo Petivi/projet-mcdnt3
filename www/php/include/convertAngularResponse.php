@@ -84,6 +84,7 @@ function getPostInfo($req){
     $contact_text = "";
   }
 
+
   $tabInfoUser = [
     "lastname" => $lastname,
     "firstname" => $firstname,
@@ -99,9 +100,41 @@ function getPostInfo($req){
     "contact_mail" => $contact_mail,
     "contact_subject" => $contact_subject,
     "contact_text" => $contact_text,
-
   ];
   return $tabInfoUser;
+}
+
+
+function getCharacterInfo($req){
+  if(isset($req->session_token)){
+    $session_token = htmlspecialchars($req->session_token, ENT_QUOTES);
+  }else{
+    $session_token = "";
+  }
+  if(isset($req->character->name)){
+    $character_name = htmlspecialchars($req->character->name, ENT_QUOTES);
+  }else{
+    $character_name = "";
+  }
+  if(isset($req->character->class_id)){
+    $character_class_id = htmlspecialchars($req->character->class_id, ENT_QUOTES);
+  }else{
+    $character_class_id = NULL;
+  }
+  if(isset($req->character->race_id)){
+    $character_race_id = htmlspecialchars($req->character->race_id, ENT_QUOTES);
+  }else{
+    $character_race_id = NULL;
+  }
+
+
+  $tabCharacterInfo = [
+    "session_token" => $session_token,
+    "character_name" => $character_name,
+    "character_class_id" => $character_class_id,
+    "character_race_id" => $character_race_id,
+  ];
+  return $tabCharacterInfo;
 }
 
  ?>
