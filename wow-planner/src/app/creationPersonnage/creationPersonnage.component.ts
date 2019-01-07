@@ -24,28 +24,15 @@ export class CreationPersonnageComponent implements OnInit {
             console.log(this.words)
         });
         this._appService.setPage('accueil');
-        this.getRaces();
-        this.getClasses();
-        this._appService.post('action/api-blizzard/api-blizzard.php',
-            { url_missing: 'challenge/hyjal', tabParam: [{ key: 'locale', value: 'fr_UE' }] }).then(res => {
+        this._appService.getCreationPersonnage().then(res => {
+            if(res[0].races && res[1].classes) {
+                this.tabRaces = res[0].races;
+                this.tabClasses = res[1].classes;
                 console.log(res)
-            });
+            }
+        });
     }
-
-    getRaces() {
-        this._appService.post('action/api-blizzard/api-blizzard.php',
-            { url_missing: 'data/character/races', tabParam: [{ key: 'locale', value: 'fr_UE' }] }).then(res => {
-                this.tabRaces = res.races;
-                console.log(this.tabRaces)
-            });
-    }
-    getClasses() {
-        this._appService.post('action/api-blizzard/api-blizzard.php',
-            { url_missing: 'data/character/classes', tabParam: [{ key: 'locale', value: 'fr_UE' }] }).then(res => {
-                this.tabClasses = res.classes;
-                console.log(this.tabClasses)
-            });
-    }
+    
     validChar() {
         this._appService.post('action/api-blizzard/addNewCharacter.php',
             { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {

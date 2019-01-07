@@ -108,6 +108,26 @@ export class AppService {
         }
     }
 
+    getBlizzard(url_blizard: string): any {
+        return new Promise((resolve, reject) => {
+            this.post('action/api-blizzard/api-blizzard.php',
+                { url_missing: url_blizard, tabParam: [{ key: 'locale', value: 'fr_UE' }] }).then(res => {
+                    resolve(res);
+                });
+        })
+    }
+
+    getCreationPersonnage() {
+        return new Promise((resolve, reject) => {
+            Promise.all([
+                this.getBlizzard('data/character/races'),
+                this.getBlizzard('data/character/classes')
+            ]).then(result => {
+                resolve(result);
+            })
+        });
+    }
+
     setLangue(langue: string) {
         localStorage.setItem('langue', langue);
         this.langue = langue;
