@@ -1,0 +1,14 @@
+<div class="container" *ngIf="words && words.length > 0">
+    <div class="row">
+        <div class="col">
+            <select *ngIf="tabRaces" [(ngModel)]="character.race_id">
+                <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
+            </select>
+            <select *ngIf="tabClasses" [(ngModel)]="character.class_id">
+                <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}</option>
+            </select>
+
+            <button type="button" name="button" (click)="validChar()">Valider</button>
+        </div>
+    </div>
+</div>
