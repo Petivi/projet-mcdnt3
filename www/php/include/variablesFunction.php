@@ -269,6 +269,18 @@ function addToAdminUsersManagement($admin_id, $user_id, $action, $comment, $date
   $add_to_requests_list->execute();
 }
 
+function addToCharactersLogs($character_id, $user_id, $log_type, $date_action){
+  global $base;
+  $add_to_requests_list = 'INSERT INTO characters_logs (character_id, user_id, log_type, date_action)
+  VALUES (:character_id, :user_id, :log_type, :date_action)';
+  $add_to_requests_list = $base->prepare($add_to_requests_list);
+  $add_to_requests_list->bindValue('character_id', $character_id, PDO::PARAM_INT);
+  $add_to_requests_list->bindValue('user_id', $user_id, PDO::PARAM_INT);
+  $add_to_requests_list->bindValue('log_type', $log_type, PDO::PARAM_STR);
+  $add_to_requests_list->bindValue('date_action', $date_action, PDO::PARAM_INT);
+  $add_to_requests_list->execute();
+}
+
 
 function returnCheckMail($mail, $id){
   global $base;

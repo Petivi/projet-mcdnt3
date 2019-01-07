@@ -26,7 +26,7 @@ if(isset($tabInfo['session_token'])){
   }
 
   if($user_exists){
-    if(!$tabInfo['character_name'] != ""){
+    if(!$tabInfo['character_name'] != ""){ // if no name is given for the character, then we use the user pseudo
       $character_name = $account_pseudo;
     }
     $date_today = strtotime(date('d-m-Y H:i:s'));
@@ -41,6 +41,18 @@ if(isset($tabInfo['session_token'])){
     $insert_new_character->bindValue('created_date', $date_today, PDO::PARAM_INT);
     $insert_new_character->execute();
 
+    $request_character_infos = 'SELECT * FROM characters_list WHERE user_id LIKE :user_id AND created_date LIKE :created_date';
+    $request_character_infos = $base->prepare($request_character_infos);
+    $request_character_infos->bindValue('user_id', $account_id, PDO::PARAM_INT);
+    $request_character_infos->bindValue('created_date', $date_today, PDO::PARAM_INT);
+    $request_character_infos->execute();
+    while($character_infos = $request_character_infos->fetch())
+    {
+      $character_id = $character_infos['id'];
+    }
+
+    $log_type = "Nouveau personnage";
+    addToCharactersLogs($character_id, $account_id, $log_type, $date_today);
     echo returnResponse($display_response_empty);
   }else {
     echo returnError($display_error_error_occured);
