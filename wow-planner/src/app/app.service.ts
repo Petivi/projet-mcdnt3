@@ -109,9 +109,10 @@ export class AppService {
     }
 
     getBlizzard(url_blizard: string): any {
+        let lang = this.getLangue();
         return new Promise((resolve, reject) => {
             this.post('action/api-blizzard/api-blizzard.php',
-                { url_missing: url_blizard, tabParam: [{ key: 'locale', value: 'fr_UE' }] }).then(res => {
+                { url_missing: url_blizard, tabParam: [{ key: 'locale', value: lang === 'fr' ? 'fr_UE' : 'en_US' }], lang: lang }).then(res => {
                     resolve(res);
                 });
         })
