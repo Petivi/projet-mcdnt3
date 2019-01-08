@@ -17,6 +17,7 @@ export class CreationPersonnageComponent implements OnInit {
     constructor(private _appService: AppService) { }
 
     ngOnInit() {
+
         this._appService.getWords(['common']).then(res => {
             res.forEach(w => {
                 this.words.push(w);
@@ -25,19 +26,25 @@ export class CreationPersonnageComponent implements OnInit {
         });
         this._appService.setPage('accueil');
         this._appService.getCreationPersonnage().then(res => {
-            if(res[0].races && res[1].classes) {
+            if (res[0].races && res[1].classes) {
                 this.tabRaces = res[0].races;
                 this.tabClasses = res[1].classes;
                 console.log(res)
             }
         });
     }
-    
+
     validChar() {
         this._appService.post('action/api-blizzard/addNewCharacter.php',
             { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {
 
             });
         console.log(this.character);
+    }
+
+    getItems() {
+        this._appService.getBlizzard('item/18803').then(res => {
+            console.log(res);
+        })    
     }
 }
