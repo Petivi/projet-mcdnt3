@@ -24,3 +24,22 @@ export class CreationPersonnageResolver implements Resolve<any> {
         ).toPromise();
     }
 }
+
+@Injectable()
+export class GestionCompteResolver implements Resolve<any> {
+    constructor(private _appService: AppService, private _router: Router) { }
+    resolve(): Promise<any> {
+        return Observable.forkJoin([
+            this._appService.getWords(['common', 'gestionCompte', 'infoUser'])
+        ]).map(
+            (data: any) => {
+                if (data[0]) {
+                    return { words: data[0] };
+                } else {
+                    this._router.navigate(['/accueil']);
+                    return false;
+                }
+            }
+        ).toPromise();
+    }
+}

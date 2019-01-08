@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { PaginationComponent } from '../../common/pagination/pagination.component'
 
@@ -14,6 +15,7 @@ import { Word, User } from '../../model/app.model'
     templateUrl: './gestionCompte.component.html',
 })
 export class GestionCompteComponent implements OnInit {
+    obsInit: Subscription;
     strFiltre: string = '';
     editMode: boolean = false;
     submitted: boolean = false;
@@ -42,15 +44,14 @@ export class GestionCompteComponent implements OnInit {
         }),
     });
 
-    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
+    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
-        this.token = this._appService.getToken();
-        this.buildControl();
-        this._appService.getWords(['common', 'gestionCompte', 'infoUser']).then(res => {
-            res.forEach(w => {
-                this.words.push(w);
-            });
+        this.obsInit = this._activatedRoute.data.subscribe(res => {
+            console.log(res)
+            this.words = res.resolver.words;
+            this.token = this._appService.getToken();
+            this.buildControl();
             this.getUsers(this.page);
         });
     }

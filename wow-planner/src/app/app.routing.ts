@@ -13,7 +13,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 
-import { CreationPersonnageResolver } from './app.resolver';
+import { CreationPersonnageResolver, GestionCompteResolver } from './app.resolver';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -27,6 +27,9 @@ export const appRouting = RouterModule.forRoot([
             {
                 path: 'gestionCompte',
                 component: GestionCompteComponent,
+                resolve: {
+                    resolver: GestionCompteResolver
+                }
             },
             {
                 path: 'listeRequete',
