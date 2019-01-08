@@ -39,7 +39,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItems() {
-        this._appService.getBlizzard('data/item/calsses').then(res => {
+        this._appService.getBlizzard('data/item/classes').then(res => {
             console.log(res);
         })
     }
