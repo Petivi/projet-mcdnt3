@@ -38,7 +38,6 @@ if(isset($resp_token['access_token'])){
   // $resp_request = json_decode(curl_exec($curl), true); // content of the request --> display on php side
   // var_dump($resp_request); --> display on php side
   $resp_request = curl_exec($curl); // content of the request --> display on front sid
-  $resp_request .= '{"url":'.$url_redirect.'}';
   echo $resp_request; // --> display on front side
   curl_close($curl);
 }else {
