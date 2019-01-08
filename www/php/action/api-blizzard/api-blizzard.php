@@ -1,10 +1,24 @@
 <?php
 require_once('../../config.php');
 include "../../includedFiles.php";
+
+if(isset($request->lang)){
+  $lang = htmlspecialchars($request->lang, ENT_QUOTES);
+}else{
+  $lang = "en";
+}
+
+if($lang == "fr"){
+  $url_early_lang = "eu";
+}else {
+  $url_early_lang = "us";
+}
+
+
 $curl = curl_init();
 curl_setopt_array($curl, array(
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => 'https://eu.battle.net/oauth/token?grant_type=client_credentials&client_id='.$wow_api_client_id.'&client_secret='.$wow_api_client_secret,
+    CURLOPT_URL => 'https://'.$url_early_lang.'.battle.net/oauth/token?grant_type=client_credentials&client_id='.$wow_api_client_id.'&client_secret='.$wow_api_client_secret,
 ));
 $resp_token = json_decode(curl_exec($curl), true);
 if(isset($resp_token['access_token'])){
@@ -22,7 +36,7 @@ if(isset($resp_token['access_token'])){
   }
 
 
-  $url_redirect = 'https://eu.api.blizzard.com/wow/'.$url_missing.'?access_token='.$access_token;
+  $url_redirect = 'https://'.$url_early_lang.'.api.blizzard.com/wow/'.$url_missing.'?access_token='.$access_token;
   if(isset($tabParam)){
     if(sizeof($tabParam) > 0){
       foreach ($tabParam as &$param) {
