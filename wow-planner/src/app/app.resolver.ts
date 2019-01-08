@@ -10,13 +10,14 @@ export class CreationPersonnageResolver implements Resolve<any> {
     constructor(private _appService: AppService, private _router: Router) { }
     resolve(): Promise<any> {
         return Observable.forkJoin([
-            this._appService.getCreationPersonnage()
+            this._appService.getCreationPersonnage(),
+            this._appService.getWords(['common'])
         ]).map(
             (data: any) => {
                 if (data[0]) {
-                    return { races: data[0].races, classes: data[1].classes };
+                    return { races: data[0][0].races, classes: data[0][1].classes, words: data[1] };
                 } else {
-                    this._router.navigate(['/RegistreMandat/ListeMandat']);
+                    this._router.navigate(['/accueil']);
                     return false;
                 }
             }

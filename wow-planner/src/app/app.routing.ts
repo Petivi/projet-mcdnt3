@@ -22,7 +22,7 @@ export const appRouting = RouterModule.forRoot([
     },
     {
         path: 'admin',
-        component: AdminComponent,     
+        component: AdminComponent,
         children: [
             {
                 path: 'gestionCompte',
@@ -36,7 +36,7 @@ export const appRouting = RouterModule.forRoot([
                 path: 'gestionLog',
                 component: GestionLogComponent,
             },
-        ]   
+        ]
     },
     {
         path: 'inscription',
@@ -65,7 +65,9 @@ export const appRouting = RouterModule.forRoot([
     {
         path: 'creationPersonnage',
         component: CreationPersonnageComponent,
-        resolve: CreationPersonnageResolver
+        resolve: {
+            resolver: CreationPersonnageResolver
+        }
     },
     {
         path: 'recherche',

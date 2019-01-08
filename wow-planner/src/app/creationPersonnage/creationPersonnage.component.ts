@@ -1,37 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { AppService } from '../app.service';
 
 import { Word } from '../model/app.model';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'creation-personnage-cpt',
     templateUrl: './creationPersonnage.component.html',
 })
 export class CreationPersonnageComponent implements OnInit {
+    obsInit: Subscription;
     words: Word[] = [];
     tabClasses: any[];
     tabRaces: any[];
     character: any = { name: "", race_id: null, class_id: null };
 
-    constructor(private _appService: AppService) { }
+    constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
-
-        this._appService.getWords(['common']).then(res => {
-            res.forEach(w => {
-                this.words.push(w);
-            });
+        this.obsInit = this._activatedRoute.data.subscribe(res => {
+            console.log(res);
+            this.tabRaces = res.resolver.races;
+            this.tabClasses = res.resolver.classes;
+            this.words = res.resolver.words;
             console.log(this.words)
         });
-        this._appService.setPage('accueil');
-        this._appService.getCreationPersonnage().then(res => {
-            if (res[0].races && res[1].classes) {
-                this.tabRaces = res[0].races;
-                this.tabClasses = res[1].classes;
-                console.log(res)
-            }
-        });
+        
     }
 
     validChar() {
@@ -43,8 +39,8 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItems() {
-        this._appService.getBlizzard('item/18803').then(res => {
+        this._appService.getBlizzard('data/item/calsses').then(res => {
             console.log(res);
-        })    
+        })
     }
 }
