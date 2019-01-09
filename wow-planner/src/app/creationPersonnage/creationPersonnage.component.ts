@@ -65,7 +65,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItem(classe: number) {
-        this._appService.post('action/api-blizzard/getItemsInfo.php', { class: classe, subClass: this.subClass, inventoryId: this.inventoryId, lang: this._appService.getLangue() }).then(res => {
+        this._appService.post('action/api-blizzard/getItemsInfo.php', { class: classe, subClass: this.subClass, inventory_id: this.inventoryId, lang: this._appService.getLangue() }).then(res => {
             console.log(res);
         });
     }
