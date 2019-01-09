@@ -111,3 +111,12 @@ li.nav-item:hover {
 table.highlight tbody tr:hover{
     background-color: rgba(181, 181, 181, 0.5);
 }
+/*AFFICHAGE PERSONNAGE*/
+.item {
+    border: solid;
+    margin-left: 4em;
+    margin-right: 4em;
+    height: 5em;
+    margin-bottom: 0.5em;
+}
+/*FIN AFFICHAGE PERSONNAGE*/
