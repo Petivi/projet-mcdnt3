@@ -17,10 +17,6 @@ if($lang == "fr"){
   $local_lang = "locale=en_US";
 }
 
-$tabInfo['item_class'] = 4;
-$tabInfo['item_subClass'] = 2;
-$tabInfo['item_inventory_id'] = 7;
-
 if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_inventory_id']){
 
   $curl = curl_init();
@@ -31,7 +27,7 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
   $resp_token = json_decode(curl_exec($curl), true);
   if(isset($resp_token['access_token'])){
     $access_token = $resp_token['access_token']; // token
-    
+
     $tabListItems = array();
     $get_item_info = 'SELECT * FROM items_list WHERE item_class LIKE :item_class AND item_subclass LIKE :item_subclass AND item_inventory_id LIKE :item_inventory_id';
     $get_item_info = $base->prepare($get_item_info);
