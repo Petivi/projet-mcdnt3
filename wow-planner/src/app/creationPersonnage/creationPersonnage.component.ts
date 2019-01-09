@@ -31,6 +31,7 @@ export class CreationPersonnageComponent implements OnInit {
     { class: '2', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_mainhand.jpg' },
     { class: '2', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_offhand.jpg' }];
     displayCharacter: boolean = false;
+    inventoryId: number = 7;
     subClass: number = 2;
     ttClasseItem: any[] = [];
     words: Word[] = [];
@@ -64,7 +65,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItem(classe: number) {
-        this._appService.post('action/api-blizzard/getItemsId.php', { class: classe, subClass: this.subClass }).then(res => {
+        this._appService.post('action/api-blizzard/getItemsId.php', { class: classe, subClass: this.subClass, inventoryId: this.inventoryId, lang: this._appService.getLangue() }).then(res => {
             console.log(res);
         });
     }
