@@ -11,11 +11,12 @@ export class CreationPersonnageResolver implements Resolve<any> {
     resolve(): Promise<any> {
         return Observable.forkJoin([
             this._appService.getCreationPersonnage(),
-            this._appService.getWords(['common'])
+            this._appService.getWords(['common']),
+            this._appService.getBlizzard('data/item/classes')
         ]).map(
             (data: any) => {
                 if (data[0]) {
-                    return { races: data[0][0].races, classes: data[0][1].classes, words: data[1] };
+                    return { races: data[0][0].races, classes: data[0][1].classes, words: data[1], classesItem: data[2] };
                 } else {
                     this._router.navigate(['/accueil']);
                     return false;

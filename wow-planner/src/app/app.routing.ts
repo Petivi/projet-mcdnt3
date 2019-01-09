@@ -12,6 +12,7 @@ import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.comp
 import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
+import { PersonnageComponent } from './personnage/personnage.component';
 
 import { CreationPersonnageResolver, GestionCompteResolver } from './app.resolver';
 
@@ -48,6 +49,10 @@ export const appRouting = RouterModule.forRoot([
     {
         path: 'infoUser',
         component: InfoUtilisateurComponent
+    },
+    {
+        path: 'personnage',
+        component: PersonnageComponent
     },
     {
         path: 'item',

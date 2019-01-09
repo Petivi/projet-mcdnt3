@@ -1,15 +1,53 @@
 <div class="container" *ngIf="words && words.length > 0">
     <div class="row">
         <div class="col">
-            <select *ngIf="tabRaces" [(ngModel)]="character.race_id">
-                <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
-            </select>
-            <select *ngIf="tabClasses" [(ngModel)]="character.class_id">
-                <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}</option>
-            </select>
-
-            <button type="button" name="button" (click)="validChar()">Valider</button>
-            <button type="button" name="button" (click)="getItems()">Get items</button>
+            <div class="card">
+                <div class="card-header form-group">
+                    <div class="row">
+                        <div class="col">
+                            <select *ngIf="tabRaces" class="form-control" [(ngModel)]="character.race_id">
+                                <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select *ngIf="tabClasses" class="form-control" [(ngModel)]="character.class_id">
+                                <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}</option>
+                            </select>
+                        </div>
+                        <div class="col text-center">
+                            <button class="btn btn-primary" style="width: 100%" (click)="validChar()">Valider</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="displayCharacter">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-1">
+                                    <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
+                                        <div class="col">
+                                            <img [src]=itemGauche.url (click)='getItem(itemGauche.class)'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    image perso
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
+                                        <div class="col">
+                                            <img [src]=itemDroit.url>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    stats
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
