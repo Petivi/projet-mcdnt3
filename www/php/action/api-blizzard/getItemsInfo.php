@@ -2,6 +2,8 @@
 require_once('../../config.php');
 include "../../includedFiles.php";
 
+ini_set('max_execution_time', 0);
+
 $tabInfo = getCharacterInfo($request);
 if(isset($request->lang)){
   $lang = htmlspecialchars($request->lang, ENT_QUOTES);
