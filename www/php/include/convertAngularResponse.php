@@ -136,10 +136,10 @@ function getCharacterInfo($req){
   }else{
     $item_subClass = NULL;
   }
-  if(isset($req->inventory_id)){
-    $item_inventory_id = intval(htmlspecialchars($req->inventory_id, ENT_QUOTES));
+  if(isset($req->inventory_type)){
+    $item_inventory_type = intval(htmlspecialchars($req->inventory_type, ENT_QUOTES));
   }else{
-    $item_inventory_id = NULL;
+    $item_inventory_type = NULL;
   }
 
 
@@ -150,7 +150,7 @@ function getCharacterInfo($req){
     "character_race_id" => $character_race_id,
     "item_class" => $item_class,
     "item_subClass" => $item_subClass,
-    "item_inventory_id" => $item_inventory_id,
+    "item_inventory_type" => $item_inventory_type,
   ];
   return $tabCharacterInfo;
 }
