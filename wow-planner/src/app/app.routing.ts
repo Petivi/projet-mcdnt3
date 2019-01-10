@@ -14,7 +14,7 @@ import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.compone
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 import { PersonnageComponent } from './personnage/personnage.component';
 
-import { CreationPersonnageResolver, GestionCompteResolver } from './app.resolver';
+import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver } from './app.resolver';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -83,6 +83,9 @@ export const appRouting = RouterModule.forRoot([
     },
     {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
+        resolve: {
+            resolver: ContactResolver
+        }
     },
 ])

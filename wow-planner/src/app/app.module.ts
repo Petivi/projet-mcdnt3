@@ -21,7 +21,7 @@ import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.compone
 import { PaginationComponent } from './common/pagination/pagination.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 
-import { CreationPersonnageResolver, GestionCompteResolver } from './app.resolver';
+import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver } from './app.resolver';
 
 import { AppService } from './app.service';
 
@@ -58,7 +58,7 @@ import { FilterPipe } from './common/pipe/string.pipe';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
         AppService,
-        CreationPersonnageResolver, GestionCompteResolver
+        CreationPersonnageResolver, GestionCompteResolver, ContactResolver
     ],
     bootstrap: [AppComponent]
 })

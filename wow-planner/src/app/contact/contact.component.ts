@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AppService } from '../app.service';
 
 import { Word } from '../model/app.model'
+import { Subscription } from 'rxjs';
 
 
 @Component({
     selector: 'contact-cpt',
     templateUrl: './contact.component.html',
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
 
     errors: string[] = [];
+    obsInit: Subscription;
     words: Word[] = [];
     mailSent: boolean = false;
     submitted: boolean = false;
@@ -27,16 +29,18 @@ export class ContactComponent implements OnInit {
         contact_text: [this.contact_text, Validators.required],
         contact_mail: [this.contact_mail, Validators.required],
     });
-    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _router: Router) { }
+    constructor(private _formBuilder: FormBuilder, private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
-        this._appService.getWords(['common', 'contact']).then(res => {
-            res.forEach(w => {
-                this.words.push(w);
-            });
-            console.log(this.words)
+        this.obsInit = this._activatedRoute.data.subscribe(res => {
+            console.log(res);
+            this.words = res.resolver.words;
+            this.buildControl();
         });
-        this.buildControl();
+    }
+
+    ngOnDestroy() {
+        this.obsInit.unsubscribe();
     }
 
     buildControl() {

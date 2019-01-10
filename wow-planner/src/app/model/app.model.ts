@@ -105,3 +105,33 @@ export class LogUserManagement {
         }
     }
 }
+
+export class Character {
+    id: string;
+    race_id: number;
+    class_id: number;
+    head_id: number;
+    neck_id: number;
+    shoulder_id: number;
+    chest_id: number;
+    waist_id: number;
+    legs_id: number;
+    feet_id: number;
+    wrist_id: number;
+    hands_id: number;
+    finger1_id: number;
+    finger2_id: number;
+    trinket1_id: number;
+    trinket2_id: number;
+    back_id: number;
+    main_hand_id: number;
+    off_hand_id: number;
+
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}

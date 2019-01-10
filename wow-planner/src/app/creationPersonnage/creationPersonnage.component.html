@@ -20,28 +20,50 @@
                     </div>
                 </div>
                 <div class="card-body" *ngIf="displayCharacter">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row text-center">
-                                <div class="col-md-1">
-                                    <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
+                    <div class="row text-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row text-center">
                                         <div class="col">
-                                            <img [src]=itemGauche.url (click)='getItem(itemGauche.class)'>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
+                                                        <div class="col">
+                                                            <img [src]=itemGauche.url (click)='getItem(itemGauche.class)'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    image perso
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
+                                                        <div class="col">
+                                                            <img [src]=itemDroit.url>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <img class="ml-1" src="https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_offhand.jpg">
+                                                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_mainhand.jpg">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    image perso
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
                                         <div class="col">
-                                            <img [src]=itemDroit.url>
+                                            stats
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    stats
                                 </div>
                             </div>
                         </div>

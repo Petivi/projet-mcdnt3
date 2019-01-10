@@ -14,24 +14,24 @@ import { Subscription } from 'rxjs';
 })
 export class CreationPersonnageComponent implements OnInit {
     obsInit: Subscription;
-    ttItemGauche: any[] = [{ class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_head.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_neck.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_shoulder.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_chest.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_chest.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_shirt.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_tabard.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_wrists.jpg' }];
-    ttItemDroit: any[] = [{ class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_hands.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_waist.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_legs.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_feet.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_finger.jpg' },
-    { class: '4', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_trinket.jpg' },
-    { class: '2', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_mainhand.jpg' },
-    { class: '2', url: 'https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_offhand.jpg' }];
+    ttItemGauche: any[] = [{ class: '4', url: 'assets/img/inventoryslot_head.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_neck.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_shoulder.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_chest.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_chest.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_shirt.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_tabard.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_wrists.jpg' }];
+    ttItemDroit: any[] = [{ class: '4', url: 'assets/img/inventoryslot_hands.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_waist.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_legs.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_feet.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_finger.jpg' },
+    { class: '4', url: 'assets/img/inventoryslot_trinket.jpg' },
+    { class: '2', url: 'assets/img/inventoryslot_mainhand.jpg' },
+    { class: '2', url: 'assets/img/inventoryslot_offhand.jpg' }];
     displayCharacter: boolean = false;
-    inventoryId: number = 7;
+    inventoryType: number = 7;
     subClass: number = 2;
     ttClasseItem: any[] = [];
     words: Word[] = [];
@@ -55,6 +55,10 @@ export class CreationPersonnageComponent implements OnInit {
         });
     }
 
+    ngOnDestroy() {
+        this.obsInit.unsubscribe();
+    }
+
     validChar() {
         this.displayCharacter = true;
         /* this._appService.post('action/api-blizzard/addNewCharacter.php',
@@ -65,7 +69,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItem(classe: number) {
-        this._appService.post('action/api-blizzard/getItemsInfo.php', { class: classe, subClass: this.subClass, inventory_id: this.inventoryId, lang: this._appService.getLangue() }).then(res => {
+        this._appService.post('action/api-blizzard/getItemsInfo.php', { class: classe, subClass: this.subClass, inventory_type: this.inventoryType, lang: this._appService.getLangue() }).then(res => {
             console.log(res);
         });
     }
