@@ -21,18 +21,18 @@ if($lang == "fr"){
 
 if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_inventory_type']){
 
-  if(isset($tabInfo['item_allowable_classes'])){
-    $allowable_classes = $tabInfo['item_allowable_classes'];
-    $add_allowable_classes = "AND item_allowable_classes LIKE '%$allowable_classes%'";
-  }else {
-    $add_allowable_classes = "";
-  }
-  if(isset($tabInfo['item_allowable_races'])){
-    $allowable_races = $tabInfo['item_allowable_races'];
-    $add_allowable_races = "AND item_allowable_races LIKE '%$allowable_races%'";
-  }else {
-    $add_allowable_races = "";
-  }
+  // if(isset($tabInfo['item_allowable_classes'])){
+  //   $allowable_classes = $tabInfo['item_allowable_classes'];
+  //   $add_allowable_classes = "AND item_allowable_classes LIKE '%$allowable_classes%'";
+  // }else {
+  //   $add_allowable_classes = "";
+  // }
+  // if(isset($tabInfo['item_allowable_races'])){
+  //   $allowable_races = $tabInfo['item_allowable_races'];
+  //   $add_allowable_races = "AND item_allowable_races LIKE '%$allowable_races%'";
+  // }else {
+  //   $add_allowable_races = "";
+  // }
 
   $curl = curl_init();
   curl_setopt_array($curl, array(
@@ -58,7 +58,14 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
     while($item_info = $get_item_info->fetch())
     {
       $item_id = $item_info['item_id'];
+      $item_class = $item_info['item_class'];
+      $item_subclass = $item_info['item_subclass'];
+      $item_inventory_type = $item_info['item_inventory_type'];
       $item_icon = $item_info['item_icon'];
+      $item_allowable_classes = $item_info['item_allowable_classes'];
+      $item_allowable_races = $item_info['item_allowable_races'];
+      $item_required_level = $item_info['item_required_level'];
+      $item_quality = $item_info['item_quality'];
 
       if($item_info['item_allowable_classes']){
         if(strpos($item_info['item_allowable_classes'],$tabInfo['allowable_classes'])){
@@ -83,7 +90,14 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
       if($check_class && $check_race){
         array_push($tabListItems, array(
           "item_id" => $item_id,
-          "item_icon" => $item_icon
+          "item_class" => $item_class,
+          "item_subclass" => $item_subclass,
+          "item_inventory_type" => $item_inventory_type,
+          "item_icon" => $item_icon,
+          "item_allowable_classes" => $item_allowable_classes,
+          "item_allowable_races" => $item_allowable_races,
+          "item_required_level" => $item_required_level,
+          "item_quality" => $item_quality
         ));
       }
 
