@@ -106,6 +106,23 @@ export class LogUserManagement {
     }
 }
 
+export class RecherchCreationPersonnage {
+    quality: number;
+    lvlMin: number;
+    lvlMax: number;
+    matiere: number;
+    name: string;
+    class: number;
+    inventoryType: number;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}
+
 export class Character {
     id: string;
     race_id: number;

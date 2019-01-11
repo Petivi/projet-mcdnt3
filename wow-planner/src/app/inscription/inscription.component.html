@@ -45,15 +45,16 @@
                 </div>
                 <div class="row">
                     <div class="form-group col">
-                        <label for="passConf">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col :
-                            'value'})}} *</label>
+                        <label for="passConf">
+                            {{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *
+                        </label>
                         <input id="passConf" class="form-control" [ngClass]="{ 'invalid': submitted && (inscriptionForm.controls.cfPassword.errors || user.password !== cfPassword) }"
                             type="password" formControlName="cfPassword">
                     </div>
                 </div>
             </form>
             <div class="row">
-                <div class="col">    
+                <div class="col">
                     <div class="alert alert-success">
                         {{(words | filter : {msg_name: 'msg_editLoginPossible'} : {col : 'value'})}}
                     </div>

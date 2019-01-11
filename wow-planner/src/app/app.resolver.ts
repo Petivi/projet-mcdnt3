@@ -11,7 +11,7 @@ export class CreationPersonnageResolver implements Resolve<any> {
     resolve(): Promise<any> {
         return Observable.forkJoin([
             this._appService.getCreationPersonnage(),
-            this._appService.getWords(['common']),
+            this._appService.getWords(['common', 'creationPersonnage']),
             this._appService.getBlizzard('data/item/classes')
         ]).map(
             (data: any) => {

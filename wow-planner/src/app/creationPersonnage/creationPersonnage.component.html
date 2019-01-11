@@ -30,7 +30,7 @@
                                                 <div class="col-md-3">
                                                     <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
                                                         <div class="col">
-                                                            <img [src]=itemGauche.url (click)='getItem(itemGauche.class)'>
+                                                            <img class="clickable" [src]=itemGauche.url (click)="setRecherche(itemGauche.class, itemGauche.inventoryType)">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -40,15 +40,9 @@
                                                 <div class="col-md-3">
                                                     <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
                                                         <div class="col">
-                                                            <img [src]=itemDroit.url>
+                                                            <img class="clickable" [src]=itemDroit.url (click)='setRecherche(itemDroit.class, itemDroit.inventoryType)'>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <img class="ml-1" src="https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_offhand.jpg">
-                                                    <img src="https://wow.zamimg.com/images/wow/icons/medium/inventoryslot_mainhand.jpg">
                                                 </div>
                                             </div>
                                         </div>
@@ -67,6 +61,84 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="window" *ngIf="displayChoixItem">
+    <div class="windowIn">
+        <div class="card h-100">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-1">
+                        <button (click)="(displayChoixItem = false)" class="btn btn-dark">
+                            {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+                        </button>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="nameSearched">{{(words | filter : {msg_name: 'msg_name'} : {col :
+                                    'value'})}}</label>
+                            </div>
+                            <div class="col">
+                                <input id="nameSearched" class="form-control" type="text" [(ngModel)]="recherche.name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Type</label>
+                            </div>
+                            <div class="col">
+                                <select (change)="getTtItem()" class="form-control" [(ngModel)]="recherche.matiere">
+                                    <option [value]="mat.id" *ngFor="let mat of ttMatiere">
+                                        {{(words | filter : {msg_name: mat.name} : {col : 'value'})}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}</label>
+                            </div>
+                            <div class="col">
+                                <select class="form-control" [(ngModel)]="recherche.quality">
+                                    <option [value]="-1"> - </option>
+                                    <option [value]="quality.id" *ngFor="let quality of ttQuality">
+                                        {{(words | filter : {msg_name: quality.name} : {col : 'value'})}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <label>
+                                    {{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" (change)="getTtItem()" type="number" [(ngModel)]="recherche.lvlMin">
+                            </div>
+                            <div class="col">
+                                <input class="form-control" (change)="getTtItem()" type="number" [(ngModel)]="recherche.lvlMax">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body scrollv">
+                <div class="itemDetail" *ngFor="let item of ttItem">
+                    <div (mouseenter)="getItemInfo(item)">
+                        <img src="{{'http://media.blizzard.com/wow/icons/56/' + item.item_icon + '.jpg'}}">
                     </div>
                 </div>
             </div>

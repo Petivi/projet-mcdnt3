@@ -27,6 +27,26 @@ body {
 .control-label {
     font-weight: 500;
 }
+.window {
+    display: flex;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 99999;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+.window .windowIn {
+    position: relative;
+    height: 85%;
+    margin: auto;
+    opacity: 1;
+    align-items: center;
+    width: 70%;    
+}
+.scrollv {
+    overflow-y: scroll;
+}
 /* FIN GENERAL */
 /* MENU */
 .menu{
@@ -118,5 +138,10 @@ table.highlight tbody tr:hover{
     margin-right: 4em;
     height: 5em;
     margin-bottom: 0.5em;
+}
+.itemDetail {
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 /*FIN AFFICHAGE PERSONNAGE*/
