@@ -161,6 +161,11 @@ function getCharacterInfo($req){
   }else{
     $item_required_level_max = 999;
   }
+  if(isset($req->quality)){
+    $item_quality = intval(htmlspecialchars($req->quality, ENT_QUOTES));
+  }else{
+    $item_quality = -1; // -1 means everything
+  }
 
 
   $tabCharacterInfo = [
@@ -175,6 +180,7 @@ function getCharacterInfo($req){
     "allowable_races" => $item_allowable_races,
     "item_required_level_min" => $item_required_level_min,
     "item_required_level_max" => $item_required_level_max,
+    "item_quality" => $item_quality,
   ];
   return $tabCharacterInfo;
 }
