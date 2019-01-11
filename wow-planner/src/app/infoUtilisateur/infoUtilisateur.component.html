@@ -23,7 +23,7 @@
                         </label>
                         <span class="col-md-6" *ngIf="!editMode">{{userConnected.lastname}}</span>
                         <div class="col-md-6">
-                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="lastname"
+                            <input class="form-control" *ngIf="editMode" type="text" formControlName="lastname"
                                 id="lastname">
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                         </label>
                         <span class="col-md-6" *ngIf="!editMode">{{userConnected.firstname}}</span>
                         <div class="col-md-6">
-                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="firstname"
+                            <input class="form-control" *ngIf="editMode" type="text" formControlName="firstname"
                                 id="firstname">
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <span class="col-md-6" *ngIf="!editMode">{{userConnected.pseudo}}</span>
                         <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.profileGroup.controls.pseudo.errors) }"
-                                class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="pseudo"
+                                class="form-control" *ngIf="editMode" type="text" formControlName="pseudo"
                                 id="pseudo">
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                         <span class="col-md-6" *ngIf="!editMode">{{userConnected.mail}}</span>
                         <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.profileGroup.controls.mail.errors) }"
-                                class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="mail" id="mail">
+                                class="form-control" *ngIf="editMode" type="text" formControlName="mail" id="mail">
                         </div>
                     </div>
                     <div class="row form-group">
@@ -61,7 +61,7 @@
                             'value'})}}</label>
                         <span class="col-md-6" *ngIf="!editMode">{{userConnected.login}}</span>
                         <div class="col-md-6">
-                            <input class="inputPerso form-control" *ngIf="editMode" type="text" formControlName="login"
+                            <input class="form-control" *ngIf="editMode" type="text" formControlName="login"
                                 id="login">
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                         </div>
                         <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.oldPassword.errors || wrongPass) }"
-                                class="inputPerso form-control" type="password" formControlName="oldPassword">
+                                class="form-control" type="password" formControlName="oldPassword">
                         </div>
                     </div>
                     <div class="row form-group">
@@ -116,7 +116,7 @@
                         </div>
                         <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && infoUserForm.controls.passwordGroup.controls.newPassword.errors }"
-                                class="inputPerso form-control" type="password" formControlName="newPassword">
+                                class="form-control" type="password" formControlName="newPassword">
                         </div>
                     </div>
                     <div class="row form-group">
@@ -125,7 +125,7 @@
                         </div>
                         <div class="col-md-6">
                             <input [ngClass]="{ 'invalid': submitted && (infoUserForm.controls.passwordGroup.controls.cfPassword.errors || wrongCf) }"
-                                class="inputPerso form-control" type="password" formControlName="cfPassword">
+                                class="form-control" type="password" formControlName="cfPassword">
                         </div>
                     </div>
                 </div>

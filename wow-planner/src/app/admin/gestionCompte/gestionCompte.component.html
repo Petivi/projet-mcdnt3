@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div formGroupName="userGroup">
-                            <div class="row form-group">
+                            <div class="row">
                                 <label class="col-md-4" for="lastname">
                                     {{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}
                                 </label>
@@ -103,7 +103,7 @@
                                         id="lastname">
                                 </div>
                             </div>
-                            <div class="row form-group">
+                            <div class="row">
                                 <label class="col-md-4" for="firstname">
                                     {{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}
                                 </label>
@@ -113,7 +113,7 @@
                                         id="firstname">
                                 </div>
                             </div>
-                            <div class="row form-group">
+                            <div class="row">
                                 <label class="col-md-4" for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} :
                                     {col : 'value'})}}</label>
                                 <span class="col" *ngIf="!editMode">{{userActif.pseudo}}</span>
@@ -122,7 +122,7 @@
                                         class="form-control" *ngIf="editMode" type="text" formControlName="pseudo" id="pseudo">
                                 </div>
                             </div>
-                            <div class="row form-group">
+                            <div class="row">
                                 <label class="col-md-4" for="compte">Compte</label>
                                 <span class="col" *ngIf="!editMode">{{userActif.libelle_active_account}}</span>
                                 <div class="col" *ngIf="editMode">
@@ -133,14 +133,14 @@
                             </div>
                         </div>
                         <div formGroupName="adminGroup" *ngIf="editMode">
-                            <div class="row form-group">
+                            <div class="row">
                                 <label class="col" for="modif">Modification apportée</label>
                                 <div class="col">
                                     <input id="modif" [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.action.errors) }"
                                         class="form-control" formControlName="action">
                                 </div>
                             </div>
-                            <div class="row form-group">
+                            <div class="row">
                                 <label class="col" for="raison">Raison de cette modification</label>
                                 <div class="col">
                                     <textarea [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.raison.errors) }"
