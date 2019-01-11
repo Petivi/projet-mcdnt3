@@ -24,7 +24,8 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
   if($tabInfo['item_quality'] == -1){
     $add_quality = "";
   }else {
-    $add_quality = "AND item_quality LIKE '$tabInfo['item_quality']'";
+    $quality = $tabInfo['item_quality'];
+    $add_quality = "AND item_quality LIKE '$quality'";
   }
 
   $curl = curl_init();
