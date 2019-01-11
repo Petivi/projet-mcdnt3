@@ -139,7 +139,27 @@ function getCharacterInfo($req){
   if(isset($req->inventory_type)){
     $item_inventory_type = intval(htmlspecialchars($req->inventory_type, ENT_QUOTES));
   }else{
-    $item_inventory_type = NULL;
+    $item_inventory_type = "";
+  }
+  if(isset($req->allowable_classes)){
+    $item_allowable_classes = strval(htmlspecialchars($req->allowable_classes, ENT_QUOTES));
+  }else{
+    $item_allowable_classes = "";
+  }
+  if(isset($req->allowable_races)){
+    $item_allowable_races = strval(htmlspecialchars($req->allowable_races, ENT_QUOTES));
+  }else{
+    $item_allowable_races = "";
+  }
+  if(isset($req->item_required_level_min)){
+    $item_required_level_min = intval(htmlspecialchars($req->item_required_level_min, ENT_QUOTES));
+  }else{
+    $item_required_level_min = 0;
+  }
+  if(isset($req->item_required_level_max)){
+    $item_required_level_max = intval(htmlspecialchars($req->item_required_level_max, ENT_QUOTES));
+  }else{
+    $item_required_level_max = 999;
   }
 
 
@@ -151,6 +171,10 @@ function getCharacterInfo($req){
     "item_class" => $item_class,
     "item_subClass" => $item_subClass,
     "item_inventory_type" => $item_inventory_type,
+    "allowable_classes" => $item_allowable_classes,
+    "allowable_races" => $item_allowable_races,
+    "item_required_level_min" => $item_required_level_min,
+    "item_required_level_max" => $item_required_level_max,
   ];
   return $tabCharacterInfo;
 }
