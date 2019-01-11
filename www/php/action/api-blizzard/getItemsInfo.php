@@ -40,14 +40,12 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
     while($item_info = $get_item_info->fetch())
     {
       $item_id = $item_info['item_id'];
+      $item_icon = $item_info['item_icon'];
 
-      $url_redirect = 'https://'.$url_early_lang.'.api.blizzard.com/wow/item/'.$item_id.'?'.$local_lang.'&access_token='.$access_token;
-      curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $url_redirect, // url for request
+      array_push($tabListItems, array(
+        "item_id" => $item_id,
+        "item_icon" => $item_icon
       ));
-      $resp_request = curl_exec($curl); // content of the request --> display on front sid
-      array_push($tabListItems, $resp_request);
 
     }
     echo returnResponse($tabListItems); // --> display on front side
