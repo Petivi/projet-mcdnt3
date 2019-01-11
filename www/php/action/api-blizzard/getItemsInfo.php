@@ -61,7 +61,7 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
       $item_icon = $item_info['item_icon'];
 
       if($item_info['item_allowable_classes']){
-        if(strpos($item_info['item_allowable_classes'],$tabInfo['item_allowable_classes'])){
+        if(strpos($item_info['item_allowable_classes'],$tabInfo['allowable_classes'])){
           $check_class = true;
         }else {
           $check_class = false;
@@ -71,7 +71,7 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
       }
 
       if($item_info['item_allowable_races']){
-        if(strpos($item_info['item_allowable_races'],$tabInfo['item_allowable_races'])){
+        if(strpos($item_info['item_allowable_races'],$tabInfo['allowable_races'])){
           $check_race = true;
         }else {
           $check_race = false;
