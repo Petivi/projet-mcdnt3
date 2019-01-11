@@ -141,13 +141,13 @@ function getCharacterInfo($req){
   }else{
     $item_inventory_type = "";
   }
-  if(isset($req->allowable_classes)){
-    $item_allowable_classes = strval(htmlspecialchars($req->allowable_classes, ENT_QUOTES));
+  if(isset($req->class_id)){
+    $item_allowable_classes = strval(htmlspecialchars($req->class_id, ENT_QUOTES));
   }else{
     $item_allowable_classes = "";
   }
-  if(isset($req->allowable_races)){
-    $item_allowable_races = strval(htmlspecialchars($req->allowable_races, ENT_QUOTES));
+  if(isset($req->race_id)){
+    $item_allowable_races = strval(htmlspecialchars($req->race_id, ENT_QUOTES));
   }else{
     $item_allowable_races = "";
   }

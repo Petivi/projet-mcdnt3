@@ -47,8 +47,7 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
     $get_item_info = "SELECT * FROM items_list WHERE item_class LIKE :item_class
     AND item_subclass LIKE :item_subclass
     AND item_inventory_type LIKE :item_inventory_type
-    AND item_required_level BETWEEN :item_required_level_min AND :item_required_level_max
-    $add_allowable_classes $add_allowable_races";
+    AND item_required_level BETWEEN :item_required_level_min AND :item_required_level_max";
     $get_item_info = $base->prepare($get_item_info);
     $get_item_info->bindValue('item_class', $tabInfo['item_class'], PDO::PARAM_INT);
     $get_item_info->bindValue('item_subclass', $tabInfo['item_subClass'], PDO::PARAM_INT);
@@ -61,10 +60,32 @@ if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_invento
       $item_id = $item_info['item_id'];
       $item_icon = $item_info['item_icon'];
 
-      array_push($tabListItems, array(
-        "item_id" => $item_id,
-        "item_icon" => $item_icon
-      ));
+      if($item_info['item_allowable_classes']){
+        if(strpos($item_info['item_allowable_classes'],$tabInfo['item_allowable_classes'])){
+          $check_class = true;
+        }else {
+          $check_class = false;
+        }
+      }else {
+        $check_class = true;
+      }
+
+      if($item_info['item_allowable_races']){
+        if(strpos($item_info['item_allowable_races'],$tabInfo['item_allowable_races'])){
+          $check_race = true;
+        }else {
+          $check_race = false;
+        }
+      }else {
+        $check_race = true;
+      }
+
+      if($check_class && $check_race){
+        array_push($tabListItems, array(
+          "item_id" => $item_id,
+          "item_icon" => $item_icon
+        ));
+      }
 
     }
     echo returnResponse($tabListItems); // --> display on front side
