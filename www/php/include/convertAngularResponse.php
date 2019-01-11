@@ -151,13 +151,13 @@ function getCharacterInfo($req){
   }else{
     $item_allowable_races = "";
   }
-  if(isset($req->item_required_level_min)){
-    $item_required_level_min = intval(htmlspecialchars($req->item_required_level_min, ENT_QUOTES));
+  if(isset($req->required_level_min)){
+    $item_required_level_min = intval(htmlspecialchars($req->required_level_min, ENT_QUOTES));
   }else{
     $item_required_level_min = 0;
   }
-  if(isset($req->item_required_level_max)){
-    $item_required_level_max = intval(htmlspecialchars($req->item_required_level_max, ENT_QUOTES));
+  if(isset($req->required_level_max)){
+    $item_required_level_max = intval(htmlspecialchars($req->required_level_max, ENT_QUOTES));
   }else{
     $item_required_level_max = 999;
   }
