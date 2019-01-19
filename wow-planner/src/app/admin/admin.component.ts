@@ -20,7 +20,7 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         this.buildControl();
         this._appService.post('action/checkIfAdmin.php', JSON.parse(localStorage.getItem('userConnected'))).then(res => {
-            console.log(res)
+            // console.log(res)
             if (res.error) {
                 this._router.navigate(['/accueil']);
             }

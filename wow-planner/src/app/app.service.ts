@@ -6,6 +6,7 @@ import { Word, User } from './model/app.model';
 
 @Injectable()
 export class AppService {
+    // urlServeur: string = 'https://wow-planner.ovh/wow-planner-app/';
     urlServeur: string = 'http://localhost/wow-planner-app/';
     words: Word[];
     httpOptions = {
@@ -34,7 +35,7 @@ export class AppService {
         return this._http.post(this.urlServeur + 'action/login.php', value, this.httpOptions)
             .toPromise()
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 let value = JSON.parse(res['body']);
                 if (value.response) {
                     this.userConnected = value.response;
@@ -76,7 +77,7 @@ export class AppService {
         return this._http.post(this.urlServeur + 'action/getUserInfo.php', value, this.httpOptions)
             .toPromise()
             .then(res => {
-                console.log(JSON.parse(res['body']))
+                // console.log(JSON.parse(res['body']))
                 let returnRes = JSON.parse(res['body'])
                 if (returnRes.response) {
                     returnRes.response.session_token = JSON.parse(value).session_token;
@@ -111,7 +112,7 @@ export class AppService {
     getBlizzard(url_blizard: string, tabParam: any[] = []): any {
         let lang = this.getLangue();
         tabParam.push({ key: 'locale', value: lang === 'fr' ? 'fr_UE' : 'en_US' });
-        console.log(tabParam)
+        // console.log(tabParam)
         return new Promise((resolve, reject) => {
             this.post('action/api-blizzard/api-blizzard.php',
                 { url_missing: url_blizard, tabParam: tabParam, lang: lang }).then(res => {

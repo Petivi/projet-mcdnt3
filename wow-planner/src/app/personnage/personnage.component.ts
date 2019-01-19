@@ -12,7 +12,7 @@ export class PersonnageComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._appService.getBlizzard('character/hyjal/Mananga', [{key: 'fields', value: 'items'}]).then(res => {
-            console.log(res);
+            // console.log(res);
         });
     }
 

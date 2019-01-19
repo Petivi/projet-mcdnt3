@@ -48,7 +48,7 @@ export class GestionCompteComponent implements OnInit {
 
     ngOnInit() {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
-            console.log(res)
+            // console.log(res)
             this.words = res.resolver.words;
             this.token = this._appService.getToken();
             this.buildControl();

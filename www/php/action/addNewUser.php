@@ -23,7 +23,7 @@ if(isset($request->user->password)){
   }
 
 
- if(returnCheckMail($mail, 0)){  // mail taken
+ if(returnCheckMail($tabUser['mail'], 0)){  // mail taken
    echo returnError($display_error_mail_taken);
    exit();
  }else {  // mail not taken

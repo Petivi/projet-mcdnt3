@@ -107,9 +107,9 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
                     }
                 });
             } else {
-                console.log(this.words)
+                // console.log(this.words)
                 this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_mailAndPseudoRequired').value);
-                console.log(this.profileErrors)
+                // console.log(this.profileErrors)
             }
         }
     }

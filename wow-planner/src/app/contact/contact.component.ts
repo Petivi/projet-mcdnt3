@@ -33,7 +33,7 @@ export class ContactComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
-            console.log(res);
+            // console.log(res);
             this.words = res.resolver.words;
             this.buildControl();
         });

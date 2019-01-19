@@ -69,7 +69,7 @@ export class CreationPersonnageComponent implements OnInit {
 
     ngOnInit() {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
-            console.log(res);
+            // console.log(res);
             this.words = res.resolver.words;
             this.ttClasseItem = res.resolver.classesItem ? res.resolver.classesItem : [];
             this.tabRaces = res.resolver.races;
@@ -116,7 +116,7 @@ export class CreationPersonnageComponent implements OnInit {
             }).catch(err => {
                 reject(err);
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 this.ttItem = res.response;
                 resolve(res);
             });
@@ -127,7 +127,7 @@ export class CreationPersonnageComponent implements OnInit {
         if(!item.description) {
             this._appService.getBlizzard('item/' + item.item_id).then(res => { //rename les variables item_id et item_icon en id et icon pour que ce soit comme dans l'api comme ça pas de probleme au remplacement
                 this.ttItem.splice(this.ttItem.findIndex(item => item.item_id == res.id), 1, res);
-                console.log(this.ttItem.find(item => item.id = res.id))
+                // console.log(this.ttItem.find(item => item.id = res.id))
             });
         }
     }
