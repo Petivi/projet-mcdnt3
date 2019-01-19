@@ -37,7 +37,8 @@ include "../includedFiles.php";
   if(strpos($urlServer,  'localhost')){
     $urlServer .= ":4200";
   };
-  $urlServer .= "/login/confirm";
+  // $urlServer .= "/login/confirm";
+  $urlServer .= "/home";
 
  ?>
 
