@@ -42,7 +42,8 @@ if(!is_null($tabInfo['item_class']) && !is_null($tabInfo['item_subClass']) && !i
     AND item_subclass LIKE :item_subclass
     AND item_inventory_type LIKE :item_inventory_type
     AND item_required_level BETWEEN :item_required_level_min AND :item_required_level_max
-    $add_quality";
+    $add_quality
+    ORDER BY item_required_level DESC";
     $get_item_info = $base->prepare($get_item_info);
     $get_item_info->bindValue('item_class', $tabInfo['item_class'], PDO::PARAM_INT);
     $get_item_info->bindValue('item_subclass', $tabInfo['item_subClass'], PDO::PARAM_INT);
