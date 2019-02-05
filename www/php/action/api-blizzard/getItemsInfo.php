@@ -62,6 +62,11 @@ if(!is_null($tabInfo['item_class']) && !is_null($tabInfo['item_subClass']) && !i
       $item_allowable_races = $item_info['item_allowable_races'];
       $item_required_level = $item_info['item_required_level'];
       $item_quality = $item_info['item_quality'];
+      if($lang == "fr"){
+        $item_name = $item_info['item_name_fr'];
+      }else {
+        $item_name = $item_info['item_name_en'];
+      }
 
       if($item_info['item_allowable_classes']){
         if(strpos($item_info['item_allowable_classes'],$tabInfo['allowable_classes'])){
@@ -86,6 +91,7 @@ if(!is_null($tabInfo['item_class']) && !is_null($tabInfo['item_subClass']) && !i
       if($check_class && $check_race){
         array_push($tabListItems, array(
           "item_id" => $item_id,
+          "item_name" => $item_name,
           "item_class" => $item_class,
           "item_subclass" => $item_subclass,
           "item_inventory_type" => $item_inventory_type,
