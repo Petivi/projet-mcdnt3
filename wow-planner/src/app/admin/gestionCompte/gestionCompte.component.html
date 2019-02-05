@@ -98,7 +98,7 @@
                                     {{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}
                                 </label>
                                 <span class="col" *ngIf="!editMode">{{userActif.lastname}}</span>
-                                <div class="col">
+                                <div class="col form-group">
                                     <input class="form-control" *ngIf="editMode" type="text" formControlName="lastname"
                                         id="lastname">
                                 </div>
@@ -108,7 +108,7 @@
                                     {{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}
                                 </label>
                                 <span class="col" *ngIf="!editMode">{{userActif.firstname}}</span>
-                                <div class="col">
+                                <div class="col form-group">
                                     <input class="form-control" *ngIf="editMode" type="text" formControlName="firstname"
                                         id="firstname">
                                 </div>
@@ -117,7 +117,7 @@
                                 <label class="col-md-4" for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} :
                                     {col : 'value'})}}</label>
                                 <span class="col" *ngIf="!editMode">{{userActif.pseudo}}</span>
-                                <div class="col">
+                                <div class="col form-group">
                                     <input [ngClass]="{ 'invalid': submitted && (userForm.controls.userGroup.controls.pseudo.errors) }"
                                         class="form-control" *ngIf="editMode" type="text" formControlName="pseudo" id="pseudo">
                                 </div>
@@ -125,7 +125,7 @@
                             <div class="row">
                                 <label class="col-md-4" for="compte">Compte</label>
                                 <span class="col" *ngIf="!editMode">{{userActif.libelle_active_account}}</span>
-                                <div class="col" *ngIf="editMode">
+                                <div class="col form-group" *ngIf="editMode">
                                     <select class="form-control" formControlName="active_account">
                                         <option *ngFor="let ca of typeCompteActif" [value]="ca.code">{{ca.value}}</option>
                                     </select>
@@ -134,17 +134,21 @@
                         </div>
                         <div formGroupName="adminGroup" *ngIf="editMode">
                             <div class="row">
-                                <label class="col" for="modif">Modification apportée</label>
-                                <div class="col">
+                                <div class="col form-group">
+                                    <div class="text-center">
+                                        <label for="modif">Modification apportée</label>
+                                    </div>
                                     <input id="modif" [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.action.errors) }"
                                         class="form-control" formControlName="action">
                                 </div>
                             </div>
                             <div class="row">
-                                <label class="col" for="raison">Raison de cette modification</label>
-                                <div class="col">
+                                <div class="col form-group">
+                                    <div class="text-center">
+                                        <label for="raison">Raison de cette modification</label>
+                                    </div>
                                     <textarea [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.raison.errors) }"
-                                        id="raison" class="form-control" formControlName="raison">
+                                        id="raison" class="form-control" formControlName="raison" rows="4">
                                         </textarea>
                                 </div>
                             </div>

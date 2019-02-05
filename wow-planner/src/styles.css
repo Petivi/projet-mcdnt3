@@ -139,9 +139,26 @@ table.highlight tbody tr:hover{
     height: 5em;
     margin-bottom: 0.5em;
 }
-.itemDetail {
+.itemGeneral {
+    display: flex;
     float: left;
     margin-bottom: 10px;
+    border: 2px #b5b5b550;
+    border-style: solid;
     margin-right: 10px;
+    padding: 3px 3px 3px 3px;
+    background: #d4d4d4;
+    border-radius: 0px 5px 5px 0px;
+}
+.itemGeneral:hover {
+    cursor: pointer;
+}
+.itemDetail {
+    margin-left: 8px;
+}
+.itemIcon {
+    font-size: 30px !important;
+    margin: auto;
+    padding-left: 5px;
 }
 /*FIN AFFICHAGE PERSONNAGE*/

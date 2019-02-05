@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GridModule } from '@progress/kendo-angular-grid';
 
 import { CustomHttpInterceptor } from './common/customHttpInterceptor';
 
@@ -23,11 +26,15 @@ import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 
 import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver } from './app.resolver';
 
+
 import { AppService } from './app.service';
 
 import { appRouting } from './app.routing';
 
 import { FilterPipe } from './common/pipe/string.pipe';
+
+
+
 
 
 @NgModule({
@@ -53,7 +60,10 @@ import { FilterPipe } from './common/pipe/string.pipe';
         BrowserModule,
         HttpClientModule,
         ReactiveFormsModule, FormsModule,
-        appRouting
+        appRouting,
+        InputsModule,
+        BrowserAnimationsModule,
+        GridModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },

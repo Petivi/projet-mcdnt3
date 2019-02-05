@@ -109,7 +109,7 @@
                                 <label>{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}</label>
                             </div>
                             <div class="col">
-                                <select class="form-control" [(ngModel)]="recherche.quality">
+                                <select class="form-control" (change)="getTtItem()" [(ngModel)]="recherche.quality">
                                     <option [value]="-1"> - </option>
                                     <option [value]="quality.id" *ngFor="let quality of ttQuality">
                                         {{(words | filter : {msg_name: quality.name} : {col : 'value'})}}
@@ -136,11 +136,23 @@
                 </div>
             </div>
             <div class="card-body scrollv">
-                <div class="itemDetail" *ngFor="let item of ttItem">
-                    <div (mouseenter)="getItemInfo(item)">
-                        <img src="{{'http://media.blizzard.com/wow/icons/56/' + item.item_icon + '.jpg'}}">
+                <kendo-grid [kendoGridBinding]="ttItem" [sortable]="true" [scrollable]="'none'" [pageable]="true"
+                    [pageSize]="10" [selectable]="true" [groupable]="false" [filterable]="true">
+                    <kendo-grid-column field="item_icon" title="Logo">
+                        <ng-template let-dataItem kendoGridCellTemplate let-dataItem>
+                            <img (mouseenter)="getItemInfo(dataItem)" src="{{'http://media.blizzard.com/wow/icons/56/' + dataItem.item_icon + '.jpg'}}">
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="name" title="{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}"></kendo-grid-column>
+                    <kendo-grid-column field="armor" title=""></kendo-grid-column>
+                </kendo-grid>
+                <!-- <div class="itemGeneral" *ngFor="let item of ttItem">
+                    <i class="fa fa-angle-right itemIcon" *ngIf="!item.id"></i>
+                    <div class="itemDetail" *ngIf="item.id">
+                        <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{item.name}}</div>
+                        <div>{{item.armor ? item.armor : ''}}</div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

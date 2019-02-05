@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { AppService } from '../app.service';
+import * as globals from '../../assets/data/globals';
 
 import { Word, RecherchCreationPersonnage } from '../model/app.model';
-import { Subscription } from 'rxjs';
 
 /* donnée LOUIS pseudo: Mananga, Pteracuda serveur: Hyjal */
 
@@ -56,7 +57,7 @@ export class CreationPersonnageComponent implements OnInit {
     ];
     recherche: RecherchCreationPersonnage = { quality: -1, lvlMin: 0, lvlMax: 110, matiere: 2, name: '', class: null, inventoryType: null };
     displayCharacter: boolean = false;
-    ttItem: any[] = [];
+    ttItem: any[] = []; // Typer quand je saurais ce qu'on garde
     inventoryType: number = 1;
     displayChoixItem: boolean = false;
     ttClasseItem: any[] = [];
@@ -68,6 +69,7 @@ export class CreationPersonnageComponent implements OnInit {
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
+        console.log(globals.bonusStats)
         this.obsInit = this._activatedRoute.data.subscribe(res => {
             // console.log(res);
             this.words = res.resolver.words;
@@ -107,6 +109,7 @@ export class CreationPersonnageComponent implements OnInit {
             this._appService.post('action/api-blizzard/getItemsInfo.php', {
                 class: this.recherche.class,
                 subClass: this.recherche.matiere,
+                quality: this.recherche.quality,
                 inventory_type: this.recherche.inventoryType,
                 required_level_min: this.recherche.lvlMin,
                 required_level_max: this.recherche.lvlMax,
@@ -124,10 +127,15 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItemInfo(item) {
-        if(!item.description) {
-            this._appService.getBlizzard('item/' + item.item_id).then(res => { //rename les variables item_id et item_icon en id et icon pour que ce soit comme dans l'api comme ça pas de probleme au remplacement
+        if (!item.description) {
+            this._appService.getBlizzard('item/' + item.item_id, [{ key: 'bl', value: 3828 }]).then(res => {
+                res.item_id = res.id;
+                res.item_icon = res.icon;
+                res.bonusStats.forEach(bonus => {
+                    bonus.statLibelle = globals.bonusStats.find(bs => bs.id === bonus.stat) ? globals.bonusStats.find(bs => bs.id === bonus.stat).name : '';
+                });
+                console.log(res)
                 this.ttItem.splice(this.ttItem.findIndex(item => item.item_id == res.id), 1, res);
-                // console.log(this.ttItem.find(item => item.id = res.id))
             });
         }
     }
