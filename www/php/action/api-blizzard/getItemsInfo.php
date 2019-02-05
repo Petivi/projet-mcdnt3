@@ -19,7 +19,7 @@ if($lang == "fr"){
   $local_lang = "locale=en_US";
 }
 
-if($tabInfo['item_class'] && $tabInfo['item_subClass'] && $tabInfo['item_inventory_type']){
+if(!is_null($tabInfo['item_class']) && !is_null($tabInfo['item_subClass']) && !is_null($tabInfo['item_inventory_type'])){
 
   if($tabInfo['item_quality'] == -1){
     $add_quality = "";
