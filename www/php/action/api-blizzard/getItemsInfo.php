@@ -63,9 +63,9 @@ if(!is_null($tabInfo['item_class']) && !is_null($tabInfo['item_subClass']) && !i
       $item_required_level = $item_info['item_required_level'];
       $item_quality = $item_info['item_quality'];
       if($lang == "fr"){
-        $item_name = $item_info['item_name_fr'];
+        $item_name = html_entity_decode($item_info['item_name_fr'], ENT_QUOTES);
       }else {
-        $item_name = $item_info['item_name_en'];
+        $item_name = html_entity_decode($item_info['item_name_en'], ENT_QUOTES);
       }
 
       if($item_info['item_allowable_classes']){
