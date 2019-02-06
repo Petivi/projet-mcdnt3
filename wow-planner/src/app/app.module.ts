@@ -21,7 +21,6 @@ import { CreationPersonnageComponent } from './creationPersonnage/creationPerson
 import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
 import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
-import { PaginationComponent } from './common/pagination/pagination.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 
 import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver } from './app.resolver';
@@ -53,7 +52,6 @@ import { FilterPipe } from './common/pipe/string.pipe';
         GestionCompteComponent,
         ContactComponent,
         ListeRequeteComponent,
-        PaginationComponent,
         GestionLogComponent,
     ],
     imports: [

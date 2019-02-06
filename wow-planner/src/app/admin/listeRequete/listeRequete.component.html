@@ -8,53 +8,24 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="row ml-3 mt-2 mb-2">
-                        <div class="col-md-3">
-                            <label class="control-label">Filtre</label>
-                            <input type="text" [(ngModel)]="strFiltre" (input)="getMessages()">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <table class="table table-hover text-center">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Date de la requête</th>
-                                        <th>Mail utilisateur</th>
-                                        <th>Sujet du message</th>
-                                        <th>Requête traitée</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngIf="ttRequete && ttRequete.length > 0">
-                                    <tr *ngFor="let r of ttRequete">
-                                        <td>{{r.id}}</td>
-                                        <td>{{r.request_date}}</td>
-                                        <td>{{r.user_mail}}</td>
-                                        <td>{{r.request_subject}}</td>
-                                        <td>{{r.libelle_request_closed}}</td>
-                                        <td>
-                                            <button class="icon-button" (click)="supprimer(r)" title="supprimer">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                            <button class="icon-button" (click)="(requeteActive = r)" title="voir">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tbody *ngIf="!ttRequete || ttRequete.length === 0">
-                                    <tr>
-                                        <td colspan=6>Il n'y a pas de requete.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div *ngIf="ttRequete && ttRequete.length > 0 && ttPage && ttPage.length > 0">
-                                <pagination-cpt [ttPage]="ttPage" (changePage)="getMessage($event)"></pagination-cpt>
-                            </div>
-                        </div>
-                    </div>
+                    <kendo-grid [kendoGridBinding]="gridDataRequete.toArray()" [pageable]="true" [pageSize]="10"
+                        [filterable]="true" [scrollable]="'none'">
+                        <kendo-grid-column field="id" title="id"></kendo-grid-column>
+                        <kendo-grid-column field="request_date" title="Date de la requête"></kendo-grid-column>
+                        <kendo-grid-column field="user_mail" title="Mail utilisateur"></kendo-grid-column>
+                        <kendo-grid-column field="request_subject" title="Sujet du message"></kendo-grid-column>
+                        <kendo-grid-column field="libelle_request_closed" title="Requête traitée"></kendo-grid-column>
+                        <kendo-grid-column title="">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <button class="icon-button" (click)="supprimer(dataItem)" title="supprimer">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button class="icon-button" (click)="(requeteActive = dataItem)" title="voir">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </ng-template>
+                        </kendo-grid-column>
+                    </kendo-grid>
                 </div>
             </div>
         </div>

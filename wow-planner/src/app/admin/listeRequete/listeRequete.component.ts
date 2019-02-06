@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
-import { PaginationComponent } from '../../common/pagination/pagination.component'
+import { List } from 'immutable';
 
 import { AppService } from '../../app.service';
 
@@ -19,6 +18,7 @@ export class ListeRequeteComponent implements OnInit {
     strFiltre: string = '';
     valid: boolean = true;
     ttRequete: Requete[] = [];
+    gridDataRequete: List<Requete> = List([]);
     requeteActive: Requete = null;
     token: string = null;
     ttPage: string[] = [];
@@ -41,7 +41,7 @@ export class ListeRequeteComponent implements OnInit {
 
     getMessages(page: string = this.page) {
         this.page = page;
-        this._appService.post('action/admin/filterGetContactMessagesList.php', {session_token: this.token, page: page, data: this.strFiltre}).then(res => {
+        this._appService.post('action/admin/getContactMessagesList.php', {session_token: this.token, page: page, data: this.strFiltre}).then(res => {
             if (res.response) {
                 this.ttRequete = res.response.valeur;
                 this.ttPage = [];
@@ -51,6 +51,7 @@ export class ListeRequeteComponent implements OnInit {
                 this.ttRequete.forEach(r => {
                     r.libelle_request_closed = r.request_closed === '0' ? 'non' : 'oui';
                 });
+                this.gridDataRequete = List(this.ttRequete);
             };
         });
     }

@@ -2,259 +2,322 @@
 export const bonusStats: any = [
     {
         id: 0,
-        nameFr: "Mana",
-        nameEn: "Mana"
+        nameEn: 'Mana',
+        nameFr: 'Mana'
     },
     {
         id: 1,
-        name: "Health"
+        nameEn: 'Health',
+        nameFr: 'Santé'
     },
     {
         id: 3,
-        name: "Agility"
+        nameEn: 'Agility',
+        nameFr: 'Agilité'
     },
     {
         id: 4,
-        name: "Strength"
+        nameEn: 'Strength',
+        nameFr: 'Force'
     },
     {
         id: 5,
-        name: "Intellect"
+        nameEn: 'Intellect',
+        nameFr: 'Intelligence'
     },
     {
         id: 6,
-        name: "Spirit"
+        nameEn: 'Spirit',
+        nameFr: 'Esprit'
     },
     {
         id: 7,
-        name: "Stamina"
+        nameEn: 'Stamina',
+        nameFr: 'Endurance'
     },
     {
         id: 12,
-        name: "Defense"
+        nameEn: 'Defense',
+        nameFr: 'Défense'
     },
     {
         id: 13,
-        name: "Dodge"
+        nameEn: 'Dodge',
+        nameFr: 'Esquive'
     },
     {
         id: 14,
-        name: "Parry"
+        nameEn: 'Parry',
+        nameFr: 'Parade'
     },
     {
         id: 15,
-        name: "Block"
+        nameEn: 'Block',
+        nameFr: 'Blocage'
     },
     {
         id: 16,
-        name: "Hit (Melee)"
+        nameEn: 'Hit (Melee)',
+        nameFr: 'Dégats (Mélée)'
     },
     {
         id: 17,
-        name: "Hit (Ranged)"
+        nameEn: 'Hit (Ranged)',
+        nameFr: 'Dégats (Distance)'
     },
     {
         id: 18,
-        name: "Hit (Spell)"
+        nameEn: 'Hit (Spell)',
+        nameFr: 'Dégats (Sort)'
     },
     {
         id: 19,
-        name: "Critical Strike (Melee)"
+        nameEn: 'Critical Strike (Melee)',
+        nameFr: 'Coup Critique (Mélée)'
     },
     {
         id: 20,
-        name: "Critical Strike (Ranged)"
+        nameEn: 'Critical Strike (Ranged)',
+        nameFr: 'Coup Critique (Distance)'
     },
     {
         id: 21,
-        name: "Critical Strike (Spell)"
+        nameEn: 'Critical Strike (Spell)',
+        nameFr: 'Coup Critique (Sort)'
     },
     {
         id: 22,
-        name: "Hit Avoidance (Melee)"
+        nameEn: 'Hit Avoidance (Melee)',
+        nameFr: ''
     },
     {
         id: 23,
-        name: "Hit Avoidance (Ranged)"
+        nameEn: 'Hit Avoidance (Ranged)',
+        nameFr: ''
     },
     {
         id: 24,
-        name: "Hit Avoidance (Spell)"
+        nameEn: 'Hit Avoidance (Spell)',
+        nameFr: ''
     },
     {
         id: 25,
-        name: "Critical Strike Avoidance (Melee)"
+        nameEn: 'Critical Strike Avoidance (Melee)',
+        nameFr: ''
     },
     {
         id: 26,
-        name: "Critical Strike Avoidance (Ranged)"
+        nameEn: 'Critical Strike Avoidance (Ranged)',
+        nameFr: ''
     },
     {
         id: 27,
-        name: "Critical Strike Avoidance (Spell)"
+        nameEn: 'Critical Strike Avoidance (Spell)',
+        nameFr: ''
     },
     {
         id: 28,
-        name: "Haste (Melee)"
+        nameEn: 'Haste (Melee)',
+        nameFr: 'Vitesse (Melle)'
     },
     {
         id: 29,
-        name: "Haste (Ranged)"
+        nameEn: 'Haste (Ranged)',
+        nameFr: 'Vitesse (Distance)'
     },
     {
         id: 30,
-        name: "Haste (Spell)"
+        nameEn: 'Haste (Spell)',
+        nameFr: 'Vitesse (Sort)'
     },
     {
         id: 31,
-        name: "Hit"
+        nameEn: 'Hit',
+        nameFr: 'Dégats'
     },
     {
         id: 32,
-        name: "Critical Strike"
+        nameEn: 'Critical Strike',
+        nameFr: 'Coup Critique'
     },
     {
         id: 33,
-        name: "Hit Avoidance"
+        nameEn: 'Hit Avoidance',
+        nameFr: ''
     },
     {
         id: 34,
-        name: "Critical Strike Avoidance"
+        nameEn: 'Critical Strike Avoidance',
+        nameFr: ''
     },
     {
         id: 35,
-        name: "PvP Resilience"
+        nameEn: 'PvP Resilience',
+        nameFr: 'Résilience'
     },
     {
         id: 36,
-        name: "Haste"
+        nameEn: 'Haste',
+        nameFr: 'Vitesse'
     },
     {
         id: 37,
-        name: "Expertise"
+        nameEn: 'Expertise',
+        nameFr: ''
     },
     {
         id: 38,
-        name: "Attack Power"
+        nameEn: 'Attack Power',
+        nameFr: ''
     },
     {
         id: 39,
-        name: "Ranged Attack Power"
+        nameEn: 'Ranged Attack Power',
+        nameFr: ''
     },
     {
         id: 40,
-        name: "Versatility"
+        nameEn: 'Versatility',
+        nameFr: ''
     },
     {
         id: 41,
-        name: "Bonus Healing"
+        nameEn: 'Bonus Healing',
+        nameFr: ''
     },
     {
         id: 42,
-        name: "Bonus Damage"
+        nameEn: 'Bonus Damage',
+        nameFr: ''
     },
     {
         id: 43,
-        name: "Mana Regeneration"
+        nameEn: 'Mana Regeneration',
+        nameFr: ''
     },
     {
         id: 44,
-        name: "Armor Penetration"
+        nameEn: 'Armor Penetration',
+        nameFr: ''
     },
     {
         id: 45,
-        name: "Spell Power"
+        nameEn: 'Spell Power',
+        nameFr: ''
     },
     {
         id: 46,
-        name: "Health Per 5 Sec."
+        nameEn: 'Health Per 5 Sec.',
+        nameFr: ''
     },
     {
         id: 47,
-        name: "Spell Penetration"
+        nameEn: 'Spell Penetration',
+        nameFr: ''
     },
     {
         id: 48,
-        name: "Block Value"
+        nameEn: 'Block Value',
+        nameFr: ''
     },
     {
         id: 49,
-        name: "Mastery"
+        nameEn: 'Mastery',
+        nameFr: ''
     },
     {
         id: 50,
-        name: "Bonus Armor"
+        nameEn: 'Bonus Armor',
+        nameFr: ''
     },
     {
         id: 51,
-        name: "Fire Resistance"
+        nameEn: 'Fire Resistance',
+        nameFr: ''
     },
     {
         id: 52,
-        name: "Frost Resistance"
+        nameEn: 'Frost Resistance',
+        nameFr: ''
     },
     {
         id: 53,
-        name: "Holy Resistance"
+        nameEn: 'Holy Resistance',
+        nameFr: ''
     },
     {
         id: 54,
-        name: "Shadow Resistance"
+        nameEn: 'Shadow Resistance',
+        nameFr: ''
     },
     {
         id: 55,
-        name: "Nature Resistance"
+        nameEn: 'Nature Resistance',
+        nameFr: ''
     },
     {
         id: 56,
-        name: "Arcane Resistance"
+        nameEn: 'Arcane Resistance',
+        nameFr: ''
     },
     {
         id: 57,
-        name: "PvP Power"
+        nameEn: 'PvP Power',
+        nameFr: ''
     },
     {
         id: 58,
-        name: "Amplify"
+        nameEn: 'Amplify',
+        nameFr: ''
     },
     {
         id: 59,
-        name: "Multistrike"
+        nameEn: 'Multistrike',
+        nameFr: ''
     },
     {
         id: 60,
-        name: "Readiness"
+        nameEn: 'Readiness',
+        nameFr: ''
     },
     {
         id: 61,
-        name: "Speed"
+        nameEn: 'Speed',
+        nameFr: ''
     },
     {
         id: 62,
-        name: "Leech"
+        nameEn: 'Leech',
+        nameFr: ''
     },
     {
         id: 63,
-        name: "Avoidance"
+        nameEn: 'Avoidance',
+        nameFr: ''
     },
     {
         id: 64,
-        name: "Indestructible"
+        nameEn: 'Indestructible',
+        nameFr: ''
     },
     {
         id: 66,
-        name: "Cleave"
+        nameEn: 'Cleave',
+        nameFr: ''
     },
     {
         id: 67,
-        name: "Versatility"
+        nameEn: 'Versatility',
+        nameFr: ''
     },
     {
         id: 73,
-        name: "Agility or Intellect"
+        nameEn: 'Agility or Intellect',
+        nameFr: ''
     },
     {
         id: 74,
-        name: "Strength or Intellect"
+        nameEn: 'Strength or Intellect',
+        nameFr: ''
     },
 ];

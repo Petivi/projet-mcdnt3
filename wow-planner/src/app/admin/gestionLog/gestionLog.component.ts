@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { PaginationComponent } from '../../common/pagination/pagination.component'
+import { List } from 'immutable';
 
 import { AppService } from '../../app.service';
 
@@ -17,11 +16,12 @@ export class GestionLogComponent implements OnInit {
     strFiltre: string = '';
     logActif: any = null;
     token: string;
-    ttPage: string[] = [];
-    page: string = '1';
     ttLogsUsers: LogUser[] = [];
+    gridDataLogsUsers: List<LogUser> = List([]);
     ttLogsUsersBlocked: LogUserBlocked[] = [];
+    gridDataLogsUsersBlocked: List<LogUserBlocked> = List([]);
     ttLogsUsersManagement: LogUserManagement[] = [];
+    gridDataLogsUsersManagement: List<LogUserManagement> = List([]);
     logSelected: string = 'user';
 
     constructor(private _appService: AppService, private _router: Router) { }
@@ -37,36 +37,31 @@ export class GestionLogComponent implements OnInit {
         });
     }
 
-    getLogs(page: string = this.page) {
-        this.page = page ? page : this.page;
+    getLogs() {
         let path: string;
         switch (this.logSelected) {
             case 'user':
-                path = 'filterGetLogsUsers.php';
+                path = 'getLogsUsers.php';
                 break;
             case 'admin':
-                path = 'filterGetLogsUsersManagement.php';
+                path = 'getLogsUsersManagement.php';
                 break;
             case 'account':
-                path = 'filterGetLogsUsersBlocked.php';
+                path = 'getLogsUsersBlocked.php';
                 break;
         }
-        this._appService.post('action/admin/' + path, { session_token: this.token, page: this.page, data: this.strFiltre }).then(res => {
+        this._appService.post('action/admin/' + path, { session_token: this.token }).then(res => {
             if (res.response) {
                 if (this.logSelected === 'user') {
                     this.ttLogsUsers = res.response.valeur;
+                    this.gridDataLogsUsers = List(this.ttLogsUsers);
                 } else if (this.logSelected === 'admin') {
                     this.ttLogsUsersManagement = res.response.valeur;
+                    this.gridDataLogsUsersManagement = List(this.ttLogsUsersManagement);
                 } else if (this.logSelected === 'account') {
-                    console.log('ui')
                     this.ttLogsUsersBlocked = res.response.valeur;
-                    console.log(this.ttLogsUsersBlocked)
+                    this.gridDataLogsUsersBlocked = List(this.ttLogsUsersBlocked);
                 }
-                this.ttPage = [];
-                for (let i = 1; i < res.response.total_page + 1; i++) {
-                    this.ttPage.push(i.toString());
-                }
-                console.log(res)
             };
         });
     }

@@ -8,59 +8,25 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="row ml-3 mt-2 mb-2">
-                        <div class="col-md-3">
-                            <label class="control-label">Filtre</label>
-                            <input type="text" [(ngModel)]="strFiltre" (input)="getUsers()">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-
-                            <table class="table table-hover text-center">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>Id utilisateur</th>
-                                        <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Pseudo</th>
-                                        <th>Mail</th>
-                                        <th>Création du compte</th>
-                                        <th>Derniere connexion</th>
-                                        <th>Compte</th>
-                                        <th>Confirmation mail</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody *ngIf="users && users.length > 0">
-                                    <tr *ngFor="let u of users">
-                                        <td>{{u.id}}</td>
-                                        <td>{{u.lastname}}</td>
-                                        <td>{{u.firstname}}</td>
-                                        <td>{{u.pseudo}}</td>
-                                        <td>{{u.mail}}</td>
-                                        <td>{{u.created_date}}</td>
-                                        <td>{{u.last_connection}}</td>
-                                        <td>{{u.libelle_active_account}}</td>
-                                        <td>{{u.libelle_checked_mail}}</td>
-                                        <td>
-                                            <button class="icon-button" (click)="showUser(u)" title="voir">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tbody *ngIf="!users || users.length === 0">
-                                    <tr>
-                                        <td colspan=9>Il n'y a pas d'utilisateur.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div *ngIf="users && users.length > 0">
-                                <pagination-cpt [ttPage]="ttPage" (changePage)="changePage($event)"></pagination-cpt>
-                            </div>
-                        </div>
-                    </div>
+                    <kendo-grid [kendoGridBinding]="gridDataUsers.toArray()" [pageable]="true" [pageSize]="10"
+                        [filterable]="true" [scrollable]="'none'">
+                        <kendo-grid-column field="id" title="id utilisateur"></kendo-grid-column>
+                        <kendo-grid-column field="lastname" title="Nom"></kendo-grid-column>
+                        <kendo-grid-column field="firstname" title="Prenom"></kendo-grid-column>
+                        <kendo-grid-column field="pseudo" title="Pseudo"></kendo-grid-column>
+                        <kendo-grid-column field="mail" title="Mail"></kendo-grid-column>
+                        <kendo-grid-column field="created_date" title="Création du compte"></kendo-grid-column>
+                        <kendo-grid-column field="last_connection" title="Derniere connexion"></kendo-grid-column>
+                        <kendo-grid-column field="libelle_active_account" title="Compte"></kendo-grid-column>
+                        <kendo-grid-column field="libelle_checked_mail" title="Confirmation mail"></kendo-grid-column>
+                        <kendo-grid-column title="">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <button class="icon-button" (click)="showUser(dataItem)" title="voir">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </ng-template>
+                        </kendo-grid-column>
+                    </kendo-grid>
                 </div>
             </div>
         </div>

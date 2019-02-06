@@ -8,6 +8,7 @@ import { PaginationComponent } from '../../common/pagination/pagination.componen
 import { AppService } from '../../app.service';
 
 import { Word, User } from '../../model/app.model'
+import { List } from 'immutable';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class GestionCompteComponent implements OnInit {
     action: string = '';
     token: string;
     userActif: User = null;
-    users: User[] = [];
+    ttUser: User[] = [];
+    gridDataUsers: List<User> = List([]);
     ttPage: string[] = [];
     page: string = '1';
     userForm: FormGroup;
@@ -72,15 +74,15 @@ export class GestionCompteComponent implements OnInit {
 
     getUsers(page: string = this.page) {
         this.page = page;
-        this._appService.post('action/admin/filterUsersManagement.php', { session_token: this.token, page: this.page, data: this.strFiltre })
+        this._appService.post('action/admin/usersManagement.php', { session_token: this.token, page: this.page, data: this.strFiltre })
             .then(res => {
                 if (res.response) {
-                    this.users = res.response.valeur;
+                    this.ttUser = res.response.valeur;
                     this.ttPage = [];
                     for (let i = 1; i < res.response.total_page + 1; i++) {
                         this.ttPage.push(i.toString());
                     }
-                    this.users.forEach(u => {
+                    this.ttUser.forEach(u => {
                         switch (u.checked_mail) {
                             case '0':
                                 u.libelle_checked_mail = 'Mail non vérifié';
@@ -101,6 +103,7 @@ export class GestionCompteComponent implements OnInit {
                                 break;
                         }
                     });
+                    this.gridDataUsers = List(this.ttUser);
                 }
             });
     }

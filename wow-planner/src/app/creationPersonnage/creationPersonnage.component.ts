@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { List } from 'immutable'
 
 import { AppService } from '../app.service';
 import * as globals from '../../assets/data/globals';
@@ -16,26 +17,26 @@ import { Word, RecherchCreationPersonnage } from '../model/app.model';
 export class CreationPersonnageComponent implements OnInit {
     obsInit: Subscription;
     ttItemGauche: any[] = [
-        { class: 4, inventoryType: 1, url: 'assets/img/inventoryslot_head.jpg' },
-        { class: 4, inventoryType: 2, url: 'assets/img/inventoryslot_neck.jpg' },
-        { class: 4, inventoryType: 3, url: 'assets/img/inventoryslot_shoulder.jpg' },
-        { class: 4, inventoryType: 15, url: 'assets/img/inventoryslot_chest.jpg' },
-        { class: 4, inventoryType: 5, url: 'assets/img/inventoryslot_chest.jpg' },
-        { class: 4, inventoryType: 6, url: 'assets/img/inventoryslot_shirt.jpg' },
-        { class: 4, inventoryType: 4, url: 'assets/img/inventoryslot_tabard.jpg' },
-        { class: 4, inventoryType: 9, url: 'assets/img/inventoryslot_wrists.jpg' }
+        { class: 4, inventoryType: 1, url: 'assets/img/inventoryslot_head.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 2, url: 'assets/img/inventoryslot_neck.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 3, url: 'assets/img/inventoryslot_shoulder.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 15, url: 'assets/img/inventoryslot_chest.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 5, url: 'assets/img/inventoryslot_chest.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 6, url: 'assets/img/inventoryslot_shirt.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 4, url: 'assets/img/inventoryslot_tabard.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 9, url: 'assets/img/inventoryslot_wrists.jpg', urlCharactere: '' }
     ];
     ttItemDroit: any[] = [
-        { class: 4, inventoryType: 10, url: 'assets/img/inventoryslot_hands.jpg' },
-        { class: 4, inventoryType: 6, url: 'assets/img/inventoryslot_waist.jpg' },
-        { class: 4, inventoryType: 7, url: 'assets/img/inventoryslot_legs.jpg' },
-        { class: 4, inventoryType: 8, url: 'assets/img/inventoryslot_feet.jpg' },
-        { class: 4, inventoryType: 11, url: 'assets/img/inventoryslot_finger.jpg' },
-        { class: 4, inventoryType: 12, url: 'assets/img/inventoryslot_finger.jpg' },
-        { class: 4, inventoryType: 13, url: 'assets/img/inventoryslot_trinket.jpg' },
-        { class: 4, inventoryType: 13, url: 'assets/img/inventoryslot_trinket.jpg' },
-        { class: 2, inventoryType: 16, url: 'assets/img/inventoryslot_mainhand.jpg' },
-        { class: 2, inventoryType: 17, url: 'assets/img/inventoryslot_offhand.jpg' }
+        { class: 4, inventoryType: 10, url: 'assets/img/inventoryslot_hands.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 6, url: 'assets/img/inventoryslot_waist.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 7, url: 'assets/img/inventoryslot_legs.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 8, url: 'assets/img/inventoryslot_feet.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 11, url: 'assets/img/inventoryslot_finger.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 12, url: 'assets/img/inventoryslot_finger.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 13, url: 'assets/img/inventoryslot_trinket.jpg', urlCharactere: '' },
+        { class: 4, inventoryType: 13, url: 'assets/img/inventoryslot_trinket.jpg', urlCharactere: '' },
+        { class: 2, inventoryType: 16, url: 'assets/img/inventoryslot_mainhand.jpg', urlCharactere: '' },
+        { class: 2, inventoryType: 17, url: 'assets/img/inventoryslot_offhand.jpg', urlCharactere: '' }
     ];
     ttMatiere: any[] = [
         { id: 2, name: 'msg_cuir' },
@@ -57,9 +58,12 @@ export class CreationPersonnageComponent implements OnInit {
     ];
     recherche: RecherchCreationPersonnage = { quality: -1, lvlMin: 0, lvlMax: 110, matiere: 2, name: '', class: null, inventoryType: null };
     displayCharacter: boolean = false;
-    ttItem: any[] = []; // Typer quand je saurais ce qu'on garde
-    inventoryType: number = 1;
     displayChoixItem: boolean = false;
+    displayItemDetail: boolean = false;
+    selectedItem: any;
+    ttItem: any[] = []; // Typer quand je saurais ce qu'on garde
+    gridData: List<any> = List([]);
+    inventoryType: number = 1;
     ttClasseItem: any[] = [];
     words: Word[] = [];
     tabClasses: any[];
@@ -85,6 +89,12 @@ export class CreationPersonnageComponent implements OnInit {
 
     ngOnDestroy() {
         this.obsInit.unsubscribe();
+    }
+
+    setGridData() {
+        if (this.ttItem) {
+            this.gridData = List(this.ttItem);
+        }
     }
 
     validChar() {
@@ -121,22 +131,60 @@ export class CreationPersonnageComponent implements OnInit {
             }).then(res => {
                 // console.log(res);
                 this.ttItem = res.response;
-                resolve(res);
+                this.ttItem.forEach(item => {
+                    item.item_required_level = parseInt(item.item_required_level);
+                    item.affichage = 0;
+                    item.qualityName = this.ttQuality.find(qual => qual.id === parseInt(item.item_quality)) ? this.ttQuality.find(qual => qual.id == item.item_quality).name : '';
+                });
+                this.setGridData();
+                console.log(this.ttItem)
+                resolve(true);
             });
         });
     }
 
     getItemInfo(item) {
-        if (!item.description) {
-            this._appService.getBlizzard('item/' + item.item_id, [{ key: 'bl', value: 3828 }]).then(res => {
-                res.item_id = res.id;
-                res.item_icon = res.icon;
-                res.bonusStats.forEach(bonus => {
-                    bonus.statLibelle = globals.bonusStats.find(bs => bs.id === bonus.stat) ? globals.bonusStats.find(bs => bs.id === bonus.stat).name : '';
+        return new Promise((resolve, reject) => {
+            if (!item.id) {
+                console.log('la', item)
+                this._appService.getBlizzard('item/' + item.item_id).then(res => {
+                    res.bonusStats.forEach(bonus => {
+                        let bonusLarge = globals.bonusStats.find(bs => bs.id === bonus.stat);
+                        if (bonusLarge) {
+                            bonus.statLibelle = bonusLarge.nameEn;//this._appService.getLangue() === 'fr' ? bonusLarge.nameFr : bonusLarge.nameEn;
+                        }
+                    });
+                    let newItem = this.ttItem.find(item => item.item_id == res.id);
+                    newItem = { ...newItem, ...res };
+                    this.ttItem.splice(this.ttItem.findIndex(item => item.item_id == newItem.id), 1, newItem);
+                    this.setGridData();
+                    resolve(newItem);
                 });
-                console.log(res)
-                this.ttItem.splice(this.ttItem.findIndex(item => item.item_id == res.id), 1, res);
-            });
+            } else {
+                resolve(item);
+            }
+        })
+    }
+
+    showItemDetail(item = null) {
+        if (item) {
+            if (!this.selectedItem || item.id !== this.selectedItem.id) {
+                this.getItemInfo(item).then(res => {
+                    this.selectedItem = res;
+                    console.log(this.selectedItem)
+                    console.log(this.ttItem)
+                    this.displayItemDetail = !this.displayItemDetail;
+                });
+            }
+        } else {
+            this.displayItemDetail = !this.displayItemDetail;
+            this.selectedItem = null;
         }
+    }
+
+    selectItem(event) {
+        this.displayChoixItem = false;
+        this.selectItem = event.dataItem;
+        console.log(event);
     }
 }

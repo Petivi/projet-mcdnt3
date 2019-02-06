@@ -30,17 +30,14 @@
                                                 <div class="col-md-3">
                                                     <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
                                                         <div class="col">
-                                                            <img class="clickable" [src]=itemGauche.url (click)="setRecherche(itemGauche.class, itemGauche.inventoryType)">
+                                                            <img class="clickable" [src]="itemGauche.urlCharactere ? itemGauche.urlCharactere : itemGauche.url" (click)="setRecherche(itemGauche.class, itemGauche.inventoryType)">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    image perso
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
                                                         <div class="col">
-                                                            <img class="clickable" [src]=itemDroit.url (click)='setRecherche(itemDroit.class, itemDroit.inventoryType)'>
+                                                            <img class="clickable" [src]="itemDroit.urlCharactere ? itemDroit.urlCharactere : itemDroit.url" (click)='setRecherche(itemDroit.class, itemDroit.inventoryType)'>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -55,7 +52,9 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            stats
+                                            <div class="row">
+                                                <div class="col"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -136,23 +135,45 @@
                 </div>
             </div>
             <div class="card-body scrollv">
-                <kendo-grid [kendoGridBinding]="ttItem" [sortable]="true" [scrollable]="'none'" [pageable]="true"
-                    [pageSize]="10" [selectable]="true" [groupable]="false" [filterable]="true">
-                    <kendo-grid-column field="item_icon" title="Logo">
-                        <ng-template let-dataItem kendoGridCellTemplate let-dataItem>
-                            <img (mouseenter)="getItemInfo(dataItem)" src="{{'http://media.blizzard.com/wow/icons/56/' + dataItem.item_icon + '.jpg'}}">
+                <kendo-grid [kendoGridBinding]="gridData.toArray()" [sortable]="true" [pageable]="true" [pageSize]="50"
+                    [filterable]="true" (cellClick)="selectItem($event)">
+                    <kendo-grid-column field="item_icon" title="" [width]="80" [filterable]="false">
+                        <ng-template let-dataItem kendoGridCellTemplate style="overflow: visible;">
+                            <div style="position: relative;">
+                                <img (mouseenter)="showItemDetail(dataItem)" (mouseleave)="showItemDetail()" src="{{'http://media.blizzard.com/wow/icons/56/' + dataItem.item_icon + '.jpg'}}">
+                            </div>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="name" title="{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}"></kendo-grid-column>
-                    <kendo-grid-column field="armor" title=""></kendo-grid-column>
+                    <kendo-grid-column field="item_name" title="{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}"></kendo-grid-column>
+                    <kendo-grid-column field="item_quality" title="{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}">
+                        <ng-template let-dataItem kendoGridCellTemplate>
+                            {{(words | filter : {msg_name: dataItem.qualityName} : {col : 'value'})}}
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="item_required_level" filter="numeric" format="{0:n0}" title="{{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}"></kendo-grid-column>
                 </kendo-grid>
                 <!-- <div class="itemGeneral" *ngFor="let item of ttItem">
-                    <i class="fa fa-angle-right itemIcon" *ngIf="!item.id"></i>
-                    <div class="itemDetail" *ngIf="item.id">
-                        <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{item.name}}</div>
-                        <div>{{item.armor ? item.armor : ''}}</div>
+                    <div (mouseleave)="(item.affichage = 0)" (mouseenter)="getItemInfo(item)">
+                        <div style="display: inline">
+                            <img src="{{'http://media.blizzard.com/wow/icons/56/' + item.item_icon + '.jpg'}}">
+                        </div>
+                        <i class="fa fa-angle-right itemIcon" *ngIf="item.affichage === 0"></i>
+                        <div class="itemDetail" *ngIf="item.affichage === 1">
+                            <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{item.name}}</div>
+                            <div>armor : {{item.armor ? item.armor : ''}}</div>
+                            <div *ngFor="let bonus of item.bonusStats">
+                                {{bonus.statLibelle + ' : ' + bonus.amount}}
+                            </div>
+                        </div>
                     </div>
                 </div> -->
+                <div class="detail-content" *ngIf="displayItemDetail && selectedItem">
+                    <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{selectedItem.name}}</div>
+                    <div *ngIf="selectItem.armor">armor : {{selectedItem.armor}}</div>
+                    <div *ngFor="let bonus of selectedItem.bonusStats">
+                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

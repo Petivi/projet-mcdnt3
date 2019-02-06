@@ -8,14 +8,19 @@ if(accessToAdminPermissions($tabUser['session_token'])){
 
   $admin_id = getIdFromSessionToken($tabUser['session_token']);
 
+  $offsetPage = calcOffsetPage($tabUser['nb_page']); // calc offset to return correct values
+  $table_name = 'requests_list'; // name of our table name (in our db)
+  $total_page = calcNbPage($table_name); // send the table name (in our db) and we'll have the number of page to display
 
   if($admin_id){
 
 
     $tabLogsList = array();
-    $request_logs_list = 'SELECT * FROM requests_list WHERE user_id NOT LIKE :account_id ORDER BY request_date DESC';
+    $request_logs_list = 'SELECT * FROM requests_list WHERE user_id NOT LIKE :account_id ORDER BY request_date DESC LIMIT :items_per_page OFFSET :offsetPage';
     $request_logs_list = $base->prepare($request_logs_list);
     $request_logs_list->bindValue('account_id', $admin_id, PDO::PARAM_INT);
+    $request_logs_list->bindValue('items_per_page', $items_per_page, PDO::PARAM_INT);
+    $request_logs_list->bindValue('offsetPage', $offsetPage, PDO::PARAM_INT);
     $request_logs_list->execute();
     while($logs_list = $request_logs_list->fetch())
     {
@@ -34,6 +39,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
 
     $tabFinal = array();
     $tabFinal['valeur'] = $tabLogsList;
+    $tabFinal['total_page'] = $total_page;
 
     echo returnResponse($tabFinal);
   }else {
