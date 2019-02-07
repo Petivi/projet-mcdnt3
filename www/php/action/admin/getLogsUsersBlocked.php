@@ -37,7 +37,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
               'id' => $logs_list['id'],
               'user_id' => $logs_list['user_id'],
               'user_ip' => $logs_list['user_ip'],
-              'login_tried' => Chiffrement::decrypt($logs_list['login_tried']),
+              'login_tried' => htmlspecialchars_decode(Chiffrement::decrypt($logs_list['login_tried']), ENT_QUOTES),
               'date_blocked' => date('d/m/Y H:i:s',$logs_list['date_blocked']),
               'date_unblocked' => date('d/m/Y H:i:s',$logs_list['date_unblocked']),
             ));
