@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { PaginationComponent } from '../../common/pagination/pagination.component'
-
 import { AppService } from '../../app.service';
 
 import { Word, User } from '../../model/app.model'

@@ -1,6 +1,11 @@
-<div class="container" (keyup)="enter($event)" *ngIf="words && words.length > 0">
+<div class="container" *ngIf="words && words.length > 0">
     <div class="row" [formGroup]="contactForm">
         <div class="col-md-6 offset-md-3">
+            <div class="row">
+                <div class="col">
+                    <h1 class="title">{{(words | filter : {msg_name: 'msg_nousContacter'} : {col : 'value'})}}</h1>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div class="row" *ngIf="errors && errors.length > 0">

@@ -56,10 +56,6 @@ export class ContactComponent implements OnInit, OnDestroy {
         }
     }
 
-    enter(e: KeyboardEvent) {
-        if (e.key === 'Enter') this.envoyer();
-    }
-
     envoyer() {
         this.mailSent = false;
         this.errors = [];
