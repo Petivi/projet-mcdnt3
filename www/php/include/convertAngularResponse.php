@@ -105,7 +105,7 @@ function getPostInfo($req){
 }
 
 
-function getCharacterInfo($req){
+function getItemInfo($req){
   if(isset($req->session_token)){
     $session_token = htmlspecialchars($req->session_token, ENT_QUOTES);
   }else{
@@ -168,7 +168,7 @@ function getCharacterInfo($req){
   }
 
 
-  $tabCharacterInfo = [
+  $tabItemInfo = [
     "session_token" => $session_token,
     "character_name" => $character_name,
     "character_class_id" => $character_class_id,
@@ -181,6 +181,182 @@ function getCharacterInfo($req){
     "item_required_level_min" => $item_required_level_min,
     "item_required_level_max" => $item_required_level_max,
     "item_quality" => $item_quality,
+  ];
+  return $tabItemInfo;
+}
+
+
+function getCharacterInfo($req){
+  if(isset($req->session_token)){
+    $session_token = htmlspecialchars($req->session_token, ENT_QUOTES);
+  }else{
+    $session_token = "";
+  }
+  if(isset($req->character->name)){
+    $character_name = htmlspecialchars($req->character->name, ENT_QUOTES);
+  }else{
+    $character_name = "";
+  }
+  if(isset($req->character->race_id)){
+    $character_race_id = htmlspecialchars($req->character->race_id, ENT_QUOTES);
+  }else{
+    $character_race_id = NULL;
+  }
+  if(isset($req->character->class_id)){
+    $character_class_id = htmlspecialchars($req->character->class_id, ENT_QUOTES);
+  }else{
+    $character_class_id = NULL;
+  }
+  if(isset($req->character->head_id)){
+    $character_head_id = htmlspecialchars($req->character->head_id, ENT_QUOTES);
+  }else{
+    $character_head_id = NULL;
+  }
+  if(isset($req->character->neck_id)){
+    $character_neck_id = htmlspecialchars($req->character->neck_id, ENT_QUOTES);
+  }else{
+    $character_neck_id = NULL;
+  }
+  if(isset($req->character->shoulder_id)){
+    $character_shoulder_id = htmlspecialchars($req->character->shoulder_id, ENT_QUOTES);
+  }else{
+    $character_shoulder_id = NULL;
+  }
+  if(isset($req->character->chest_id)){
+    $character_chest_id = htmlspecialchars($req->character->chest_id, ENT_QUOTES);
+  }else{
+    $character_chest_id = NULL;
+  }
+  if(isset($req->character->waist_id)){
+    $character_waist_id = htmlspecialchars($req->character->waist_id, ENT_QUOTES);
+  }else{
+    $character_waist_id = NULL;
+  }
+  if(isset($req->character->legs_id)){
+    $character_legs_id = htmlspecialchars($req->character->legs_id, ENT_QUOTES);
+  }else{
+    $character_legs_id = NULL;
+  }
+  if(isset($req->character->feet_id)){
+    $character_feet_id = htmlspecialchars($req->character->feet_id, ENT_QUOTES);
+  }else{
+    $character_feet_id = NULL;
+  }
+  if(isset($req->character->wrist_id)){
+    $character_wrist_id = htmlspecialchars($req->character->wrist_id, ENT_QUOTES);
+  }else{
+    $character_wrist_id = NULL;
+  }
+  if(isset($req->character->hands_id)){
+    $character_hands_id = htmlspecialchars($req->character->hands_id, ENT_QUOTES);
+  }else{
+    $character_hands_id = NULL;
+  }
+  if(isset($req->character->finger1_id)){
+    $character_finger1_id = htmlspecialchars($req->character->finger1_id, ENT_QUOTES);
+  }else{
+    $character_finger1_id = NULL;
+  }
+  if(isset($req->character->finger2_id)){
+    $character_finger2_id = htmlspecialchars($req->character->finger2_id, ENT_QUOTES);
+  }else{
+    $character_finger2_id = NULL;
+  }
+  if(isset($req->character->trinket1_id)){
+    $character_trinket1_id = htmlspecialchars($req->character->trinket1_id, ENT_QUOTES);
+  }else{
+    $character_trinket1_id = NULL;
+  }
+  if(isset($req->character->trinket2_id)){
+    $character_trinket2_id = htmlspecialchars($req->character->trinket2_id, ENT_QUOTES);
+  }else{
+    $character_trinket2_id = NULL;
+  }
+  if(isset($req->character->back_id)){
+    $character_back_id = htmlspecialchars($req->character->back_id, ENT_QUOTES);
+  }else{
+    $character_back_id = NULL;
+  }
+  if(isset($req->character->main_hand_id)){
+    $character_main_hand_id = htmlspecialchars($req->character->main_hand_id, ENT_QUOTES);
+  }else{
+    $character_main_hand_id = NULL;
+  }
+  if(isset($req->character->off_hand_id)){
+    $character_off_hand_id = htmlspecialchars($req->character->off_hand_id, ENT_QUOTES);
+  }else{
+    $character_off_hand_id = NULL;
+  }
+  if(isset($req->character->attack)){
+    $character_attack = htmlspecialchars($req->character->attack, ENT_QUOTES);
+  }else{
+    $character_attack = NULL;
+  }
+  if(isset($req->character->armour)){
+    $character_armour = htmlspecialchars($req->character->armour, ENT_QUOTES);
+  }else{
+    $character_armour = NULL;
+  }
+  if(isset($req->character->stamina)){
+    $character_stamina = htmlspecialchars($req->character->stamina, ENT_QUOTES);
+  }else{
+    $character_stamina = NULL;
+  }
+  if(isset($req->character->health)){
+    $character_health = htmlspecialchars($req->character->health, ENT_QUOTES);
+  }else{
+    $character_health = NULL;
+  }
+  if(isset($req->character->critical_strike)){
+    $character_critical_strike = htmlspecialchars($req->character->critical_strike, ENT_QUOTES);
+  }else{
+    $character_critical_strike = NULL;
+  }
+  if(isset($req->character->haste)){
+    $character_haste = htmlspecialchars($req->character->haste, ENT_QUOTES);
+  }else{
+    $character_haste = NULL;
+  }
+  if(isset($req->character->mastery)){
+    $character_mastery = htmlspecialchars($req->character->mastery, ENT_QUOTES);
+  }else{
+    $character_mastery = NULL;
+  }
+  if(isset($req->character->versatility)){
+    $character_versatility = htmlspecialchars($req->character->versatility, ENT_QUOTES);
+  }else{
+    $character_versatility = NULL;
+  }
+
+
+  $tabCharacterInfo = [
+    "session_token" => $session_token,
+    "character_name" => $character_name,
+    "character_race_id" => $character_race_id,
+    "character_class_id" => $character_class_id,
+    "character_head_id" => $character_head_id,
+    "character_neck_id" => $character_neck_id,
+    "character_shoulder_id" => $character_shoulder_id,
+    "character_chest_id" => $character_chest_id,
+    "character_waist_id" => $character_waist_id,
+    "character_legs_id" => $character_legs_id,
+    "character_feet_id" => $character_feet_id,
+    "character_wrist_id" => $character_wrist_id,
+    "character_hands_id" => $character_hands_id,
+    "character_finger1_id" => $character_finger1_id,
+    "character_finger2_id" => $character_finger2_id,
+    "character_trinket1_id" => $character_trinket1_id,
+    "character_trinket2_id" => $character_trinket2_id,
+    "character_back_id" => $character_back_id,
+    "character_main_hand_id" => $character_main_hand_id,
+    "character_off_hand_id" => $character_off_hand_id,
+    "character_attack" => $character_attack,
+    "character_armour" => $character_armour,
+    "character_stamina" => $character_stamina,
+    "character_health" => $character_health,
+    "character_critical_strike" => $character_critical_strike,
+    "character_mastery" => $character_mastery,
+    "character_versatility" => $character_versatility
   ];
   return $tabCharacterInfo;
 }

@@ -26,7 +26,7 @@ if(isset($tabInfo['session_token'])){
   }
 
   if($user_exists){
-    if(!$tabInfo['character_name'] != ""){ // if no name is given for the character, then we use the user pseudo
+    if($tabInfo['character_name'] == ""){ // if no name is given for the character, then we use the user pseudo
       $character_name = $account_pseudo;
     }else {
       $character_name = $tabInfo['character_name'];
