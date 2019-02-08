@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (localStorage.getItem('userConnected')) { // si quelqu'un est connecté il ne peut pas aller sur la page login donc on le renvoi a l'accueil
             this._router.navigate(['/accueil']);
         } else {
-            this._appService.setPage('login');
             this._appService.getWords(['common', 'connexion', 'confirmation']).then(res => {
                 res.forEach(w => {
                     this.words.push(w);

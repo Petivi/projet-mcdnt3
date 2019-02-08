@@ -36,7 +36,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
         if (localStorage.getItem('userConnected')) {
             this._router.navigate(['/accueil']);
         } else {
-            this._appService.setPage('inscription');
             this.buildControl();
             this._appService.getWords(['common', 'inscription']).then(res => {
                 res.forEach(w => {

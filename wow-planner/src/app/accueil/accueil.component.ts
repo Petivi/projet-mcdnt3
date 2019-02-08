@@ -13,7 +13,6 @@ export class AccueilComponent implements OnInit, OnDestroy {
     constructor(private _appService: AppService) { }
 
     ngOnInit() {
-        this._appService.setPage('accueil');
     }
 
     ngOnDestroy() {
