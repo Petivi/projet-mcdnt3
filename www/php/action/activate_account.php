@@ -34,13 +34,13 @@ include "../includedFiles.php";
   }
 
   // check if we're in local or not
-  if(strpos($urlServer,  'localhost')){
-    $urlServer .= ":4200";
-  };
-  $urlServer .= "/login/confirm";
+  // if(strpos($urlServer,  'localhost')){
+  //   $urlServer .= ":4200";
+  // };
+  $urlServerFront .= "/login/confirm";
   // $urlServer .= "/home";
 
  ?>
 
 
-<meta http-equiv="refresh" content="0;url=<?php echo $urlServer; ?>"/>
+<meta http-equiv="refresh" content="0;url=<?php echo $urlServerFront; ?>"/>

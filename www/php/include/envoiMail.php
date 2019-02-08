@@ -40,10 +40,6 @@ if(is_file('../../PHPMail/V2.0/Mailin.php')){
 $mailin = new Mailin('https://api.sendinblue.com/v2.0', $sendinblue_access_key, 5000);    //Optional parameter: Timeout in MS
 
 
-if(strpos($urlServer,  'localhost')){
-  $urlServerFooter = $urlServer.":4200";
-};
-
 $mail_header = "<body style='margin:0'>
   <table width='100%' border='0' cellspacing='0' cellpadding='0' style='background-color:#485967;padding: 40px 30px 40px 30px;'>
       <tr>
@@ -59,7 +55,7 @@ $mail_footer = "</div>
 <table width='100%' border='0' cellspacing='0' cellpadding='0' style='background-color:#485967;padding: 10px 10px 10px 10px;'>
     <tr>
         <td style='padding-left: 5%; line-height:38px;font-weight:bold;color:#fee208;'>
-            <a style='color:#fee208'; href='".$urlServerFooter."'>Wow Planner</a>
+            <a style='color:#fee208'; href='".$urlServerFront."'>Wow Planner</a>
         </td>
     </tr>
 </table>
@@ -70,12 +66,12 @@ function sendMailNewUser($lastname, $firstname, $pseudo, $mail, $token_temp, $la
   global $mail_no_reply;
   global $app_name;
   global $uri_activate_account;
-  global $urlServer;
+  global $urlServerBack;
   global $mailin;
   global $mail_header;
   global $mail_footer;
 
-  $activateLink = $urlServer.$uri_activate_account;
+  $activateLink = $urlServerBack.$uri_activate_account;
   if($lang == "fr"){
     $subject = "Création de compte";
     $html = $mail_header."Bonjour <span style=font-weight:bold;>".$pseudo."</span>, veuillez <a href='".$activateLink."?token=".$token_temp."'>Cliquez sur ce lien pour activer votre compte</a>".$mail_footer;
@@ -97,12 +93,12 @@ function sendMailEditMail($lastname, $firstname, $pseudo, $mail, $token_temp, $l
   global $mail_no_reply;
   global $app_name;
   global $uri_activate_account;
-  global $urlServer;
+  global $urlServerBack;
   global $mailin;
   global $mail_header;
   global $mail_footer;
 
-  $activateLink = $urlServer.$uri_activate_account;
+  $activateLink = $urlServerBack.$uri_activate_account;
   if($lang == "fr"){
     $subject = "Edition du mail";
     $html = $mail_header."Bonjour <span style=font-weight:bold;>".$pseudo."</span>, veuillez <a href='".$activateLink."?token=".$token_temp."'>Cliquez sur ce lien pour vérifier votre nouvelle adresse mail</a>".$mail_footer;
@@ -124,16 +120,14 @@ function sendMailResetPass($lastname, $firstname, $pseudo, $mail, $token_temp, $
   global $mail_no_reply;
   global $app_name;
   global $uri_reset_password;
-  global $urlServer;
+  global $urlServerFront;
   global $nb_jour_token_expiration;
   global $mailin;
   global $mail_header;
   global $mail_footer;
 
-  if(strpos($urlServer,  'localhost')){
-    $urlServer .= ":4200";
-  };
-  $activateLink = $urlServer.$uri_reset_password;
+
+  $activateLink = $urlServerFront.$uri_reset_password;
   if($lang == "fr"){
     $subject = "Réinitialisation de mot de passe";
     $html = $mail_header."Bonjour <span style=font-weight:bold;>".$pseudo."</span>, veuillez <a href='".$activateLink."/".$token_temp."'>Cliquez sur ce lien pour réinitialiser votre mot de passe</a>
