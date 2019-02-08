@@ -178,7 +178,7 @@ export const bonusStats: any = [
     {
         id: 40,
         nameEn: 'Versatility',
-        nameFr: ''
+        nameFr: 'Polyvalence'
     },
     {
         id: 41,

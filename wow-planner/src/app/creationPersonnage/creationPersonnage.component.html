@@ -30,14 +30,18 @@
                                                 <div class="col-md-3">
                                                     <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
                                                         <div class="col">
-                                                            <img class="clickable" [src]="itemGauche.item ? itemGauche.item.imgUrl : itemGauche.imgUrl" (click)="setRecherche(itemGauche.class, itemGauche.inventoryType)">
-                                                            <div class="detail-content" *ngIf="itemGauche.item">
-                                                                <div>{{(words | filter : {msg_name: 'msg_name'} : {col
-                                                                    : 'value'})}}: {{itemGauche.item.name}}</div>
-                                                                <div *ngIf="selectedItem.armor">armor :
-                                                                    {{itemGauche.item.armor}}</div>
-                                                                <div *ngFor="let bonus of itemGauche.item.bonusStats">
-                                                                    {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                            <div class="itemGeneral">
+                                                                <img class="clickable" [src]="itemGauche.item ? itemGauche.item.imgUrl : itemGauche.imgUrl"
+                                                                    (click)="setRecherche(itemGauche.class, itemGauche.inventoryType)">
+                                                                <div class="detail-content" *ngIf="itemGauche.item">
+                                                                    <div>{{(words | filter : {msg_name: 'msg_name'} :
+                                                                        {col
+                                                                        : 'value'})}}: {{itemGauche.item.name}}</div>
+                                                                    <div *ngIf="itemGauche.item.armor">armor :
+                                                                        {{itemGauche.item.armor}}</div>
+                                                                    <div *ngFor="let bonus of itemGauche.item.bonusStats">
+                                                                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -51,7 +55,7 @@
                                                             <div class="detail-content" *ngIf="itemDroit.item">
                                                                 <div>{{(words | filter : {msg_name: 'msg_name'} : {col
                                                                     : 'value'})}}: {{itemDroit.item.name}}</div>
-                                                                <div *ngIf="selectedItem.armor">armor :
+                                                                <div *ngIf="itemDroit.item.armor">armor :
                                                                     {{itemDroit.item.armor}}</div>
                                                                 <div *ngFor="let bonus of itemDroit.item.bonusStats">
                                                                     {{bonus.statLibelle + ' : ' + bonus.amount}}

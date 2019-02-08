@@ -162,7 +162,6 @@ export class Character {
 }
 
 export class Item {
-    affichage: number;
     armor: number;
     artifactId: number;
     availableContexts: string[];
@@ -193,7 +192,7 @@ export class Item {
     item_allowable_races: number[];
     item_class: string;
     item_icon: string;
-    item_id: string;
+    item_id: number;
     item_inventory_type: string;
     item_name: string;
     item_quality: string;

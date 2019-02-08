@@ -132,7 +132,6 @@ export class CreationPersonnageComponent implements OnInit {
                 // console.log(res);
                 this.ttItem = res.response;
                 this.ttItem.forEach(item => {
-                    item.affichage = 0;
                     item.qualityName = this.ttQuality.find(qual => qual.id === parseInt(item.item_quality)) ? this.ttQuality.find(qual => qual.id == item.item_quality).name : '';
                 });
                 this.setGridData();
@@ -154,7 +153,7 @@ export class CreationPersonnageComponent implements OnInit {
                     });
                     let newItem: Item = this.ttItem.find(item => item.item_id === res.id);
                     newItem = { ...newItem, ...res };
-                    this.ttItem.splice(this.ttItem.findIndex(item => parseInt(item.item_id) === newItem.id), 1, newItem);
+                    this.ttItem.splice(this.ttItem.findIndex(item => item.item_id === newItem.id), 1, newItem);
                     this.setGridData();
                     resolve(newItem);
                     this.selectedItem = newItem;
@@ -179,17 +178,18 @@ export class CreationPersonnageComponent implements OnInit {
         }
     }
 
-    selectItem(item) {
-        if (parseInt(item.item_id) === this.selectedItem.id) {
+    selectItem(item: Item) {
+        if (item.item_id === this.selectedItem.id) {
             this.displayChoixItem = false;
             let itemD = this.ttItemDroit.find(itemDroit => itemDroit.inventoryType === this.selectedItem.inventoryType);
             let itemG = this.ttItemGauche.find(itemGauche => itemGauche.inventoryType === this.selectedItem.inventoryType);
-            /* if(itemD) {
-                this.ttItemDroit.splice(this.ttItemDroit.findIndex)
+            if (itemD) {
+                this.selectedItem.imgUrl = 'http://media.blizzard.com/wow/icons/56/' + this.selectedItem.icon + '.jpg';
+                itemD.item = this.selectedItem;
+            } else if (itemG) {
+                this.selectedItem.imgUrl = 'http://media.blizzard.com/wow/icons/56/' + this.selectedItem.icon + '.jpg';
+                itemG.item = this.selectedItem;
             }
-            if (displayedItem) {
-                displayedItem.urlCharactere = 'http://media.blizzard.com/wow/icons/56/' + this.selectedItem.icon + '.jpg';
-            } */
         }
         this.selectedItem = null;
     }
