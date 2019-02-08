@@ -6,7 +6,7 @@ import { List } from 'immutable'
 import { AppService } from '../app.service';
 import * as globals from '../../assets/data/globals';
 
-import { Word, RecherchCreationPersonnage } from '../model/app.model';
+import { Word, RecherchCreationPersonnage, Item } from '../model/app.model';
 
 /* donnée LOUIS pseudo: Mananga, Pteracuda serveur: Hyjal */
 
@@ -17,26 +17,26 @@ import { Word, RecherchCreationPersonnage } from '../model/app.model';
 export class CreationPersonnageComponent implements OnInit {
     obsInit: Subscription;
     ttItemGauche: any[] = [
-        { class: 4, inventoryType: 1, url: 'assets/img/inventoryslot_head.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 2, url: 'assets/img/inventoryslot_neck.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 3, url: 'assets/img/inventoryslot_shoulder.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 15, url: 'assets/img/inventoryslot_chest.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 5, url: 'assets/img/inventoryslot_chest.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 6, url: 'assets/img/inventoryslot_shirt.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 4, url: 'assets/img/inventoryslot_tabard.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 9, url: 'assets/img/inventoryslot_wrists.jpg', urlCharactere: '' }
+        { class: 4, inventoryType: 1, imgUrl: 'assets/img/inventoryslot_head.jpg', item: null },
+        { class: 4, inventoryType: 2, imgUrl: 'assets/img/inventoryslot_neck.jpg', item: null },
+        { class: 4, inventoryType: 3, imgUrl: 'assets/img/inventoryslot_shoulder.jpg', item: null },
+        { class: 4, inventoryType: 15, imgUrl: 'assets/img/inventoryslot_chest.jpg', item: null },
+        { class: 4, inventoryType: 5, imgUrl: 'assets/img/inventoryslot_chest.jpg', item: null },
+        { class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_shirt.jpg', item: null },
+        { class: 4, inventoryType: 4, imgUrl: 'assets/img/inventoryslot_tabard.jpg', item: null },
+        { class: 4, inventoryType: 9, imgUrl: 'assets/img/inventoryslot_wrists.jpg', item: null }
     ];
     ttItemDroit: any[] = [
-        { class: 4, inventoryType: 10, url: 'assets/img/inventoryslot_hands.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 6, url: 'assets/img/inventoryslot_waist.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 7, url: 'assets/img/inventoryslot_legs.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 8, url: 'assets/img/inventoryslot_feet.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 11, url: 'assets/img/inventoryslot_finger.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 12, url: 'assets/img/inventoryslot_finger.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 13, url: 'assets/img/inventoryslot_trinket.jpg', urlCharactere: '' },
-        { class: 4, inventoryType: 13, url: 'assets/img/inventoryslot_trinket.jpg', urlCharactere: '' },
-        { class: 2, inventoryType: 16, url: 'assets/img/inventoryslot_mainhand.jpg', urlCharactere: '' },
-        { class: 2, inventoryType: 17, url: 'assets/img/inventoryslot_offhand.jpg', urlCharactere: '' }
+        { class: 4, inventoryType: 10, imgUrl: 'assets/img/inventoryslot_hands.jpg', item: null },
+        { class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_waist.jpg', item: null },
+        { class: 4, inventoryType: 7, imgUrl: 'assets/img/inventoryslot_legs.jpg', item: null },
+        { class: 4, inventoryType: 8, imgUrl: 'assets/img/inventoryslot_feet.jpg', item: null },
+        { class: 4, inventoryType: 11, imgUrl: 'assets/img/inventoryslot_finger.jpg', item: null },
+        { class: 4, inventoryType: 12, imgUrl: 'assets/img/inventoryslot_finger.jpg', item: null },
+        { class: 4, inventoryType: 13, imgUrl: 'assets/img/inventoryslot_trinket.jpg', item: null },
+        { class: 4, inventoryType: 13, imgUrl: 'assets/img/inventoryslot_trinket.jpg', item: null },
+        { class: 2, inventoryType: 16, imgUrl: 'assets/img/inventoryslot_mainhand.jpg', item: null },
+        { class: 2, inventoryType: 17, imgUrl: 'assets/img/inventoryslot_offhand.jpg', item: null }
     ];
     ttMatiere: any[] = [
         { id: 2, name: 'msg_cuir' },
@@ -60,8 +60,8 @@ export class CreationPersonnageComponent implements OnInit {
     displayCharacter: boolean = false;
     displayChoixItem: boolean = false;
     displayItemDetail: boolean = false;
-    selectedItem: any;
-    ttItem: any[] = []; // Typer quand je saurais ce qu'on garde
+    selectedItem: Item;
+    ttItem: Item[] = []; // Typer quand je saurais ce qu'on garde
     gridData: List<any> = List([]);
     inventoryType: number = 1;
     ttClasseItem: any[] = [];
@@ -132,18 +132,16 @@ export class CreationPersonnageComponent implements OnInit {
                 // console.log(res);
                 this.ttItem = res.response;
                 this.ttItem.forEach(item => {
-                    item.item_required_level = parseInt(item.item_required_level);
                     item.affichage = 0;
                     item.qualityName = this.ttQuality.find(qual => qual.id === parseInt(item.item_quality)) ? this.ttQuality.find(qual => qual.id == item.item_quality).name : '';
                 });
                 this.setGridData();
-                console.log(this.ttItem)
                 resolve(true);
             });
         });
     }
 
-    getItemInfo(item) {
+    getItemInfo(item: Item): Promise<Item> {
         return new Promise((resolve, reject) => {
             if (!item.id) {
                 console.log('la', item)
@@ -151,28 +149,27 @@ export class CreationPersonnageComponent implements OnInit {
                     res.bonusStats.forEach(bonus => {
                         let bonusLarge = globals.bonusStats.find(bs => bs.id === bonus.stat);
                         if (bonusLarge) {
-                            bonus.statLibelle = bonusLarge.nameEn;//this._appService.getLangue() === 'fr' ? bonusLarge.nameFr : bonusLarge.nameEn;
+                            bonus.statLibelle = this._appService.getLangue() === 'fr' ? bonusLarge.nameFr : bonusLarge.nameEn;
                         }
                     });
-                    let newItem = this.ttItem.find(item => item.item_id == res.id);
+                    let newItem: Item = this.ttItem.find(item => item.item_id === res.id);
                     newItem = { ...newItem, ...res };
-                    this.ttItem.splice(this.ttItem.findIndex(item => item.item_id == newItem.id), 1, newItem);
+                    this.ttItem.splice(this.ttItem.findIndex(item => parseInt(item.item_id) === newItem.id), 1, newItem);
                     this.setGridData();
                     resolve(newItem);
+                    this.selectedItem = newItem;
                 });
             } else {
                 resolve(item);
             }
-        })
+        });
     }
 
-    showItemDetail(item = null) {
+    showItemDetail(item: Item = null) {
         if (item) {
             if (!this.selectedItem || item.id !== this.selectedItem.id) {
                 this.getItemInfo(item).then(res => {
                     this.selectedItem = res;
-                    console.log(this.selectedItem)
-                    console.log(this.ttItem)
                     this.displayItemDetail = !this.displayItemDetail;
                 });
             }
@@ -182,10 +179,18 @@ export class CreationPersonnageComponent implements OnInit {
         }
     }
 
-    selectItem(event) {
-        this.displayChoixItem = false;
-        this.selectItem = event.dataItem;
-        
-        console.log(event);
+    selectItem(item) {
+        if (parseInt(item.item_id) === this.selectedItem.id) {
+            this.displayChoixItem = false;
+            let itemD = this.ttItemDroit.find(itemDroit => itemDroit.inventoryType === this.selectedItem.inventoryType);
+            let itemG = this.ttItemGauche.find(itemGauche => itemGauche.inventoryType === this.selectedItem.inventoryType);
+            /* if(itemD) {
+                this.ttItemDroit.splice(this.ttItemDroit.findIndex)
+            }
+            if (displayedItem) {
+                displayedItem.urlCharactere = 'http://media.blizzard.com/wow/icons/56/' + this.selectedItem.icon + '.jpg';
+            } */
+        }
+        this.selectedItem = null;
     }
 }

@@ -142,14 +142,4 @@ export class AppService {
             return localStorage.getItem('langue');
         } else return 'fr';
     }
-
-    setPage(page: string) {
-        localStorage.setItem('page', page);
-    }
-
-    getPage() {
-        if (localStorage.getItem('page')) {
-            return localStorage.getItem('page');
-        } else return ('accueil');
-    }
 }

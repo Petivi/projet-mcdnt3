@@ -49,7 +49,6 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
             this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
                 this.userConnected = res;
                 this.newUser = Object.assign({}, this.userConnected);
-                this._appService.setPage('inscription');
                 this.buildControl();
                 this._appService.getWords(['common', 'infoUser']).then(res => {
                     res.forEach(w => {

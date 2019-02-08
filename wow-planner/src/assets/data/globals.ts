@@ -12,18 +12,18 @@ export const bonusStats: any = [
     },
     {
         id: 3,
-        nameEn: 'Agility',
-        nameFr: 'Agilité'
+        nameEn: 'Agility (attack)',
+        nameFr: 'Agilité (attack)'
     },
     {
         id: 4,
-        nameEn: 'Strength',
-        nameFr: 'Force'
+        nameEn: 'Strength (attack)',
+        nameFr: 'Force (attack)'
     },
     {
         id: 5,
-        nameEn: 'Intellect',
-        nameFr: 'Intelligence'
+        nameEn: 'Intellect (attack)',
+        nameFr: 'Intelligence (attack)'
     },
     {
         id: 6,
@@ -223,7 +223,7 @@ export const bonusStats: any = [
     {
         id: 49,
         nameEn: 'Mastery',
-        nameFr: ''
+        nameFr: 'Maîtrise'
     },
     {
         id: 50,
@@ -308,16 +308,16 @@ export const bonusStats: any = [
     {
         id: 67,
         nameEn: 'Versatility',
-        nameFr: ''
+        nameFr: 'Polyvalence'
     },
     {
         id: 73,
-        nameEn: 'Agility or Intellect',
-        nameFr: ''
+        nameEn: 'Agility or Intellect (attack)',
+        nameFr: 'Agilité ou Intelligence (attack)'
     },
     {
         id: 74,
-        nameEn: 'Strength or Intellect',
-        nameFr: ''
+        nameEn: 'Strength or Intellect (attack)',
+        nameFr: 'Force ou Intelligence (attack)'
     },
 ];

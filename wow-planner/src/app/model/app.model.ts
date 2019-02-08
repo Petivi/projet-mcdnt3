@@ -143,6 +143,14 @@ export class Character {
     back_id: number;
     main_hand_id: number;
     off_hand_id: number;
+    attack: number;
+    armour: number;
+    stamina: number;
+    health: number;
+    critical_strike: number;
+    haste: number;
+    mastery: number;
+    versatility: number;
 
     constructor(info: any) {
         for (let k in info) {
@@ -151,4 +159,60 @@ export class Character {
             }
         }
     }
+}
+
+export class Item {
+    affichage: number;
+    armor: number;
+    artifactId: number;
+    availableContexts: string[];
+    baseArmor: number;
+    bonusLists: number[];
+    bonusStats: any[];
+    bonusSummary: any;
+    buyPrice: number;
+    containerSlots: number;
+    context: string;
+    description: string;
+    disenchantingSkillRank: number;
+    displayInfoId: number;
+    equippable: boolean;
+    hasSockets: boolean;
+    heroicTooltip: boolean;
+    icon: string;
+    id: number;
+    inventoryType: number;
+    isAuctionable: boolean;
+    itemBind: number;
+    itemClass: number;
+    itemLevel: number;
+    itemSource: any;
+    itemSpells: any[];
+    itemSubClass: number;
+    item_allowable_classes: number[];
+    item_allowable_races: number[];
+    item_class: string;
+    item_icon: string;
+    item_id: string;
+    item_inventory_type: string;
+    item_name: string;
+    item_quality: string;
+    item_required_level: number;
+    item_subclass: string;
+    maxCount: number;
+    maxDurability: number;
+    minFactionId: number;
+    minReputation: number;
+    name: string;
+    nameDescription: string;
+    nameDescriptionColor: string;
+    quality: number;
+    qualityName: string;
+    requiredLevel: number;
+    requiredSkill: number;
+    requiredSkillRank: number;
+    sellPrice: number;
+    stackable: number;
+    upgradable: boolean;
+    imgUrl: string;
 }
