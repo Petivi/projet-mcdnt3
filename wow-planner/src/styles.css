@@ -42,7 +42,7 @@ body {
     margin: auto;
     opacity: 1;
     align-items: center;
-    width: 70%;    
+    width: 70%;
 }
 .scrollv {
     overflow-y: scroll;
@@ -120,7 +120,7 @@ li.nav-item {
 li.nav-item:hover {
     background-color: #eeecec;
 }
-.deroulant:hover .sous-deroulant{    
+.deroulant:hover .sous-deroulant{
     display: block;
     width: max-content;
     cursor: pointer;
@@ -183,5 +183,22 @@ li.nav-item:hover {
     top: 50%;
     right: 33.3%;
     width: 30%;
+}
+.item-character {
+    display:flex;
+}
+.image-item {
+    display: flex;
+    align-items: center;
+    margin-right: 6px;
+}
+.detail-item-character {
+    position: absolute;
+    border: 1px solid grey;
+    border-radius: 10px;
+    right: 0;
+    background-color: white;
+    top: -164%;
+    padding: 3px;
 }
 /*FIN AFFICHAGE ITEM*/
