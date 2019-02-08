@@ -4,7 +4,7 @@ include "../../includedFiles.php";
 
 ini_set('max_execution_time', 0);
 
-$tabInfo = getCharacterInfo($request);
+$tabInfo = getItemInfo($request);
 if(isset($request->lang)){
   $lang = htmlspecialchars($request->lang, ENT_QUOTES);
 }else{
@@ -53,14 +53,14 @@ if(!is_null($tabInfo['item_class']) && !is_null($tabInfo['item_subClass']) && !i
     $get_item_info->execute();
     while($item_info = $get_item_info->fetch())
     {
-      $item_id = $item_info['item_id'];
-      $item_class = $item_info['item_class'];
-      $item_subclass = $item_info['item_subclass'];
-      $item_inventory_type = $item_info['item_inventory_type'];
+      $item_id = intval($item_info['item_id']);
+      $item_class = intval($item_info['item_class']);
+      $item_subclass = intval($item_info['item_subclass']);
+      $item_inventory_type = intval($item_info['item_inventory_type']);
       $item_icon = $item_info['item_icon'];
       $item_allowable_classes = $item_info['item_allowable_classes'];
       $item_allowable_races = $item_info['item_allowable_races'];
-      $item_required_level = $item_info['item_required_level'];
+      $item_required_level = intval($item_info['item_required_level']);
       $item_quality = $item_info['item_quality'];
       if($lang == "fr"){
         $item_name = html_entity_decode($item_info['item_name_fr'], ENT_QUOTES);
