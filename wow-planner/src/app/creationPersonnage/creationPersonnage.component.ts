@@ -185,6 +185,7 @@ export class CreationPersonnageComponent implements OnInit {
     selectItem(event) {
         this.displayChoixItem = false;
         this.selectItem = event.dataItem;
+        
         console.log(event);
     }
 }

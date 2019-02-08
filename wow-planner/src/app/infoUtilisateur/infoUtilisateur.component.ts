@@ -87,22 +87,36 @@ export class InfoUtilisateurComponent implements OnInit, OnDestroy {
             if (this.infoUserForm.get('profileGroup').valid) {
                 this._appService.post('action/editUserInfo.php', { user: this.userConnected, newUser: this.newUser, lang: this._appService.getLangue() }).then(res => {
                     if (res.response) {
-                        this.userConnected = Object.assign({}, this.newUser);
+                        if (this.infoUserForm.get('profileGroup').get('mail').dirty) { // si on change de mail on deconnecte car il doit reconfirmer son adresse
+                            this._appService.deconnexion();
+                            localStorage.removeItem('userConnected');
+                            Swal({
+                                title: 'Confirmation',
+                                text: this.words.find(w => w.msg_name === 'msg_changeMail').value,
+                                type: 'success',
+                                confirmButtonText: 'OK',
+                            }).then(res => {
+                                this._router.navigate(['/login']);
+                                window.location.reload();
+                            });
+                        } else {
+                            this.userConnected = Object.assign({}, this.newUser);
+                        }
                         this.editMode = false;
-                    } else if(res.error) {
+                    } else if (res.error) {
                         switch (res.error) {
                             case 'Pseudo already taken':
-                            this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_pseudoTaken').value);
-                            break;
+                                this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_pseudoTaken').value);
+                                break;
                             case 'Mail already taken':
-                            this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_mailTaken').value);
-                            break;
+                                this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_mailTaken').value);
+                                break;
                             case 'Login already taken':
-                            this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_loginTaken').value);
-                            break;
+                                this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_loginTaken').value);
+                                break;
                             default:
-                            this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_errorUnknown').value);
-                            break;
+                                this.profileErrors.push(this.words.find(w => w.msg_name === 'msg_errorUnknown').value);
+                                break;
                         }
                     }
                 });
