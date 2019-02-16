@@ -193,12 +193,12 @@ li.nav-item:hover {
     margin-right: 6px;
 }
 .detail-item-character {
-    position: absolute;
+    background-color: white;
+    display: flex;
+}
+.carac-item {
+    padding: 3px;
     border: 1px solid grey;
     border-radius: 10px;
-    right: 0;
-    background-color: white;
-    top: -164%;
-    padding: 3px;
 }
 /*FIN AFFICHAGE ITEM*/

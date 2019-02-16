@@ -214,4 +214,5 @@ export class Item {
     stackable: number;
     upgradable: boolean;
     imgUrl: string;
+    displayDetail: boolean;
 }
