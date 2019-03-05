@@ -125,6 +125,7 @@ export class RecherchCreationPersonnage {
 
 export class Character {
     id: string;
+    name: string;
     race_id: number;
     class_id: number;
     head_id: number;
@@ -162,6 +163,8 @@ export class Character {
 }
 
 export class Item {
+    id: number;
+    itemSlotId: number;
     armor: number;
     artifactId: number;
     availableContexts: string[];
@@ -179,7 +182,6 @@ export class Item {
     hasSockets: boolean;
     heroicTooltip: boolean;
     icon: string;
-    id: number;
     inventoryType: number;
     isAuctionable: boolean;
     itemBind: number;
@@ -193,7 +195,7 @@ export class Item {
     item_class: string;
     item_icon: string;
     item_id: number;
-    item_inventory_type: string;
+    item_inventory_type: number;
     item_name: string;
     item_quality: string;
     item_required_level: number;

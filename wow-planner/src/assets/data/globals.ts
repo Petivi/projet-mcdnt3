@@ -12,18 +12,18 @@ export const bonusStats: any = [
     },
     {
         id: 3,
-        nameEn: 'Agility (attack)',
-        nameFr: 'Agilité (attack)'
+        nameEn: 'Agility',
+        nameFr: 'Agilité'
     },
     {
         id: 4,
-        nameEn: 'Strength (attack)',
-        nameFr: 'Force (attack)'
+        nameEn: 'Strength',
+        nameFr: 'Force'
     },
     {
         id: 5,
-        nameEn: 'Intellect (attack)',
-        nameFr: 'Intelligence (attack)'
+        nameEn: 'Intellect',
+        nameFr: 'Intelligence'
     },
     {
         id: 6,
@@ -312,12 +312,73 @@ export const bonusStats: any = [
     },
     {
         id: 73,
-        nameEn: 'Agility or Intellect (attack)',
-        nameFr: 'Agilité ou Intelligence (attack)'
+        nameEn: 'Agility or Intellect',
+        nameFr: 'Agilité ou Intelligence'
     },
     {
         id: 74,
-        nameEn: 'Strength or Intellect (attack)',
-        nameFr: 'Force ou Intelligence (attack)'
+        nameEn: 'Strength or Intellect',
+        nameFr: 'Force ou Intelligence'
+    },
+    {
+        id: 75,
+        nameEn: 'Strength, Intellect or Agility',
+        nameFr: 'Force, Intelligence ou Agilité'
+    },
+    {
+        id: 71,
+        nameEn: 'Strength, Intellect or Agility',
+        nameFr: 'Force, Intelligence ou Agilité'
+    },
+];
+
+export const statsClass = [
+    {
+        class: 1,
+        stat_id: 4,
+    },
+    {
+        class: 7,
+        stat_id: 73,
+    },
+    {
+        class: 2,
+        stat_id: 74,
+    },
+    {
+        class: 4,
+        stat_id: 3,
+    },
+    {
+        class: 3,
+        stat_id: 3,
+    },
+    {
+        class: 5,
+        stat_id: 5,
+    },
+    {
+        class: 6,
+        stat_id: 4,
+    },
+    {
+        class: 8,
+        stat_id: 5,
+    },
+    {
+        class: 9,
+        stat_id: 5,
+    },
+    {
+        class: 10,
+        stat_id: 75,
+    },
+    {
+        class: 11,
+        stat_id: 73,
+    },
+    {
+        class: 12,
+        stat_id: 3,
     },
 ];
