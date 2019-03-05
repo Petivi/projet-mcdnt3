@@ -32,7 +32,7 @@
                                                         <div class="col">
                                                             <div class="detail-item-character">
                                                                 <div class="image-item">
-                                                                    <img (mouseenter)="showItemDetail($event, item)"
+                                                                    <img (mousehover)="showItemDetail(itemGauche.item)"
                                                                         class="clickable" [src]="itemGauche.item ? itemGauche.item.imgUrl : itemGauche.imgUrl"
                                                                         (click)="setRecherche(itemGauche.class, itemGauche.inventoryType)">
                                                                 </div>
@@ -165,7 +165,7 @@
                     [filterable]="true">
                     <kendo-grid-column field="item_icon" title="" [width]="80" [filterable]="false">
                         <ng-template let-dataItem kendoGridCellTemplate>
-                            <img (click)="selectItem(dataItem)" class="clickable" (mouseenter)="showItemDetail(dataItem)"
+                            <img (click)="selectItem(dataItem)" class="clickable" (mousehover)="showItemDetail(dataItem)"
                                 (mouseleave)="showItemDetail()" src="{{'http://media.blizzard.com/wow/icons/56/' + dataItem.item_icon + '.jpg'}}">
                         </ng-template>
                     </kendo-grid-column>

@@ -165,6 +165,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     showItemDetail(item: Item = null) {
+        console.log(item)
         if (item) {
             if (!this.selectedItem || item.id !== this.selectedItem.id) {
                 this.getItemInfo(item).then(res => {
