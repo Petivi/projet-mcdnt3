@@ -104,7 +104,63 @@ if(isset($tabInfo['session_token'])){
     }
 
   }else { // if no session_token, we display every characters
+    $tabListCharactersFull = array();
+    $request_character_infos = "SELECT * FROM characters_list $orderBy $sortBy";
+    $request_character_infos = $base->prepare($request_character_infos);
+    $request_character_infos->execute();
+    while($character_infos = $request_character_infos->fetch())
+    {
+      $head_info = ["id" => $character_infos['head_id'], "icon" => getItemIcon($character_infos['head_id'])];
+      $neck_info = ["id" => $character_infos['neck_id'], "icon" => getItemIcon($character_infos['neck_id'])];
+      $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => getItemIcon($character_infos['shoulder_id'])];
+      $chest_info = ["id" => $character_infos['chest_id'], "icon" => getItemIcon($character_infos['chest_id'])];
+      $waist_info = ["id" => $character_infos['waist_id'], "icon" => getItemIcon($character_infos['waist_id'])];
+      $legs_info = ["id" => $character_infos['legs_id'], "icon" => getItemIcon($character_infos['legs_id'])];
+      $feet_info = ["id" => $character_infos['feet_id'], "icon" => getItemIcon($character_infos['feet_id'])];
+      $wrist_info = ["id" => $character_infos['wrist_id'], "icon" => getItemIcon($character_infos['wrist_id'])];
+      $hands_info = ["id" => $character_infos['hands_id'], "icon" => getItemIcon($character_infos['hands_id'])];
+      $finger1_info = ["id" => $character_infos['finger1_id'], "icon" => getItemIcon($character_infos['finger1_id'])];
+      $finger2_info = ["id" => $character_infos['finger2_id'], "icon" => getItemIcon($character_infos['finger2_id'])];
+      $trinket1_info = ["id" => $character_infos['trinket1_id'], "icon" => getItemIcon($character_infos['trinket1_id'])];
+      $trinket2_info = ["id" => $character_infos['trinket2_id'], "icon" => getItemIcon($character_infos['trinket2_id'])];
+      $back_info = ["id" => $character_infos['back_id'], "icon" => getItemIcon($character_infos['back_id'])];
+      $main_hand_info = ["id" => $character_infos['main_hand_id'], "icon" => getItemIcon($character_infos['main_hand_id'])];
+      $off_hand_info = ["id" => $character_infos['off_hand_id'], "icon" => getItemIcon($character_infos['off_hand_id'])];
 
+      array_push($tabListCharactersFull, array(
+        "character_id" => $character_infos['id'],
+        "name" => $character_infos['name'],
+        "race_id" => $character_infos['race_id'],
+        "class_id" => $character_infos['class_id'],
+        "head" => $head_info,
+        "neck" => $neck_info,
+        "shoulder" => $shoulder_info,
+        "chest" => $chest_info,
+        "waist" => $waist_info,
+        "legs" => $legs_info,
+        "feet" => $feet_info,
+        "wrist" => $wrist_info,
+        "hands" => $hands_info,
+        "finger1" => $finger1_info,
+        "finger2" => $finger2_info,
+        "trinket1" => $trinket1_info,
+        "trinket2" => $trinket2_info,
+        "back" => $back_info,
+        "main_hand" => $main_hand_info,
+        "off_hand" => $off_hand_info,
+        "attack" => $character_infos['attack'],
+        "armour" => $character_infos['armour'],
+        "stamina" => $character_infos['stamina'],
+        "health" => $character_infos['health'],
+        "critical_strike" => $character_infos['critical_strike'],
+        "haste" => $character_infos['haste'],
+        "mastery" => $character_infos['mastery'],
+        "versatility" => $character_infos['versatility'],
+        "created_date" => date('d/m/Y H:i:s',$character_infos['created_date']),
+        "last_modified" => date('d/m/Y H:i:s',$character_infos['last_modified']),
+      ));
+    }
+      echo returnResponse($tabListCharactersFull);
   }
 
 
@@ -122,7 +178,7 @@ function getItemIcon($item_id){
   $request_item_infos->execute();
   while($item_infos = $request_item_infos->fetch())
   {
-    return $item_info['item_icon'];
+    return $item_infos['item_icon'];
   }
 }
 
