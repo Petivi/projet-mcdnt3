@@ -391,6 +391,8 @@ function retrieveCharactersInfo($req){
     "filter" => $filter,
     "order" => $order
   ];
+  
+  return $tabFilterInfo;
 }
 
  ?>
