@@ -63,3 +63,42 @@ export class ContactResolver implements Resolve<any> {
         ).toPromise();
     }
 }
+
+@Injectable()
+export class ListePersonnageResolver implements Resolve<any> {
+    constructor(private _appService: AppService, private _router: Router) { }
+    resolve(): Promise<any> {
+        return Observable.forkJoin([
+            this._appService.getWords(['common', 'listePersonnage']),
+            this._appService.post('action/api-blizzard/getCharacters.php', {session_token: this._appService.getToken()})
+        ]).map(
+            (data: any) => {
+                if (data[0]) {
+                    return { words: data[0], characters: data[1].response };
+                } else {
+                    this._router.navigate(['/accueil']);
+                    return false;
+                }
+            }
+        ).toPromise();
+    }
+}
+
+@Injectable()
+export class AccueilResolver implements Resolve<any> {
+    constructor(private _appService: AppService, private _router: Router) { }
+    resolve(): Promise<any> {
+        return Observable.forkJoin([
+            this._appService.getWords(['common', 'accueil'])
+        ]).map(
+            (data: any) => {
+                if (data[0]) {
+                    return { words: data[0] };
+                } else {
+                    this._router.navigate(['/accueil']);
+                    return false;
+                }
+            }
+        ).toPromise();
+    }
+}

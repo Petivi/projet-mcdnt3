@@ -40,7 +40,7 @@
                     <a class="nav-link" id="navbarDropdownPseudo">{{userConnected.pseudo}}</a>
                     <ul class="sous-deroulant pseudo" aria-labelledby="navbarDropdownPseudo">
                         <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['/personnage']">
+                            <a class="nav-link" [routerLink]="['/listePersonnage']">
                                 {{(words | filter : {msg_name: 'msg_mesPersonnages'} : {col : 'value'})}}
                             </a>
                         </li>

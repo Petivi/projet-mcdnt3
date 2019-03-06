@@ -1,0 +1,130 @@
+<div class="card-body">
+    <div class="row text-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
+                                        <div class="col">
+                                            <div class="detail-item-character">
+                                                <div class="image-item"
+                                                    (mouseenter)="showItemDetail(itemGauche.item, true)"
+                                                    (mouseleave)="showItemDetail(null, true)">
+                                                    <img class="clickable"
+                                                        [src]="itemGauche.item ? itemGauche.item.icon : itemGauche.imgUrl">
+                                                </div>
+                                                <div class="carac-item"
+                                                    *ngIf="itemGauche.item && displayItemDetailPerso && itemGauche.item.itemSlotId === selectedItem.itemSlotId">
+                                                    <div>
+                                                        {{(words | filter : {msg_name: 'msg_name'} :
+                                                            {col :
+                                                            'value'})}} : {{itemGauche.item.name}}
+                                                    </div>
+                                                    <div *ngIf="itemGauche.item.armor">
+                                                        {{(words | filter : {msg_name: 'msg_armor'} :
+                                                                {col :
+                                                                'value'})}} : {{itemGauche.item.armor}}
+                                                    </div>
+                                                    <div *ngFor="let bonus of itemGauche.item.bonusStats">
+                                                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
+                                        <div class="col">
+                                            <div class="detail-item-character">
+                                                <div class="image-item"
+                                                    (mouseenter)="showItemDetail(itemDroit.item, true)"
+                                                    (mouseleave)="showItemDetail(null, true)">
+                                                    <img class="clickable"
+                                                        [src]="itemDroit.item ? itemDroit.item.icon : itemDroit.imgUrl">
+                                                </div>
+                                                <div class="carac-item"
+                                                    *ngIf="itemDroit.item && displayItemDetailPerso && itemDroit.item.itemSlotId === selectedItem.itemSlotId">
+                                                    <div>{{(words | filter : {msg_name: 'msg_name'} : {col
+                                                                : 'value'})}} : {{itemDroit.item.name}}
+                                                    </div>
+                                                    <div *ngIf="itemDroit.item.armor">{{(words | filter : {msg_name: 'msg_armor'} :
+                                                                {col : 'value'})}} :
+                                                        {{itemDroit.item.armor}}
+                                                    </div>
+                                                    <div *ngFor="let bonus of itemDroit.item.bonusStats">
+                                                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row" *ngIf="character && character.health !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 1} : {col : 'libelle'})}} :
+                                    {{character.health}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.attack !== '0'">
+                                <div class="col">
+                                    {{libelleAttack}} : {{character.attack}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.armour !== '0'">
+                                <div class="col">
+                                    {{(words | filter : {msg_name: 'msg_armor'} :
+                                        {col : 'value'})}} : {{character.armour}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.critical_strike !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 32} : {col : 'libelle'})}} :
+                                    {{character.critical_strike}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.stamina !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 7} : {col : 'libelle'})}} :
+                                    {{character.stamina}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.haste !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 36} : {col : 'libelle'})}} :
+                                    {{character.haste}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.mastery !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 49} : {col : 'libelle'})}} :
+                                    {{character.mastery}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.versatility !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 40} : {col : 'libelle'})}} :
+                                    {{character.versatility}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

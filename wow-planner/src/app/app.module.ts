@@ -15,7 +15,8 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { InfoUtilisateurComponent } from './infoUtilisateur/infoUtilisateur.component';
 import { ItemComponent } from './item/item.component';
 import { LoginComponent } from './login/login.component';
-import { PersonnageComponent } from './personnage/personnage.component';
+import { ListePersonnageComponent } from './listePersonnage/listePersonnage.component';
+import { AffichagePersonnageComponent } from './affichagePersonnage/affichagePersonnage.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { CreationPersonnageComponent } from './creationPersonnage/creationPersonnage.component';
 import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.component';
@@ -23,7 +24,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 
-import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver } from './app.resolver';
+import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver } from './app.resolver';
 
 
 import { AppService } from './app.service';
@@ -46,13 +47,14 @@ import { FilterPipe } from './common/pipe/string.pipe';
         InfoUtilisateurComponent,
         ItemComponent,
         LoginComponent,
-        PersonnageComponent,
+        ListePersonnageComponent,
         RechercheComponent,
         CreationPersonnageComponent,
         GestionCompteComponent,
         ContactComponent,
         ListeRequeteComponent,
         GestionLogComponent,
+        AffichagePersonnageComponent,
     ],
     imports: [
         BrowserModule,
@@ -67,7 +69,7 @@ import { FilterPipe } from './common/pipe/string.pipe';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
         AppService,
-        CreationPersonnageResolver, GestionCompteResolver, ContactResolver
+        CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver
     ],
     bootstrap: [AppComponent]
 })

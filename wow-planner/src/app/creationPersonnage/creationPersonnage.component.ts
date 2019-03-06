@@ -4,9 +4,10 @@ import { Subscription } from 'rxjs';
 import { List } from 'immutable'
 
 import { AppService } from '../app.service';
-import * as globals from '../../assets/data/globals';
 
 import { Word, RecherchCreationPersonnage, Item, Character } from '../model/app.model';
+
+import * as globals from '../../assets/data/globals';
 
 /* donnée LOUIS pseudo: Mananga, Pteracuda serveur: Hyjal */
 
@@ -301,7 +302,6 @@ export class CreationPersonnageComponent implements OnInit {
         this.character.mastery = this.character.mastery ? this.character.mastery : 0;
         this.character.versatility = this.character.versatility ? this.character.versatility : 0;
         this.setStats();
-        console.log(this.character)
     }
 
     setStats(oldItem: boolean = false) {
@@ -332,13 +332,11 @@ export class CreationPersonnageComponent implements OnInit {
                 }
             }
         }
-        console.log(this.findBonusStat(73))
         if (this.findBonusStat(73)) {
             if (this.character.class_id == 7 || this.character.class_id == 2 || this.character.class_id == 4 || this.character.class_id == 3 || this.character.class_id == 5 || this.character.class_id == 8 || this.character.class_id == 9 || this.character.class_id == 10 || this.character.class_id == 11 || this.character.class_id == 12) {
                 if (oldItem) {
                     this.character.attack -= this.findBonusStat(73, true).amount;
                 } else {
-                    console.log('oui')
                     this.character.attack += this.findBonusStat(73).amount;
                 }
             }
@@ -392,9 +390,8 @@ export class CreationPersonnageComponent implements OnInit {
     saveCharac() {
         this._appService.post('action/api-blizzard/addNewCharacter.php',
             { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {
-
+                //TODO: rediriger vers la liste des personnages
             });
-        console.log(this.character);
     }
 }
 
