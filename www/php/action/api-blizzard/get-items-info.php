@@ -9,7 +9,7 @@ $total_items_counted=0;
 $curl = curl_init();
 curl_setopt_array($curl, array(
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => 'https://us.battle.net/oauth/token?grant_type=client_credentials&client_id='.$wow_api_client_id.'&client_secret='.$wow_api_client_secret,
+    CURLOPT_URL => 'https://eu.battle.net/oauth/token?grant_type=client_credentials&client_id='.$wow_api_client_id.'&client_secret='.$wow_api_client_secret,
 ));
 $resp_token = json_decode(curl_exec($curl), true);
 
@@ -28,7 +28,7 @@ while($items_info = $request_items_info->fetch())
     $access_token = $resp_token['access_token']; // token
 
 
-    $url_redirect = 'https://us.api.blizzard.com/wow/item/'.$item_id.'?locale=en_US&access_token='.$access_token;
+    $url_redirect = 'https://eu.api.blizzard.com/wow/item/'.$item_id.'?locale=fr_EU&access_token='.$access_token;
     curl_setopt_array($curl, array(
       CURLOPT_RETURNTRANSFER => 1,
       CURLOPT_URL => $url_redirect, // url for request
@@ -44,7 +44,7 @@ while($items_info = $request_items_info->fetch())
     if(isset($item_name)){
       $update_items_info = 'UPDATE items_list
       SET checked = 1,
-      item_name_en = :item_name
+      item_name_fr = :item_name
       WHERE id LIKE :id';
       $update_items_info = $base->prepare($update_items_info);
       $update_items_info->bindValue('id', $item_table_id, PDO::PARAM_INT);

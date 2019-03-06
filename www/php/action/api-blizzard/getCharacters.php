@@ -10,7 +10,7 @@ $order = $tabInfo['order'];
 if($filter == "like"){
   $orderBy = "ORDER BY total_like";
 }else {
-  $orderBy = "ORDER BY created_date"
+  $orderBy = "ORDER BY created_date";
 }
 
 if($order == "asc"){
