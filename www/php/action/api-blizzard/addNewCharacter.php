@@ -61,6 +61,7 @@ if(isset($tabInfo['session_token'])){
     $insert_new_character->bindValue('stamina', $tabInfo['character_stamina'], PDO::PARAM_INT);
     $insert_new_character->bindValue('health', $tabInfo['character_health'], PDO::PARAM_INT);
     $insert_new_character->bindValue('critical_strike', $tabInfo['character_critical_strike'], PDO::PARAM_INT);
+    $insert_new_character->bindValue('haste', $tabInfo['character_haste'], PDO::PARAM_INT);
     $insert_new_character->bindValue('mastery', $tabInfo['character_mastery'], PDO::PARAM_INT);
     $insert_new_character->bindValue('versatility', $tabInfo['character_versatility'], PDO::PARAM_INT);
     $insert_new_character->bindValue('created_date', $date_today, PDO::PARAM_INT);

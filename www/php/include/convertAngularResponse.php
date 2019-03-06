@@ -355,6 +355,7 @@ function getCharacterInfo($req){
     "character_stamina" => $character_stamina,
     "character_health" => $character_health,
     "character_critical_strike" => $character_critical_strike,
+    "character_haste" => $character_haste,
     "character_mastery" => $character_mastery,
     "character_versatility" => $character_versatility
   ];
