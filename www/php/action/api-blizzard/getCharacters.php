@@ -122,7 +122,7 @@ function getItemIcon($item_id){
   $request_item_infos->execute();
   while($item_infos = $request_item_infos->fetch())
   {
-    return $item_info['item_icon'];
+    return $item_infos['item_icon'];
   }
 }
 
