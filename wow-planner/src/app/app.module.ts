@@ -5,7 +5,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridModule } from '@progress/kendo-angular-grid';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { CustomHttpInterceptor } from './common/customHttpInterceptor';
 
@@ -58,13 +57,12 @@ import { FilterPipe } from './common/pipe/string.pipe';
     imports: [
         BrowserModule,
         HttpClientModule,
-        ReactiveFormsModule, 
+        ReactiveFormsModule,
         FormsModule,
         appRouting,
         InputsModule,
         BrowserAnimationsModule,
         GridModule,
-        TooltipModule.forRoot(),
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },

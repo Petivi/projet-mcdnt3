@@ -4,20 +4,42 @@
             <div class="card">
                 <div class="card-header form-group">
                     <div class="row">
-                        <div class="col">
-                            <select *ngIf="tabRaces" class="form-control" [(ngModel)]="character.race_id">
-                                <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <select *ngIf="tabClasses" class="form-control" (change)="setCharacter()"
-                                [(ngModel)]="character.class_id">
-                                <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}</option>
-                            </select>
-                        </div>
-                        <div class="col text-center">
-                            <button class="btn btn-primary" style="width: 100%" (click)="validChar()">Valider</button>
-                        </div>
+                        <ng-container *ngIf="!displayCharacter">
+                            <div class="col">
+                                <select *ngIf="tabRaces" class="form-control" [(ngModel)]="character.race_id">
+                                    <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select *ngIf="tabClasses" class="form-control" (change)="setCharacter()"
+                                    [(ngModel)]="character.class_id">
+                                    <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col text-center">
+                                <button class="btn btn-primary" style="width: 100%"
+                                    (click)="(displayCharacter = true)">{{(words | filter : {msg_name: 'msg_valider'} : {col : 'value'})}}</button>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="displayCharacter">
+                            <div class="col-md-1">
+                                <button (click)="resetCharac()" class="btn btn-dark">
+                                    {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+                                </button>
+                            </div>
+                            <ng-container *ngIf="userConnected">
+                                <label for="name" class="col-md-2">
+                                    {{(words | filter : {msg_name: 'msg_characName'} : {col : 'value'})}}
+                                </label>
+                                <input id="name" class="form-control col-md-6" autofocus type="text"
+                                    [(ngModel)]="character.name">
+                                <div class="col text-center">
+                                    <button class="btn btn-success" style="width: 100%"
+                                        (click)="saveCharac()">{{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}</button>
+                                </div>
+                            </ng-container>
+                        </ng-container>
                     </div>
                 </div>
                 <div class="card-body" *ngIf="displayCharacter">
@@ -229,8 +251,8 @@
                 </div>
             </div>
             <div class="card-body scrollv">
-                <kendo-grid [kendoGridBinding]="gridData.toArray()" [scrollable]="'none'" [sortable]="true" [pageable]="true" [pageSize]="50"
-                    [filterable]="true">
+                <kendo-grid [kendoGridBinding]="gridData.toArray()" [scrollable]="'none'" [sortable]="true"
+                    [pageable]="true" [pageSize]="50" [filterable]="true">
                     <kendo-grid-column field="item_icon" title="" [width]="80" [filterable]="false">
                         <ng-template let-dataItem kendoGridCellTemplate>
                             <img (click)="selectItem(dataItem)" class="clickable"

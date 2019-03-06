@@ -60,10 +60,12 @@ export class CreationPersonnageComponent implements OnInit {
     recherche: RecherchCreationPersonnage = { quality: -1, lvlMin: 0, lvlMax: 110, matiere: 2, name: '', class: null, inventoryType: null };
     displayCharacter: boolean = false;
     displayChoixItem: boolean = false;
+    userConnected: any;
     displayItemDetailListe: boolean = false;
     displayItemDetailPerso: boolean = false;
     ttBonusStats: any[] = [];
     selectedItem: Item;
+    oldItem: Item;
     selectedSlot: any;
     libelleAttack: string;
     ttItem: Item[] = []; // Typer quand je saurais ce qu'on garde
@@ -78,6 +80,8 @@ export class CreationPersonnageComponent implements OnInit {
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
+        this.userConnected = localStorage.getItem('userConnected');
+        console.log(this.userConnected)
         this.ttBonusStats = globals.bonusStats.map(bs => {
             if (this._appService.getLangue() === 'fr') {
                 return { id: bs.id, libelle: bs.nameFr }
@@ -110,21 +114,32 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     setCharacter() {
-        console.log(globals.statsClass, this.character.class_id)
-        let statId = globals.statsClass.find(sc => sc.class === this.character.class_id) ? globals.statsClass.find(sc => sc.class === this.character.class_id).stat_id : null;
+        let statId = globals.statsClass.find(sc => sc.class == this.character.class_id) ? globals.statsClass.find(sc => sc.class == this.character.class_id).stat_id : null;
         this.libelleAttack = statId ? this.ttBonusStats.find(bs => bs.id === statId).libelle : undefined;
     }
 
-    validChar() {
-        this.displayCharacter = true;
-        /* this._appService.post('action/api-blizzard/addNewCharacter.php',
-            { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {
-
-            });
-        console.log(this.character); */
+    resetCharac() {
+        this.character = new Character({});
+        if (this.tabRaces && this.tabClasses) {
+            this.character.race_id = this.tabRaces[0].id;
+            this.character.class_id = this.tabClasses[0].id;
+            this.setCharacter();
+        }
+        this.ttItemDroit.forEach(id => {
+            id.item = null;
+        });
+        this.ttItemGauche.forEach(ig => {
+            ig.item = null;
+        });
+        this.displayCharacter = false;
     }
 
     setRecherche(itemSlot) {
+        if (itemSlot.item) {
+            this.oldItem = itemSlot.item;
+        } else {
+            this.oldItem = null;
+        }
         this.selectedSlot = itemSlot.id;
         this.recherche.class = itemSlot.class;
         this.recherche.inventoryType = itemSlot.inventoryType;
@@ -161,7 +176,6 @@ export class CreationPersonnageComponent implements OnInit {
     getItemInfo(item: Item): Promise<Item> {
         return new Promise((resolve, reject) => {
             if (!item.id) {
-                console.log('la', item)
                 this._appService.getBlizzard('item/' + item.item_id).then(res => {
                     res.bonusStats.forEach(bonus => {
                         let bonusLarge = globals.bonusStats.find(bs => bs.id === bonus.stat);
@@ -207,6 +221,9 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     selectItem(item: Item) {
+        if (this.oldItem) {
+            this.setStats(true);
+        }
         if (this.selectedItem.id && item.item_id === this.selectedItem.id) {
             this.selectedItem.itemSlotId = this.selectedSlot;
             this.displayChoixItem = false;
@@ -283,49 +300,101 @@ export class CreationPersonnageComponent implements OnInit {
         this.character.haste = this.character.haste ? this.character.haste : 0;
         this.character.mastery = this.character.mastery ? this.character.mastery : 0;
         this.character.versatility = this.character.versatility ? this.character.versatility : 0;
-        if (this.selectedItem) {
-            if (this.findBonusStat(4)) {
-                if (this.character.class_id === 1 || this.character.class_id === 2 || this.character.class_id === 6 || this.character.class_id === 10) {
+        this.setStats();
+        console.log(this.character)
+    }
+
+    setStats(oldItem: boolean = false) {
+        if (this.findBonusStat(4)) {
+            if (this.character.class_id == 1 || this.character.class_id == 2 || this.character.class_id == 6 || this.character.class_id == 10) {
+                if (oldItem) {
+                    this.character.attack -= this.findBonusStat(4, true).amount;
+                } else {
                     this.character.attack += this.findBonusStat(4).amount;
                 }
             }
-            if (this.findBonusStat(3)) {
-                if (this.character.class_id === 7 || this.character.class_id === 4 || this.character.class_id === 3 || this.character.class_id === 10 || this.character.class_id === 11 || this.character.class_id === 12) {
+        }
+        if (this.findBonusStat(3)) {
+            if (this.character.class_id == 7 || this.character.class_id == 4 || this.character.class_id == 3 || this.character.class_id == 10 || this.character.class_id == 11 || this.character.class_id == 12) {
+                if (oldItem) {
+                    this.character.attack -= this.findBonusStat(3, true).amount;
+                } else {
                     this.character.attack += this.findBonusStat(3).amount;
                 }
             }
-            if (this.findBonusStat(5)) {
-                if (this.character.class_id === 7 || this.character.class_id === 5 || this.character.class_id === 2 || this.character.class_id === 8 || this.character.class_id === 9 || this.character.class_id === 10 || this.character.class_id === 11) {
+        }
+        if (this.findBonusStat(5)) {
+            if (this.character.class_id == 7 || this.character.class_id == 5 || this.character.class_id == 2 || this.character.class_id == 8 || this.character.class_id == 9 || this.character.class_id == 10 || this.character.class_id == 11) {
+                if (oldItem) {
+                    this.character.attack -= this.findBonusStat(5, true).amount;
+                } else {
                     this.character.attack += this.findBonusStat(5).amount;
                 }
             }
-            if (this.findBonusStat(73)) {
-                if(this.character.class_id === 7 ||this.character.class_id === 2 ||this.character.class_id === 4 ||this.character.class_id === 3 ||this.character.class_id === 5 ||this.character.class_id === 8 ||this.character.class_id === 9 ||this.character.class_id === 10 ||this.character.class_id === 11 ||this.character.class_id === 12) {
+        }
+        console.log(this.findBonusStat(73))
+        if (this.findBonusStat(73)) {
+            if (this.character.class_id == 7 || this.character.class_id == 2 || this.character.class_id == 4 || this.character.class_id == 3 || this.character.class_id == 5 || this.character.class_id == 8 || this.character.class_id == 9 || this.character.class_id == 10 || this.character.class_id == 11 || this.character.class_id == 12) {
+                if (oldItem) {
+                    this.character.attack -= this.findBonusStat(73, true).amount;
+                } else {
+                    console.log('oui')
                     this.character.attack += this.findBonusStat(73).amount;
                 }
             }
-            if(this.findBonusStat(74)) {
-                if(this.character.class_id === 1 ||this.character.class_id === 7 ||this.character.class_id === 2 ||this.character.class_id === 5 ||this.character.class_id === 6 ||this.character.class_id === 8 ||this.character.class_id === 9 ||this.character.class_id === 10 ||this.character.class_id === 11) {
+        }
+        if (this.findBonusStat(74)) {
+            if (this.character.class_id == 1 || this.character.class_id == 7 || this.character.class_id == 2 || this.character.class_id == 5 || this.character.class_id == 6 || this.character.class_id == 8 || this.character.class_id == 9 || this.character.class_id == 10 || this.character.class_id == 11) {
+                if (oldItem) {
+                    this.character.attack -= this.findBonusStat(74, true).amount;
+                } else {
                     this.character.attack += this.findBonusStat(74).amount;
                 }
             }
+        }
+        if (oldItem) {
+            this.character.attack -= this.findBonusStat(75, true) ? this.findBonusStat(75, true).amount : 0;
+            this.character.attack -= this.findBonusStat(71, true) ? this.findBonusStat(71, true).amount : 0;
+            this.character.versatility -= this.findBonusStat(67, true) ? this.findBonusStat(67, true).amount : 0;
+            this.character.versatility -= this.findBonusStat(40, true) ? this.findBonusStat(40, true).amount : 0;
+            this.character.armour -= this.oldItem.armor ? this.oldItem.armor : 0;
+            this.character.mastery -= this.findBonusStat(49, true) ? this.findBonusStat(49, true).amount : 0;
+            this.character.haste -= this.findBonusStat(36, true) ? this.findBonusStat(36, true).amount : 0;
+            this.character.critical_strike -= this.findBonusStat(32, true) ? this.findBonusStat(32, true).amount : 0;
+        } else {
             this.character.attack += this.findBonusStat(75) ? this.findBonusStat(75).amount : 0;
             this.character.attack += this.findBonusStat(71) ? this.findBonusStat(71).amount : 0;
             this.character.versatility += this.findBonusStat(67) ? this.findBonusStat(67).amount : 0;
+            this.character.versatility += this.findBonusStat(40) ? this.findBonusStat(40).amount : 0;
             this.character.armour += this.selectedItem.armor ? this.selectedItem.armor : 0;
-            if (this.findBonusStat(7)) {
-                this.character.stamina += this.findBonusStat(7).amount;
-                this.character.health = this.character.stamina * 10;
-            }
             this.character.mastery += this.findBonusStat(49) ? this.findBonusStat(49).amount : 0;
             this.character.haste += this.findBonusStat(36) ? this.findBonusStat(36).amount : 0;
             this.character.critical_strike += this.findBonusStat(32) ? this.findBonusStat(32).amount : 0;
         }
-        console.log(this.character)
+        if (this.findBonusStat(7)) {
+            if (oldItem) {
+                this.character.stamina -= this.findBonusStat(7, true).amount;
+            } else {
+                this.character.stamina += this.findBonusStat(7).amount;
+            }
+            this.character.health = this.character.stamina * 10;
+        }
     }
 
-    findBonusStat(bonnusId) {
-        return this.selectedItem.bonusStats.find(bs => bs.stat === bonnusId);
+    findBonusStat(bonnusId, oldItem: boolean = false) {
+        if (oldItem) {
+            return this.oldItem.bonusStats.find(bs => bs.stat === bonnusId);
+        } else {
+            return this.selectedItem.bonusStats.find(bs => bs.stat === bonnusId);
+        }
+    }
+
+    saveCharac() {
+        this._appService.post('action/api-blizzard/addNewCharacter.php',
+            { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {
+
+            });
+        console.log(this.character);
     }
 }
 
