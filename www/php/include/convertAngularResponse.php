@@ -362,4 +362,35 @@ function getCharacterInfo($req){
   return $tabCharacterInfo;
 }
 
+
+function retrieveCharactersInfo($req){
+  if(isset($req->session_token)){
+    $session_token = htmlspecialchars($req->session_token, ENT_QUOTES);
+  }else{
+    $session_token = NULL;
+  }
+  if(isset($req->characName)){
+    $characName = htmlspecialchars($req->characName, ENT_QUOTES);
+  }else{
+    $characName = "";
+  }
+  if(isset($req->filter)){
+    $filter = htmlspecialchars($req->filter, ENT_QUOTES);
+  }else{
+    $filter = "date";
+  }
+  if(isset($req->order)){
+    $order = htmlspecialchars($req->order, ENT_QUOTES);
+  }else{
+    $order = "desc";
+  }
+
+  $tabFilterInfo = [
+    "session_token" => $session_token,
+    "characName" => $characName,
+    "filter" => $filter,
+    "order" => $order
+  ];
+}
+
  ?>
