@@ -25,7 +25,7 @@ if(isset($tabInfo['session_token'])){
     $user_exists = false;
     $request_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token';
     $request_user_info = $base->prepare($request_user_info);
-    $request_user_info->bindValue('session_token', $session_token, PDO::PARAM_STR);
+    $request_user_info->bindValue('session_token', $tabInfo['session_token'], PDO::PARAM_STR);
     $request_user_info->execute();
     while($user_info = $request_user_info->fetch())
     {
