@@ -34,7 +34,7 @@ if(isset($tabInfo['session_token'])){
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
     $insert_new_character = 'INSERT INTO characters_list (user_id, name, race_id, class_id, head_id, neck_id, shoulder_id, chest_id, waist_id, legs_id, feet_id, wrist_id, hands_id, finger1_id, finger2_id, trinket1_id, trinket2_id, back_id, main_hand_id, off_hand_id, attack, armour, stamina, health, critical_strike, haste, mastery, versatility, created_date, last_modified)
-    VALUES (:user_id, :name, :race_id, :class_id, :head_id, :neck_id, :shoulder_id, :chest_id, :waist_id, :legs_id, :feet_id, :wrist_id, :hands_id, :finger1_id, :finger2_id, :trinket1_id, :trinket2_id, :back_id, :main_hand_id, :off_hand_id, :attack, :armour, :stamina, :health, :critical_strike, :haste, :mastery, :versatility, :created_date, :created_date)';
+    VALUES (:user_id, :name, :race_id, :class_id, :head_id, :neck_id, :shoulder_id, :chest_id, :waist_id, :legs_id, :feet_id, :wrist_id, :hands_id, :finger1_id, :finger2_id, :trinket1_id, :trinket2_id, :back_id, :main_hand_id, :off_hand_id, :attack, :armour, :stamina, :health, :critical_strike, :haste, :mastery, :versatility, :created_date, :last_modified)';
     $insert_new_character = $base->prepare($insert_new_character);
     $insert_new_character->bindValue('user_id', $account_id, PDO::PARAM_INT);
     $insert_new_character->bindValue('name', $character_name, PDO::PARAM_STR);
@@ -64,6 +64,7 @@ if(isset($tabInfo['session_token'])){
     $insert_new_character->bindValue('mastery', $tabInfo['character_mastery'], PDO::PARAM_INT);
     $insert_new_character->bindValue('versatility', $tabInfo['character_versatility'], PDO::PARAM_INT);
     $insert_new_character->bindValue('created_date', $date_today, PDO::PARAM_INT);
+    $insert_new_character->bindValue('last_modified', $date_today, PDO::PARAM_INT);
     $insert_new_character->execute();
 
     $request_character_infos = 'SELECT * FROM characters_list WHERE user_id LIKE :user_id AND created_date LIKE :created_date';
