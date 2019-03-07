@@ -46,22 +46,22 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
     $request_character_infos->execute();
     while($character_infos = $request_character_infos->fetch())
     {
-      $head_info = ["id" => $character_infos['head_id'], "icon" => getItemIcon($character_infos['head_id'])];
-      $neck_info = ["id" => $character_infos['neck_id'], "icon" => getItemIcon($character_infos['neck_id'])];
-      $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => getItemIcon($character_infos['shoulder_id'])];
-      $chest_info = ["id" => $character_infos['chest_id'], "icon" => getItemIcon($character_infos['chest_id'])];
-      $waist_info = ["id" => $character_infos['waist_id'], "icon" => getItemIcon($character_infos['waist_id'])];
-      $legs_info = ["id" => $character_infos['legs_id'], "icon" => getItemIcon($character_infos['legs_id'])];
-      $feet_info = ["id" => $character_infos['feet_id'], "icon" => getItemIcon($character_infos['feet_id'])];
-      $wrist_info = ["id" => $character_infos['wrist_id'], "icon" => getItemIcon($character_infos['wrist_id'])];
-      $hands_info = ["id" => $character_infos['hands_id'], "icon" => getItemIcon($character_infos['hands_id'])];
-      $finger1_info = ["id" => $character_infos['finger1_id'], "icon" => getItemIcon($character_infos['finger1_id'])];
-      $finger2_info = ["id" => $character_infos['finger2_id'], "icon" => getItemIcon($character_infos['finger2_id'])];
-      $trinket1_info = ["id" => $character_infos['trinket1_id'], "icon" => getItemIcon($character_infos['trinket1_id'])];
-      $trinket2_info = ["id" => $character_infos['trinket2_id'], "icon" => getItemIcon($character_infos['trinket2_id'])];
-      $back_info = ["id" => $character_infos['back_id'], "icon" => getItemIcon($character_infos['back_id'])];
-      $main_hand_info = ["id" => $character_infos['main_hand_id'], "icon" => getItemIcon($character_infos['main_hand_id'])];
-      $off_hand_info = ["id" => $character_infos['off_hand_id'], "icon" => getItemIcon($character_infos['off_hand_id'])];
+      $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon'];
+      $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon'];
+      $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => $character_infos['shoulder_icon']];
+      $chest_info = ["id" => $character_infos['chest_id'], "icon" => $character_infos['chest_icon']];
+      $waist_info = ["id" => $character_infos['waist_id'], "icon" => $character_infos['waist_icon']];
+      $legs_info = ["id" => $character_infos['legs_id'], "icon" => $character_infos['legs_icon']];
+      $feet_info = ["id" => $character_infos['feet_id'], "icon" => $character_infos['feet_icon']];
+      $wrist_info = ["id" => $character_infos['wrist_id'], "icon" => $character_infos['wrist_icon']];
+      $hands_info = ["id" => $character_infos['hands_id'], "icon" => $character_infos['hands_icon']];
+      $finger1_info = ["id" => $character_infos['finger1_id'], "icon" => $character_infos['finger1_icon']];
+      $finger2_info = ["id" => $character_infos['finger2_id'], "icon" => $character_infos['finger2_icon']];
+      $trinket1_info = ["id" => $character_infos['trinket1_id'], "icon" => $character_infos['trinket1_icon']];
+      $trinket2_info = ["id" => $character_infos['trinket2_id'], "icon" => $character_infos['trinket2_icon']];
+      $back_info = ["id" => $character_infos['back_id'], "icon" => $character_infos['back_icon']];
+      $main_hand_info = ["id" => $character_infos['main_hand_id'], "icon" => $character_infos['main_hand_icon']];
+      $off_hand_info = ["id" => $character_infos['off_hand_id'], "icon" => $character_infos['off_hand_icon']];
 
       array_push($tabListCharacters, array(
         "character_id" => $character_infos['id'],
@@ -108,22 +108,22 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
   $request_character_infos->execute();
   while($character_infos = $request_character_infos->fetch())
   {
-    $head_info = ["id" => $character_infos['head_id'], "icon" => getItemIcon($character_infos['head_id'])];
-    $neck_info = ["id" => $character_infos['neck_id'], "icon" => getItemIcon($character_infos['neck_id'])];
-    $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => getItemIcon($character_infos['shoulder_id'])];
-    $chest_info = ["id" => $character_infos['chest_id'], "icon" => getItemIcon($character_infos['chest_id'])];
-    $waist_info = ["id" => $character_infos['waist_id'], "icon" => getItemIcon($character_infos['waist_id'])];
-    $legs_info = ["id" => $character_infos['legs_id'], "icon" => getItemIcon($character_infos['legs_id'])];
-    $feet_info = ["id" => $character_infos['feet_id'], "icon" => getItemIcon($character_infos['feet_id'])];
-    $wrist_info = ["id" => $character_infos['wrist_id'], "icon" => getItemIcon($character_infos['wrist_id'])];
-    $hands_info = ["id" => $character_infos['hands_id'], "icon" => getItemIcon($character_infos['hands_id'])];
-    $finger1_info = ["id" => $character_infos['finger1_id'], "icon" => getItemIcon($character_infos['finger1_id'])];
-    $finger2_info = ["id" => $character_infos['finger2_id'], "icon" => getItemIcon($character_infos['finger2_id'])];
-    $trinket1_info = ["id" => $character_infos['trinket1_id'], "icon" => getItemIcon($character_infos['trinket1_id'])];
-    $trinket2_info = ["id" => $character_infos['trinket2_id'], "icon" => getItemIcon($character_infos['trinket2_id'])];
-    $back_info = ["id" => $character_infos['back_id'], "icon" => getItemIcon($character_infos['back_id'])];
-    $main_hand_info = ["id" => $character_infos['main_hand_id'], "icon" => getItemIcon($character_infos['main_hand_id'])];
-    $off_hand_info = ["id" => $character_infos['off_hand_id'], "icon" => getItemIcon($character_infos['off_hand_id'])];
+    $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon'];
+    $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon'];
+    $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => $character_infos['shoulder_icon']];
+    $chest_info = ["id" => $character_infos['chest_id'], "icon" => $character_infos['chest_icon']];
+    $waist_info = ["id" => $character_infos['waist_id'], "icon" => $character_infos['waist_icon']];
+    $legs_info = ["id" => $character_infos['legs_id'], "icon" => $character_infos['legs_icon']];
+    $feet_info = ["id" => $character_infos['feet_id'], "icon" => $character_infos['feet_icon']];
+    $wrist_info = ["id" => $character_infos['wrist_id'], "icon" => $character_infos['wrist_icon']];
+    $hands_info = ["id" => $character_infos['hands_id'], "icon" => $character_infos['hands_icon']];
+    $finger1_info = ["id" => $character_infos['finger1_id'], "icon" => $character_infos['finger1_icon']];
+    $finger2_info = ["id" => $character_infos['finger2_id'], "icon" => $character_infos['finger2_icon']];
+    $trinket1_info = ["id" => $character_infos['trinket1_id'], "icon" => $character_infos['trinket1_icon']];
+    $trinket2_info = ["id" => $character_infos['trinket2_id'], "icon" => $character_infos['trinket2_icon']];
+    $back_info = ["id" => $character_infos['back_id'], "icon" => $character_infos['back_icon']];
+    $main_hand_info = ["id" => $character_infos['main_hand_id'], "icon" => $character_infos['main_hand_icon']];
+    $off_hand_info = ["id" => $character_infos['off_hand_id'], "icon" => $character_infos['off_hand_icon']];
 
     array_push($tabListCharactersFull, array(
       "character_id" => $character_infos['id'],
@@ -164,17 +164,17 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
 
 
 
-function getItemIcon($item_id){
-  global $base;
-
-  $request_item_infos = "SELECT * FROM items_list WHERE item_id LIKE :item_id";
-  $request_item_infos = $base->prepare($request_item_infos);
-  $request_item_infos->bindValue('item_id', $item_id, PDO::PARAM_INT);
-  $request_item_infos->execute();
-  while($item_infos = $request_item_infos->fetch())
-  {
-    return $item_infos['item_icon'];
-  }
-}
+// function getItemIcon($item_id){
+//   global $base;
+//
+//   $request_item_infos = "SELECT * FROM items_list WHERE item_id LIKE :item_id";
+//   $request_item_infos = $base->prepare($request_item_infos);
+//   $request_item_infos->bindValue('item_id', $item_id, PDO::PARAM_INT);
+//   $request_item_infos->execute();
+//   while($item_infos = $request_item_infos->fetch())
+//   {
+//     return $item_infos['item_icon'];
+//   }
+// }
 
  ?>
