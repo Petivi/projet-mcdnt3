@@ -1,17 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { AffichagePersonnageComponent } from '../affichagePersonnage/affichagePersonnage.component';
 
 import { AppService } from '../app.service';
 
-import { User, Word } from '../model/app.model';
+import { Word } from '../model/app.model';
 
 @Component({
-    selector: 'accueil-cpt',
-    templateUrl: './accueil.component.html',
+    selector: 'liste-personnage-cpt',
+    templateUrl: './listePersonnage.component.html',
 })
-export class AccueilComponent implements OnInit, OnDestroy {
-    userConnected: User;
+export class ListePersonnageComponent implements OnInit, OnDestroy {
     obsInit: Subscription;
     words: Word[] = [];
     ttCharacter: any[] = [];
@@ -24,10 +25,12 @@ export class AccueilComponent implements OnInit, OnDestroy {
             console.log(res)
             console.log(this.ttCharacter);
         });
+        /* this._appService.getBlizzard('character/hyjal/Mananga', [{key: 'fields', value: 'items'}]).then(res => {
+            // console.log(res);
+        }); */
     }
 
     ngOnDestroy() {
 
     }
-
 }

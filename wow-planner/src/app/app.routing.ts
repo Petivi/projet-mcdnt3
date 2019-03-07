@@ -12,14 +12,17 @@ import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.comp
 import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
-import { PersonnageComponent } from './personnage/personnage.component';
+import { ListePersonnageComponent } from './listePersonnage/listePersonnage.component';
 
-import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver } from './app.resolver';
+import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver } from './app.resolver';
 
 export const appRouting = RouterModule.forRoot([
     {
         path: 'accueil',
-        component: AccueilComponent
+        component: AccueilComponent,
+        resolve: {
+            resolver: AccueilResolver
+        }
     },
     {
         path: 'admin',
@@ -51,8 +54,11 @@ export const appRouting = RouterModule.forRoot([
         component: InfoUtilisateurComponent
     },
     {
-        path: 'personnage',
-        component: PersonnageComponent
+        path: 'listePersonnage',
+        component: ListePersonnageComponent,
+        resolve: {
+            resolver: ListePersonnageResolver
+        }
     },
     {
         path: 'item',

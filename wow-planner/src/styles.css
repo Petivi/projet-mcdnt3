@@ -202,7 +202,7 @@ li.nav-item:hover {
     border-radius: 10px;
     position: absolute;
     z-index: 2;
-    right: 10px;
+    right: 5px;
     background-color: white; 
     width: 250px;
 }
