@@ -8,6 +8,8 @@ $tabInfo = infoStatutLike($request);
 
 if($tabInfo['session_token']){ // if we have a session token
   $newStatutLike = intval($tabInfo['statut']);
+  $character_id = $tabInfo['character_id'];
+  $date_today = strtotime(date('d-m-Y H:i:s'));
   $user_exists = false;
   $request_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token';
   $request_user_info = $base->prepare($request_user_info);
@@ -32,10 +34,11 @@ if($tabInfo['session_token']){ // if we have a session token
     $request_like_info = 'SELECT * FROM characters_likes WHERE user_id LIKE :user_id AND character_id LIKE :character_id LIMIT 1';
     $request_like_info = $base->prepare($request_like_info);
     $request_like_info->bindValue('user_id', $account_id, PDO::PARAM_INT);
-    $request_like_info->bindValue('character_id', $tabInfo['character_id'], PDO::PARAM_INT);
+    $request_like_info->bindValue('character_id', $character_id, PDO::PARAM_INT);
     $request_like_info->execute();
     while($like_info = $request_like_info->fetch())
     {
+      $statut_exists = true;
       $like_id = $like_info['id'];
       if($newStatutLike == $like_info['statut']){ // new status is the same as the existing one, so we delete users' like
         $request_delete_like = "DELETE FROM characters_likes WHERE id LIKE :like_id";
@@ -53,18 +56,20 @@ if($tabInfo['session_token']){ // if we have a session token
         SET $column = $column - 1
         WHERE id LIKE :id";
         $update_character_info = $base->prepare($update_character_info);
-        $update_character_info->bindValue('id', $tabInfo['character_id'], PDO::PARAM_INT);
+        $update_character_info->bindValue('id', $character_id, PDO::PARAM_INT);
         $update_character_info->execute();
 
         echo returnResponse($display_response_empty);
         exit();
       }else { // changing the status
         $update_character_likes_info = "UPDATE characters_likes
-        SET statut = :statut
+        SET statut = :statut,
+        last_modified = :last_modified
         WHERE id LIKE :id";
         $update_character_likes_info = $base->prepare($update_character_likes_info);
         $update_character_likes_info->bindValue('id', $like_id, PDO::PARAM_INT);
         $update_character_likes_info->bindValue('statut', $newStatutLike, PDO::PARAM_INT);
+        $update_character_likes_info->bindValue('last_modified', $date_today, PDO::PARAM_INT);
         $update_character_likes_info->execute();
 
 
@@ -82,13 +87,40 @@ if($tabInfo['session_token']){ // if we have a session token
         $column_decrement = $column_decrement - 1
         WHERE id LIKE :id";
         $update_character_info = $base->prepare($update_character_info);
-        $update_character_info->bindValue('id', $tabInfo['character_id'], PDO::PARAM_INT);
+        $update_character_info->bindValue('id', $character_id, PDO::PARAM_INT);
         $update_character_info->execute();
-        
+
         echo returnResponse($display_response_empty);
         exit();
+      } // end changing status
+    } // end existing like
+
+
+    /******************************/
+
+    if(!$statut_exists){ // if user has not liked / disliked this character yet
+      $add_new_characters_likes = 'INSERT INTO characters_likes (user_id, character_id, statut, last_modified)
+      VALUES (:user_id, :character_id, :statut, :last_modified)';
+      $add_new_characters_likes = $base->prepare($add_new_characters_likes);
+      $add_new_characters_likes->bindValue('user_id', $account_id, PDO::PARAM_INT);
+      $add_new_characters_likes->bindValue('character_id', $character_id, PDO::PARAM_INT);
+      $add_new_characters_likes->bindValue('statut', $newStatutLike, PDO::PARAM_INT);
+      $add_new_characters_likes->bindValue('last_modified', $date_today, PDO::PARAM_INT);
+      $add_new_characters_likes->execute();
+
+      if($newStatutLike == 1){ // like
+        $column = "total_like";
+      }elseif ($newStatutLike == 2) { // dislike
+        $column = "total_dislike";
       }
-    }
+
+      $update_character_info = "UPDATE characters_list
+      SET $column = $column + 1
+      WHERE id LIKE :id";
+      $update_character_info = $base->prepare($update_character_info);
+      $update_character_info->bindValue('id', $character_id, PDO::PARAM_INT);
+      $update_character_info->execute();
+    } // end creation new character like / dislike
 
   }else {  // user doesn't exist or session_token does not match
     echo returnError($display_error_empty);
