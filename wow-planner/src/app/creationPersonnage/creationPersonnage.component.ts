@@ -69,7 +69,7 @@ export class CreationPersonnageComponent implements OnInit {
     oldItem: Item;
     selectedSlot: any;
     libelleAttack: string;
-    ttItem: Item[] = []; // Typer quand je saurais ce qu'on garde
+    ttItem: Item[] = [];
     gridData: List<any> = List([]);
     inventoryType: number = 1;
     ttClasseItem: any[] = [];

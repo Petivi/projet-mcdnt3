@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { AppService } from '../app.service';
 
+import { Item, itemSlot, Word } from '../model/app.model';
+
 import * as globals from '../../assets/data/globals';
 
 @Component({
@@ -9,9 +11,12 @@ import * as globals from '../../assets/data/globals';
     templateUrl: './affichagePersonnage.component.html',
 })
 export class AffichagePersonnageComponent implements OnInit, OnDestroy {
+    @Input() words: Word[] = [];
+    selectedItem: Item;
+    displayItemDetailPerso: boolean = false;
     ttBonusStats: any[] = [];
     libelleAttack: string;
-    ttItemGauche: any[] = [
+    ttItemGauche: itemSlot[] = [
         { id: 1, class: 4, inventoryType: 1, imgUrl: 'assets/img/inventoryslot_head.jpg', item: null },
         { id: 2, class: 4, inventoryType: 2, imgUrl: 'assets/img/inventoryslot_neck.jpg', item: null },
         { id: 3, class: 4, inventoryType: 3, imgUrl: 'assets/img/inventoryslot_shoulder.jpg', item: null },
@@ -23,7 +28,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         { id: 7, class: 4, inventoryType: 10, imgUrl: 'assets/img/inventoryslot_hands.jpg', item: null },
         { id: 8, class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_waist.jpg', item: null },
     ];
-    ttItemDroit: any[] = [
+    ttItemDroit: itemSlot[] = [
         { id: 9, class: 4, inventoryType: 7, imgUrl: 'assets/img/inventoryslot_legs.jpg', item: null },
         { id: 10, class: 4, inventoryType: 8, imgUrl: 'assets/img/inventoryslot_feet.jpg', item: null },
         { id: 11, class: 4, inventoryType: 11, imgUrl: 'assets/img/inventoryslot_finger.jpg', item: null },
@@ -39,7 +44,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     constructor(private _appService: AppService) { }
 
     ngOnInit() {
-        console.log('oui')
+        console.log(this.words)
         console.log(this.character)
         this.ttBonusStats = globals.bonusStats.map(bs => {
             if (this._appService.getLangue() === 'fr') {
@@ -52,7 +57,6 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         this.libelleAttack = statId ? this.ttBonusStats.find(bs => bs.id === statId).libelle : undefined;
         for (let k in this.character) {
             if (this.character[k].icon) {
-                console.log(this.character[k]);
                 this.character[k].icon = 'http://media.blizzard.com/wow/icons/56/' + this.character[k].icon + '.jpg';
             }
         }
@@ -115,6 +119,45 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 
+    }
+
+    getItemInfo(itemSlot: itemSlot): Promise<itemSlot> {
+        return new Promise((resolve, reject) => {
+            let oldIcon: string = itemSlot.item ? itemSlot.item.icon : '';
+            if (itemSlot.item && !itemSlot.item.name) {
+                this._appService.getBlizzard('item/' + itemSlot.item.id).then(res => {
+                    if (res.bonusStats && res.bonusStats.length > 0) {
+                        res.bonusStats.forEach(bonus => {
+                            let bonusLarge = globals.bonusStats.find(bs => bs.id === bonus.stat);
+                            if (bonusLarge) {
+                                bonus.statLibelle = this._appService.getLangue() === 'fr' ? bonusLarge.nameFr : bonusLarge.nameEn;
+                            }
+                        });
+                        itemSlot.item = { ...itemSlot.item, ...res };
+                        itemSlot.item.icon = oldIcon ? oldIcon : itemSlot.item.icon;
+                        resolve(itemSlot);
+                    } else {
+                        resolve(itemSlot);
+                    }
+                });
+            } else {
+                resolve(itemSlot);
+            }
+        });
+    }
+
+    showItemDetail(itemSlot: itemSlot = null) {
+        if (itemSlot && itemSlot.item) {
+            this.getItemInfo(itemSlot).then(res => {
+                console.log(res)
+                this.selectedItem = res.item;
+                this.selectedItem.itemSlotId = itemSlot.id;
+                this.displayItemDetailPerso = true;
+            });
+        } else {
+            this.selectedItem = null;
+            this.displayItemDetailPerso = false;
+        }
     }
 
 }

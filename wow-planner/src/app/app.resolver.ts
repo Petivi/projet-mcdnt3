@@ -89,11 +89,12 @@ export class AccueilResolver implements Resolve<any> {
     constructor(private _appService: AppService, private _router: Router) { }
     resolve(): Promise<any> {
         return Observable.forkJoin([
-            this._appService.getWords(['common', 'accueil'])
+            this._appService.getWords(['common', 'accueil']),
+            this._appService.post('action/api-blizzard/getCharacters.php', {session_token: null})
         ]).map(
             (data: any) => {
                 if (data[0]) {
-                    return { words: data[0] };
+                    return { words: data[0], characters: data[1].response };
                 } else {
                     this._router.navigate(['/accueil']);
                     return false;

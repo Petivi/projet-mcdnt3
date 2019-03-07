@@ -6,18 +6,22 @@ import { AffichagePersonnageComponent } from '../affichagePersonnage/affichagePe
 
 import { AppService } from '../app.service';
 
+import { Word } from '../model/app.model';
+
 @Component({
     selector: 'liste-personnage-cpt',
     templateUrl: './listePersonnage.component.html',
 })
 export class ListePersonnageComponent implements OnInit, OnDestroy {
     obsInit: Subscription;
+    words: Word[] = [];
     ttCharacter: any[] = [];
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
             this.ttCharacter = res.resolver.characters && res.resolver.characters.length > 0 ? res.resolver.characters : [];
+            this.words = res.resolver.words;
             console.log(res)
             console.log(this.ttCharacter);
         });

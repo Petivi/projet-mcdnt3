@@ -162,6 +162,14 @@ export class Character {
     }
 }
 
+export class itemSlot {
+    id: number;
+    class: number;
+    inventoryType: number;
+    imgUrl: string;
+    item: Item;
+}
+
 export class Item {
     id: number;
     itemSlotId: number;

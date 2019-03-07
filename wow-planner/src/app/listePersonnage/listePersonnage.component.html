@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row" *ngIf="ttCharacter && ttCharacter.length > 0">
         <div class="col">
-            <div class="card" *ngFor="let character of ttCharacter">
+            <div class="card mb-2" *ngFor="let character of ttCharacter">
                 <div class="card-body">
-                    <affichage-personnage-cpt [character]="character"></affichage-personnage-cpt>
+                    <affichage-personnage-cpt [character]="character" [words]="words"></affichage-personnage-cpt>
                 </div>
             </div>
         </div>

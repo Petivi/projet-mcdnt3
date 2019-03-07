@@ -2,6 +2,9 @@
     <div class="row text-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="card-header">
+                    <h3>{{character.name}}</h3>
+                </div>
                 <div class="card-body">
                     <div class="row text-center">
                         <div class="col">
@@ -10,10 +13,9 @@
                                     <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
                                         <div class="col">
                                             <div class="detail-item-character">
-                                                <div class="image-item"
-                                                    (mouseenter)="showItemDetail(itemGauche.item, true)"
-                                                    (mouseleave)="showItemDetail(null, true)">
-                                                    <img class="clickable"
+                                                <div class="image-item" (mouseenter)="showItemDetail(itemGauche)"
+                                                    (mouseleave)="showItemDetail()">
+                                                    <img [ngClass]="{ 'clickable': itemGauche.item }"
                                                         [src]="itemGauche.item ? itemGauche.item.icon : itemGauche.imgUrl">
                                                 </div>
                                                 <div class="carac-item"
@@ -40,10 +42,9 @@
                                     <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
                                         <div class="col">
                                             <div class="detail-item-character">
-                                                <div class="image-item"
-                                                    (mouseenter)="showItemDetail(itemDroit.item, true)"
-                                                    (mouseleave)="showItemDetail(null, true)">
-                                                    <img class="clickable"
+                                                <div class="image-item" (mouseenter)="showItemDetail(itemDroit)"
+                                                    (mouseleave)="showItemDetail()">
+                                                    <img [ngClass]="{ 'clickable': itemDroit.item }"
                                                         [src]="itemDroit.item ? itemDroit.item.icon : itemDroit.imgUrl">
                                                 </div>
                                                 <div class="carac-item"

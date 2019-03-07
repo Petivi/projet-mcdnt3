@@ -23,6 +23,7 @@ import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.comp
 import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
+import { CommentaireLikeComponent } from './commentaireLike/commentaireLike.component';
 
 import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver } from './app.resolver';
 
@@ -55,6 +56,7 @@ import { FilterPipe } from './common/pipe/string.pipe';
         ListeRequeteComponent,
         GestionLogComponent,
         AffichagePersonnageComponent,
+        CommentaireLikeComponent,
     ],
     imports: [
         BrowserModule,
