@@ -257,7 +257,7 @@
                         <ng-template let-dataItem kendoGridCellTemplate>
                             <img (click)="selectItem(dataItem)" class="clickable"
                                 (mouseenter)="showItemDetail(dataItem)" (mouseleave)="showItemDetail()"
-                                src="{{'http://media.blizzard.com/wow/icons/56/' + dataItem.item_icon + '.jpg'}}">
+                                src="{{iconUrl + dataItem.item_icon + '.jpg'}}">
                         </ng-template>
                     </kendo-grid-column>
                     <kendo-grid-column field="item_name"
@@ -275,7 +275,7 @@
                 <!-- <div class="itemGeneral" *ngFor="let item of ttItem">
                     <div (mouseleave)="(item.affichage = 0)" (mouseenter)="getItemInfo(item)">
                         <div style="display: inline">
-                            <img src="{{'http://media.blizzard.com/wow/icons/56/' + item.item_icon + '.jpg'}}">
+                            <img src="{{iconUrl + item.item_icon + '.jpg'}}">
                         </div>
                         <i class="fa fa-angle-right itemIcon" *ngIf="item.affichage === 0"></i>
                         <div class="itemDetail" *ngIf="item.affichage === 1">
