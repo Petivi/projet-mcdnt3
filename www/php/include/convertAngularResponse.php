@@ -491,4 +491,32 @@ function retrieveCharactersInfo($req){
   return $tabFilterInfo;
 }
 
+
+function infoStatutLike($req){
+
+  if(isset($req->session_token)){
+    $session_token = htmlspecialchars($req->session_token, ENT_QUOTES);
+  }else{
+    $session_token = NULL;
+  }
+  if(isset($req->character_id)){
+    $character_id = htmlspecialchars($req->character_id, ENT_QUOTES);
+  }else{
+    $character_id = NULL;
+  }
+  if(isset($req->statut)){
+    $statut = htmlspecialchars($req->statut, ENT_QUOTES);
+  }else{
+    $statut = NULL;
+  }
+
+  $tabInfoStatutLike = [
+    "session_token" => $session_token,
+    "character_id" => $character_id,
+    "statut" => $statut
+  ];
+
+  return $tabInfoStatutLike;
+}
+
  ?>
