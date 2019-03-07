@@ -30,6 +30,12 @@ body {
 .icon-dislike:hover {
     color: rgba(255, 0, 0, 0.781);
 }
+.icon-liked {
+    color: rgb(35, 38, 255);
+}
+.icon-disliked {
+    color: rgb(255, 0, 0);
+}
 .window {
     display: flex;
     background-color: rgba(0,0,0,0.5);

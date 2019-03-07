@@ -131,11 +131,13 @@
             </div>
             <div class="row mt-2">
                 <div class="col">
-                    <button class="icon-button">
+                    <button class="icon-button" [ngClass]="{'icon-liked': character.statut_like === 'like'}"
+                        (click)="like(1)">
                         <i class="fa fa-thumbs-up fa-2x icon-likeDislike icon-like"></i>
                     </button>
                     {{character.total_like}}
-                    <button class="icon-button">
+                    <button class="icon-button" [ngClass]="{'icon-disliked': character.statut_like === 'dislike'}"
+                        (click)="like(2)">
                         <i class="fa fa-thumbs-down fa-2x icon-likeDislike icon-dislike"></i>
                     </button>
                     {{character.total_dislike}}

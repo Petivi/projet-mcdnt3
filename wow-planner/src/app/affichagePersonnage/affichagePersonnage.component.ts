@@ -156,4 +156,28 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         }
     }
 
+    like(statut: number) {
+        this._appService.post('action/api-blizzard/updateStatutLike.php', { session_token: this._appService.getToken(), character_id: this.character.character_id, statut: statut })
+            .then(res => {
+                if (res.response) {
+                    if(res.response.decrement === 'like') {
+                        this.character.total_like--;
+                        this.character.statut_like = '';
+                    }
+                    if(res.response.decrement === 'dislike') {
+                        this.character.total_dislike--;
+                        this.character.statut_like = '';
+                    }
+                    if(res.response.increment === 'like') {
+                        this.character.total_like++;
+                        this.character.statut_like = 'like';
+                    }
+                    if(res.response.increment === 'dislike') {
+                        this.character.total_dislike++;
+                        this.character.statut_like = 'dislike';
+                    }
+                }
+            });
+    }
+
 }

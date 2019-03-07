@@ -70,7 +70,7 @@ export class ListePersonnageResolver implements Resolve<any> {
     resolve(): Promise<any> {
         return Observable.forkJoin([
             this._appService.getWords(['common', 'listePersonnage']),
-            this._appService.post('action/api-blizzard/getCharacters.php', {session_token: this._appService.getToken()})
+            this._appService.post('action/api-blizzard/getCharacters.php', {session_token: this._appService.getToken(), data: 'perso' })
         ]).map(
             (data: any) => {
                 if (data[0]) {
@@ -90,7 +90,7 @@ export class AccueilResolver implements Resolve<any> {
     resolve(): Promise<any> {
         return Observable.forkJoin([
             this._appService.getWords(['common', 'accueil']),
-            this._appService.post('action/api-blizzard/getCharacters.php', {session_token: null})
+            this._appService.post('action/api-blizzard/getCharacters.php', {session_token: this._appService.getToken(), data: 'all'})
         ]).map(
             (data: any) => {
                 if (data[0]) {
