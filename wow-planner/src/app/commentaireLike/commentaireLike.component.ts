@@ -16,7 +16,6 @@ export class CommentaireLikeComponent implements OnInit, OnDestroy {
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
-        console.log()
     }
 
     ngOnDestroy() {

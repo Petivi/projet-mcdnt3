@@ -21,8 +21,8 @@ export class AccueilComponent implements OnInit, OnDestroy {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
             this.ttCharacter = res.resolver.characters && res.resolver.characters.length > 0 ? res.resolver.characters : [];
             this.words = res.resolver.words;
-            console.log(res)
-            console.log(this.ttCharacter);
+            //console.log(res)
+            //console.log(this.ttCharacter);
         });
     }
 

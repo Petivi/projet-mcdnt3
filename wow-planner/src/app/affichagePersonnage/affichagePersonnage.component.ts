@@ -45,8 +45,8 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     constructor(private _appService: AppService) { }
 
     ngOnInit() {
-        console.log(this.words)
-        console.log(this.character)
+        //console.log(this.words)
+        //console.log(this.character)
         this.ttBonusStats = globals.bonusStats.map(bs => {
             if (this._appService.getLangue() === 'fr') {
                 return { id: bs.id, libelle: bs.nameFr }
@@ -145,7 +145,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     showItemDetail(itemSlot: itemSlot = null) {
         if (itemSlot && itemSlot.item) {
             this.getItemInfo(itemSlot).then(res => {
-                console.log(res)
+                //console.log(res)
                 this.selectedItem = res.item;
                 this.selectedItem.itemSlotId = itemSlot.id;
                 this.displayItemDetailPerso = true;
