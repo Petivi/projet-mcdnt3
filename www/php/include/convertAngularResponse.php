@@ -480,12 +480,18 @@ function retrieveCharactersInfo($req){
   }else{
     $order = "desc";
   }
+  if(isset($req->data)){
+    $data = htmlspecialchars($req->data, ENT_QUOTES);
+  }else{
+    $data = "all";
+  }
 
   $tabFilterInfo = [
     "session_token" => $session_token,
     "characName" => $characName,
     "filter" => $filter,
-    "order" => $order
+    "order" => $order,
+    "data" => $data
   ];
 
   return $tabFilterInfo;

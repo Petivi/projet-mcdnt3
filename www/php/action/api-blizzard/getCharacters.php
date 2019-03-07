@@ -19,24 +19,26 @@ if($order == "asc"){
   $sortBy = "DESC";
 }
 
-if($tabInfo['session_token']){ // if there is a session_token, we display only users' characters
-  $user_exists = false;
-  $request_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token';
-  $request_user_info = $base->prepare($request_user_info);
-  $request_user_info->bindValue('session_token', $tabInfo['session_token'], PDO::PARAM_STR);
-  $request_user_info->execute();
-  while($user_info = $request_user_info->fetch())
-  {
-    // get his informations
-    $account_id = $user_info['id'];
-    $account_pseudo = Chiffrement::decrypt($user_info['pseudo']);
-    $account_mail = Chiffrement::decrypt($user_info['mail']);
-    $account_active_account = $user_info['active_account'];
-    $account_checked_mail = $user_info['checked_mail'];
-    if($account_active_account == 1 && $account_checked_mail){
-      $user_exists = true;
-    }
+$user_exists = false;
+$request_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token';
+$request_user_info = $base->prepare($request_user_info);
+$request_user_info->bindValue('session_token', $tabInfo['session_token'], PDO::PARAM_STR);
+$request_user_info->execute();
+while($user_info = $request_user_info->fetch())
+{
+  // get his informations
+  $account_id = $user_info['id'];
+  $account_pseudo = Chiffrement::decrypt($user_info['pseudo']);
+  $account_mail = Chiffrement::decrypt($user_info['mail']);
+  $account_active_account = $user_info['active_account'];
+  $account_checked_mail = $user_info['checked_mail'];
+  if($account_active_account == 1 && $account_checked_mail){
+    $user_exists = true;
   }
+}
+
+
+if($tabInfo['data'] == "perso"){ // if data == perso, we display only users' characters
 
   if($user_exists){
     $tabListCharacters = array();
@@ -46,6 +48,7 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
     $request_character_infos->execute();
     while($character_infos = $request_character_infos->fetch())
     {
+      $statut_like = getStatutLikeDislike($account_id, $character_infos['id']);
       $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon']];
       $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon']];
       $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => $character_infos['shoulder_icon']];
@@ -95,7 +98,8 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
         "created_date" => date('d/m/Y H:i:s',$character_infos['created_date']),
         "last_modified" => date('d/m/Y H:i:s',$character_infos['last_modified']),
         "total_like" => $character_infos['total_like'],
-        "total_dislike" => $character_infos['total_dislike']
+        "total_dislike" => $character_infos['total_dislike'],
+        "statut_like" => $statut_like
       ));
     }
     echo returnResponse($tabListCharacters);
@@ -103,13 +107,18 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
     echo returnError($display_error_empty);
   }
 
-}else { // if no session_token, we display every characters
+}else { // if data != perso, we display every characters
   $tabListCharactersFull = array();
   $request_character_infos = "SELECT * FROM characters_list $orderBy $sortBy";
   $request_character_infos = $base->prepare($request_character_infos);
   $request_character_infos->execute();
   while($character_infos = $request_character_infos->fetch())
   {
+    if($account_id){
+      $statut_like = getStatutLikeDislike($account_id, $character_infos['id']);
+    }else {
+      $statut_like = NULL;
+    }
     $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon']];
     $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon']];
     $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => $character_infos['shoulder_icon']];
@@ -180,5 +189,28 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
 //     return $item_infos['item_icon'];
 //   }
 // }
+
+
+function getStatutLikeDislike($user_id, $character_id){
+  global $base;
+
+    $user_statut_exists = false;
+    $statut_like = NULL;
+    $request_characters_likes_infos = "SELECT * FROM characters_likes WHERE user_id LIKE :user_id AND character_id LIKE :character_id";
+    $request_characters_likes_infos = $base->prepare($request_characters_likes_infos);
+    $request_characters_likes_infos->bindValue('user_id', $user_id, PDO::PARAM_INT);
+    $request_characters_likes_infos->bindValue('character_id', $character_id, PDO::PARAM_INT);
+    $request_characters_likes_infos->execute();
+    while($characters_likes_infos = $request_characters_likes_infos->fetch())
+    {
+      $user_statut_exists = true;
+      if($characters_likes_infos['statut'] == 1){ // like
+        $statut_like = "like";
+      }elseif ($characters_likes_infos['statut'] == 2) { // dislike
+        $statut_like = "dislike";
+      }
+    }
+    return $statut_like;
+}
 
  ?>
