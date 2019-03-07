@@ -7,7 +7,7 @@ $tabInfo = infoStatutLike($request);
 
 
 if($tabInfo['session_token']){ // if we have a session token
-  $newStatutLike = intval($tabInfo['statut']);
+  $newStatutLike = $tabInfo['statut'];
   $character_id = $tabInfo['character_id'];
   $date_today = strtotime(date('d-m-Y H:i:s'));
   $user_exists = false;

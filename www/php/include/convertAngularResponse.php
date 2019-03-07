@@ -512,8 +512,8 @@ function infoStatutLike($req){
 
   $tabInfoStatutLike = [
     "session_token" => $session_token,
-    "character_id" => $character_id,
-    "statut" => $statut
+    "character_id" => intval($character_id),
+    "statut" => intval($statut)
   ];
 
   return $tabInfoStatutLike;
