@@ -33,8 +33,12 @@ if(isset($tabInfo['session_token'])){
     }
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
-    $insert_new_character = 'INSERT INTO characters_list (user_id, name, race_id, class_id, head_id, neck_id, shoulder_id, chest_id, waist_id, legs_id, feet_id, wrist_id, hands_id, finger1_id, finger2_id, trinket1_id, trinket2_id, back_id, main_hand_id, off_hand_id, attack, armour, stamina, health, critical_strike, haste, mastery, versatility, created_date, last_modified)
-    VALUES (:user_id, :name, :race_id, :class_id, :head_id, :neck_id, :shoulder_id, :chest_id, :waist_id, :legs_id, :feet_id, :wrist_id, :hands_id, :finger1_id, :finger2_id, :trinket1_id, :trinket2_id, :back_id, :main_hand_id, :off_hand_id, :attack, :armour, :stamina, :health, :critical_strike, :haste, :mastery, :versatility, :created_date, :last_modified)';
+    $insert_new_character = 'INSERT INTO characters_list (user_id, name, race_id, class_id, head_id, neck_id, shoulder_id, chest_id, waist_id, legs_id, feet_id, wrist_id, hands_id, finger1_id, finger2_id, trinket1_id, trinket2_id, back_id, main_hand_id, off_hand_id, attack, armour, stamina, health, critical_strike, haste, mastery, versatility,
+      head_icon, neck_icon, shoulder_icon, chest_icon, waist_icon, legs_icon, feet_icon, wrist_icon, hands_icon, finger1_icon, finger2_icon, trinket1_icon, trinket2_icon, back_icon, main_hand_icon, off_hand_icon,
+       created_date, last_modified)
+    VALUES (:user_id, :name, :race_id, :class_id, :head_id, :neck_id, :shoulder_id, :chest_id, :waist_id, :legs_id, :feet_id, :wrist_id, :hands_id, :finger1_id, :finger2_id, :trinket1_id, :trinket2_id, :back_id, :main_hand_id, :off_hand_id, :attack, :armour, :stamina, :health, :critical_strike, :haste, :mastery, :versatility,
+      :head_icon, :neck_icon, :shoulder_icon, :chest_icon, :waist_icon, :legs_icon, :feet_icon, :wrist_icon, :hands_icon, :finger1_icon, :finger2_icon, :trinket1_icon, :trinket2_icon, :back_icon, :main_hand_icon, :off_hand_icon,
+       :created_date, :last_modified)';
     $insert_new_character = $base->prepare($insert_new_character);
     $insert_new_character->bindValue('user_id', $account_id, PDO::PARAM_INT);
     $insert_new_character->bindValue('name', $character_name, PDO::PARAM_STR);
@@ -64,6 +68,22 @@ if(isset($tabInfo['session_token'])){
     $insert_new_character->bindValue('haste', $tabInfo['character_haste'], PDO::PARAM_INT);
     $insert_new_character->bindValue('mastery', $tabInfo['character_mastery'], PDO::PARAM_INT);
     $insert_new_character->bindValue('versatility', $tabInfo['character_versatility'], PDO::PARAM_INT);
+    $insert_new_character->bindValue('head_icon', $tabInfo['character_head_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('neck_icon', $tabInfo['character_neck_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('shoulder_icon', $tabInfo['character_shoulder_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('chest_icon', $tabInfo['character_chest_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('waist_icon', $tabInfo['character_waist_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('legs_icon', $tabInfo['character_legs_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('feet_icon', $tabInfo['character_feet_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('wrist_icon', $tabInfo['character_wrist_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('hands_icon', $tabInfo['character_hands_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('finger1_icon', $tabInfo['character_finger1_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('finger2_icon', $tabInfo['character_finger2_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('trinket1_icon', $tabInfo['character_trinket1_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('trinket2_icon', $tabInfo['character_trinket2_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('back_icon', $tabInfo['character_back_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('main_hand_icon', $tabInfo['character_main_hand_icon'], PDO::PARAM_STR);
+    $insert_new_character->bindValue('off_hand_icon', $tabInfo['character_off_hand_icon'], PDO::PARAM_STR);
     $insert_new_character->bindValue('created_date', $date_today, PDO::PARAM_INT);
     $insert_new_character->bindValue('last_modified', $date_today, PDO::PARAM_INT);
     $insert_new_character->execute();

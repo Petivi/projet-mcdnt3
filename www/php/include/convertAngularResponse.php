@@ -327,6 +327,86 @@ function getCharacterInfo($req){
   }else{
     $character_versatility = NULL;
   }
+  if(isset($req->character->head_icon)){
+    $character_head_icon = htmlspecialchars($req->character->head_icon, ENT_QUOTES);
+  }else{
+    $character_head_icon = NULL;
+  }
+  if(isset($req->character->neck_icon)){
+    $character_neck_icon = htmlspecialchars($req->character->neck_icon, ENT_QUOTES);
+  }else{
+    $character_neck_icon = NULL;
+  }
+  if(isset($req->character->shoulder_icon)){
+    $character_shoulder_icon = htmlspecialchars($req->character->shoulder_icon, ENT_QUOTES);
+  }else{
+    $character_shoulder_icon = NULL;
+  }
+  if(isset($req->character->chest_icon)){
+    $character_chest_icon = htmlspecialchars($req->character->chest_icon, ENT_QUOTES);
+  }else{
+    $character_chest_icon = NULL;
+  }
+  if(isset($req->character->waist_icon)){
+    $character_waist_icon = htmlspecialchars($req->character->waist_icon, ENT_QUOTES);
+  }else{
+    $character_waist_icon = NULL;
+  }
+  if(isset($req->character->legs_icon)){
+    $character_legs_icon = htmlspecialchars($req->character->legs_icon, ENT_QUOTES);
+  }else{
+    $character_legs_icon = NULL;
+  }
+  if(isset($req->character->feet_icon)){
+    $character_feet_icon = htmlspecialchars($req->character->feet_icon, ENT_QUOTES);
+  }else{
+    $character_feet_icon = NULL;
+  }
+  if(isset($req->character->wrist_icon)){
+    $character_wrist_icon = htmlspecialchars($req->character->wrist_icon, ENT_QUOTES);
+  }else{
+    $character_wrist_icon = NULL;
+  }
+  if(isset($req->character->hands_icon)){
+    $character_hands_icon = htmlspecialchars($req->character->hands_icon, ENT_QUOTES);
+  }else{
+    $character_hands_icon = NULL;
+  }
+  if(isset($req->character->finger1_icon)){
+    $character_finger1_icon = htmlspecialchars($req->character->finger1_icon, ENT_QUOTES);
+  }else{
+    $character_finger1_icon = NULL;
+  }
+  if(isset($req->character->finger2_icon)){
+    $character_finger2_icon = htmlspecialchars($req->character->finger2_icon, ENT_QUOTES);
+  }else{
+    $character_finger2_icon = NULL;
+  }
+  if(isset($req->character->trinket1_icon)){
+    $character_trinket1_icon = htmlspecialchars($req->character->trinket1_icon, ENT_QUOTES);
+  }else{
+    $character_trinket1_icon = NULL;
+  }
+  if(isset($req->character->trinket2_icon)){
+    $character_trinket2_icon = htmlspecialchars($req->character->trinket2_icon, ENT_QUOTES);
+  }else{
+    $character_trinket2_icon = NULL;
+  }
+  if(isset($req->character->back_icon)){
+    $character_back_icon = htmlspecialchars($req->character->back_icon, ENT_QUOTES);
+  }else{
+    $character_back_icon = NULL;
+  }
+  if(isset($req->character->main_hand_icon)){
+    $character_main_hand_icon = htmlspecialchars($req->character->main_hand_icon, ENT_QUOTES);
+  }else{
+    $character_main_hand_icon = NULL;
+  }
+  if(isset($req->character->off_hand_icon)){
+    $character_off_hand_icon = htmlspecialchars($req->character->off_hand_icon, ENT_QUOTES);
+  }else{
+    $character_off_hand_icon = NULL;
+  }
 
 
   $tabCharacterInfo = [
@@ -357,7 +437,23 @@ function getCharacterInfo($req){
     "character_critical_strike" => $character_critical_strike,
     "character_haste" => $character_haste,
     "character_mastery" => $character_mastery,
-    "character_versatility" => $character_versatility
+    "character_versatility" => $character_versatility,
+    "character_head_icon" => $character_head_icon,
+    "character_neck_icon" => $character_neck_icon,
+    "character_shoulder_icon" => $character_shoulder_icon,
+    "character_chest_icon" => $character_chest_icon,
+    "character_waist_icon" => $character_waist_icon,
+    "character_legs_icon" => $character_legs_icon,
+    "character_feet_icon" => $character_feet_icon,
+    "character_wrist_icon" => $character_wrist_icon,
+    "character_hands_icon" => $character_hands_icon,
+    "character_finger1_icon" => $character_finger1_icon,
+    "character_finger2_icon" => $character_finger2_icon,
+    "character_trinket1_icon" => $character_trinket1_icon,
+    "character_trinket2_icon" => $character_trinket2_icon,
+    "character_back_icon" => $character_back_icon,
+    "character_main_hand_icon" => $character_main_hand_icon,
+    "character_off_hand_icon" => $character_off_hand_icon
   ];
   return $tabCharacterInfo;
 }
@@ -391,7 +487,7 @@ function retrieveCharactersInfo($req){
     "filter" => $filter,
     "order" => $order
   ];
-  
+
   return $tabFilterInfo;
 }
 

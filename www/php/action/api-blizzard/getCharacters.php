@@ -127,6 +127,7 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
 
     array_push($tabListCharactersFull, array(
       "character_id" => $character_infos['id'],
+      "user_id" => $character_infos['user_id'],
       "name" => $character_infos['name'],
       "race_id" => $character_infos['race_id'],
       "class_id" => $character_infos['class_id'],
