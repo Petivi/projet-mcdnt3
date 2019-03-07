@@ -152,6 +152,22 @@ export class Character {
     haste: number;
     mastery: number;
     versatility: number;
+    head_icon: string;
+    neck_icon: string;
+    shoulder_icon: string;
+    back_icon: string;
+    chest_icon: string;
+    wrist_icon: string;
+    hands_icon: string;
+    waist_icon: string;
+    legs_icon: string;
+    feet_icon: string;
+    finger1_icon: string;
+    finger2_icon: string;
+    trinket1_icon: string;
+    trinket2_icon: string;
+    main_hand_icon: string;
+    off_hand_icon: string;
 
     constructor(info: any) {
         for (let k in info) {

@@ -17,6 +17,7 @@ import * as globals from '../../assets/data/globals';
 })
 export class CreationPersonnageComponent implements OnInit {
     obsInit: Subscription;
+    iconUrl: string = globals.blizzardIconUrl;
     ttItemGauche: any[] = [
         { id: 1, class: 4, inventoryType: 1, imgUrl: 'assets/img/inventoryslot_head.jpg', item: null },
         { id: 2, class: 4, inventoryType: 2, imgUrl: 'assets/img/inventoryslot_neck.jpg', item: null },
@@ -222,6 +223,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     selectItem(item: Item) {
+        console.log(item)
         if (this.oldItem) {
             this.setStats(true);
         }
@@ -231,60 +233,76 @@ export class CreationPersonnageComponent implements OnInit {
             let itemD = this.ttItemDroit.find(itemDroit => itemDroit.id === this.selectedSlot);
             let itemG = this.ttItemGauche.find(itemGauche => itemGauche.id === this.selectedSlot);
             if (itemD) {
-                this.selectedItem.imgUrl = 'http://media.blizzard.com/wow/icons/56/' + this.selectedItem.icon + '.jpg';
+                this.selectedItem.imgUrl = globals.blizzardIconUrl + this.selectedItem.icon + '.jpg';
                 itemD.item = this.selectedItem;
             } else if (itemG) {
-                this.selectedItem.imgUrl = 'http://media.blizzard.com/wow/icons/56/' + this.selectedItem.icon + '.jpg';
+                this.selectedItem.imgUrl = globals.blizzardIconUrl + this.selectedItem.icon + '.jpg';
                 itemG.item = this.selectedItem;
             }
             switch (this.selectedItem.itemSlotId) {
                 case 1:
                     this.character.head_id = item.item_id;
+                    this.character.head_icon = item.icon;
                     break;
                 case 2:
                     this.character.neck_id = item.item_id;
+                    this.character.neck_icon = item.icon;
                     break;
                 case 3:
                     this.character.shoulder_id = item.item_id;
+                    this.character.shoulder_icon = item.icon;
                     break;
                 case 4:
                     this.character.back_id = item.item_id;
+                    this.character.back_icon = item.icon;
                     break;
                 case 5:
                     this.character.chest_id = item.item_id;
+                    this.character.chest_icon = item.icon;
                     break;
                 case 6:
                     this.character.wrist_id = item.item_id;
+                    this.character.wrist_icon = item.icon;
                     break;
                 case 7:
                     this.character.hands_id = item.item_id;
+                    this.character.hands_icon = item.icon;
                     break;
                 case 8:
                     this.character.waist_id = item.item_id;
+                    this.character.waist_icon = item.icon;
                     break;
                 case 9:
                     this.character.legs_id = item.item_id;
+                    this.character.legs_icon = item.icon;
                     break;
                 case 10:
                     this.character.feet_id = item.item_id;
+                    this.character.feet_icon = item.icon;
                     break;
                 case 11:
                     this.character.finger1_id = item.item_id;
+                    this.character.finger1_icon = item.icon;
                     break;
                 case 12:
                     this.character.finger2_id = item.item_id;
+                    this.character.finger2_icon = item.icon;
                     break;
                 case 13:
                     this.character.trinket1_id = item.item_id;
+                    this.character.trinket1_icon = item.icon;
                     break;
                 case 14:
                     this.character.trinket2_id = item.item_id;
+                    this.character.trinket2_icon = item.icon;
                     break;
                 case 15:
                     this.character.main_hand_id = item.item_id;
+                    this.character.main_hand_icon = item.icon;
                     break;
                 case 16:
                     this.character.off_hand_id = item.item_id;
+                    this.character.off_hand_icon = item.icon;
                     break;
             }
             this.setCharactereStats();

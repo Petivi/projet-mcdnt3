@@ -12,6 +12,7 @@ import * as globals from '../../assets/data/globals';
 })
 export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     @Input() words: Word[] = [];
+    iconUrl = globals.blizzardIconUrl;
     selectedItem: Item;
     displayItemDetailPerso: boolean = false;
     ttBonusStats: any[] = [];
@@ -55,11 +56,6 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         });
         let statId = globals.statsClass.find(sc => sc.class == this.character.class_id) ? globals.statsClass.find(sc => sc.class == this.character.class_id).stat_id : null;
         this.libelleAttack = statId ? this.ttBonusStats.find(bs => bs.id === statId).libelle : undefined;
-        for (let k in this.character) {
-            if (this.character[k].icon) {
-                this.character[k].icon = 'http://media.blizzard.com/wow/icons/56/' + this.character[k].icon + '.jpg';
-            }
-        }
         this.ttItemGauche.forEach(ig => {
             if (ig.id === 1 && this.character.head.id) {
                 ig.item = this.character.head;
@@ -86,7 +82,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
                 ig.item = this.character.waist;
             }
         });
-        this.ttItemGauche.forEach(id => {
+        this.ttItemDroit.forEach(id => {
             if (id.id === 9 && this.character.legs.id) {
                 id.item = this.character.legs;
             }

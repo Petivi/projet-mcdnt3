@@ -4,6 +4,7 @@
             <div class="card mb-2" *ngFor="let character of ttCharacter">
                 <div class="card-body">
                     <affichage-personnage-cpt [character]="character" [words]="words"></affichage-personnage-cpt>
+                    <commentaire-like-cpt [words]="words"></commentaire-like-cpt>
                 </div>
             </div>
         </div>

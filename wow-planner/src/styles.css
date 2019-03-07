@@ -24,8 +24,11 @@ body {
     border: none;
     cursor: pointer;
 }
-.control-label {
-    font-weight: 500;
+.icon-like:hover {
+    color: rgba(37, 41, 255, 0.884);
+}
+.icon-dislike:hover {
+    color: rgba(255, 0, 0, 0.781);
 }
 .window {
     display: flex;

@@ -1,4 +1,4 @@
-
+export const blizzardIconUrl =  'http://media.blizzard.com/wow/icons/56/';
 export const bonusStats: any = [
     {
         id: 0,
@@ -309,6 +309,11 @@ export const bonusStats: any = [
         id: 67,
         nameEn: 'Versatility',
         nameFr: 'Polyvalence'
+    },
+    {
+        id: 72,
+        nameEn: 'Agility or Strength',
+        nameFr: 'Agilité ou Force'
     },
     {
         id: 73,

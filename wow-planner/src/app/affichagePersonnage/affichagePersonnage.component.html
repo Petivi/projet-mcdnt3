@@ -16,7 +16,7 @@
                                                 <div class="image-item" (mouseenter)="showItemDetail(itemGauche)"
                                                     (mouseleave)="showItemDetail()">
                                                     <img [ngClass]="{ 'clickable': itemGauche.item }"
-                                                        [src]="itemGauche.item ? itemGauche.item.icon : itemGauche.imgUrl">
+                                                        [src]="itemGauche.item ? iconUrl + itemGauche.item.icon + '.jpg': itemGauche.imgUrl">
                                                 </div>
                                                 <div class="carac-item"
                                                     *ngIf="itemGauche.item && displayItemDetailPerso && itemGauche.item.itemSlotId === selectedItem.itemSlotId">
@@ -45,7 +45,7 @@
                                                 <div class="image-item" (mouseenter)="showItemDetail(itemDroit)"
                                                     (mouseleave)="showItemDetail()">
                                                     <img [ngClass]="{ 'clickable': itemDroit.item }"
-                                                        [src]="itemDroit.item ? itemDroit.item.icon : itemDroit.imgUrl">
+                                                        [src]="itemDroit.item ? iconUrl + itemDroit.item.icon + '.jpg': itemDroit.imgUrl">
                                                 </div>
                                                 <div class="carac-item"
                                                     *ngIf="itemDroit.item && displayItemDetailPerso && itemDroit.item.itemSlotId === selectedItem.itemSlotId">
@@ -72,6 +72,9 @@
         </div>
         <div class="col">
             <div class="card">
+                <div class="card-header">
+                    <h3>{{(words | filter : {msg_name: 'msg_stat'} : {col : 'value'})}}</h3>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -124,6 +127,18 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <button class="icon-button">
+                        <i class="fa fa-thumbs-up fa-2x icon-likeDislike icon-like"></i>
+                    </button>
+                    {{character.total_like}}
+                    <button class="icon-button">
+                        <i class="fa fa-thumbs-down fa-2x icon-likeDislike icon-dislike"></i>
+                    </button>
+                    {{character.total_dislike}}
                 </div>
             </div>
         </div>
