@@ -47,8 +47,16 @@ if($tabInfo['session_token']){ // if we have a session token
 
         if($like_info['statut'] == 1){ // like
           $column = "total_like";
+          $tabResponse = [
+            "increment" => NULL,
+            "decrement" => "like"
+          ];
         }elseif ($like_info['statut'] == 2) { // dislike
           $column = "total_dislike";
+          $tabResponse = [
+            "increment" => NULL,
+            "decrement" => "dislike"
+          ];
         }
 
         $update_character_info = "UPDATE characters_list
@@ -58,7 +66,8 @@ if($tabInfo['session_token']){ // if we have a session token
         $update_character_info->bindValue('id', $character_id, PDO::PARAM_INT);
         $update_character_info->execute();
 
-        echo returnResponse($display_response_empty);
+
+        echo returnResponse($tabResponse);
       }else { // changing the status
         $update_character_likes_info = "UPDATE characters_likes
         SET statut = :statut,
@@ -75,9 +84,17 @@ if($tabInfo['session_token']){ // if we have a session token
         if($newStatutLike == 1){ // like
           $column_increment = "total_like";
           $column_decrement = "total_dislike";
+          $tabResponse = [
+            "increment" => "like",
+            "decrement" => "dislike"
+          ];
         }elseif ($newStatutLike == 2) { // dislike
           $column_increment = "total_dislike";
           $column_decrement = "total_like";
+          $tabResponse = [
+            "increment" => "dislike",
+            "decrement" => "like"
+          ];
         }
 
         $update_character_info = "UPDATE characters_list
@@ -88,7 +105,7 @@ if($tabInfo['session_token']){ // if we have a session token
         $update_character_info->bindValue('id', $character_id, PDO::PARAM_INT);
         $update_character_info->execute();
 
-        echo returnResponse($display_response_empty);
+        echo returnResponse($tabResponse);
       } // end changing status
     } // end existing like
 
@@ -107,8 +124,16 @@ if($tabInfo['session_token']){ // if we have a session token
 
       if($newStatutLike == 1){ // like
         $column = "total_like";
+        $tabResponse = [
+          "increment" => "like",
+          "decrement" => NULL
+        ];
       }elseif ($newStatutLike == 2) { // dislike
         $column = "total_dislike";
+        $tabResponse = [
+          "increment" => "dislike",
+          "decrement" => NULL
+        ];
       }
 
       $update_character_info = "UPDATE characters_list
@@ -118,7 +143,7 @@ if($tabInfo['session_token']){ // if we have a session token
       $update_character_info->bindValue('id', $character_id, PDO::PARAM_INT);
       $update_character_info->execute();
 
-      echo returnResponse($display_response_empty);
+      echo returnResponse($tabResponse);
     } // end creation new character like / dislike
 
   }else {  // user doesn't exist or session_token does not match
