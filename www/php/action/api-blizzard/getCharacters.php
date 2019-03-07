@@ -169,7 +169,8 @@ if($tabInfo['data'] == "perso"){ // if data == perso, we display only users' cha
       "created_date" => date('d/m/Y H:i:s',$character_infos['created_date']),
       "last_modified" => date('d/m/Y H:i:s',$character_infos['last_modified']),
       "total_like" => $character_infos['total_like'],
-      "total_dislike" => $character_infos['total_dislike']
+      "total_dislike" => $character_infos['total_dislike'],
+      "statut_like" => $statut_like
     ));
   }
     echo returnResponse($tabListCharactersFull);
