@@ -46,8 +46,8 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
     $request_character_infos->execute();
     while($character_infos = $request_character_infos->fetch())
     {
-      $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon'];
-      $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon'];
+      $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon']];
+      $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon']];
       $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => $character_infos['shoulder_icon']];
       $chest_info = ["id" => $character_infos['chest_id'], "icon" => $character_infos['chest_icon']];
       $waist_info = ["id" => $character_infos['waist_id'], "icon" => $character_infos['waist_icon']];
@@ -94,6 +94,8 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
         "versatility" => $character_infos['versatility'],
         "created_date" => date('d/m/Y H:i:s',$character_infos['created_date']),
         "last_modified" => date('d/m/Y H:i:s',$character_infos['last_modified']),
+        "total_like" => $character_infos['total_like'],
+        "total_dislike" => $character_infos['total_dislike']
       ));
     }
     echo returnResponse($tabListCharacters);
@@ -108,8 +110,8 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
   $request_character_infos->execute();
   while($character_infos = $request_character_infos->fetch())
   {
-    $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon'];
-    $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon'];
+    $head_info = ["id" => $character_infos['head_id'], "icon" => $character_infos['head_icon']];
+    $neck_info = ["id" => $character_infos['neck_id'], "icon" => $character_infos['neck_icon']];
     $shoulder_info = ["id" => $character_infos['shoulder_id'], "icon" => $character_infos['shoulder_icon']];
     $chest_info = ["id" => $character_infos['chest_id'], "icon" => $character_infos['chest_icon']];
     $waist_info = ["id" => $character_infos['waist_id'], "icon" => $character_infos['waist_icon']];
@@ -157,6 +159,8 @@ if($tabInfo['session_token']){ // if there is a session_token, we display only u
       "versatility" => $character_infos['versatility'],
       "created_date" => date('d/m/Y H:i:s',$character_infos['created_date']),
       "last_modified" => date('d/m/Y H:i:s',$character_infos['last_modified']),
+      "total_like" => $character_infos['total_like'],
+      "total_dislike" => $character_infos['total_dislike']
     ));
   }
     echo returnResponse($tabListCharactersFull);
