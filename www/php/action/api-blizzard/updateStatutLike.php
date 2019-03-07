@@ -120,6 +120,9 @@ if($tabInfo['session_token']){ // if we have a session token
       $update_character_info = $base->prepare($update_character_info);
       $update_character_info->bindValue('id', $character_id, PDO::PARAM_INT);
       $update_character_info->execute();
+
+      echo returnResponse($display_response_empty);
+      exit();
     } // end creation new character like / dislike
 
   }else {  // user doesn't exist or session_token does not match
