@@ -5,6 +5,9 @@ include "../../includedFiles.php";
 
 $tabInfo = infoStatutLike($request);
 
+$tabInfo['session_token'] = "080219u7jcoXv7npBYFWwCWIEZ9bc1XVcFE0P7VevIkj-N1658";
+$tabInfo['character_id'] = 7;
+$tabInfo['statut'] = 1;
 
 if($tabInfo['session_token']){ // if we have a session token
   $newStatutLike = $tabInfo['statut'];
@@ -60,7 +63,6 @@ if($tabInfo['session_token']){ // if we have a session token
         $update_character_info->execute();
 
         echo returnResponse($display_response_empty);
-        exit();
       }else { // changing the status
         $update_character_likes_info = "UPDATE characters_likes
         SET statut = :statut,
@@ -91,7 +93,6 @@ if($tabInfo['session_token']){ // if we have a session token
         $update_character_info->execute();
 
         echo returnResponse($display_response_empty);
-        exit();
       } // end changing status
     } // end existing like
 
@@ -122,15 +123,16 @@ if($tabInfo['session_token']){ // if we have a session token
       $update_character_info->execute();
 
       echo returnResponse($display_response_empty);
-      exit();
     } // end creation new character like / dislike
 
   }else {  // user doesn't exist or session_token does not match
     echo returnError($display_error_empty);
+    exit();
   }
 
 }else { // no session token
   echo returnError($display_error_empty);
+  exit();
 }
 
  ?>
