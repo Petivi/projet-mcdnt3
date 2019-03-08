@@ -19,7 +19,7 @@ while($user_info = $request_user_info->fetch())
 if($tabInfo['character_id']){
 
   $tabListCharactersFull = array();
-  $request_character_infos = "SELECT * FROM characters_list WHERE id LIKE :character_id";
+  $request_character_infos = "SELECT * FROM characters_list WHERE id LIKE :character_id LIMIT 1";
   $request_character_infos = $base->prepare($request_character_infos);
   $request_character_infos->bindValue('character_id', $tabInfo['character_id']);
   $request_character_infos->execute();
@@ -85,6 +85,7 @@ if($tabInfo['character_id']){
     ));
   }
 
+  echo returnResponse($tabListCharactersFull);
 }else { // no character sent
   echo returnError($display_error_empty);
 }
