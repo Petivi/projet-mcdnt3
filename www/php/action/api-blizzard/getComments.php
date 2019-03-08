@@ -34,9 +34,9 @@ if($tabInfo['character_id']){
     }
     array_push($tabCharactersComment, array(
       "comment_id" => $comment_info['id'],
-      "user_pseudo" => Chiffrement::decrypt($comment_info['user_pseudo']),
+      "user_pseudo" => htmlspecialchars_decode(Chiffrement::decrypt($comment_info['user_pseudo']), ENT_QUOTES),
       "character_id" => $comment_info['character_id'],
-      "comment" => $comment_info['comment'],
+      "comment" => htmlspecialchars_decode($comment_info['comment'], ENT_QUOTES),
       "created_date" => date('d/m/Y H:i:s', $comment_info['created_date']),
       "last_modified" => date('d/m/Y H:i:s', $comment_info['last_modified']),
       "editable" => $editable
