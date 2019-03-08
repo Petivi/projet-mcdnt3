@@ -6,7 +6,6 @@ include "../../includedFiles.php";
 $tabInfo = commentManagement($request);
 
 if($tabInfo['session_token']){
-  $newStatutLike = $tabInfo['statut'];
   $character_id = $tabInfo['character_id'];
   $date_today = strtotime(date('d-m-Y H:i:s'));
   $user_exists = false;
@@ -56,8 +55,8 @@ if($tabInfo['session_token']){
       $update_character_comment->execute();
 
       $tabInfoComment = [
-        "comment" => $tabInfo['comment'],
-        "user_pseudo" => $account_pseudo,
+        "comment" => htmlspecialchars_decode($tabInfo['comment'], ENT_QUOTES),
+        "user_pseudo" => htmlspecialchars_decode($account_pseudo, ENT_QUOTES),
         "character_id" => $tabInfo['character_id'],
         "created_date" => date('d/m/Y H:i:s', $created_date),
         "last_modified" => date('d/m/Y H:i:s', $date_today),

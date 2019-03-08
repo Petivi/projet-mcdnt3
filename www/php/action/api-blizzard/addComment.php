@@ -39,12 +39,20 @@ if($tabInfo['session_token']){
       $request_add_new_comment->bindValue('last_modified', $date_today, PDO::PARAM_INT);
       $request_add_new_comment->execute();
 
-      $comment_id = $request_add_new_comment->lastInsertId();
+      $request_last_comment = "SELECT id FROM characters_comment WHERE id = LAST_INSERT_ID() AND user_id LIKE :user_id AND character_id LIKE :character_id";
+      $request_last_comment = $base->prepare($request_last_comment);
+      $request_last_comment->bindValue('user_id', $account_id, PDO::PARAM_INT);
+      $request_last_comment->bindValue('character_id', $tabInfo['character_id'], PDO::PARAM_INT);
+      $request_last_comment->execute();
+      while($last_comment = $request_last_comment->fetch())
+      {
+        $comment_id = $last_comment['id'];
+      }
 
       $tabInfoComment = [
-        "comment" => $tabInfo['comment'],
+        "comment" => htmlspecialchars_decode($tabInfo['comment'], ENT_QUOTES),
         "comment_id" => $comment_id,
-        "user_pseudo" => $account_pseudo,
+        "user_pseudo" => htmlspecialchars_decode($account_pseudo, ENT_QUOTES),
         "character_id" => $tabInfo['character_id'],
         "created_date" => date('d/m/Y H:i:s', $date_today),
         "last_modified" => date('d/m/Y H:i:s', $date_today),
