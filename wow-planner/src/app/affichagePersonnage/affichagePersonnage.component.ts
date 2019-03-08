@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { AppService } from '../app.service';
 
-import { Item, itemSlot, Word } from '../model/app.model';
+import { Item, ItemSlot, Word } from '../model/app.model';
 
 import * as globals from '../../assets/data/globals';
 
@@ -23,7 +23,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     displayItemDetailPerso: boolean = false;
     ttBonusStats: any[] = [];
     libelleAttack: string;
-    ttItemGauche: itemSlot[] = [
+    ttItemGauche: ItemSlot[] = [
         { id: 1, class: 4, inventoryType: 1, imgUrl: 'assets/img/inventoryslot_head.jpg', item: null },
         { id: 2, class: 4, inventoryType: 2, imgUrl: 'assets/img/inventoryslot_neck.jpg', item: null },
         { id: 3, class: 4, inventoryType: 3, imgUrl: 'assets/img/inventoryslot_shoulder.jpg', item: null },
@@ -35,7 +35,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         { id: 7, class: 4, inventoryType: 10, imgUrl: 'assets/img/inventoryslot_hands.jpg', item: null },
         { id: 8, class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_waist.jpg', item: null },
     ];
-    ttItemDroit: itemSlot[] = [
+    ttItemDroit: ItemSlot[] = [
         { id: 9, class: 4, inventoryType: 7, imgUrl: 'assets/img/inventoryslot_legs.jpg', item: null },
         { id: 10, class: 4, inventoryType: 8, imgUrl: 'assets/img/inventoryslot_feet.jpg', item: null },
         { id: 11, class: 4, inventoryType: 11, imgUrl: 'assets/img/inventoryslot_finger.jpg', item: null },
@@ -124,7 +124,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
 
     }
 
-    getItemInfo(itemSlot: itemSlot): Promise<itemSlot> {
+    getItemInfo(itemSlot: ItemSlot): Promise<ItemSlot> {
         return new Promise((resolve, reject) => {
             let oldIcon: string = itemSlot.item ? itemSlot.item.icon : '';
             if (itemSlot.item && !itemSlot.item.name) {
@@ -149,7 +149,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         });
     }
 
-    showItemDetail(itemSlot: itemSlot = null) {
+    showItemDetail(itemSlot: ItemSlot = null) {
         if (itemSlot && itemSlot.item) {
             this.getItemInfo(itemSlot).then(res => {
                 this.selectedItem = res.item;
