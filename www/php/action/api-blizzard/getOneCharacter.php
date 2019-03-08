@@ -89,4 +89,28 @@ if($tabInfo['character_id']){
   echo returnError($display_error_empty);
 }
 
+
+
+function getStatutLikeDislike($user_id, $character_id){
+  global $base;
+
+    $user_statut_exists = false;
+    $statut_like = NULL;
+    $request_characters_likes_infos = "SELECT * FROM characters_likes WHERE user_id LIKE :user_id AND character_id LIKE :character_id";
+    $request_characters_likes_infos = $base->prepare($request_characters_likes_infos);
+    $request_characters_likes_infos->bindValue('user_id', $user_id, PDO::PARAM_INT);
+    $request_characters_likes_infos->bindValue('character_id', $character_id, PDO::PARAM_INT);
+    $request_characters_likes_infos->execute();
+    while($characters_likes_infos = $request_characters_likes_infos->fetch())
+    {
+      $user_statut_exists = true;
+      if($characters_likes_infos['statut'] == 1){ // like
+        $statut_like = "like";
+      }elseif ($characters_likes_infos['statut'] == 2) { // dislike
+        $statut_like = "dislike";
+      }
+    }
+    return $statut_like;
+}
+
  ?>
