@@ -28,8 +28,8 @@ if($tabInfo['session_token']){
   if($user_exists){
     if($tabInfo['character_id']){
 
-      $request_add_new_comment = 'INSERT INTO characters_comment (user_id, character_id, comment, created_date, last_modified)
-      VALUES (:user_id, :character_id, :comment, :created_date, :last_modified)';
+      $request_add_new_comment = 'INSERT INTO characters_comment (user_id, user_pseudo, character_id, comment, created_date, last_modified)
+      VALUES (:user_id, :user_pseudo, :character_id, :comment, :created_date, :last_modified)';
       $request_add_new_comment = $base->prepare($request_add_new_comment);
       $request_add_new_comment->bindValue('user_id', $account_id, PDO::PARAM_INT);
       $request_add_new_comment->bindValue('user_pseudo', Chiffrement::crypt($account_pseudo), PDO::PARAM_STR);
