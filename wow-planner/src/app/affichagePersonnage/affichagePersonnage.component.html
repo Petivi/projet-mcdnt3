@@ -1,3 +1,20 @@
+<div class="row">
+    <div class="col-md-auto">
+        <a class="button-link" [routerLink]="[urlRetour]" *ngIf="detailPersonnage">
+            <button class="btn btn-dark">
+                {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+            </button>
+        </a>
+        <a class="button-link" [routerLink]="[urlRedirectionDetail, character.character_id]" *ngIf="!detailPersonnage">
+            <button class="btn btn-primary">
+                {{(words | filter : {msg_name: 'msg_voir'} : {col : 'value'})}}
+            </button>
+        </a>
+        <button class="btn btn-success" *ngIf="mesPersonnages">
+            {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
+        </button>
+    </div>
+</div>
 <div class="card-body">
     <div class="row text-center">
         <div class="col-md-8">

@@ -83,7 +83,6 @@ export class CreationPersonnageComponent implements OnInit {
 
     ngOnInit() {
         this.userConnected = localStorage.getItem('userConnected');
-       // console.log(this.userConnected)
         this.ttBonusStats = globals.bonusStats.map(bs => {
             if (this._appService.getLangue() === 'fr') {
                 return { id: bs.id, libelle: bs.nameFr }
@@ -91,7 +90,6 @@ export class CreationPersonnageComponent implements OnInit {
                 return { id: bs.id, libelle: bs.nameEn }
             }
         });
-        //console.log(this.ttBonusStats)
         this.obsInit = this._activatedRoute.data.subscribe(res => {
             this.words = res.resolver.words;
             this.ttClasseItem = res.resolver.classesItem ? res.resolver.classesItem : [];
@@ -223,7 +221,6 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     selectItem(item: Item) {
-        //console.log(item)
         if (this.oldItem) {
             this.setStats(true);
         }
@@ -408,7 +405,6 @@ export class CreationPersonnageComponent implements OnInit {
     saveCharac() {
         this._appService.post('action/api-blizzard/addNewCharacter.php',
             { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {
-                //TODO: rediriger vers la liste des personnages
                 if(res.response) {
                     this._router.navigate(['/accueil']);
                 }

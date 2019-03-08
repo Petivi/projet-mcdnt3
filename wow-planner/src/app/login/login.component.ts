@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                 res.forEach(w => {
                     this.words.push(w);
                 });
-                // console.log(this.words)
                 this.buildControl();
                 if (this._router.url === ('/login/confirm')) { // si l'utilisateur a cliqué sur le lien pour activer son compte
                     Swal({
@@ -205,7 +204,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this._appService.post('action/resetPassword.php', { token_temp: this.token, password: this.newPassword })
                     .then(res => {
                         this.valid = true;
-                        // console.log(res)
                         if (res.error) {
                             this.valid = false;
                             this.errors.push(this.words.find(w => w.msg_name === 'msg_linkExpired').value);

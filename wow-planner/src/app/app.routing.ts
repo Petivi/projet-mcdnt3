@@ -14,7 +14,8 @@ import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.compone
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
 import { ListePersonnageComponent } from './listePersonnage/listePersonnage.component';
 
-import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver } from './app.resolver';
+import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver, DetailPersonnageResolver } from './app.resolver';
+import { DetailPersonnageComponent } from './detailPersonnage/detailPersonnage.component';
 
 export const appRouting = RouterModule.forRoot([
     {
@@ -46,6 +47,34 @@ export const appRouting = RouterModule.forRoot([
         ]
     },
     {
+        path: 'contact',
+        component: ContactComponent,
+        resolve: {
+            resolver: ContactResolver
+        }
+    },
+    {
+        path: 'creationPersonnage',
+        component: CreationPersonnageComponent,
+        resolve: {
+            resolver: CreationPersonnageResolver
+        }
+    },
+    {
+        path: 'accueil/detailPersonnage/:id',
+        component: DetailPersonnageComponent,
+        resolve: {
+            resolver: DetailPersonnageResolver
+        }
+    },
+    {
+        path: 'listePersonnage/detailPersonnage/:id',
+        component: DetailPersonnageComponent,
+        resolve: {
+            resolver: DetailPersonnageResolver
+        }
+    },
+    {
         path: 'inscription',
         component: InscriptionComponent
     },
@@ -54,15 +83,15 @@ export const appRouting = RouterModule.forRoot([
         component: InfoUtilisateurComponent
     },
     {
+        path: 'item',
+        component: ItemComponent
+    },
+    {
         path: 'listePersonnage',
         component: ListePersonnageComponent,
         resolve: {
             resolver: ListePersonnageResolver
         }
-    },
-    {
-        path: 'item',
-        component: ItemComponent
     },
     {
         path: 'login',
@@ -77,21 +106,7 @@ export const appRouting = RouterModule.forRoot([
         component: LoginComponent
     },
     {
-        path: 'creationPersonnage',
-        component: CreationPersonnageComponent,
-        resolve: {
-            resolver: CreationPersonnageResolver
-        }
-    },
-    {
         path: 'recherche',
         component: RechercheComponent
-    },
-    {
-        path: 'contact',
-        component: ContactComponent,
-        resolve: {
-            resolver: ContactResolver
-        }
     },
 ])

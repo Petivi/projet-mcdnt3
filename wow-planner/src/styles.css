@@ -2,6 +2,9 @@
 body {
     margin-bottom: 5% !important;
 }
+a.button-link:hover {
+    text-decoration: none;
+}
 .pager {
     font-size: 1.2rem;
 }
@@ -68,6 +71,7 @@ body {
 }
 .link:hover{
     cursor: pointer;
+    text-decoration: underline !important; 
 }
 .success {
     color: #155724;
@@ -101,6 +105,14 @@ table.highlight tbody tr:hover{
     background-color: rgba(181, 181, 181, 0.5);
 }
 /* FIN GENERAL */
+/* FONT */
+.txtSmall {
+    font-size: 0.8rem;
+}
+.txtLarge {
+    font-size: 1.2rem;
+}
+/* FIN FONT */
 /* MENU */
 .menu{
     background-color: #dfdfdf;

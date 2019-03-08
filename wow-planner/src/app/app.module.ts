@@ -23,9 +23,10 @@ import { GestionCompteComponent } from './admin/gestionCompte/gestionCompte.comp
 import { ContactComponent } from './contact/contact.component';
 import { ListeRequeteComponent } from './admin/listeRequete/listeRequete.component';
 import { GestionLogComponent } from './admin/gestionLog/gestionLog.component';
-import { CommentaireLikeComponent } from './commentaireLike/commentaireLike.component';
+import { CommentaireComponent } from './commentaire/commentaire.component';
+import { DetailPersonnageComponent } from './detailPersonnage/detailPersonnage.component';
 
-import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver } from './app.resolver';
+import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver, DetailPersonnageResolver } from './app.resolver';
 
 
 import { AppService } from './app.service';
@@ -56,7 +57,8 @@ import { FilterPipe } from './common/pipe/string.pipe';
         ListeRequeteComponent,
         GestionLogComponent,
         AffichagePersonnageComponent,
-        CommentaireLikeComponent,
+        CommentaireComponent,
+        DetailPersonnageComponent,
     ],
     imports: [
         BrowserModule,
@@ -71,7 +73,12 @@ import { FilterPipe } from './common/pipe/string.pipe';
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
         AppService,
-        CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver
+        CreationPersonnageResolver,
+        GestionCompteResolver,
+        ContactResolver,
+        ListePersonnageResolver,
+        AccueilResolver,
+        DetailPersonnageResolver,
     ],
     bootstrap: [AppComponent]
 })

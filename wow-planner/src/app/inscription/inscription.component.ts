@@ -106,7 +106,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
                 this.errors.push(this.words.find(w => w.msg_name === 'msg_errorCfPassword').value);
             }
         }
-        // console.log(this.errors)
     }
 
     enter(e: KeyboardEvent) {

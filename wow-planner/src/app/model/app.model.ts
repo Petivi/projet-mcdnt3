@@ -178,12 +178,36 @@ export class Character {
     }
 }
 
-export class itemSlot {
+export class Commentaire {
+    comment_id: number;
+    user_pseudo: string;
+    character_id: number;
+    comment: string;
+    created_date: Date;
+    last_modified: Date;
+    editable: boolean;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
+}
+
+export class ItemSlot {
     id: number;
     class: number;
     inventoryType: number;
     imgUrl: string;
     item: Item;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }
 
 export class Item {
@@ -241,4 +265,11 @@ export class Item {
     upgradable: boolean;
     imgUrl: string;
     displayDetail: boolean;
+    constructor(info: any) {
+        for (let k in info) {
+            if (info.hasOwnProperty(k)) {
+                this[k] = info[k];
+            }
+        }
+    }
 }

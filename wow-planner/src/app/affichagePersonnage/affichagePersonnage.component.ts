@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AppService } from '../app.service';
 
@@ -12,7 +13,12 @@ import * as globals from '../../assets/data/globals';
 })
 export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     @Input() words: Word[] = [];
+    @Input() mesPersonnages: boolean;
+    @Input() detailPersonnage: boolean;
+    
     iconUrl = globals.blizzardIconUrl;
+    urlRedirectionDetail: string = 'accueil/detailPersonnage';
+    urlRetour: string = 'accueil';
     selectedItem: Item;
     displayItemDetailPerso: boolean = false;
     ttBonusStats: any[] = [];
@@ -42,11 +48,12 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
 
     @Input() character: any;
 
-    constructor(private _appService: AppService) { }
+    constructor(private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
-        //console.log(this.words)
-        //console.log(this.character)
+        this.urlRetour = '/' + this._router.url.split('/')[1];
+        this.urlRedirectionDetail = this._router.url === '/accueil' ? '/accueil' : '/listePersonnage';
+        this.urlRedirectionDetail += '/detailPersonnage';
         this.ttBonusStats = globals.bonusStats.map(bs => {
             if (this._appService.getLangue() === 'fr') {
                 return { id: bs.id, libelle: bs.nameFr }
@@ -109,7 +116,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
             }
         });
         /* this._appService.getBlizzard('character/hyjal/Mananga', [{ key: 'fields', value: 'items' }]).then(res => {
-            // console.log(res);
+            
         }); */
     }
 
@@ -145,7 +152,6 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     showItemDetail(itemSlot: itemSlot = null) {
         if (itemSlot && itemSlot.item) {
             this.getItemInfo(itemSlot).then(res => {
-                //console.log(res)
                 this.selectedItem = res.item;
                 this.selectedItem.itemSlotId = itemSlot.id;
                 this.displayItemDetailPerso = true;
