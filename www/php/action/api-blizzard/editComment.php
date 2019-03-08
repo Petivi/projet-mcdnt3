@@ -6,7 +6,6 @@ include "../../includedFiles.php";
 $tabInfo = commentManagement($request);
 
 if($tabInfo['session_token']){
-  $character_id = $tabInfo['character_id'];
   $date_today = strtotime(date('d-m-Y H:i:s'));
   $user_exists = false;
   $request_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token';
