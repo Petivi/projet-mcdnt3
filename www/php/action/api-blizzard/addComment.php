@@ -39,7 +39,16 @@ if($tabInfo['session_token']){
       $request_add_new_comment->bindValue('last_modified', $date_today, PDO::PARAM_INT);
       $request_add_new_comment->execute();
 
-      echo returnResponse($display_response_empty);
+      $tabInfoComment = [
+        "comment" => $tabInfo['comment'],
+        "user_pseudo" => $account_pseudo,
+        "character_id" => $tabInfo['character_id'],
+        "created_date" => $date_today,
+        "last_modified" => $date_today,
+        "editable" => true
+      ];
+
+      echo returnResponse($tabInfoComment);
     }else {
       echo returnError($display_error_error_occured);
     }
