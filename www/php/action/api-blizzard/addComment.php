@@ -43,8 +43,8 @@ if($tabInfo['session_token']){
         "comment" => $tabInfo['comment'],
         "user_pseudo" => $account_pseudo,
         "character_id" => $tabInfo['character_id'],
-        "created_date" => $date_today,
-        "last_modified" => $date_today,
+        "created_date" => date('d/m/Y H:i:s', $date_today),
+        "last_modified" => date('d/m/Y H:i:s', $date_today),
         "editable" => true
       ];
 
