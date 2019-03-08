@@ -39,6 +39,7 @@ if($tabInfo['session_token']){
     while($character_comment = $request_character_comment->fetch())
     {
       $comment_exists = true;
+      $created_date = $character_comment['created_date'];
     }
 
     if($comment_exists){ // if comment exists, then we update the comment
@@ -54,7 +55,16 @@ if($tabInfo['session_token']){
       $update_character_comment->bindValue('last_modified', $date_today, PDO::PARAM_INT);
       $update_character_comment->execute();
 
-      echo returnResponse($display_response_empty);
+      $tabInfoComment = [
+        "comment" => $tabInfo['comment'],
+        "user_pseudo" => $account_pseudo,
+        "character_id" => $tabInfo['character_id'],
+        "created_date" => $created_date,
+        "last_modified" => $date_today,
+        "editable" => true
+      ];
+
+      echo returnResponse($tabInfoComment);
     }else {  // comment doesn't exists
       echo returnError($display_error_error_occured);
     }
