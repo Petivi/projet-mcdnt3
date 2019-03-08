@@ -525,4 +525,59 @@ function infoStatutLike($req){
   return $tabInfoStatutLike;
 }
 
+
+function commentManagement($req){
+
+  if(isset($req->session_token)){
+    $session_token = htmlspecialchars($req->session_token, ENT_QUOTES);
+  }else{
+    $session_token = NULL;
+  }
+  if(isset($req->character_id)){
+    $character_id = htmlspecialchars($req->character_id, ENT_QUOTES);
+  }else{
+    $character_id = NULL;
+  }
+  if(isset($req->comment)){
+    $comment = htmlspecialchars($req->comment, ENT_QUOTES);
+  }else{
+    $comment = NULL;
+  }
+  if(isset($req->comment_id)){
+    $comment_id = htmlspecialchars($req->comment_id, ENT_QUOTES);
+  }else{
+    $comment_id = NULL;
+  }
+
+  $tabCommentManagement = [
+    "session_token" => $session_token,
+    "character_id" => intval($character_id),
+    "comment" => $comment,
+    "comment_id" => intval($comment_id)
+  ];
+
+  return $tabCommentManagement;
+}
+
+
+function getOneCharacter($req){
+  if(isset($req->session_token)){
+    $session_token = htmlspecialchars($req->session_token, ENT_QUOTES);
+  }else{
+    $session_token = NULL;
+  }
+  if(isset($req->character_id)){
+    $character_id = htmlspecialchars($req->character_id, ENT_QUOTES);
+  }else{
+    $character_id = NULL;
+  }
+
+  $tabOneCharacter = [
+    "session_token" => $session_token,
+    "character_id" => intval($character_id)
+  ];
+
+  return $tabOneCharacter;
+}
+
  ?>
