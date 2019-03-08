@@ -32,9 +32,20 @@ if($tabInfo['character_id']){
     }else {
       $editable = false;
     }
+
+    $request_user_pseudo = 'SELECT * FROM users WHERE id LIKE :user_id';
+    $request_user_pseudo = $base->prepare($request_user_pseudo);
+    $request_user_pseudo->bindValue('user_id', $comment_info['user_id'], PDO::PARAM_STR);
+    $request_user_pseudo->execute();
+    while($get_user_pseudo = $request_user_pseudo->fetch())
+    {
+      // get his informations
+      $user_pseudo = Chiffrement::decrypt($get_user_pseudo['pseudo']);
+    }
+
     array_push($tabCharactersComment, array(
       "comment_id" => $comment_info['id'],
-      "user_pseudo" => htmlspecialchars_decode(Chiffrement::decrypt($comment_info['user_pseudo']), ENT_QUOTES),
+      "user_pseudo" => htmlspecialchars_decode($user_pseudo, ENT_QUOTES),
       "character_id" => $comment_info['character_id'],
       "comment" => htmlspecialchars_decode($comment_info['comment'], ENT_QUOTES),
       "created_date" => date('d/m/Y H:i:s', $comment_info['created_date']),
