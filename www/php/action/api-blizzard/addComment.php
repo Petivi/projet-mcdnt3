@@ -39,8 +39,11 @@ if($tabInfo['session_token']){
       $request_add_new_comment->bindValue('last_modified', $date_today, PDO::PARAM_INT);
       $request_add_new_comment->execute();
 
+      $comment_id = $request_add_new_comment->lastInsertId();
+
       $tabInfoComment = [
         "comment" => $tabInfo['comment'],
+        "comment_id" => $comment_id,
         "user_pseudo" => $account_pseudo,
         "character_id" => $tabInfo['character_id'],
         "created_date" => date('d/m/Y H:i:s', $date_today),

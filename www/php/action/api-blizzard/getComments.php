@@ -21,7 +21,7 @@ if($tabInfo['session_token']){
 if($tabInfo['character_id']){
 
   $tabCharactersComment = array();
-  $request_characters_comment = 'SELECT * FROM characters_comment WHERE character_id LIKE :character_id AND comment_statut LIKE 1';
+  $request_characters_comment = 'SELECT * FROM characters_comment WHERE character_id LIKE :character_id AND comment_statut LIKE 1 ORDER BY created_date DESC';
   $request_characters_comment = $base->prepare($request_characters_comment);
   $request_characters_comment->bindValue('character_id', $tabInfo['character_id'], PDO::PARAM_INT);
   $request_characters_comment->execute();
