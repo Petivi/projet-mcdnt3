@@ -118,17 +118,17 @@ export const bonusStats: any = [
     {
         id: 28,
         nameEn: 'Haste (Melee)',
-        nameFr: 'Vitesse (Melle)'
+        nameFr: 'Hâte (Melle)'
     },
     {
         id: 29,
         nameEn: 'Haste (Ranged)',
-        nameFr: 'Vitesse (Distance)'
+        nameFr: 'Hâte (Distance)'
     },
     {
         id: 30,
         nameEn: 'Haste (Spell)',
-        nameFr: 'Vitesse (Sort)'
+        nameFr: 'Hâte (Sort)'
     },
     {
         id: 31,
@@ -158,7 +158,7 @@ export const bonusStats: any = [
     {
         id: 36,
         nameEn: 'Haste',
-        nameFr: 'Vitesse'
+        nameFr: 'Hâte'
     },
     {
         id: 37,

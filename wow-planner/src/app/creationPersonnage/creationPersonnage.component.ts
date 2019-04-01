@@ -82,6 +82,13 @@ export class CreationPersonnageComponent implements OnInit {
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute, private _router: Router) { }
 
     ngOnInit() {
+        let ttPath = window.location.href.split('/');
+        let lastPath = ttPath[ttPath.length - 1];
+        if (lastPath !== 'creationPersonnage') {
+            this._appService.post('action/api-blizzard/getOneCharacter.php', { session_token: this._appService.getToken(), character_id: lastPath }).then(res => {
+                this.character = res[0]; //TODO: faire en sorte que le charactère créé soit le mmême que celui renvoyé par ce fichier php 
+            });
+        }
         this.userConnected = localStorage.getItem('userConnected');
         this.ttBonusStats = globals.bonusStats.map(bs => {
             if (this._appService.getLangue() === 'fr') {
@@ -405,7 +412,7 @@ export class CreationPersonnageComponent implements OnInit {
     saveCharac() {
         this._appService.post('action/api-blizzard/addNewCharacter.php',
             { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {
-                if(res.response) {
+                if (res.response) {
                     this._router.navigate(['/accueil']);
                 }
             });

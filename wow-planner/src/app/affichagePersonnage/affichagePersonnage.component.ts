@@ -19,6 +19,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     iconUrl = globals.blizzardIconUrl;
     urlRedirectionDetail: string = 'accueil/detailPersonnage';
     urlRetour: string = 'accueil';
+    urlEdit: string = '/creationPersonnage';
     selectedItem: Item;
     displayItemDetailPerso: boolean = false;
     ttBonusStats: any[] = [];

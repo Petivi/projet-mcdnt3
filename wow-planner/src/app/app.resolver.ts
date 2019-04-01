@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'underscore';
 import { AppService } from './app.service';

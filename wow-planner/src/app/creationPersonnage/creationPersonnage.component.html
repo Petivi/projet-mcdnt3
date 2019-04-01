@@ -272,21 +272,6 @@
                         title="{{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}">
                     </kendo-grid-column>
                 </kendo-grid>
-                <!-- <div class="itemGeneral" *ngFor="let item of ttItem">
-                    <div (mouseleave)="(item.affichage = 0)" (mouseenter)="getItemInfo(item)">
-                        <div style="display: inline">
-                            <img src="{{iconUrl + item.item_icon + '.jpg'}}">
-                        </div>
-                        <i class="fa fa-angle-right itemIcon" *ngIf="item.affichage === 0"></i>
-                        <div class="itemDetail" *ngIf="item.affichage === 1">
-                            <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{item.name}}</div>
-                            <div>armor : {{item.armor ? item.armor : ''}}</div>
-                            <div *ngFor="let bonus of item.bonusStats">
-                                {{bonus.statLibelle + ' : ' + bonus.amount}}
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="detail-content" *ngIf="displayItemDetailListe && selectedItem">
                     <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{selectedItem.name}}</div>
                     <div *ngIf="selectedItem.armor">armor : {{selectedItem.armor}}</div>

@@ -10,7 +10,7 @@
                 {{(words | filter : {msg_name: 'msg_voir'} : {col : 'value'})}}
             </button>
         </a>
-        <button class="btn btn-success" *ngIf="mesPersonnages">
+        <button class="btn btn-success" [routerLink]="[urlEdit, character.character_id]" *ngIf="mesPersonnages">
             {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
         </button>
     </div>
