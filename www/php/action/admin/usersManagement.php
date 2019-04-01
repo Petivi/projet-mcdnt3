@@ -13,7 +13,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
   if($admin_id){
 
     $tabUserList = array();
-    $request_user_list = 'SELECT * FROM users WHERE id NOT LIKE :account_id ORDER BY id DESC';
+    $request_user_list = 'SELECT * FROM users WHERE id NOT LIKE :account_id AND is_admin LIKE 0 ORDER BY id DESC';
     $request_user_list = $base->prepare($request_user_list);
     $request_user_list->bindValue('account_id', $admin_id, PDO::PARAM_INT);
     $request_user_list->execute();
