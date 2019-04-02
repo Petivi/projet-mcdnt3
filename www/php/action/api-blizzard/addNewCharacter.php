@@ -31,7 +31,6 @@ if(isset($tabInfo['session_token'])){
     }else {
       $character_name = $tabInfo['character_name'];
     }
-    var_dump($tabInfo['character_head_id']);
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
     $insert_new_character = 'INSERT INTO characters_list (user_id, name, race_id, class_id, head_id, neck_id, shoulder_id, chest_id, waist_id, legs_id, feet_id, wrist_id, hands_id, finger1_id, finger2_id, trinket1_id, trinket2_id, back_id, main_hand_id, off_hand_id, attack, armour, stamina, health, critical_strike, haste, mastery, versatility,
