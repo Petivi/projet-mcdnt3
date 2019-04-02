@@ -209,83 +209,115 @@ function getCharacterInfo($req){
   }
   if(isset($req->character->head)){
     $character_head_id = htmlspecialchars($req->character->head->id, ENT_QUOTES);
+    $character_head_icon = htmlspecialchars($req->character->head->icon, ENT_QUOTES);
   }else{
     $character_head_id = NULL;
+    $character_head_icon = NULL;
   }
   if(isset($req->character->neck)){
     $character_neck_id = htmlspecialchars($req->character->neck->id, ENT_QUOTES);
+    $character_neck_icon = htmlspecialchars($req->character->neck->icon, ENT_QUOTES);
   }else{
     $character_neck_id = NULL;
+    $character_neck_icon = NULL;
   }
   if(isset($req->character->shoulder)){
     $character_shoulder_id = htmlspecialchars($req->character->shoulder->id, ENT_QUOTES);
+    $character_shoulder_icon = htmlspecialchars($req->character->shoulder->icon, ENT_QUOTES);
   }else{
     $character_shoulder_id = NULL;
+    $character_shoulder_icon = NULL;
   }
   if(isset($req->character->chest)){
     $character_chest_id = htmlspecialchars($req->character->chest->id, ENT_QUOTES);
+    $character_chest_icon = htmlspecialchars($req->character->chest->icon, ENT_QUOTES);
   }else{
     $character_chest_id = NULL;
+    $character_chest_icon = NULL;
   }
   if(isset($req->character->waist)){
     $character_waist_id = htmlspecialchars($req->character->waist->id, ENT_QUOTES);
+    $character_waist_icon = htmlspecialchars($req->character->waist->icon, ENT_QUOTES);
   }else{
     $character_waist_id = NULL;
+    $character_waist_icon = NULL;
   }
   if(isset($req->character->legs)){
     $character_legs_id = htmlspecialchars($req->character->legs->id, ENT_QUOTES);
+    $character_legs_icon = htmlspecialchars($req->character->legs->icon, ENT_QUOTES);
   }else{
     $character_legs_id = NULL;
+    $character_legs_icon = NULL;
   }
   if(isset($req->character->feet)){
     $character_feet_id = htmlspecialchars($req->character->feet->id, ENT_QUOTES);
+    $character_feet_icon = htmlspecialchars($req->character->feet->icon, ENT_QUOTES);
   }else{
     $character_feet_id = NULL;
+    $character_feet_icon = NULL;
   }
   if(isset($req->character->wrist)){
     $character_wrist_id = htmlspecialchars($req->character->wrist->id, ENT_QUOTES);
+    $character_wrist_icon = htmlspecialchars($req->character->wrist->icon, ENT_QUOTES);
   }else{
     $character_wrist_id = NULL;
+    $character_wrist_icon = NULL;
   }
   if(isset($req->character->hands)){
     $character_hands_id = htmlspecialchars($req->character->hands->id, ENT_QUOTES);
+    $character_hands_icon = htmlspecialchars($req->character->hands->icon, ENT_QUOTES);
   }else{
     $character_hands_id = NULL;
+    $character_hands_icon = NULL;
   }
   if(isset($req->character->finger1)){
     $character_finger1_id = htmlspecialchars($req->character->finger1->id, ENT_QUOTES);
+    $character_finger1_icon = htmlspecialchars($req->character->finger1->icon, ENT_QUOTES);
   }else{
     $character_finger1_id = NULL;
+    $character_finger1_icon = NULL;
   }
   if(isset($req->character->finger2)){
     $character_finger2_id = htmlspecialchars($req->character->finger2->id, ENT_QUOTES);
+    $character_finger2_icon = htmlspecialchars($req->character->finger2->icon, ENT_QUOTES);
   }else{
     $character_finger2_id = NULL;
+    $character_finger2_icon = NULL;
   }
   if(isset($req->character->trinket1)){
     $character_trinket1_id = htmlspecialchars($req->character->trinket1->id, ENT_QUOTES);
+    $character_trinket1_icon = htmlspecialchars($req->character->trinket1->icon, ENT_QUOTES);
   }else{
     $character_trinket1_id = NULL;
+    $character_trinket1_icon = NULL;
   }
   if(isset($req->character->trinket2)){
     $character_trinket2_id = htmlspecialchars($req->character->trinket2->id, ENT_QUOTES);
+    $character_trinket2_icon = htmlspecialchars($req->character->trinket2->icon, ENT_QUOTES);
   }else{
     $character_trinket2_id = NULL;
+    $character_trinket2_icon = NULL;
   }
   if(isset($req->character->back)){
     $character_back_id = htmlspecialchars($req->character->back->id, ENT_QUOTES);
+    $character_back_icon = htmlspecialchars($req->character->back->icon, ENT_QUOTES);
   }else{
     $character_back_id = NULL;
+    $character_back_icon = NULL;
   }
   if(isset($req->character->main_hand)){
     $character_main_hand_id = htmlspecialchars($req->character->main_hand->id, ENT_QUOTES);
+    $character_main_hand_icon = htmlspecialchars($req->character->main_hand->icon, ENT_QUOTES);
   }else{
     $character_main_hand_id = NULL;
+    $character_main_hand_icon = NULL;
   }
   if(isset($req->character->off_hand)){
     $character_off_hand_id = htmlspecialchars($req->character->off_hand->id, ENT_QUOTES);
+    $character_off_hand_icon = htmlspecialchars($req->character->off_hand->icon, ENT_QUOTES);
   }else{
     $character_off_hand_id = NULL;
+    $character_off_hand_icon = NULL;
   }
   if(isset($req->character->attack)){
     $character_attack = htmlspecialchars($req->character->attack, ENT_QUOTES);
@@ -327,86 +359,6 @@ function getCharacterInfo($req){
   }else{
     $character_versatility = NULL;
   }
-  if(isset($req->character->head_icon)){
-    $character_head_icon = htmlspecialchars($req->character->head_icon, ENT_QUOTES);
-  }else{
-    $character_head_icon = NULL;
-  }
-  if(isset($req->character->neck_icon)){
-    $character_neck_icon = htmlspecialchars($req->character->neck_icon, ENT_QUOTES);
-  }else{
-    $character_neck_icon = NULL;
-  }
-  if(isset($req->character->shoulder_icon)){
-    $character_shoulder_icon = htmlspecialchars($req->character->shoulder_icon, ENT_QUOTES);
-  }else{
-    $character_shoulder_icon = NULL;
-  }
-  if(isset($req->character->chest_icon)){
-    $character_chest_icon = htmlspecialchars($req->character->chest_icon, ENT_QUOTES);
-  }else{
-    $character_chest_icon = NULL;
-  }
-  if(isset($req->character->waist_icon)){
-    $character_waist_icon = htmlspecialchars($req->character->waist_icon, ENT_QUOTES);
-  }else{
-    $character_waist_icon = NULL;
-  }
-  if(isset($req->character->legs_icon)){
-    $character_legs_icon = htmlspecialchars($req->character->legs_icon, ENT_QUOTES);
-  }else{
-    $character_legs_icon = NULL;
-  }
-  if(isset($req->character->feet_icon)){
-    $character_feet_icon = htmlspecialchars($req->character->feet_icon, ENT_QUOTES);
-  }else{
-    $character_feet_icon = NULL;
-  }
-  if(isset($req->character->wrist_icon)){
-    $character_wrist_icon = htmlspecialchars($req->character->wrist_icon, ENT_QUOTES);
-  }else{
-    $character_wrist_icon = NULL;
-  }
-  if(isset($req->character->hands_icon)){
-    $character_hands_icon = htmlspecialchars($req->character->hands_icon, ENT_QUOTES);
-  }else{
-    $character_hands_icon = NULL;
-  }
-  if(isset($req->character->finger1_icon)){
-    $character_finger1_icon = htmlspecialchars($req->character->finger1_icon, ENT_QUOTES);
-  }else{
-    $character_finger1_icon = NULL;
-  }
-  if(isset($req->character->finger2_icon)){
-    $character_finger2_icon = htmlspecialchars($req->character->finger2_icon, ENT_QUOTES);
-  }else{
-    $character_finger2_icon = NULL;
-  }
-  if(isset($req->character->trinket1_icon)){
-    $character_trinket1_icon = htmlspecialchars($req->character->trinket1_icon, ENT_QUOTES);
-  }else{
-    $character_trinket1_icon = NULL;
-  }
-  if(isset($req->character->trinket2_icon)){
-    $character_trinket2_icon = htmlspecialchars($req->character->trinket2_icon, ENT_QUOTES);
-  }else{
-    $character_trinket2_icon = NULL;
-  }
-  if(isset($req->character->back_icon)){
-    $character_back_icon = htmlspecialchars($req->character->back_icon, ENT_QUOTES);
-  }else{
-    $character_back_icon = NULL;
-  }
-  if(isset($req->character->main_hand_icon)){
-    $character_main_hand_icon = htmlspecialchars($req->character->main_hand_icon, ENT_QUOTES);
-  }else{
-    $character_main_hand_icon = NULL;
-  }
-  if(isset($req->character->off_hand_icon)){
-    $character_off_hand_icon = htmlspecialchars($req->character->off_hand_icon, ENT_QUOTES);
-  }else{
-    $character_off_hand_icon = NULL;
-  }
 
 
   $tabCharacterInfo = [
@@ -414,22 +366,22 @@ function getCharacterInfo($req){
     "character_name" => $character_name,
     "character_race_id" => $character_race_id,
     "character_class_id" => $character_class_id,
-    "character_head_id" => $character_head_id,
-    "character_neck_id" => $character_neck_id,
-    "character_shoulder_id" => $character_shoulder_id,
-    "character_chest_id" => $character_chest_id,
-    "character_waist_id" => $character_waist_id,
-    "character_legs_id" => $character_legs_id,
-    "character_feet_id" => $character_feet_id,
-    "character_wrist_id" => $character_wrist_id,
-    "character_hands_id" => $character_hands_id,
-    "character_finger1_id" => $character_finger1_id,
-    "character_finger2_id" => $character_finger2_id,
-    "character_trinket1_id" => $character_trinket1_id,
-    "character_trinket2_id" => $character_trinket2_id,
-    "character_back_id" => $character_back_id,
-    "character_main_hand_id" => $character_main_hand_id,
-    "character_off_hand_id" => $character_off_hand_id,
+    "character_head" => ['id' => $character_head_id, 'icon' => $character_head_icon],
+    "character_neck" => ['id' => $character_neck_id, 'icon' => $character_neck_icon],
+    "character_shoulder" => ['id' => $character_shoulder_id, 'icon' => $character_shoulder_icon],
+    "character_chest" => ['id' => $character_chest_id, 'icon' => $character_chest_icon],
+    "character_waist" => ['id' => $character_waist_id, 'icon' => $character_waist_icon],
+    "character_legs" => ['id' => $character_legs_id, 'icon' => $character_legs_icon],
+    "character_feet" => ['id' => $character_feet_id, 'icon' => $character_feet_icon],
+    "character_wrist" => ['id' => $character_wrist_id, 'icon' => $character_wrist_icon],
+    "character_hands" => ['id' => $character_hands_id, 'icon' => $character_hands_icon],
+    "character_finger1" => ['id' => $character_finger1_id, 'icon' => $character_finger1_icon],
+    "character_finger2" => ['id' => $character_finger2_id, 'icon' => $character_finger2_icon],
+    "character_trinket1" => ['id' => $character_trinket1_id, 'icon' => $character_trinket1_icon],
+    "character_trinket2" => ['id' => $character_trinket2_id, 'icon' => $character_trinket2_icon],
+    "character_back" => ['id' => $character_back_id, 'icon' => $character_back_icon],
+    "character_main_hand" => ['id' => $character_main_hand_id, 'icon' => $character_main_hand_icon],
+    "character_off_hand" => ['id' => $character_off_hand_id, 'icon' => $character_off_hand_icon],
     "character_attack" => $character_attack,
     "character_armour" => $character_armour,
     "character_stamina" => $character_stamina,
@@ -437,23 +389,7 @@ function getCharacterInfo($req){
     "character_critical_strike" => $character_critical_strike,
     "character_haste" => $character_haste,
     "character_mastery" => $character_mastery,
-    "character_versatility" => $character_versatility,
-    "character_head_icon" => $character_head_icon,
-    "character_neck_icon" => $character_neck_icon,
-    "character_shoulder_icon" => $character_shoulder_icon,
-    "character_chest_icon" => $character_chest_icon,
-    "character_waist_icon" => $character_waist_icon,
-    "character_legs_icon" => $character_legs_icon,
-    "character_feet_icon" => $character_feet_icon,
-    "character_wrist_icon" => $character_wrist_icon,
-    "character_hands_icon" => $character_hands_icon,
-    "character_finger1_icon" => $character_finger1_icon,
-    "character_finger2_icon" => $character_finger2_icon,
-    "character_trinket1_icon" => $character_trinket1_icon,
-    "character_trinket2_icon" => $character_trinket2_icon,
-    "character_back_icon" => $character_back_icon,
-    "character_main_hand_icon" => $character_main_hand_icon,
-    "character_off_hand_icon" => $character_off_hand_icon
+    "character_versatility" => $character_versatility
   ];
   return $tabCharacterInfo;
 }
