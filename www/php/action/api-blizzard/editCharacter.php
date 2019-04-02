@@ -34,7 +34,8 @@ if(isset($tabInfo['session_token'])){
     }
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
-    var_dump($tabInfo);
+    var_dump($tabInfo['character_head']['id']);
+    var_dump($tabInfo['character_head']['icon']);
 
     $update_character = "UPDATE characters_list
     SET name = :name,
@@ -82,7 +83,7 @@ if(isset($tabInfo['session_token'])){
     $update_character = $base->prepare($update_character);
     $update_character->bindValue('character_id', $tabInfo['character_id'], PDO::PARAM_INT);
     $update_character->bindValue('user_id', $account_id, PDO::PARAM_INT);
-    $update_character->bindValue('name', $tabInfo['character_name']);
+    $update_character->bindValue('name', $character_name);
     $update_character->bindValue('head_id', $tabInfo['character_head']['id']);
     $update_character->bindValue('neck_id', $tabInfo['character_neck']['id']);
     $update_character->bindValue('shoulder_id', $tabInfo['character_shoulder']['id']);
