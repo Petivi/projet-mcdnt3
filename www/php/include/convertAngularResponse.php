@@ -207,82 +207,82 @@ function getCharacterInfo($req){
   }else{
     $character_class_id = NULL;
   }
-  if(isset($req->character->head_id)){
+  if(isset($req->character->head)){
     $character_head_id = htmlspecialchars($req->character->head->id, ENT_QUOTES);
   }else{
     $character_head_id = NULL;
   }
-  if(isset($req->character->neck_id)){
+  if(isset($req->character->neck)){
     $character_neck_id = htmlspecialchars($req->character->neck->id, ENT_QUOTES);
   }else{
     $character_neck_id = NULL;
   }
-  if(isset($req->character->shoulder_id)){
+  if(isset($req->character->shoulder)){
     $character_shoulder_id = htmlspecialchars($req->character->shoulder->id, ENT_QUOTES);
   }else{
     $character_shoulder_id = NULL;
   }
-  if(isset($req->character->chest_id)){
+  if(isset($req->character->chest)){
     $character_chest_id = htmlspecialchars($req->character->chest->id, ENT_QUOTES);
   }else{
     $character_chest_id = NULL;
   }
-  if(isset($req->character->waist_id)){
+  if(isset($req->character->waist)){
     $character_waist_id = htmlspecialchars($req->character->waist->id, ENT_QUOTES);
   }else{
     $character_waist_id = NULL;
   }
-  if(isset($req->character->legs_id)){
+  if(isset($req->character->legs)){
     $character_legs_id = htmlspecialchars($req->character->legs->id, ENT_QUOTES);
   }else{
     $character_legs_id = NULL;
   }
-  if(isset($req->character->feet_id)){
+  if(isset($req->character->feet)){
     $character_feet_id = htmlspecialchars($req->character->feet->id, ENT_QUOTES);
   }else{
     $character_feet_id = NULL;
   }
-  if(isset($req->character->wrist_id)){
+  if(isset($req->character->wrist)){
     $character_wrist_id = htmlspecialchars($req->character->wrist->id, ENT_QUOTES);
   }else{
     $character_wrist_id = NULL;
   }
-  if(isset($req->character->hands_id)){
+  if(isset($req->character->hands)){
     $character_hands_id = htmlspecialchars($req->character->hands->id, ENT_QUOTES);
   }else{
     $character_hands_id = NULL;
   }
-  if(isset($req->character->finger1_id)){
+  if(isset($req->character->finger1)){
     $character_finger1_id = htmlspecialchars($req->character->finger1->id, ENT_QUOTES);
   }else{
     $character_finger1_id = NULL;
   }
-  if(isset($req->character->finger2_id)){
+  if(isset($req->character->finger2)){
     $character_finger2_id = htmlspecialchars($req->character->finger2->id, ENT_QUOTES);
   }else{
     $character_finger2_id = NULL;
   }
-  if(isset($req->character->trinket1_id)){
+  if(isset($req->character->trinket1)){
     $character_trinket1_id = htmlspecialchars($req->character->trinket1->id, ENT_QUOTES);
   }else{
     $character_trinket1_id = NULL;
   }
-  if(isset($req->character->trinket2_id)){
+  if(isset($req->character->trinket2)){
     $character_trinket2_id = htmlspecialchars($req->character->trinket2->id, ENT_QUOTES);
   }else{
     $character_trinket2_id = NULL;
   }
-  if(isset($req->character->back_id)){
+  if(isset($req->character->back)){
     $character_back_id = htmlspecialchars($req->character->back->id, ENT_QUOTES);
   }else{
     $character_back_id = NULL;
   }
-  if(isset($req->character->main_hand_id)){
+  if(isset($req->character->main_hand)){
     $character_main_hand_id = htmlspecialchars($req->character->main_hand->id, ENT_QUOTES);
   }else{
     $character_main_hand_id = NULL;
   }
-  if(isset($req->character->off_hand_id)){
+  if(isset($req->character->off_hand)){
     $character_off_hand_id = htmlspecialchars($req->character->off_hand->id, ENT_QUOTES);
   }else{
     $character_off_hand_id = NULL;
