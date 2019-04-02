@@ -192,6 +192,11 @@ function getCharacterInfo($req){
   }else{
     $session_token = "";
   }
+  if(isset($req->character->character_id)){
+    $character_id = htmlspecialchars($req->character->character_id, ENT_QUOTES);
+  }else{
+    $character_id = NULL;
+  }
   if(isset($req->character->name)){
     $character_name = htmlspecialchars($req->character->name, ENT_QUOTES);
   }else{
@@ -363,6 +368,7 @@ function getCharacterInfo($req){
 
   $tabCharacterInfo = [
     "session_token" => $session_token,
+    "character_id" => $character_id,
     "character_name" => $character_name,
     "character_race_id" => $character_race_id,
     "character_class_id" => $character_class_id,
