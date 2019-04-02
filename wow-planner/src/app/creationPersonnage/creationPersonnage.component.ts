@@ -245,68 +245,52 @@ export class CreationPersonnageComponent implements OnInit {
             }
             switch (this.selectedItem.itemSlotId) {
                 case 1:
-                    this.character.head_id = item.item_id;
-                    this.character.head_icon = item.icon;
+                    this.character.head = {id: item.item_id, icon: item.icon};
                     break;
                 case 2:
-                    this.character.neck_id = item.item_id;
-                    this.character.neck_icon = item.icon;
+                    this.character.neck = {id: item.item_id, icon: item.icon};
                     break;
                 case 3:
-                    this.character.shoulder_id = item.item_id;
-                    this.character.shoulder_icon = item.icon;
+                    this.character.shoulder = {id: item.item_id, icon: item.icon};
                     break;
                 case 4:
-                    this.character.back_id = item.item_id;
-                    this.character.back_icon = item.icon;
+                    this.character.back = {id: item.item_id, icon: item.icon};
                     break;
                 case 5:
-                    this.character.chest_id = item.item_id;
-                    this.character.chest_icon = item.icon;
+                    this.character.chest = {id: item.item_id, icon: item.icon};
                     break;
                 case 6:
-                    this.character.wrist_id = item.item_id;
-                    this.character.wrist_icon = item.icon;
+                    this.character.wrist = {id: item.item_id, icon: item.icon};
                     break;
                 case 7:
-                    this.character.hands_id = item.item_id;
-                    this.character.hands_icon = item.icon;
+                    this.character.hands = {id: item.item_id, icon: item.icon};
                     break;
                 case 8:
-                    this.character.waist_id = item.item_id;
-                    this.character.waist_icon = item.icon;
+                    this.character.waist = {id: item.item_id, icon: item.icon};
                     break;
                 case 9:
-                    this.character.legs_id = item.item_id;
-                    this.character.legs_icon = item.icon;
+                    this.character.legs = {id: item.item_id, icon: item.icon};
                     break;
                 case 10:
-                    this.character.feet_id = item.item_id;
-                    this.character.feet_icon = item.icon;
+                    this.character.feet = {id: item.item_id, icon: item.icon};
                     break;
                 case 11:
-                    this.character.finger1_id = item.item_id;
-                    this.character.finger1_icon = item.icon;
+                    this.character.finger1 = {id: item.item_id, icon: item.icon};
                     break;
                 case 12:
-                    this.character.finger2_id = item.item_id;
-                    this.character.finger2_icon = item.icon;
+                    this.character.finger2 = {id: item.item_id, icon: item.icon};
                     break;
                 case 13:
-                    this.character.trinket1_id = item.item_id;
-                    this.character.trinket1_icon = item.icon;
+                    this.character.trinket1 = {id: item.item_id, icon: item.icon};
                     break;
                 case 14:
-                    this.character.trinket2_id = item.item_id;
-                    this.character.trinket2_icon = item.icon;
+                    this.character.trinket2 = {id: item.item_id, icon: item.icon};
                     break;
                 case 15:
-                    this.character.main_hand_id = item.item_id;
-                    this.character.main_hand_icon = item.icon;
+                    this.character.main_hand = {id: item.item_id, icon: item.icon};
                     break;
                 case 16:
-                    this.character.off_hand_id = item.item_id;
-                    this.character.off_hand_icon = item.icon;
+                    this.character.off_hand = {id: item.item_id, icon: item.icon};
                     break;
             }
             this.setCharactereStats();
