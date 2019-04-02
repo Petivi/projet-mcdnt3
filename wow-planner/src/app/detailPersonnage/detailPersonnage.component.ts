@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, DefaultUrlSerializer } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AppService } from '../app.service';
 
-import { Word, Commentaire } from '../model/app.model';
+import { Word, Commentaire, Character } from '../model/app.model';
 
 @Component({
     selector: 'detail-personnage-cpt',
@@ -16,7 +16,7 @@ export class DetailPersonnageComponent implements OnInit, OnDestroy {
     mesPersonnages: boolean = false;
     ttCommentaire: Commentaire[] = [];
     words: Word[] = [];
-    character: any;
+    character: Character;
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
 
     ngOnInit() {
