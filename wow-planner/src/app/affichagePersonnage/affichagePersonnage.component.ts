@@ -5,6 +5,8 @@ import { AppService } from '../app.service';
 
 import { Item, ItemSlot, Word } from '../model/app.model';
 
+import { setTtItem } from '../common/function';
+
 import * as globals from '../../assets/data/globals';
 
 @Component({
@@ -64,57 +66,9 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         });
         let statId = globals.statsClass.find(sc => sc.class == this.character.class_id) ? globals.statsClass.find(sc => sc.class == this.character.class_id).stat_id : null;
         this.libelleAttack = statId ? this.ttBonusStats.find(bs => bs.id === statId).libelle : undefined;
-        this.ttItemGauche.forEach(ig => {
-            if (ig.id === 1 && this.character.head.id) {
-                ig.item = this.character.head;
-            }
-            if (ig.id === 2 && this.character.neck.id) {
-                ig.item = this.character.neck;
-            }
-            if (ig.id === 3 && this.character.shoulder.id) {
-                ig.item = this.character.shoulder;
-            }
-            if (ig.id === 4 && this.character.back.id) {
-                ig.item = this.character.back;
-            }
-            if (ig.id === 5 && this.character.chest.id) {
-                ig.item = this.character.chest;
-            }
-            if (ig.id === 6 && this.character.wrist.id) {
-                ig.item = this.character.wrist;
-            }
-            if (ig.id === 7 && this.character.hands.id) {
-                ig.item = this.character.hands;
-            }
-            if (ig.id === 8 && this.character.waist.id) {
-                ig.item = this.character.waist;
-            }
-        });
-        this.ttItemDroit.forEach(id => {
-            if (id.id === 9 && this.character.legs.id) {
-                id.item = this.character.legs;
-            }
-            if (id.id === 10 && this.character.feet.id) {
-                id.item = this.character.feet;
-            }
-            if (id.id === 11 && this.character.finger1.id) {
-                id.item = this.character.finger1;
-            }
-            if (id.id === 12 && this.character.finger2.id) {
-                id.item = this.character.finger2;
-            }
-            if (id.id === 13 && this.character.trinket1.id) {
-                id.item = this.character.trinket1;
-            }
-            if (id.id === 14 && this.character.trinket2.id) {
-                id.item = this.character.trinket2;
-            }
-            if (id.id === 15 && this.character.main_hand.id) {
-                id.item = this.character.head;
-            }
-            if (id.id === 16 && this.character.off_hand.id) {
-                id.item = this.character.off_hand;
-            }
+        setTtItem(this.ttItemGauche, this.ttItemDroit, this.character).then(res => {
+            this.ttItemDroit = res.ttItemD;
+            this.ttItemGauche = res.ttItemG;
         });
         /* this._appService.getBlizzard('character/hyjal/Mananga', [{ key: 'fields', value: 'items' }]).then(res => {
             

@@ -23,7 +23,7 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="displayCharacter">
-                            <div class="col-md-1">
+                            <div class="col-md-1" *ngIf="!character.character_id">
                                 <button (click)="resetCharac()" class="btn btn-dark">
                                     {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
                                 </button>
