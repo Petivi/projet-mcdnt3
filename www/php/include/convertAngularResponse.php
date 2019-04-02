@@ -208,82 +208,82 @@ function getCharacterInfo($req){
     $character_class_id = NULL;
   }
   if(isset($req->character->head_id)){
-    $character_head_id = htmlspecialchars($req->character->head_id, ENT_QUOTES);
+    $character_head_id = htmlspecialchars($req->character->head_id->id, ENT_QUOTES);
   }else{
     $character_head_id = NULL;
   }
   if(isset($req->character->neck_id)){
-    $character_neck_id = htmlspecialchars($req->character->neck_id, ENT_QUOTES);
+    $character_neck_id = htmlspecialchars($req->character->neck_id->id, ENT_QUOTES);
   }else{
     $character_neck_id = NULL;
   }
   if(isset($req->character->shoulder_id)){
-    $character_shoulder_id = htmlspecialchars($req->character->shoulder_id, ENT_QUOTES);
+    $character_shoulder_id = htmlspecialchars($req->character->shoulder_id->id, ENT_QUOTES);
   }else{
     $character_shoulder_id = NULL;
   }
   if(isset($req->character->chest_id)){
-    $character_chest_id = htmlspecialchars($req->character->chest_id, ENT_QUOTES);
+    $character_chest_id = htmlspecialchars($req->character->chest_id->id, ENT_QUOTES);
   }else{
     $character_chest_id = NULL;
   }
   if(isset($req->character->waist_id)){
-    $character_waist_id = htmlspecialchars($req->character->waist_id, ENT_QUOTES);
+    $character_waist_id = htmlspecialchars($req->character->waist_id->id, ENT_QUOTES);
   }else{
     $character_waist_id = NULL;
   }
   if(isset($req->character->legs_id)){
-    $character_legs_id = htmlspecialchars($req->character->legs_id, ENT_QUOTES);
+    $character_legs_id = htmlspecialchars($req->character->legs_id->id, ENT_QUOTES);
   }else{
     $character_legs_id = NULL;
   }
   if(isset($req->character->feet_id)){
-    $character_feet_id = htmlspecialchars($req->character->feet_id, ENT_QUOTES);
+    $character_feet_id = htmlspecialchars($req->character->feet_id->id, ENT_QUOTES);
   }else{
     $character_feet_id = NULL;
   }
   if(isset($req->character->wrist_id)){
-    $character_wrist_id = htmlspecialchars($req->character->wrist_id, ENT_QUOTES);
+    $character_wrist_id = htmlspecialchars($req->character->wrist_id->id, ENT_QUOTES);
   }else{
     $character_wrist_id = NULL;
   }
   if(isset($req->character->hands_id)){
-    $character_hands_id = htmlspecialchars($req->character->hands_id, ENT_QUOTES);
+    $character_hands_id = htmlspecialchars($req->character->hands_id->id, ENT_QUOTES);
   }else{
     $character_hands_id = NULL;
   }
   if(isset($req->character->finger1_id)){
-    $character_finger1_id = htmlspecialchars($req->character->finger1_id, ENT_QUOTES);
+    $character_finger1_id = htmlspecialchars($req->character->finger1_id->id, ENT_QUOTES);
   }else{
     $character_finger1_id = NULL;
   }
   if(isset($req->character->finger2_id)){
-    $character_finger2_id = htmlspecialchars($req->character->finger2_id, ENT_QUOTES);
+    $character_finger2_id = htmlspecialchars($req->character->finger2_id->id, ENT_QUOTES);
   }else{
     $character_finger2_id = NULL;
   }
   if(isset($req->character->trinket1_id)){
-    $character_trinket1_id = htmlspecialchars($req->character->trinket1_id, ENT_QUOTES);
+    $character_trinket1_id = htmlspecialchars($req->character->trinket1_id->id, ENT_QUOTES);
   }else{
     $character_trinket1_id = NULL;
   }
   if(isset($req->character->trinket2_id)){
-    $character_trinket2_id = htmlspecialchars($req->character->trinket2_id, ENT_QUOTES);
+    $character_trinket2_id = htmlspecialchars($req->character->trinket2_id->id, ENT_QUOTES);
   }else{
     $character_trinket2_id = NULL;
   }
   if(isset($req->character->back_id)){
-    $character_back_id = htmlspecialchars($req->character->back_id, ENT_QUOTES);
+    $character_back_id = htmlspecialchars($req->character->back_id->id, ENT_QUOTES);
   }else{
     $character_back_id = NULL;
   }
   if(isset($req->character->main_hand_id)){
-    $character_main_hand_id = htmlspecialchars($req->character->main_hand_id, ENT_QUOTES);
+    $character_main_hand_id = htmlspecialchars($req->character->main_hand_id->id, ENT_QUOTES);
   }else{
     $character_main_hand_id = NULL;
   }
   if(isset($req->character->off_hand_id)){
-    $character_off_hand_id = htmlspecialchars($req->character->off_hand_id, ENT_QUOTES);
+    $character_off_hand_id = htmlspecialchars($req->character->off_hand_id->id, ENT_QUOTES);
   }else{
     $character_off_hand_id = NULL;
   }
@@ -414,22 +414,22 @@ function getCharacterInfo($req){
     "character_name" => $character_name,
     "character_race_id" => $character_race_id,
     "character_class_id" => $character_class_id,
-    "character_head_id" => $character_head_id['id'],
-    "character_neck_id" => $character_neck_id['id'],
-    "character_shoulder_id" => $character_shoulder_id['id'],
-    "character_chest_id" => $character_chest_id['id'],
-    "character_waist_id" => $character_waist_id['id'],
-    "character_legs_id" => $character_legs_id['id'],
-    "character_feet_id" => $character_feet_id['id'],
-    "character_wrist_id" => $character_wrist_id['id'],
-    "character_hands_id" => $character_hands_id['id'],
-    "character_finger1_id" => $character_finger1_id['id'],
-    "character_finger2_id" => $character_finger2_id['id'],
-    "character_trinket1_id" => $character_trinket1_id['id'],
-    "character_trinket2_id" => $character_trinket2_id['id'],
-    "character_back_id" => $character_back_id['id'],
-    "character_main_hand_id" => $character_main_hand_id['id'],
-    "character_off_hand_id" => $character_off_hand_id['id'],
+    "character_head_id" => $character_head_id,
+    "character_neck_id" => $character_neck_id,
+    "character_shoulder_id" => $character_shoulder_id,
+    "character_chest_id" => $character_chest_id,
+    "character_waist_id" => $character_waist_id,
+    "character_legs_id" => $character_legs_id,
+    "character_feet_id" => $character_feet_id,
+    "character_wrist_id" => $character_wrist_id,
+    "character_hands_id" => $character_hands_id,
+    "character_finger1_id" => $character_finger1_id,
+    "character_finger2_id" => $character_finger2_id,
+    "character_trinket1_id" => $character_trinket1_id,
+    "character_trinket2_id" => $character_trinket2_id,
+    "character_back_id" => $character_back_id,
+    "character_main_hand_id" => $character_main_hand_id,
+    "character_off_hand_id" => $character_off_hand_id,
     "character_attack" => $character_attack,
     "character_armour" => $character_armour,
     "character_stamina" => $character_stamina,
