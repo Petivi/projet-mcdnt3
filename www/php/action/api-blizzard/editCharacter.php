@@ -34,7 +34,7 @@ if(isset($tabInfo['session_token'])){
     }
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
-    foreach ($tabInfo as $key => $value) {
+    foreach ($tabInfo as $key => $value) { // for each item given, set null if no item selected
       if(is_array($value)){
         if($value['id'] == "") {
           $tabInfo[$key]['id'] = NULL;
@@ -139,7 +139,7 @@ if(isset($tabInfo['session_token'])){
     if($update_character->execute()){
       echo returnResponse($display_response_empty);
     }else {
-      echo returnError('bug ici');
+      echo returnError($display_error_error_occured);
     }
   }else {
     echo returnError($display_error_error_occured);
