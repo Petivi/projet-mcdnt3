@@ -35,8 +35,7 @@ if(isset($tabInfo['session_token'])){
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
     foreach ($tabInfo as $key => $value) {
-      echo $key . " : " . $value;
-      echo "<br>";
+      var_dump($key " : " . $value);
     }
 
 
