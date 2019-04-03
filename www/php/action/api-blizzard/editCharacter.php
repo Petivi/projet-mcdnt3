@@ -35,8 +35,16 @@ if(isset($tabInfo['session_token'])){
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
     foreach ($tabInfo as $key => $value) {
-      var_dump($key " : " . $value);
+      if(is_array($value)){
+        if($value['id'] == "") {
+          $tabInfo[$key]['id'] = NULL;
+        }
+        if($value['icon'] == "") {
+          $tabInfo[$key]['icon'] = NULL;
+        }
+      }
     }
+    unset($value);
 
 
     $update_character = "UPDATE characters_list
@@ -131,7 +139,7 @@ if(isset($tabInfo['session_token'])){
     if($update_character->execute()){
       echo returnResponse($display_response_empty);
     }else {
-      echo returnError($display_error_error_occured);
+      echo returnError('bug ici');
     }
   }else {
     echo returnError($display_error_error_occured);
