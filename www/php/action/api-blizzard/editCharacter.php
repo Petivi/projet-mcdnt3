@@ -34,8 +34,10 @@ if(isset($tabInfo['session_token'])){
     }
     $date_today = strtotime(date('d-m-Y H:i:s'));
 
-    var_dump($tabInfo['character_head']['id']);
-    var_dump($tabInfo['character_head']['icon']);
+    foreach ($tabInfo as $key => $value) {
+      echo $key . " : " . $value;
+      echo "<br>";
+    }
 
 
     $update_character = "UPDATE characters_list
