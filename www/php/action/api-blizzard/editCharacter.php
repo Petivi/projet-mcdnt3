@@ -124,10 +124,13 @@ if(isset($tabInfo['session_token'])){
     $update_character->bindValue('back_icon', $tabInfo['character_back']['icon']);
     $update_character->bindValue('main_hand_icon', $tabInfo['character_main_hand']['icon']);
     $update_character->bindValue('off_hand_icon', $tabInfo['character_off_hand']['icon']);
-    $update_character->execute();
+    // $update_character->execute();
 
-
-    echo returnResponse($display_response_empty);
+    if($update_character->execute()){
+      echo returnResponse($display_response_empty);
+    }else {
+      echo returnError('Ca marche pas');
+    }
   }else {
     echo returnError($display_error_error_occured);
   }
