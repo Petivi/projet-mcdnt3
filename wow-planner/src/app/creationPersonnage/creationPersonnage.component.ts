@@ -89,13 +89,14 @@ export class CreationPersonnageComponent implements OnInit {
         if (lastPath !== 'creationPersonnage') {
             this._appService.post('action/api-blizzard/getOneCharacter.php', { session_token: this._appService.getToken(), character_id: lastPath }).then(res => {
                 this.character = res.response[0];
-                setTtItem(this.ttItemGauche, this.ttItemDroit, this.character).then(res => {
+                let characToSend = JSON.parse(JSON.stringify(this.character));
+                setTtItem(this.ttItemGauche, this.ttItemDroit, characToSend).then(res => {
                     this.ttItemDroit = res.ttItemD;
                     this.ttItemGauche = res.ttItemG;
                     this.ttItemDroit.forEach(id => {
                         if (id.item) {
                             id.item.item_id = id.item.id;
-                            delete id.item.id;
+                            delete id.item.id;  
                             this.getItemInfo(id.item).then(res => {
                                 id.item = { ...id.item, ...res };
                             });
@@ -106,7 +107,7 @@ export class CreationPersonnageComponent implements OnInit {
                             ig.item.item_id = ig.item.id;
                             delete ig.item.id;
                             this.getItemInfo(ig.item).then(res => {
-                                ig.item = { ...ig.item, ...res };;
+                                ig.item = { ...ig.item, ...res };
                             });
                         }
                     });
@@ -167,7 +168,6 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     setRecherche(itemSlot) {
-        console.log(itemSlot)
         switch (itemSlot.inventoryType) {
             case 2: //neck
                 this.recherche.matiere = 0;
@@ -227,6 +227,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItemInfo(item: Item): Promise<Item> {
+        console.log(item)
         return new Promise((resolve, reject) => {
             if (!item.id) {
                 this._appService.getBlizzard('item/' + item.item_id).then(res => {
@@ -242,6 +243,7 @@ export class CreationPersonnageComponent implements OnInit {
                     this.setGridData();
                     resolve(newItem);
                     this.selectedItem = newItem;
+                    console.log(newItem)
                 });
             } else {
                 resolve(item);
