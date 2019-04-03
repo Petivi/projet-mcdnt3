@@ -29,9 +29,10 @@ if(isset($tabInfo['session_token'])){
 
   if($user_exists){
 
-    $request_delete_character = "DELETE FROM characters_list WHERE id LIKE :character_id";
+    $request_delete_character = "DELETE FROM characters_list WHERE id LIKE :character_id AND user_id LIKE :user_id";
     $request_delete_character = $base->prepare($request_delete_character);
     $request_delete_character->bindValue('character_id', $tabInfo['character_id'], PDO::PARAM_INT);
+    $request_delete_character->bindValue('user_id', $account_id, PDO::PARAM_INT);
     if($request_delete_character->execute()){
       echo returnResponse($display_response_empty);
     }else {
