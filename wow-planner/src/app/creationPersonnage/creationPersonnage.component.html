@@ -6,13 +6,13 @@
                     <div class="row">
                         <ng-container *ngIf="!displayCharacter">
                             <div class="col">
-                                <select *ngIf="tabRaces" class="form-control" [(ngModel)]="character.race_id">
+                                <select  class="form-control" [(ngModel)]="character.race_id"> <!-- TODO: *ngIf="tabRaces"  -->
                                     <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
                                 </select>
                             </div>
                             <div class="col">
-                                <select *ngIf="tabClasses" class="form-control" (change)="setCharacter()"
-                                    [(ngModel)]="character.class_id">
+                                <select class="form-control" (change)="setCharacter()"
+                                    [(ngModel)]="character.class_id"> <!-- TODO: *ngIf="tabClasses"  -->
                                     <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}
                                     </option>
                                 </select>
@@ -23,7 +23,7 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="displayCharacter">
-                            <div class="col-md-1" *ngIf="!character.character_id">
+                            <div class="col-md-1">
                                 <button (click)="resetCharac()" class="btn btn-dark">
                                     {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
                                 </button>
@@ -272,6 +272,21 @@
                         title="{{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}">
                     </kendo-grid-column>
                 </kendo-grid>
+                <!-- <div class="itemGeneral" *ngFor="let item of ttItem">
+                    <div (mouseleave)="(item.affichage = 0)" (mouseenter)="getItemInfo(item)">
+                        <div style="display: inline">
+                            <img src="{{iconUrl + item.item_icon + '.jpg'}}">
+                        </div>
+                        <i class="fa fa-angle-right itemIcon" *ngIf="item.affichage === 0"></i>
+                        <div class="itemDetail" *ngIf="item.affichage === 1">
+                            <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{item.name}}</div>
+                            <div>armor : {{item.armor ? item.armor : ''}}</div>
+                            <div *ngFor="let bonus of item.bonusStats">
+                                {{bonus.statLibelle + ' : ' + bonus.amount}}
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
                 <div class="detail-content" *ngIf="displayItemDetailListe && selectedItem">
                     <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{selectedItem.name}}</div>
                     <div *ngIf="selectedItem.armor">armor : {{selectedItem.armor}}</div>

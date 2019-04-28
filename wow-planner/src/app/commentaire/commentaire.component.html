@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="col text-right">
-                    <button class="btn btn-primary" [disabled]="commentaire.comment.length === 0"
+                    <button class="btncc" [disabled]="commentaire.comment.length === 0"
                         (click)="addComment()">
                         {{(words | filter : {msg_name: 'msg_add'} : {col : 'value'})}}
                     </button>
@@ -20,13 +20,13 @@
             <div class="row mb-3" *ngFor="let comment of ttCommentaire">
                 <div class="col">
                     <div class="row txtSmall">
-                        <div class="col-md-auto font-weight-bold">
+                        <div class="col-md-auto font-weight-bold psd">
                             {{comment.user_pseudo}}
                         </div>
-                        <div class="col-md-auto">
+                        <div class="col-md-auto dt">
                             {{comment.created_date}}
                         </div>
-                        <div class="col-md-auto" *ngIf="comment.created_date !== comment.last_modified">
+                        <div class="col-md-auto dtt" *ngIf="comment.created_date !== comment.last_modified">
                             ({{(words | filter : {msg_name: 'msg_edited'} : {col : 'value'})}} :
                             {{comment.last_modified}})
                         </div>

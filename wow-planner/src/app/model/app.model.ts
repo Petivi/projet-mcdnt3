@@ -124,26 +124,26 @@ export class RecherchCreationPersonnage {
 }
 
 export class Character {
-    character_id: string;
+    id: string;
     name: string;
     race_id: number;
     class_id: number;
-    head: PreviewItem;
-    neck: PreviewItem;
-    shoulder: PreviewItem;
-    chest: PreviewItem;
-    waist: PreviewItem;
-    legs: PreviewItem;
-    feet: PreviewItem;
-    wrist: PreviewItem;
-    hands: PreviewItem;
-    finger1: PreviewItem;
-    finger2: PreviewItem;
-    trinket1: PreviewItem;
-    trinket2: PreviewItem;
-    back: PreviewItem;
-    main_hand: PreviewItem;
-    off_hand: PreviewItem;
+    head_id: number;
+    neck_id: number;
+    shoulder_id: number;
+    chest_id: number;
+    waist_id: number;
+    legs_id: number;
+    feet_id: number;
+    wrist_id: number;
+    hands_id: number;
+    finger1_id: number;
+    finger2_id: number;
+    trinket1_id: number;
+    trinket2_id: number;
+    back_id: number;
+    main_hand_id: number;
+    off_hand_id: number;
     attack: number;
     armour: number;
     stamina: number;
@@ -152,6 +152,22 @@ export class Character {
     haste: number;
     mastery: number;
     versatility: number;
+    head_icon: string;
+    neck_icon: string;
+    shoulder_icon: string;
+    back_icon: string;
+    chest_icon: string;
+    wrist_icon: string;
+    hands_icon: string;
+    waist_icon: string;
+    legs_icon: string;
+    feet_icon: string;
+    finger1_icon: string;
+    finger2_icon: string;
+    trinket1_icon: string;
+    trinket2_icon: string;
+    main_hand_icon: string;
+    off_hand_icon: string;
 
     constructor(info: any) {
         for (let k in info) {
@@ -160,11 +176,6 @@ export class Character {
             }
         }
     }
-}
-
-export class PreviewItem {
-    id: number;
-    icon: string;
 }
 
 export class Commentaire {

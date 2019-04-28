@@ -61,13 +61,6 @@ export const appRouting = RouterModule.forRoot([
         }
     },
     {
-        path: 'creationPersonnage/:id',
-        component: CreationPersonnageComponent,
-        resolve: {
-            resolver: CreationPersonnageResolver
-        }
-    },
-    {
         path: 'accueil/detailPersonnage/:id',
         component: DetailPersonnageComponent,
         resolve: {
