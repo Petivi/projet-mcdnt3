@@ -13,6 +13,9 @@
         <button class="btn btn-success" [routerLink]="[urlEdit, character.character_id]" *ngIf="mesPersonnages">
             {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
         </button>
+        <button class="btn btn-outline-danger" (click)="deleteCharacter()" *ngIf="mesPersonnages">
+            {{(words | filter : {msg_name: 'msg_delete'} : {col : 'value'})}}
+        </button>
     </div>
 </div>
 <div class="card-body">
