@@ -41,7 +41,8 @@ if(accessToAdminPermissions($tabUser['session_token'])){
       SET lastname = :lastname,
       firstname = :firstname,
       pseudo = :pseudo,
-      active_account = :active_account
+      active_account = :active_account,
+      session_token = :session_token
       WHERE id LIKE :id';
       $update_user_infos = $base->prepare($update_user_infos);
       $update_user_infos->bindValue('id', $tabVictim['id'], PDO::PARAM_INT);
@@ -49,6 +50,7 @@ if(accessToAdminPermissions($tabUser['session_token'])){
       $update_user_infos->bindValue('firstname', Chiffrement::crypt($tabVictim['firstname']), PDO::PARAM_STR);
       $update_user_infos->bindValue('pseudo', Chiffrement::crypt($tabVictim['pseudo']), PDO::PARAM_STR);
       $update_user_infos->bindValue('active_account', $tabVictim['active_account'], PDO::PARAM_INT);
+      $update_user_infos->bindValue('session_token', "", PDO::PARAM_STR);
       $update_user_infos->execute();
       addToAdminUsersManagement($admin_id, $tabVictim['id'], $action, $comment, $date_action);
       sendMailProfilEditedByAdmin($tabVictim['lastname'], $tabVictim['firstname'], $tabVictim['pseudo'], $tabVictim['mail'], $user_lang);
