@@ -1,11 +1,12 @@
 import * as globals from '../../assets/data/globals';
-let iconUrl: string = globals.blizzardIconUrl;
+
 export function setGrowl(obj: any): string {
     return '<h5>' + obj.title + '</h5><div>' + obj.body + '</div>';
 }
 
 export function setTtItem(ttItemG, ttItemD, character): Promise<any> {
     return new Promise((resolve, reject) => {
+        let iconUrl: string = globals.blizzardIconUrl;
         ttItemG.forEach(ig => {
             if (ig.id === 1 && character.head.id) {
                 if (character.head.icon) character.head.imgUrl = iconUrl + character.head.icon + '.jpg';
