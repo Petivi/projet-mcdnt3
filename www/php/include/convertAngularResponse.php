@@ -482,6 +482,8 @@ function commentManagement($req){
   }
   if(isset($req->comment)){
     $comment = htmlspecialchars($req->comment, ENT_QUOTES);
+    $comment = str_replace('<',' ',$comment);
+    $comment = str_replace('>',' ',$comment);
   }else{
     $comment = NULL;
   }
