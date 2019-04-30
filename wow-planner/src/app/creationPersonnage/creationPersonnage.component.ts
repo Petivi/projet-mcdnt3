@@ -7,6 +7,8 @@ import { AppService } from '../app.service';
 
 import { Word, RecherchCreationPersonnage, Item, Character } from '../model/app.model';
 
+import { setTtItem } from '../common/function';
+
 import * as globals from '../../assets/data/globals';
 
 /* donnée LOUIS pseudo: Mananga, Pteracuda serveur: Hyjal */
@@ -41,12 +43,12 @@ export class CreationPersonnageComponent implements OnInit {
         { id: 16, class: 4, inventoryType: 14, imgUrl: 'assets/img/inventoryslot_offhand.jpg', item: null }
     ];
     ttMatiere: any[] = [
+        { id: 0, name: 'msg_divers' },
         { id: 1, name: 'msg_cloth' },
         { id: 2, name: 'msg_cuir' },
         { id: 3, name: 'msg_maille' },
         { id: 4, name: 'msg_plate' },
-        { id: 6, name: 'msg_bouclier' },
-        { id: 0, name: 'msg_divers' }
+        { id: 6, name: 'msg_bouclier' }
     ];
     ttQuality: any[] = [
         { id: 0, name: 'msg_qualityPoor' },
@@ -82,6 +84,37 @@ export class CreationPersonnageComponent implements OnInit {
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute, private _router: Router) { }
 
     ngOnInit() {
+        let ttPath = window.location.href.split('/');
+        let lastPath = ttPath[ttPath.length - 1];
+        if (lastPath !== 'creationPersonnage') {
+            this._appService.post('action/api-blizzard/getOneCharacter.php', { session_token: this._appService.getToken(), character_id: lastPath }).then(res => {
+                this.character = res.response[0];
+                let characToSend = JSON.parse(JSON.stringify(this.character));
+                setTtItem(this.ttItemGauche, this.ttItemDroit, characToSend).then(res => {
+                    this.ttItemDroit = res.ttItemD;
+                    this.ttItemGauche = res.ttItemG;
+                    this.ttItemDroit.forEach(id => {
+                        if (id.item) {
+                            id.item.item_id = id.item.id;
+                            delete id.item.id;  
+                            this.getItemInfo(id.item).then(res => {
+                                id.item = { ...id.item, ...res };
+                            });
+                        }
+                    });
+                    this.ttItemGauche.forEach(ig => {
+                        if (ig.item) {
+                            ig.item.item_id = ig.item.id;
+                            delete ig.item.id;
+                            this.getItemInfo(ig.item).then(res => {
+                                ig.item = { ...ig.item, ...res };
+                            });
+                        }
+                    });
+                    this.displayCharacter = true;
+                });
+            });
+        }
         this.userConnected = localStorage.getItem('userConnected');
         this.ttBonusStats = globals.bonusStats.map(bs => {
             if (this._appService.getLangue() === 'fr') {
@@ -135,6 +168,26 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     setRecherche(itemSlot) {
+        switch (itemSlot.inventoryType) {
+            case 2: //neck
+                this.recherche.matiere = 0;
+                break;
+            case 16: //cape
+                this.recherche.matiere = 1;
+                break;
+            case 11:
+                this.recherche.matiere = 0;
+                break;
+            case 12:
+                this.recherche.matiere = 0;
+                break;
+            case 13:
+                this.recherche.matiere = 0;
+                break;
+            case 14:
+                this.recherche.matiere = 6;
+                break;
+        }
         if (itemSlot.item) {
             this.oldItem = itemSlot.item;
         } else {
@@ -174,6 +227,7 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItemInfo(item: Item): Promise<Item> {
+        console.log(item)
         return new Promise((resolve, reject) => {
             if (!item.id) {
                 this._appService.getBlizzard('item/' + item.item_id).then(res => {
@@ -189,6 +243,7 @@ export class CreationPersonnageComponent implements OnInit {
                     this.setGridData();
                     resolve(newItem);
                     this.selectedItem = newItem;
+                    console.log(newItem)
                 });
             } else {
                 resolve(item);
@@ -238,68 +293,52 @@ export class CreationPersonnageComponent implements OnInit {
             }
             switch (this.selectedItem.itemSlotId) {
                 case 1:
-                    this.character.head_id = item.item_id;
-                    this.character.head_icon = item.icon;
+                    this.character.head = { id: item.item_id, icon: item.icon };
                     break;
                 case 2:
-                    this.character.neck_id = item.item_id;
-                    this.character.neck_icon = item.icon;
+                    this.character.neck = { id: item.item_id, icon: item.icon };
                     break;
                 case 3:
-                    this.character.shoulder_id = item.item_id;
-                    this.character.shoulder_icon = item.icon;
+                    this.character.shoulder = { id: item.item_id, icon: item.icon };
                     break;
                 case 4:
-                    this.character.back_id = item.item_id;
-                    this.character.back_icon = item.icon;
+                    this.character.back = { id: item.item_id, icon: item.icon };
                     break;
                 case 5:
-                    this.character.chest_id = item.item_id;
-                    this.character.chest_icon = item.icon;
+                    this.character.chest = { id: item.item_id, icon: item.icon };
                     break;
                 case 6:
-                    this.character.wrist_id = item.item_id;
-                    this.character.wrist_icon = item.icon;
+                    this.character.wrist = { id: item.item_id, icon: item.icon };
                     break;
                 case 7:
-                    this.character.hands_id = item.item_id;
-                    this.character.hands_icon = item.icon;
+                    this.character.hands = { id: item.item_id, icon: item.icon };
                     break;
                 case 8:
-                    this.character.waist_id = item.item_id;
-                    this.character.waist_icon = item.icon;
+                    this.character.waist = { id: item.item_id, icon: item.icon };
                     break;
                 case 9:
-                    this.character.legs_id = item.item_id;
-                    this.character.legs_icon = item.icon;
+                    this.character.legs = { id: item.item_id, icon: item.icon };
                     break;
                 case 10:
-                    this.character.feet_id = item.item_id;
-                    this.character.feet_icon = item.icon;
+                    this.character.feet = { id: item.item_id, icon: item.icon };
                     break;
                 case 11:
-                    this.character.finger1_id = item.item_id;
-                    this.character.finger1_icon = item.icon;
+                    this.character.finger1 = { id: item.item_id, icon: item.icon };
                     break;
                 case 12:
-                    this.character.finger2_id = item.item_id;
-                    this.character.finger2_icon = item.icon;
+                    this.character.finger2 = { id: item.item_id, icon: item.icon };
                     break;
                 case 13:
-                    this.character.trinket1_id = item.item_id;
-                    this.character.trinket1_icon = item.icon;
+                    this.character.trinket1 = { id: item.item_id, icon: item.icon };
                     break;
                 case 14:
-                    this.character.trinket2_id = item.item_id;
-                    this.character.trinket2_icon = item.icon;
+                    this.character.trinket2 = { id: item.item_id, icon: item.icon };
                     break;
                 case 15:
-                    this.character.main_hand_id = item.item_id;
-                    this.character.main_hand_icon = item.icon;
+                    this.character.main_hand = { id: item.item_id, icon: item.icon };
                     break;
                 case 16:
-                    this.character.off_hand_id = item.item_id;
-                    this.character.off_hand_icon = item.icon;
+                    this.character.off_hand = { id: item.item_id, icon: item.icon };
                     break;
             }
             this.setCharactereStats();
@@ -403,9 +442,10 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     saveCharac() {
-        this._appService.post('action/api-blizzard/addNewCharacter.php',
+        let url = this.character.character_id ? 'action/api-blizzard/editCharacter.php' : 'action/api-blizzard/addNewCharacter.php';
+        this._appService.post(url,
             { session_token: JSON.parse(localStorage.getItem("userConnected")).session_token, character: this.character }).then(res => {
-                if(res.response) {
+                if (res.response) {
                     this._router.navigate(['/accueil']);
                 }
             });

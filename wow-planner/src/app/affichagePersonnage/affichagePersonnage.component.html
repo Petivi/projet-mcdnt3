@@ -1,12 +1,34 @@
-
-  <div class="row text-center">
-        <div class="col-md-8" >
-            <div class="card" id="fonda">
+<div class="row mb-2">
+    <div class="col-md-3" *ngIf="detailPersonnage">
+        <a class="button-link button" [routerLink]="[urlRetour]">
+            {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+        </a>
+    </div>
+    <div class="col-md-3" *ngIf="!detailPersonnage">
+        <a class="button-link button" [routerLink]="[urlRedirectionDetail, character.character_id]">
+            {{(words | filter : {msg_name: 'msg_voir'} : {col : 'value'})}}
+        </a>
+    </div>
+    <div class="col-md-3" *ngIf="mesPersonnages">
+        <a class="button-link button" [routerLink]="[urlEdit, character.character_id]">
+            {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
+        </a>
+    </div>
+    <div class="col-md-3" *ngIf="mesPersonnages">
+        <button class="button-link button" (click)="deleteCharacter()">
+            {{(words | filter : {msg_name: 'msg_delete'} : {col : 'value'})}}
+        </button>
+    </div>
+</div>
+<div class="card-body">
+    <div class="row text-center">
+        <div class="col-md-8">
+            <div class="card fonda">
                 <div class="card-header">
                     <h3>{{character.name}}</h3>
                 </div>
-                <div class="card-body" id="fondb">
-                    <div class="row text-center" >
+                <div class="card-body fondb">
+                    <div class="row text-center">
                         <div class="col">
                             <div class="row">
                                 <div class="col">
@@ -71,11 +93,11 @@
             </div>
         </div>
         <div class="col">
-            <div class="card" id="fondb">
+            <div class="card fonda">
                 <div class="card-header">
                     <h3>{{(words | filter : {msg_name: 'msg_stat'} : {col : 'value'})}}</h3>
                 </div>
-                <div class="card-body" id="fondb">
+                <div class="card-body fondb">
                     <div class="row">
                         <div class="col">
                             <div class="row" *ngIf="character && character.health !== '0'">
@@ -143,22 +165,6 @@
                     {{character.total_dislike}}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-auto">
-                    <a class="button-link" [routerLink]="[urlRetour]" *ngIf="detailPersonnage">
-                        <button class="btn btn-dark">
-                            {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
-                        </button>
-                    </a>
-                    <a class="button-link" [routerLink]="[urlRedirectionDetail, character.character_id]" *ngIf="!detailPersonnage">
-                        <button class="btnc">
-                            {{(words | filter : {msg_name: 'msg_voir'} : {col : 'value'})}}
-                        </button>
-                    </a>
-                    <button class="btn btn-success" *ngIf="mesPersonnages" >
-                        {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
+</div>

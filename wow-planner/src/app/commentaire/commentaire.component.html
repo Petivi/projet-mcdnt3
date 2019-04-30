@@ -10,8 +10,8 @@
                             rows="1"></textarea>
                     </div>
                 </div>
-                <div class="col text-right">
-                    <button class="btncc" [disabled]="commentaire.comment.length === 0"
+                <div class="col">
+                    <button class="button" [disabled]="commentaire.comment.length === 0"
                         (click)="addComment()">
                         {{(words | filter : {msg_name: 'msg_add'} : {col : 'value'})}}
                     </button>

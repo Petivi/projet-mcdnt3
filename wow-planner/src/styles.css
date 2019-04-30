@@ -1,230 +1,523 @@
 /* GENERAL */
+
 body {
-    margin-bottom: 5% !important;
+  margin-bottom: 5% !important;
 }
+
+button {
+  border: none;
+}
+.button {
+  display: inline-block;
+  border-radius: .25rem;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(237, 224, 201, 0.2);
+  border-color: rgba(237, 224, 201, 0.5);
+  color: rgb(237, 224, 201);
+}
+
+.button:hover {
+  background-color: rgba(237, 224, 201, 0.3);
+  border-color: rgba(237, 224, 201, 0.7);
+  color: rgb(237, 224, 201);
+  cursor: url(assets/img/wow-cursor.png), pointer;
+}
+
+.button:disabled {
+  background-color: rgba(237, 224, 201, 0.5);
+  border-color: rgba(237, 224, 201, 0.7);
+  color: rgb(237, 224, 201);
+}
+
+.button:disabled:hover {
+  background-color: rgba(237, 224, 201, 0.5);
+  border-color: rgba(237, 224, 201, 0.7);
+  color: rgb(237, 224, 201);
+  cursor: initial;
+}
+
 a.button-link:hover {
-    text-decoration: none;
+  text-decoration: none;
+  color: inherit;
 }
+
 .pager {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
-.pager .clickable:hover {
-    color: rgb(0, 4, 252);
-}
+
 .clickable:hover {
-    cursor: pointer;
+  cursor: url(assets/img/wow-cursor.png), pointer;
 }
+
 .invalid {
-    border-color: #dc3545 !important;
+  border-color: #dc3545 !important;
 }
+
 .container-bo {
-    width: 90%;
-    margin-right: auto;
-    margin-left: 1em;
+  width: 90%;
+  margin-right: auto;
+  margin-left: 1em;
 }
+
 .icon-button {
-    background-color: #f0f8ff00;
-    border: none;
-    cursor: pointer;
+  background-color: #f0f8ff00;
+  border: none;
+  cursor: url(assets/img/wow-cursor.png), pointer;
 }
+
 .icon-like:hover {
-    color: rgba(37, 41, 255, 0.884);
+  color: rgba(37, 41, 255, 0.884);
 }
+
 .icon-dislike:hover {
-    color: rgba(255, 0, 0, 0.781);
+  color: rgba(255, 0, 0, 0.781);
 }
+
 .icon-liked {
-    color: rgb(35, 38, 255);
+  color: rgb(35, 38, 255);
 }
+
 .icon-disliked {
-    color: rgb(255, 0, 0);
+  color: rgb(255, 0, 0);
 }
+
 .window {
-    display: flex;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 5;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
 }
+
 .window .windowIn {
-    position: relative;
-    height: 85%;
-    margin: auto;
-    opacity: 1;
-    align-items: center;
-    width: 70%;
+  position: relative;
+  height: 85%;
+  margin: auto;
+  opacity: 1;
+  align-items: center;
+  width: 70%;
 }
+
 .scrollv {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
+
 .loader {
-    position : fixed;
-    z-index: 9999;
-    background : url('assets/img/chargement.gif') 50% 50% no-repeat;
-    top : 0px;
-    left : 0px;
-    height : 100%;
-    width : 100%;
-    cursor : wait;
+  position: fixed;
+  z-index: 9999;
+  background: url('assets/img/chargement.gif') 50% 50% no-repeat;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  cursor: wait;
 }
-.link:hover{
-    cursor: pointer;
-    text-decoration: underline !important; 
+
+.link:hover {
+  cursor: url(assets/img/wow-cursor.png), pointer;
+  text-decoration: underline !important;
 }
+
 .success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
 }
+
 .growl {
-    position: fixed;
-    height: auto;
-    background-color: #00000099;
-    width: auto;
-    top: 65px;
-    right: 0;
-    color: white;
-    border: 3px solid #00000082;
-    border-right: 0;
-    border-radius: 21px 0 0 21px;
-    padding: 10px;
-    max-width: 500px;
-    z-index: 100000;
+  position: fixed;
+  height: auto;
+  background-color: #00000099;
+  width: auto;
+  top: 65px;
+  right: 0;
+  color: white;
+  border: 3px solid #00000082;
+  border-right: 0;
+  border-radius: 21px 0 0 21px;
+  padding: 10px;
+  max-width: 500px;
+  z-index: 100000;
 }
+
 .inputPerso {
-    height: 2rem!important;
+  height: 2rem!important;
 }
-table.highlight tbody tr:hover{
-    background-color: rgba(181, 181, 181, 0.5);
+
+table.highlight tbody tr:hover {
+  background-color: rgba(181, 181, 181, 0.5);
 }
+
 /* FIN GENERAL */
+
 /* FONT */
+
 .txtSmall {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
+
 .txtLarge {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
+
 /* FIN FONT */
+
 /* MENU */
-.menu{
-    background-color: #dfdfdf;
-    z-index: 4;
-    padding: 0 2rem 0 2rem !important;
+
+.menu {
+  background: url(assets/img/Z52WUAQU4RMB1540424548300.jpg);
+  background-clip: padding-box;
+  z-index: 4;
+  padding: 0 2rem 0 2rem !important;
+  position: fixed !important;
+  border-radius: 0px 10px 10px 0px;
+  border-top-style: outset;
+  border-top-color: #ede0c9;
+  border-bottom-style: outset;
+  border-bottom-color: #ede0c9;
+  border-right-style: outset;
+  border-right-color: #ede0c9;
 }
+
+.navbar-light .navbar-nav .nav-link {
+  color: #ede0c9 !important;
+  font-weight: 400 !important;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif !important;
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAbCAYAAABr/T8RAAAAGXRFW…Q0+pZYlVVJb2rhz3X0OY2RCOwa8+lXNx5p/wZeZ/4/BBgAPu9bJEh69i0AAAAASUVORK5CYII=), pointer;
+  text-transform: uppercase;
+  font-size: 20px !important;
+  border-left: 1px solid white;
+  border-color: #ede0c9;
+}
+
+.navbar-light .navbar-nav:last-child {
+  border-right: 1px solid white;
+}
+
 menu.deroulant {
-    position: relative;
+  position: fixed;
 }
-.sous-deroulant{
-    background-color: #dfdfdf;
-    display: none;
-    padding-left: 0;
+
+.sous-deroulant {
+  display: none;
+  padding-left: 0;
 }
+
 .sous-deroulant.pseudo {
-    list-style-type: none;
-    position: absolute;
-    right: 0;
+  list-style-type: none;
+  position: absolute;
+  right: 0;
 }
+
 .navbar-right {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
+
 li.nav-item {
-    cursor: pointer;
+  cursor: url(assets/img/wow-cursor.png), pointer;
+  font-family: serif;
+  font-size: 25px;
 }
+
 li.nav-item:hover {
-    background-color: #eeecec;
+  margin: inherit;
 }
-.deroulant:hover .sous-deroulant{
-    display: block;
-    width: max-content;
-    cursor: pointer;
+
+.deroulant:hover .sous-deroulant {
+  display: block;
+  width: max-content;
+  cursor: url(assets/img/wow-cursor.png), pointer;
+  background-color: rgb(237, 224, 201, 0.2);
 }
-.sous-deroulant li{
-    float: none;
+
+.sous-deroulant li {
+  float: none;
 }
-.sous-deroulant li a{
-    color: black;
+
+.nav-link:hover {
+  background-color: rgb(237, 224, 201, 0.2);
 }
+
 /* FIN MENU */
+
 /*AFFICHAGE PERSONNAGE*/
+
+.btn:focus {
+  box-shadow: none
+}
+
+.btn:hover {
+  background-color: black;
+}
+
+#fonda {
+  background-color: rgba(0, 0, 0, .3);
+  border-style: groove;
+  border-color: #504137;
+  border-width: 1px;
+}
+
+#fonda:hover {
+  border-color: #f8b700;
+}
+
+#fondb {
+  background-color: rgba(0, 0, 0, .3);
+  border-style: groove;
+  border-color: #504137;
+  border-width: 1px;
+}
+
+#fondb:hover {
+  border-color: #f8b700;
+}
+
+div.detail-item-character {
+  background-color: rgba(0, 0, 0, .3);
+  border-color: #504137;
+  border-style: hidden;
+  border-radius: 5px;
+}
+
+div.detail-item-character:hover {
+  background-color: rgb(237, 224, 201, 0.2);
+  border-color: #504137;
+  border-style: hidden;
+  border-radius: 5px;
+  cursor: url(assets/img/wow-cursor.png), pointer;
+}
+
+div.card-header {
+  background-image: url(assets/img/Z52WUAQU4RMB1540424548300.jpg);
+}
+
+div.card-header:hover {
+  border-color: #f8b700
+}
+
+div.col {
+  background-color: (237, 224, 201, 0);
+  color: #ede0c9;
+}
+
+div.card {
+  background-color: inherit;
+}
+
+.card-body {
+  background-color: red;
+}
+
+div.card-body {
+  background-color: rgba(53, 32, 17, .6);
+  padding: 30px;
+  border-style: groove;
+  border-color: #504137;
+  border-width: 1px;
+}
+
+div.card-body:hover {
+  border-color: #f8b700;
+}
+
+div.row {
+  background-color: (237, 224, 201, 0);
+}
+
 .item {
-    border: solid;
-    margin-left: 4em;
-    margin-right: 4em;
-    height: 5em;
-    margin-bottom: 0.5em;
+  border: double;
+  margin-left: 4em;
+  margin-right: 4em;
+  height: 5em;
+  margin-bottom: 0.5em;
+  background-color: (237, 224, 201, 0);
 }
+
 .itemGeneral {
-    display: flex;
-    float: left;
-    margin-bottom: 10px;
-    border: 2px #b5b5b550;
-    border-style: solid;
-    margin-right: 10px;
-    padding: 3px 3px 3px 3px;
-    background: #d4d4d4;
-    border-radius: 0px 5px 5px 0px;
+  display: flex;
+  float: left;
+  margin-bottom: 10px;
+  border: 2px #b5b5b550;
+  border-style: double;
+  margin-right: 10px;
+  padding: 3px 3px 3px 3px;
+  background: #d4d4d4;
+  background-color: black;
 }
+
 .itemGeneral:hover {
-    cursor: pointer;
+  cursor: url(assets/img/wow-cursor.png), pointer;
 }
+
 /*FIN AFFICHAGE PERSONNAGE*/
+
 /*AFFICHAGE ITEM*/
+
+.btncc:disabled {
+  background-color: rgba(237, 224, 201, 0.5);
+  border-color: rgba(237, 224, 201, 0.7);
+  color: rgb(237, 224, 201);
+}
+
+.btncc:hover {
+  background-color: rgba(237, 224, 201, 0.3);
+  border-color: rgba(237, 224, 201, 0.7);
+  color: rgb(237, 224, 201);
+  cursor: url(assets/img/wow-cursor.png), pointer;
+}
+
+button.btncc {
+  background-color: rgba(237, 224, 201, 0.2);
+  border-color: rgba(237, 224, 201, 0.7);
+  color: rgb(237, 224, 201);
+  border-radius: 5px;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: larger;
+}
+
+.btnc {
+  padding: 10px 118px;
+  margin-left: -151px;
+  background-color: rgba(237, 224, 201, 0.2);
+  border-color: rgba(237, 224, 201, 0.5);
+  color: rgb(237, 224, 201);
+  border-radius: 5px;
+  cursor: url(assets/img/wow-cursor.png), pointer;
+}
+
+.btnc:hover {
+  padding: 10px 118px;
+  margin-left: -151px;
+  background-color: rgba(237, 224, 201, 0.2);
+  border-color: #f8b700;
+  color: rgb(237, 224, 201);
+  border-radius: 5px;
+  cursor: url(assets/img/wow-cursor.png), pointer;
+}
+
+.btn.btn-dark {
+  padding: 10px 110px;
+  margin-left: -151px;
+  background-color: rgba(237, 224, 201, 0.2);
+  border-color: rgba(237, 224, 201, 0.5);
+  color: rgb(237, 224, 201);
+}
+
+.btn.btn-dark:hover {
+  padding: 10px 110px;
+  margin-left: -151px;
+  background-color: rgba(237, 224, 201, 0.2);
+  border-color: #f8b700;
+  color: rgb(237, 224, 201);
+  border-radius: 5px;
+  cursor: url(assets/img/wow-cursor.png), pointer !important;
+}
+
+.icon-button {
+  cursor: url(assets/img/wow-cursor.png), pointer;
+  color: rgb(237, 224, 201, 0.3);
+}
+
+.icon-button:hover {
+  color: rgb(237, 224, 201);
+}
+
+.icon-buton:active {
+  color: red;
+}
+
 .itemDetail {
-    margin-left: 8px;
+  margin-left: 8px;
 }
+
 .itemIcon {
-    font-size: 30px !important;
-    margin: auto;
-    padding-left: 5px;
+  font-size: 30px !important;
+  margin: auto;
+  padding-left: 5px;
 }
+
 .item-detail {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    top: 0;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 }
+
+.mt-1 {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
 .detail-content {
-    background: white;
-    padding: 3px;
-    border: 2px solid #d6d6d6;
-    border-radius: 5px;
-    position: absolute;
-    top: 50%;
-    right: 33.3%;
-    width: 30%;
+  background: white;
+  padding: 3px;
+  border: 2px solid #d6d6d6;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  right: 33.3%;
+  width: 30%;
 }
+
 .item-character {
-    display:flex;
+  display: flex;
 }
+
 .image-item {
-    display: flex;
-    align-items: center;
-    margin-right: 6px;
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
 }
+
 .detail-item-character {
-    background-color: white;
-    display: flex;
+  background-color: white;
+  display: flex;
 }
+
 .carac-item {
-    padding: 3px;
-    border: 1px solid grey;
-    border-radius: 10px;
-    position: absolute;
-    z-index: 2;
-    right: 5px;
-    background-color: white; 
-    width: 250px;
+  padding: 3px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 2;
+  right: 5px;
+  background-color: white;
+  width: 250px;
 }
+
+.col-md-auto {
+  margin-left: 170px;
+  margin-top: 28px;
+}
+
+.psd {
+  margin-left: inherit;
+  padding-right: 200px !important;
+  font-size: 16px;
+}
+
+.row.mb-3 {
+  border-top: 1px solid #4d4d4d;
+}
+
+select.form-control {
+  background-color: red;
+}
+
 /*FIN AFFICHAGE ITEM*/

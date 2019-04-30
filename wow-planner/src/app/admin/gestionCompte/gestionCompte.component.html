@@ -35,7 +35,7 @@
     <div class="col" *ngIf="userActif">
         <div class="row">
             <div class="col-md-2">
-                <button (click)="retour()" class="btn btn-dark">
+                <button (click)="retour()" class="button">
                     {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
                 </button>
             </div>
@@ -46,7 +46,7 @@
                     <div class="card-header">
                         <div class="row text-center">
                             <div class="col">
-                                <button (click)="(editMode = !editMode)" class="btn btn-primary">
+                                <button (click)="(editMode = !editMode)" class="button">
                                     {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
                                 </button>
                             </div>
@@ -123,7 +123,7 @@
                     <div class="card-footer" *ngIf="editMode">
                         <div class="text-center row">
                             <div class="col">
-                                <button (click)="sendUser()" class="btn btn-success">
+                                <button (click)="sendUser()" class="button">
                                     {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
                                 </button>
                             </div>

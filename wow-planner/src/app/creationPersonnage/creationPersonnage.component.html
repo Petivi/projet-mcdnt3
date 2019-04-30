@@ -6,25 +6,26 @@
                     <div class="row">
                         <ng-container *ngIf="!displayCharacter">
                             <div class="col">
-                                <select  class="form-control" [(ngModel)]="character.race_id"> <!-- TODO: *ngIf="tabRaces"  -->
+                                <select *ngIf="tabRaces" class="form-control" [(ngModel)]="character.race_id">
                                     <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
                                 </select>
                             </div>
                             <div class="col">
-                                <select class="form-control" (change)="setCharacter()"
-                                    [(ngModel)]="character.class_id"> <!-- TODO: *ngIf="tabClasses"  -->
+                                <select *ngIf="tabClasses" class="form-control" (change)="setCharacter()"
+                                    [(ngModel)]="character.class_id">
                                     <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}
                                     </option>
                                 </select>
                             </div>
                             <div class="col text-center">
-                                <button class="btn btn-primary" style="width: 100%"
-                                    (click)="(displayCharacter = true)">{{(words | filter : {msg_name: 'msg_valider'} : {col : 'value'})}}</button>
+                                <button class="button" (click)="(displayCharacter = true)">
+                                    {{(words | filter : {msg_name: 'msg_valider'} : {col : 'value'})}}
+                                </button>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="displayCharacter">
-                            <div class="col-md-1">
-                                <button (click)="resetCharac()" class="btn btn-dark">
+                            <div class="col-md-1" *ngIf="!character.character_id">
+                                <button (click)="resetCharac()" class="button">
                                     {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
                                 </button>
                             </div>
@@ -35,8 +36,9 @@
                                 <input id="name" class="form-control col-md-6" autofocus type="text"
                                     [(ngModel)]="character.name">
                                 <div class="col text-center">
-                                    <button class="btn btn-success" style="width: 100%"
-                                        (click)="saveCharac()">{{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}</button>
+                                    <button class="button" (click)="saveCharac()">
+                                        {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
+                                    </button>
                                 </div>
                             </ng-container>
                         </ng-container>
@@ -187,7 +189,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-1">
-                        <button (click)="(displayChoixItem = false)" class="btn btn-dark">
+                        <button (click)="(displayChoixItem = false)" class="button">
                             {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
                         </button>
                     </div>
@@ -272,21 +274,6 @@
                         title="{{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}">
                     </kendo-grid-column>
                 </kendo-grid>
-                <!-- <div class="itemGeneral" *ngFor="let item of ttItem">
-                    <div (mouseleave)="(item.affichage = 0)" (mouseenter)="getItemInfo(item)">
-                        <div style="display: inline">
-                            <img src="{{iconUrl + item.item_icon + '.jpg'}}">
-                        </div>
-                        <i class="fa fa-angle-right itemIcon" *ngIf="item.affichage === 0"></i>
-                        <div class="itemDetail" *ngIf="item.affichage === 1">
-                            <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{item.name}}</div>
-                            <div>armor : {{item.armor ? item.armor : ''}}</div>
-                            <div *ngFor="let bonus of item.bonusStats">
-                                {{bonus.statLibelle + ' : ' + bonus.amount}}
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="detail-content" *ngIf="displayItemDetailListe && selectedItem">
                     <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{selectedItem.name}}</div>
                     <div *ngIf="selectedItem.armor">armor : {{selectedItem.armor}}</div>

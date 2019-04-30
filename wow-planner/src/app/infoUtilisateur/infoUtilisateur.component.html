@@ -5,7 +5,7 @@
                 <div class="card-header">
                     <div class="text-center row">
                         <div class="col">
-                            <button (click)="(editMode = true)" class="btn btn-primary">
+                            <button (click)="(editMode = true)" class="button">
                                 {{(words | filter : {msg_name: 'msg_modifCompte'} : {col : 'value'})}}
                             </button>
                         </div>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="row" *ngIf="editMode">
                         <div class="col">
-                            <button (click)="desinscription()" class="btn btn-warning">
+                            <button (click)="desinscription()" class="button">
                                 {{(words | filter : {msg_name: 'msg_btnDesinscrire'} : {col : 'value'})}}
                             </button>
                         </div>
@@ -76,7 +76,7 @@
                 <div class="card-footer" *ngIf="editMode">
                     <div class="row">
                         <div class="text-center col">
-                            <button (click)="sendUser()" class="btn btn-success">
+                            <button (click)="sendUser()" class="button">
                                 {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
                             </button>
                         </div>
@@ -89,7 +89,7 @@
                 <div class="card-header">
                     <div class="row form-group">
                         <div class="col text-center">
-                            <button (click)="(changePass = true)" class="btn btn-primary">
+                            <button (click)="(changePass = true)" class="button">
                                 {{(words | filter : {msg_name: 'msg_changePass'} : {col : 'value'})}}
                             </button>
                         </div>
@@ -132,7 +132,7 @@
                 <div class="card-footer" *ngIf="changePass">
                     <div class="row">
                         <div class="col text-center">
-                            <button (click)="sendPass()" class="btn btn-success">
+                            <button (click)="sendPass()" class="button">
                                 {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
                             </button>
                         </div>
