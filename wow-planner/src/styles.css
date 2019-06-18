@@ -313,10 +313,6 @@ div.card {
     background-color: inherit;
 }
 
-.card-body {
-    background-color: red;
-}
-
 div.card-body {
     background-color: rgba(53, 32, 17, .6);
     padding: 30px;
@@ -510,10 +506,6 @@ button.btncc {
 
 .row.mb-3 {
     border-top: 1px solid #4d4d4d;
-}
-
-select.form-control {
-    background-color: red;
 }
 
 /*FIN AFFICHAGE ITEM*/
