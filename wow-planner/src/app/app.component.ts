@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 
 import { User, Word } from './model/app.model';
 
+import { setHeaderEditFixed } from './common/function';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit {
         this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
             this.userConnected = res;
         });
+        setHeaderEditFixed();
         this.getPageWords();
         this.checkAdmin();
     }

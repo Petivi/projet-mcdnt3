@@ -1,17 +1,17 @@
 <div class="container" *ngIf="words && words.length > 0 && userConnected">
     <div class="row" [formGroup]="infoUserForm">
         <div class="col-md-6" formGroupName="profileGroup">
-            <div class="card">
-                <div class="card-header">
-                    <div class="text-center row">
-                        <div class="col">
+            <div class="cadrea">
+                <div class="none">
+                    <div class="text-center row ">
+                        <div class="col ">
                             <button (click)="(editMode = true)" class="button">
                                 {{(words | filter : {msg_name: 'msg_modifCompte'} : {col : 'value'})}}
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="card-body form-group">
+                <div class="card-body form-group cadreb">
                     <div class="row alert alert-danger" *ngIf="profileErrors && profileErrors.length > 0">
                         <div class="col">
                             <div *ngFor="let error of profileErrors">{{error}}</div>

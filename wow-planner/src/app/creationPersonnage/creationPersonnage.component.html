@@ -1,17 +1,17 @@
-<div class="container" *ngIf="words && words.length > 0">
+<div class="container cadre" *ngIf="words && words.length > 0">
     <div class="row">
         <div class="col">
-            <div class="card">
-                <div class="card-header form-group">
+            <div class="card ">
+                <div class="form-group">
                     <div class="row">
                         <ng-container *ngIf="!displayCharacter">
-                            <div class="col">
-                                <select *ngIf="tabRaces" class="form-control" [(ngModel)]="character.race_id">
+                            <div class="col ">
+                                <select *ngIf="tabRaces" class="form-control white" [(ngModel)]="character.race_id">
                                     <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
                                 </select>
                             </div>
                             <div class="col">
-                                <select *ngIf="tabClasses" class="form-control" (change)="setCharacter()"
+                                <select *ngIf="tabClasses" class="form-control white" (change)="setCharacter()"
                                     [(ngModel)]="character.class_id">
                                     <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}
                                     </option>
@@ -24,7 +24,7 @@
                             </div>
                         </ng-container>
                         <ng-container *ngIf="displayCharacter">
-                            <div class="col-md-1" *ngIf="!character.character_id">
+                            <div class="col-md-1 retourc" *ngIf="!character.character_id">
                                 <button (click)="resetCharac()" class="button">
                                     {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
                                 </button>
@@ -44,7 +44,7 @@
                         </ng-container>
                     </div>
                 </div>
-                <div class="card-body" *ngIf="displayCharacter">
+                <div class="card-body tableaui" *ngIf="displayCharacter">
                     <div class="row text-center">
                         <div class="col-md-8">
                             <div class="card">
@@ -210,7 +210,7 @@
                                 <label>Type</label>
                             </div>
                             <div class="col">
-                                <select (change)="getTtItem()" class="form-control" [(ngModel)]="recherche.matiere">
+                                <select (change)="getTtItem()" class="form-control white" [(ngModel)]="recherche.matiere">
                                     <option [value]="mat.id" *ngFor="let mat of ttMatiere">
                                         {{(words | filter : {msg_name: mat.name} : {col : 'value'})}}
                                     </option>
@@ -224,7 +224,7 @@
                                 <label>{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}</label>
                             </div>
                             <div class="col">
-                                <select class="form-control" (change)="getTtItem()" [(ngModel)]="recherche.quality">
+                                <select class="form-control white" (change)="getTtItem()" [(ngModel)]="recherche.quality">
                                     <option [value]="-1"> - </option>
                                     <option [value]="quality.id" *ngFor="let quality of ttQuality">
                                         {{(words | filter : {msg_name: quality.name} : {col : 'value'})}}
@@ -254,7 +254,7 @@
             </div>
             <div class="card-body scrollv">
                 <kendo-grid [kendoGridBinding]="gridData.toArray()" [scrollable]="'none'" [sortable]="true"
-                    [pageable]="true" [pageSize]="50" [filterable]="true">
+                    [pageable]="true" [pageSize]="50" [filterable]="true" class="lista">
                     <kendo-grid-column field="item_icon" title="" [width]="80" [filterable]="false">
                         <ng-template let-dataItem kendoGridCellTemplate>
                             <img (click)="selectItem(dataItem)" class="clickable"
