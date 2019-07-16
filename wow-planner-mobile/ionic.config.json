@@ -1,0 +1,7 @@
+{
+  "name": "wow-planner-mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
