@@ -314,7 +314,7 @@ div.card {
 }
 
 div.card-body {
-    background-color: rgba(53, 32, 17, .6);
+    background-color: rgb(23, 20, 18);
     padding: 30px;
     border-style: groove;
     border-color: #504137;
