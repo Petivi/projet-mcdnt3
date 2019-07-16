@@ -28,16 +28,11 @@ import { DetailPersonnageComponent } from './detailPersonnage/detailPersonnage.c
 
 import { CreationPersonnageResolver, GestionCompteResolver, ContactResolver, ListePersonnageResolver, AccueilResolver, DetailPersonnageResolver } from './app.resolver';
 
-
 import { AppService } from './app.service';
 
 import { appRouting } from './app.routing';
 
 import { FilterPipe } from './common/pipe/string.pipe';
-
-
-
-
 
 @NgModule({
     declarations: [
