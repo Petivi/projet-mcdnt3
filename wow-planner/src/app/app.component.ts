@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 import { AppService } from './app.service';
 
@@ -18,7 +17,7 @@ export class AppComponent implements OnInit {
     chargement: boolean = true;
     userConnected: User;
     langue: string;
-    constructor(private _appService: AppService, private http: HttpClient, private _router: Router) { }
+    constructor(private _appService: AppService, private _router: Router) { }
     ngOnInit() {
         this.langue = this._appService.getLangue();
         this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {

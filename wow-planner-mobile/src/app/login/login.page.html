@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="words && words.length > 0">
+    <form [formGroup]="loginForm">
+        <ion-list>
+            <label for="login">
+                {{(words | filter : {msg_name: 'msg_loginMail'} : {col : 'value'})}} *
+            </label>
+            <input autofocus id="login" class="form-control"
+                [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.login.errors }" type="text"
+                formControlName="login">
+        </ion-list>
+    </form>
+</ion-content>
