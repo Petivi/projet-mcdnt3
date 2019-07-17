@@ -5,14 +5,17 @@
 </ion-header>
 
 <ion-content *ngIf="words && words.length > 0">
-    <form [formGroup]="loginForm">
-        <ion-list>
-            <label for="login">
-                {{(words | filter : {msg_name: 'msg_loginMail'} : {col : 'value'})}} *
-            </label>
-            <input autofocus id="login" class="form-control"
-                [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.login.errors }" type="text"
-                formControlName="login">
-        </ion-list>
-    </form>
+    <ion-item class="mt-3">
+        <ion-label>{{(words | filter : {msg_name: 'msg_loginMail'} : {col : 'value'})}} *</ion-label>
+        <ion-input type="text" [(ngModel)]="user.login"></ion-input>
+    </ion-item>
+    <ion-item class="mt-3">
+        <ion-label>{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</ion-label>
+        <ion-input type="text" [(ngModel)]="user.pasword"></ion-input>
+    </ion-item>
+    <div class="text-center mt-3">
+        <button class="btn btn-success" (click)="login()">
+            {{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}
+        </button>
+    </div>
 </ion-content>

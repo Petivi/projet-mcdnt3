@@ -1,21 +1,7 @@
 import * as globals from '../../assets/data/globals';
-import * as jQuery from 'jquery';
 
 export function setGrowl(obj: any): string {
     return '<h5>' + obj.title + '</h5><div>' + obj.body + '</div>';
-}
-
-export function setHeaderEditFixed() {
-    jQuery(window).scroll(function () {
-        var height = jQuery(window).scrollTop();
-        if (height >= 100) {
-            jQuery('.menu').addClass('scrollOn');
-            jQuery('#imgWow').css('width', '150px');
-        } else {
-            jQuery('.menu').removeClass('scrollOn');
-            jQuery('#imgWow').css('width', '400px');
-        }
-    });
 }
 
 export function setTtItem(ttItemG, ttItemD, character): Promise<any> {
