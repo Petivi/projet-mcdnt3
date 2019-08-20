@@ -5,8 +5,25 @@ import { Component } from '@angular/core';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit, OnDestroy {
 
-  constructor() {}
+  characterDetail: any;
+  displayDetail: boolean = false;
+  userConnected: User;
+  obsInit: Subscription;
+  words: Word[] = [];
+  ttCharacter: any[] = [];
+  constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute) { }
+
+  ngOnInit() {
+      this.obsInit = this._activatedRoute.data.subscribe(res => {
+          this.ttCharacter = res.resolver.characters && res.resolver.characters.length > 0 ? res.resolver.characters : [];
+          this.words = res.resolver.words;
+      });
+  }
+
+  ngOnDestroy() {
+
+  }
 
 }
