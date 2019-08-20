@@ -36,9 +36,9 @@ export class AppComponent {
     }
 
     deconnexion() {
+        console.log('oui')
         this.userConnected = null;
         this._appService.deconnexion();
-        this._router.navigate(['/accueil']);
     }
 
     changeLangue() {

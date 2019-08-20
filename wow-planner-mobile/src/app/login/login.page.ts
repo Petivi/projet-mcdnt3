@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
     errors: string[] = [];
     submitted: boolean = false;
     linkMail: boolean = false;
-    valid: boolean = false;
+    valid: boolean = true;
 
     constructor(private _router: Router, private _formBuilder: FormBuilder, private _appService: AppService) {
     }
