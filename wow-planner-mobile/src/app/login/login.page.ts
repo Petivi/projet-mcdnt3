@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { AppService } from '../app.service';
+import { UserService } from '../user.service';
 
 import { Word, User } from '../model/app.model';
 
@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
     linkMail: boolean = false;
     valid: boolean = true;
 
-    constructor(private _router: Router, private _formBuilder: FormBuilder, private _appService: AppService) {
+    constructor(private _router: Router, private _appService: AppService, private _userService: UserService) {
     }
 
     ngOnInit() {
@@ -42,6 +42,8 @@ export class LoginPage implements OnInit {
             this._appService.connexion(this.user)
                 .then(res => {
                     if (res === 'connected') {
+                        let token = JSON.parse(localStorage.getItem('userConnected'));
+                        this._userService.setUser(token.session_token);
                         this._router.navigate(['/home']);
                         window.location.reload();
                     } else {
