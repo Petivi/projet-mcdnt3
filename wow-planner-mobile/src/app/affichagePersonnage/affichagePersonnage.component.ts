@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
 
 import { AppService } from '../app.service';
 
@@ -18,6 +17,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
     @Input() words: Word[] = [];
     @Input() mesPersonnages: boolean;
     @Input() detailPersonnage: boolean;
+    @Input() character: any;
     @Output() deleted = new EventEmitter<boolean>();
 
     iconUrl = globals.blizzardIconUrl;
@@ -51,7 +51,6 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         { id: 16, class: 4, inventoryType: 14, imgUrl: 'assets/img/inventoryslot_offhand.jpg', item: null }
     ];
 
-    @Input() character: any;
 
     constructor(private _appService: AppService, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
@@ -143,7 +142,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
             });
     }
 
-    deleteCharacter() {
+    /* deleteCharacter() {
         Swal({
             title: this.words.find(w => w.msg_name === 'msg_deleteConfirmation').value,
             type: 'warning',
@@ -158,6 +157,6 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
                     }
                 });
         });
-    }
+    } */
 
 }

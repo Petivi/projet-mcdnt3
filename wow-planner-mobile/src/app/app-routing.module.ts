@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AccueilResolver } from './app.resolver';
+
 const routes: Routes = [
     {
         path: '',
@@ -9,6 +11,9 @@ const routes: Routes = [
     },
     {
         path: 'home',
+        resolve: {
+            accueil: AccueilResolver
+        },
         loadChildren: './home/home.module#HomePageModule'
     },
     {

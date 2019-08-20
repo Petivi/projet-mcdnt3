@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+
+import { AppService } from '../app.service';
+
+import { User, Word } from '../model/app.model';
 
 @Component({
   selector: 'app-home',

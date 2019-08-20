@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { AccueilResolver } from './app.resolver';
+
 import { AppService } from './app.service';
 
 
@@ -31,7 +33,8 @@ import { AppService } from './app.service';
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        AppService
+        AppService,
+        AccueilResolver
     ],
     bootstrap: [AppComponent]
 })
