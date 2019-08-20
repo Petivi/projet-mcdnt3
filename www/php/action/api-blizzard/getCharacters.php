@@ -114,7 +114,7 @@ if($tabInfo['data'] == "perso"){ // if data == perso, we display only users' cha
   $request_character_infos->execute();
   while($character_infos = $request_character_infos->fetch())
   {
-    if($account_id){
+    if(isset($account_id)){
       $statut_like = getStatutLikeDislike($account_id, $character_infos['id']);
     }else {
       $statut_like = NULL;
