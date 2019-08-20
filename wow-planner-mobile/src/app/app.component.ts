@@ -58,7 +58,11 @@ export class AppComponent {
             });
             if (this.userConnected) {
                 this.appPages = [
-                    {
+                  {
+                      title: this.words.find(w => w.msg_name === 'msg_homeTitle').value,
+                      url: '/home',
+                      icon: 'home'
+                  },{
                         title: this.words.find(w => w.msg_name === 'msg_mesPersonnages').value,
                         url: '/listePersonnage',
                         icon: 'people'
@@ -69,7 +73,12 @@ export class AppComponent {
                     }
                 ];
             } else {
-                this.appPages = [{
+                this.appPages = [
+                  {
+                      title: this.words.find(w => w.msg_name === 'msg_homeTitle').value,
+                      url: '/home',
+                      icon: 'home'
+                  },{
                     title: this.words.find(w => w.msg_name === 'msg_registration').value,
                     url: '/inscription',
                     icon: 'person-add'
