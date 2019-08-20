@@ -35,12 +35,6 @@ export class AppComponent {
         });
     }
 
-    deconnexion() {
-        console.log('oui')
-        this.userConnected = null;
-        this._appService.deconnexion();
-    }
-
     changeLangue() {
         this.langue = this.langue === 'en' ? 'fr' : 'en';
         this._appService.setLangue(this.langue);
@@ -57,28 +51,18 @@ export class AppComponent {
                 this.words.push(w);
             });
             if (this.userConnected) {
-                this.appPages = [
-                  {
-                      title: this.words.find(w => w.msg_name === 'msg_homeTitle').value,
-                      url: '/home',
-                      icon: 'home'
-                  },{
+                this.appPages = [{
                         title: this.words.find(w => w.msg_name === 'msg_mesPersonnages').value,
                         url: '/listePersonnage',
                         icon: 'people'
                     }, {
                         title: this.words.find(w => w.msg_name === 'msg_signout').value,
-                        url: '/login',
+                        url: '/logout',
                         icon: 'log-out'
                     }
                 ];
             } else {
-                this.appPages = [
-                  {
-                      title: this.words.find(w => w.msg_name === 'msg_homeTitle').value,
-                      url: '/home',
-                      icon: 'home'
-                  },{
+                this.appPages = [{
                     title: this.words.find(w => w.msg_name === 'msg_registration').value,
                     url: '/inscription',
                     icon: 'person-add'
@@ -90,12 +74,12 @@ export class AppComponent {
             }
             this.appPages.unshift({
                 title: this.words.find(w => w.msg_name === 'msg_accueil').value,
-                url: '/accueil',
+                url: '/home',
                 icon: 'home'
             });
             setTimeout(() => {
                 if (this._router.url === '/') {
-                    this._router.navigate(['/accueil']);
+                    this._router.navigate(['/home']);
                 }
             }, 100)
         });

@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
 
     ngOnInit() {
         if (localStorage.getItem('userConnected')) { // si quelqu'un est connecté il ne peut pas aller sur la page login donc on le renvoi a l'accueil
-            this._router.navigate(['/accueil']);
+            this._router.navigate(['/home']);
         } else {
             this._appService.getWords(['common', 'connexion', 'confirmation']).then(res => {
                 res.forEach(w => {
@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
             this._appService.connexion(this.user)
                 .then(res => {
                     if (res === 'connected') {
-                        this._router.navigate(['/accueil']);
+                        this._router.navigate(['/home']);
                         window.location.reload();
                     } else {
                         if (res.error) {

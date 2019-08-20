@@ -17,7 +17,7 @@ export class CreationPersonnageResolver implements Resolve<any> {
                 if (data[0]) {
                     return { races: data[0][0].races, classes: data[0][1].classes, words: data[1], classesItem: data[2] };
                 } else {
-                    this._router.navigate(['/accueil']);
+                    this._router.navigate(['/home']);
                     return false;
                 }
             }
@@ -36,7 +36,7 @@ export class GestionCompteResolver implements Resolve<any> {
                 if (data[0]) {
                     return { words: data[0] };
                 } else {
-                    this._router.navigate(['/accueil']);
+                    this._router.navigate(['/home']);
                     return false;
                 }
             }
@@ -55,7 +55,7 @@ export class ContactResolver implements Resolve<any> {
                 if (data[0]) {
                     return { words: data[0] };
                 } else {
-                    this._router.navigate(['/accueil']);
+                    this._router.navigate(['/home']);
                     return false;
                 }
             }
@@ -75,7 +75,7 @@ export class ListePersonnageResolver implements Resolve<any> {
                 if (data[0]) {
                     return { words: data[0], characters: data[1].response };
                 } else {
-                    this._router.navigate(['/accueil']);
+                    this._router.navigate(['/home']);
                     return false;
                 }
             }
@@ -95,7 +95,7 @@ export class AccueilResolver implements Resolve<any> {
                 if (data[0]) {
                     return { words: data[0], characters: data[1].response };
                 } else {
-                    this._router.navigate(['/accueil']);
+                    this._router.navigate(['/home']);
                     return false;
                 }
             }
@@ -118,7 +118,7 @@ export class DetailPersonnageResolver implements Resolve<any> {
                 if (data[0]) {
                     return { words: data[0], character: data[1].response, comments: data[2].response, mesPersonnages: mesPersonages };
                 } else {
-                    this._router.navigate(['/accueil']);
+                    this._router.navigate(['/home']);
                     return false;
                 }
             }

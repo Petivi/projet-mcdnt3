@@ -18,7 +18,12 @@ const routes: Routes = [
     {
         path: 'login',
         loadChildren: './login/login.module#LoginPageModule'
+    },
+    {
+        path: 'logout',
+        loadChildren: './logout/logout.module#LogoutPageModule'
     }
+
 ];
 
 @NgModule({

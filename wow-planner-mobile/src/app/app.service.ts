@@ -90,7 +90,6 @@ export class AppService {
     }
 
     deconnexion() {
-        console.log(localStorage.getItem('userConnected'))
         if (localStorage.getItem('userConnected')) {
             this.getUserConnected(localStorage.getItem('userConnected')).then(res => {
                 if (!res.error) {
