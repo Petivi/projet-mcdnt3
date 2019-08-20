@@ -64,8 +64,8 @@ export class AppComponent {
                         icon: 'people'
                     }, {
                         title: this.words.find(w => w.msg_name === 'msg_signout').value,
-                        url: '/listePersonnage',
-                        icon: 'people'
+                        url: '/login',
+                        icon: 'log-out'
                     }
                 ];
             } else {

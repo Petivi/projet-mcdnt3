@@ -1,21 +1,47 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
         <ion-title>login</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="words && words.length > 0">
+    <div class="alert alert-danger" *ngIf="!valid">
+        <div *ngFor="let e of errors">{{e}}</div>
+    </div>
     <ion-item class="mt-3">
-        <ion-label>{{(words | filter : {msg_name: 'msg_loginMail'} : {col : 'value'})}} *</ion-label>
+        <ion-label position="floating">{{(words | filter : {msg_name: 'msg_loginMail'} : {col : 'value'})}} *
+        </ion-label>
         <ion-input type="text" [(ngModel)]="user.login"></ion-input>
     </ion-item>
     <ion-item class="mt-3">
-        <ion-label>{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</ion-label>
-        <ion-input type="text" [(ngModel)]="user.pasword"></ion-input>
+        <ion-label position="floating">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *
+        </ion-label>
+        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
     <div class="text-center mt-3">
         <button class="btn btn-success" (click)="login()">
             {{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}
         </button>
+    </div>
+    <div *ngIf="linkMail" class="col">
+        <a class="link" (click)="newMail(0)">
+            {{(words | filter : {msg_name: 'msg_mailPasRecu'} : {col : 'value'})}}
+        </a>
+    </div>
+    <div class="col" *ngIf="linkMail">
+        <a class="link" (click)="mailInvalide()">
+            {{(words | filter : {msg_name: 'msg_invalidMail'} : {col : 'value'})}}
+        </a>
+    </div>
+    <!--  <div class="col">
+        <a class="link" (click)="newMail(1)">
+            {{(words | filter : {msg_name: 'msg_mdpOublie'} : {col : 'value'})}}
+        </a>
+    </div> -->
+    <div class="row text-center">
+        <p class="col">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
     </div>
 </ion-content>

@@ -34,13 +34,12 @@ export class AppService {
         value = JSON.stringify(value);
         return this._http.post(this.urlServeur + 'action/login.php', value, this.httpOptions)
             .toPromise()
-            .then(res => {
-                let value = JSON.parse(res['body']);
-                if (value.response) {
-                    this.userConnected = value.response;
+            .then((res: any) => {
+                if (res.response) {
+                    this.userConnected = res.response;
                     localStorage.setItem('userConnected', JSON.stringify(this.userConnected));
                     return 'connected';
-                } else return value;
+                } else return res;
             });
     }
 
