@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -8,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Word, User } from './model/app.model';
 
 import { AppService } from './app.service';
+import { UserService } from './user.service';
 
 @Component({
     selector: 'app-root',
@@ -16,10 +18,11 @@ import { AppService } from './app.service';
 export class AppComponent {
     appPages = [];
     words: Word[] = [];
-    userConnected: User;
+    userToken: string;
+    obsUser: Subscription;
     langue: string;
 
-    constructor(private _platform: Platform, private _splashScreen: SplashScreen, private _statusBar: StatusBar, private _appService: AppService, private _router: Router) {
+    constructor(private _platform: Platform, private _splashScreen: SplashScreen, private _statusBar: StatusBar, private _appService: AppService, private _userService: UserService, private _router: Router) {
         this.initializeApp();
     }
 
@@ -28,10 +31,18 @@ export class AppComponent {
             this._statusBar.styleDefault();
             this._splashScreen.hide();
             this.langue = this._appService.getLangue();
-            this._appService.getUserConnected(localStorage.getItem('userConnected')).then(res => {
-                this.userConnected = res;
+            let token = JSON.parse(localStorage.getItem('userConnected'));
+            if(token) {
+                this._userService.setUser(token.session_token);
+            }
+            this.obsUser = this._userService.checkUser().subscribe((userToken: string) => {
+                if (userToken !== '' && userToken !== null && userToken !== undefined) {
+                    this.userToken = userToken;
+                } else {
+                    this.userToken = null;
+                }
+                this.setMenu();
             });
-            this.getPageWords();
         });
     }
 
@@ -45,12 +56,12 @@ export class AppComponent {
         window.location.reload();
     }
 
-    getPageWords() {
+    setMenu() {
         this._appService.getWords(['menu', 'common']).then(res => {
             res.forEach(w => {
                 this.words.push(w);
             });
-            if (this.userConnected) {
+            if (this.userToken) {
                 this.appPages = [{
                         title: this.words.find(w => w.msg_name === 'msg_mesPersonnages').value,
                         url: '/listePersonnage',
