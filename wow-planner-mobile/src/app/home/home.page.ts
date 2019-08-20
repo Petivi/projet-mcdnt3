@@ -23,8 +23,8 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.obsInit = this._activatedRoute.data.subscribe(res => {
-          this.ttCharacter = res.resolver.characters && res.resolver.characters.length > 0 ? res.resolver.characters : [];
-          this.words = res.resolver.words;
+          this.ttCharacter = res.accueil.characters && res.accueil.characters.length > 0 ? res.accueil.characters : [];
+          this.words = res.accueil.words;
       });
   }
 
