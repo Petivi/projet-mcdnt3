@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { AccueilResolver } from './app.resolver';
+import { AccueilResolver, DetailPersonnageResolver } from './app.resolver';
 
 const routes: Routes = [
     {
@@ -27,8 +27,14 @@ const routes: Routes = [
     {
         path: 'logout',
         loadChildren: './logout/logout.module#LogoutPageModule'
+    },
+    {
+        path: 'affichage-personnage/:id',
+        resolve: {
+            affichagePersonnage: DetailPersonnageResolver
+        },
+        loadChildren: './affichage-personnage/affichage-personnage.module#AffichagePersonnagePageModule'
     }
-
 ];
 
 @NgModule({

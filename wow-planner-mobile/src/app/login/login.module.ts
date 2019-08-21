@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 
-import { FilterPipe } from '../common/pipe/string.pipe';
 
 const routes: Routes = [
     {
@@ -21,8 +20,8 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         IonicModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
     ],
-    declarations: [LoginPage, FilterPipe]
+    declarations: [LoginPage]
 })
 export class LoginPageModule { }

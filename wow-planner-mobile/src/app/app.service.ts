@@ -23,10 +23,7 @@ export class AppService {
         return this._http.post(this.urlServeur + url, value, this.httpOptions)
             .toPromise()
             .then(res => {
-                if (res['body']) {
-                    let value = JSON.parse(res['body']);
-                    return value;
-                } else return true;
+                return res;
             });
     }
 
@@ -93,7 +90,7 @@ export class AppService {
         if (localStorage.getItem('userConnected')) {
             this.getUserConnected(localStorage.getItem('userConnected')).then(res => {
                 if (!res.error) {
-                    this.post('action/disconnection.php', res).then(res => {
+                    this.post('action/disconnection.php', res).then((res: any) => {
                         if (!res.error) {
                             localStorage.removeItem('userConnected');
                             this.userConnected = null;

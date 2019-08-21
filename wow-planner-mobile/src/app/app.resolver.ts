@@ -93,6 +93,7 @@ export class AccueilResolver implements Resolve<any> {
         ]).map(
             (data: any) => {
                 if (data[0]) {
+                    console.log(data)
                     return { words: data[0], characters: data[1].response };
                 } else {
                     this._router.navigate(['/home']);
@@ -108,7 +109,6 @@ export class DetailPersonnageResolver implements Resolve<any> {
     constructor(private _appService: AppService, private _router: Router) { }
     resolve(route: ActivatedRouteSnapshot): Promise<any> {
         let id = route.params['id'];
-        let mesPersonages = route.url[0].path === 'accueil' ? false : true;
         return Observable.forkJoin([
             this._appService.getWords(['common', 'detailPersonnage']),
             this._appService.post('action/api-blizzard/getOneCharacter.php', { session_token: this._appService.getToken(), character_id: id }),
@@ -116,7 +116,7 @@ export class DetailPersonnageResolver implements Resolve<any> {
         ]).map(
             (data: any) => {
                 if (data[0]) {
-                    return { words: data[0], character: data[1].response, comments: data[2].response, mesPersonnages: mesPersonages };
+                    return { words: data[0], character: data[1].response, comments: data[2].response };
                 } else {
                     this._router.navigate(['/home']);
                     return false;

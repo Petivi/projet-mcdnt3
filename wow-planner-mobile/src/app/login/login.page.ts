@@ -35,6 +35,10 @@ export class LoginPage implements OnInit {
         }
     }
 
+    getWord(libelle: string) {
+        return this.words.find(w => w.msg_name === libelle).value;
+    }
+
     login() {
         this.errors = [];
         this.submitted = true;
