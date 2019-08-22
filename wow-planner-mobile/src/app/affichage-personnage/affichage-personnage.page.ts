@@ -17,8 +17,9 @@ export class AffichagePersonnagePage implements OnInit {
 
     obsInit: Subscription;
     ttItems: any[] = [];
-    words: Word[] = []; 
+    words: Word[] = [];
     ttBonusStats: any[] = [];
+    ttComments: any[] = [];
     openCharac: boolean = true;
     openItem: boolean = true;
     openComment: boolean = true;
@@ -27,6 +28,8 @@ export class AffichagePersonnagePage implements OnInit {
 
     ngOnInit() {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
+            this.ttComments = res.affichagePersonnage.comments;
+            console.log(this.ttComments)
             this.ttItems = res.affichagePersonnage.character;
             this.words = res.affichagePersonnage.words;
             this.ttBonusStats = globals.bonusStats.map(bs => {
@@ -37,8 +40,6 @@ export class AffichagePersonnagePage implements OnInit {
                 }
             });
             // this.ttItems = res.affichagePersonnage.character && res.accueil.affichagePersonnage.character.length > 0 ? res.affichagePersonnage.character : [];
-            console.log(this.ttItems);
-            console.log(this.ttBonusStats);
         })
     }
 
