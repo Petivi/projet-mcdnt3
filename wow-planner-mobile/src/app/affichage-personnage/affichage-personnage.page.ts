@@ -17,7 +17,7 @@ export class AffichagePersonnagePage implements OnInit {
 
     obsInit: Subscription;
     ttItems: any[] = [];
-    words: Word[] = [];
+    words: Word[] = []; 
     ttBonusStats: any[] = [];
     openCharac: boolean = true;
     openItem: boolean = true;
