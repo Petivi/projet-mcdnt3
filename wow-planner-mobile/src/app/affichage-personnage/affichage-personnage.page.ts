@@ -30,6 +30,7 @@ export class AffichagePersonnagePage implements OnInit {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
             this.ttComments = res.affichagePersonnage.comments;
             console.log(this.ttComments)
+            console.log(res.affichagePersonnage)
             this.ttItems = res.affichagePersonnage.character;
             this.words = res.affichagePersonnage.words;
             this.ttBonusStats = globals.bonusStats.map(bs => {
@@ -59,6 +60,18 @@ export class AffichagePersonnagePage implements OnInit {
     getLibelleStat(id_stat) {
       let libelleStat = this.ttBonusStats.find(ls => ls.id === id_stat).libelle;
       return libelleStat;
+    }
+
+    addComment(){
+      if (this.newComment.length > 0) {
+          this._appService.post('action/api-blizzard/addComment.php', { session_token: this._appService.getToken(), comment: this.newComment, character_id: this.ttItems[0].character_id })
+              .then(res => {
+                  if (res.response) {
+                      this.ttCommentaire.unshift(res.response);
+                      this.commentaire = new Commentaire({ comment: '' });
+                  }
+              });
+      }
     }
 
 }
