@@ -17,11 +17,10 @@ export class AffichagePersonnagePage implements OnInit {
 
   ngOnInit() {
     this.obsInit = this._activatedRoute.data.subscribe(res => {
-      console.log(res.affichagePersonnage.character)
       this.ttItems = res.affichagePersonnage.character;
       this.words = res.affichagePersonnage.words;
       // this.ttItems = res.affichagePersonnage.character && res.accueil.affichagePersonnage.character.length > 0 ? res.affichagePersonnage.character : [];
-      console.log(this.words);
+      console.log(this.ttItems);
     })
   }
 
