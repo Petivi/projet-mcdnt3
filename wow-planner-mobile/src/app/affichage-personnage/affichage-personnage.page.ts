@@ -38,6 +38,7 @@ export class AffichagePersonnagePage implements OnInit {
             });
             // this.ttItems = res.affichagePersonnage.character && res.accueil.affichagePersonnage.character.length > 0 ? res.affichagePersonnage.character : [];
             console.log(this.ttItems);
+            console.log(this.ttBonusStats);
         })
     }
 
@@ -47,6 +48,16 @@ export class AffichagePersonnagePage implements OnInit {
 
     getHealthLibelle() {
         return this.ttBonusStats.find(bs => bs.id === 1).libelle;
+    }
+
+    getLibelleAttack() {
+      let statId = globals.statsClass.find(sc => sc.class == this.ttItems[0].class_id) ? globals.statsClass.find(sc => sc.class == this.ttItems[0].class_id).stat_id : null;
+      return statId ? this.ttBonusStats.find(bs => bs.id === statId).libelle : '';
+    }
+
+    getLibelleStat(id_stat) {
+      let libelleStat = this.ttBonusStats.find(ls => ls.id === id_stat).libelle;
+      return libelleStat;
     }
 
 }

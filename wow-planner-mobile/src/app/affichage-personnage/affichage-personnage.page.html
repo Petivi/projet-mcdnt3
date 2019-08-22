@@ -25,9 +25,24 @@
                         <p *ngIf="item.health > 0">
                             {{getHealthLibelle()}} : {{item.health}}
                         </p>
-                        <!-- <p *ngIf="item.attack > 0">
-                          {{getLibelleAttack(character)}} : {{item.attack}}
-                      </p> -->
+                        <p *ngIf="item.attack > 0">
+                            {{getLibelleAttack()}} : {{item.attack}}
+                        </p>
+                        <p *ngIf="item.critical_strike > 0">
+                            {{getLibelleStat(32)}} : {{item.critical_strike}}
+                        </p>
+                        <p *ngIf="item.stamina > 0">
+                            {{getLibelleStat(7)}} : {{item.stamina}}
+                        </p>
+                        <p *ngIf="item.haste > 0">
+                            {{getLibelleStat(36)}} : {{item.haste}}
+                        </p>
+                        <p *ngIf="item.mastery > 0">
+                            {{getLibelleStat(49)}} : {{item.mastery}}
+                        </p>
+                        <p *ngIf="item.versatility > 0">
+                            {{getLibelleStat(40)}} : {{item.versatility}}
+                        </p>
                     </ion-text>
                 </ion-label>
             </ion-item>
@@ -64,7 +79,7 @@
             <ion-icon name="arrow-forward" *ngIf="!openComment" class="arrow"></ion-icon>
             <ion-icon name="arrow-down" *ngIf="openComment" class="arrow"></ion-icon>
             <ion-label>
-                    {{getWord('msg_comment')}}
+                {{getWord('msg_comment')}}
             </ion-label>
         </ion-item>
 
