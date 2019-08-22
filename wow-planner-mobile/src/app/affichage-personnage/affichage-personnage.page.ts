@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import * as globals from '../../assets/data/globals';
+
 
 @Component({
   selector: 'app-affichage-personnage',
@@ -20,6 +22,13 @@ export class AffichagePersonnagePage implements OnInit {
     this.obsInit = this._activatedRoute.data.subscribe(res => {
       this.ttItems = res.affichagePersonnage.character;
       this.words = res.affichagePersonnage.words;
+      this.ttBonusStats = globals.bonusStats.map(bs => {
+        if (this._appService.getLangue() === 'fr') {
+          return { id: bs.id, libelle: bs.nameFr }
+        } else {
+          return { id: bs.id, libelle: bs.nameEn }
+        }
+      });
       // this.ttItems = res.affichagePersonnage.character && res.accueil.affichagePersonnage.character.length > 0 ? res.affichagePersonnage.character : [];
       console.log(this.ttItems);
     })
