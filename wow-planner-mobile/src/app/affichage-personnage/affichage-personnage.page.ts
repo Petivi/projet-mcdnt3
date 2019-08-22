@@ -12,6 +12,7 @@ export class AffichagePersonnagePage implements OnInit {
   obsInit: Subscription;
   ttItems: any[] = [];
   words: Word[] = [];
+  ttBonusStats: any[] = [];
 
   constructor(private _activatedRoute: ActivatedRoute) { }
 
@@ -27,5 +28,9 @@ export class AffichagePersonnagePage implements OnInit {
   getWord(libelle: string) {
     return this.words.find(w => w.msg_name === libelle).value;
   }
+
+  getHealthLibelle() {
+		return this.ttBonusStats.find(bs => bs.id === 1).libelle;
+	}
 
 }
