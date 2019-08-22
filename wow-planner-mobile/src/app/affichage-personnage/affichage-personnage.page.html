@@ -1,12 +1,14 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>affichagePersonnage</ion-title>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{pageTitle}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list *ngIf="ttItems && ttItems.length > 0">
-
+    <ion-list *ngIf="character">
         <ion-item button (click)="openCharac = !openCharac" class="parent" [class.active]="openCharac"
             [class.inactive]="!openCharac" detail="false">
             <ion-icon name="arrow-forward" *ngIf="!openCharac" class="arrow"></ion-icon>
@@ -17,31 +19,31 @@
         </ion-item>
 
         <ion-list *ngIf="openCharac" class="sub-item">
-            <ion-item *ngFor="let item of ttItems">
+            <ion-item>
                 <ion-label text-wrap>
                     <ion-text>
-                        <p *ngIf="item.armour > 0">
-                            {{getWord('msg_armor')}} : {{item.armour}}</p>
-                        <p *ngIf="item.health > 0">
-                            {{getHealthLibelle()}} : {{item.health}}
+                        <p *ngIf="character.armour > 0">
+                            <span class="font-weight-bold">{{getWord('msg_armor')}}</span> : {{character.armour}}</p>
+                        <p *ngIf="character.health > 0">
+                            <span class="font-weight-bold">{{getHealthLibelle()}}</span> : {{character.health}}
                         </p>
-                        <p *ngIf="item.attack > 0">
-                            {{getLibelleAttack()}} : {{item.attack}}
+                        <p *ngIf="character.attack > 0">
+                            <span class="font-weight-bold">{{getLibelleAttack()}}</span> : {{character.attack}}
                         </p>
-                        <p *ngIf="item.critical_strike > 0">
-                            {{getLibelleStat(32)}} : {{item.critical_strike}}
+                        <p *ngIf="character.critical_strike > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(32)}}</span> : {{character.critical_strike}}
                         </p>
-                        <p *ngIf="item.stamina > 0">
-                            {{getLibelleStat(7)}} : {{item.stamina}}
+                        <p *ngIf="character.stamina > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(7)}}</span> : {{character.stamina}}
                         </p>
-                        <p *ngIf="item.haste > 0">
-                            {{getLibelleStat(36)}} : {{item.haste}}
+                        <p *ngIf="character.haste > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(36)}}</span> : {{character.haste}}
                         </p>
-                        <p *ngIf="item.mastery > 0">
-                            {{getLibelleStat(49)}} : {{item.mastery}}
+                        <p *ngIf="character.mastery > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(49)}}</span> : {{character.mastery}}
                         </p>
-                        <p *ngIf="item.versatility > 0">
-                            {{getLibelleStat(40)}} : {{item.versatility}}
+                        <p *ngIf="character.versatility > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(40)}}</span> : {{character.versatility}}
                         </p>
                     </ion-text>
                 </ion-label>
@@ -58,17 +60,65 @@
         </ion-item>
 
         <ion-list *ngIf="openItem" class="sub-item">
-            <ion-item *ngFor="let item of ttItems">
+            <ion-item>
                 <ion-label text-wrap>
                     <ion-text>
-                        <p *ngIf="item.armour > 0">
-                            {{getWord('msg_armor')}} : {{item.armour}}</p>
-                        <p *ngIf="item.health > 0">
-                            {{getHealthLibelle()}} : {{item.health}}
-                        </p>
-                        <!-- <p *ngIf="item.attack > 0">
-                          {{getLibelleAttack(character)}} : {{item.attack}}
-                      </p> -->
+                        <ng-container *ngFor="let itemGauche of ttItemGauche">
+                            <ion-item button (click)="itemGauche.open = !itemGauche.open">
+                                <ion-thumbnail slot="start">
+                                    <ion-img
+                                        [src]="itemGauche.item ? iconUrl + itemGauche.item.icon + '.jpg': itemGauche.imgUrl">
+                                    </ion-img>
+                                </ion-thumbnail>
+                                <ion-label *ngIf="itemGauche.item">{{itemGauche.item.name}}</ion-label>
+                            </ion-item>
+                            <ion-list *ngIf="itemGauche.open && itemGauche.item">
+                                <ion-item>
+                                    <ion-text>
+                                        <p>
+                                            <span class="font-weight-bold">{{getWord('msg_name')}}</span> :
+                                            {{itemGauche.item.name}}
+                                        </p>
+                                        <p *ngIf="itemGauche.item.armor">
+                                            <span class="font-weight-bold">{{getWord('msg_armor')}}</span> :
+                                            {{itemGauche.item.armor}}
+                                        </p>
+                                        <p *ngFor="let bonus of itemGauche.item.bonusStats">
+                                            <span class="font-weight-bold">{{bonus.statLibelle}}</span> :
+                                            {{bonus.amount}}
+                                        </p>
+                                    </ion-text>
+                                </ion-item>
+                            </ion-list>
+                        </ng-container>
+                        <ng-container *ngFor="let itemDroit of ttItemDroit">
+                            <ion-item button (click)="itemDroit.open = !itemDroit.open">
+                                <ion-thumbnail slot="start">
+                                    <ion-img
+                                        [src]="itemDroit.item ? iconUrl + itemDroit.item.icon + '.jpg': itemDroit.imgUrl">
+                                    </ion-img>
+                                </ion-thumbnail>
+                                <ion-label *ngIf="itemDroit.item">{{itemDroit.item.name}}</ion-label>
+                            </ion-item>
+                            <ion-list *ngIf="itemDroit.open && itemDroit.item">
+                                <ion-item>
+                                    <ion-text>
+                                        <p>
+                                            <span class="font-weight-bold">{{getWord('msg_name')}}</span> :
+                                            {{itemDroit.item.name}}
+                                        </p>
+                                        <p *ngIf="itemDroit.item.armor">
+                                            <span class="font-weight-bold">{{getWord('msg_armor')}}</span> :
+                                            {{itemDroit.item.armor}}
+                                        </p>
+                                        <p *ngFor="let bonus of itemDroit.item.bonusStats">
+                                            <span class="font-weight-bold">{{bonus.statLibelle}}</span> :
+                                            {{bonus.amount}}
+                                        </p>
+                                    </ion-text>
+                                </ion-item>
+                            </ion-list>
+                        </ng-container>
                     </ion-text>
                 </ion-label>
             </ion-item>

@@ -71,12 +71,13 @@
                                                 </div>
                                                 <div class="carac-item"
                                                     *ngIf="itemDroit.item && displayItemDetailPerso && itemDroit.item.itemSlotId === selectedItem.itemSlotId">
-                                                    <div>{{(words | filter : {msg_name: 'msg_name'} : {col
-                                                                : 'value'})}} : {{itemDroit.item.name}}
+                                                    <div>
+                                                        {{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}
+                                                        : {{itemDroit.item.name}}
                                                     </div>
-                                                    <div *ngIf="itemDroit.item.armor">{{(words | filter : {msg_name: 'msg_armor'} :
-                                                                {col : 'value'})}} :
-                                                        {{itemDroit.item.armor}}
+                                                    <div *ngIf="itemDroit.item.armor">
+                                                        {{(words | filter : {msg_name: 'msg_armor'} : {col : 'value'})}}
+                                                        : {{itemDroit.item.armor}}
                                                     </div>
                                                     <div *ngFor="let bonus of itemDroit.item.bonusStats">
                                                         {{bonus.statLibelle + ' : ' + bonus.amount}}

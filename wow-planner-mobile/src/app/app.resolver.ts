@@ -93,7 +93,6 @@ export class AccueilResolver implements Resolve<any> {
         ]).map(
             (data: any) => {
                 if (data[0]) {
-                    console.log(data)
                     return { words: data[0], characters: data[1].response };
                 } else {
                     this._router.navigate(['/home']);
