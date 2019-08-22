@@ -117,7 +117,7 @@ export class AffichagePersonnagePage implements OnInit {
 
     addComment(){
       if (this.newComment.length > 0) {
-          this._appService.post('action/api-blizzard/addComment.php', { session_token: this._appService.getToken(), comment: this.newComment, character_id: this.ttItems[0].character_id })
+          this._appService.post('action/api-blizzard/addComment.php', { session_token: this._appService.getToken(), comment: this.newComment, character_id: this.character.character_id })
               .then(res => {
                   if (res.response) {
                       this.ttCommentaire.unshift(res.response);
