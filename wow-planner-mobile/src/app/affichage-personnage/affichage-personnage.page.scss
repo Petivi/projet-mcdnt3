@@ -1,0 +1,21 @@
+.sub-item {
+  padding-left: 20px;
+  font-size: small;
+}
+
+.parent {
+  margin-top: -7px;
+}
+
+.active {
+  color: rgb(0, 0, 0);
+}
+
+.inactive {
+  color: rgba(0, 0, 0, 0.459);
+}
+
+.arrow{
+    margin-right: 10px;
+    margin-top: 5px;
+}

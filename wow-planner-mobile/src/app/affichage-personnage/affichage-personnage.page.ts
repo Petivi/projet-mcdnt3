@@ -19,6 +19,9 @@ export class AffichagePersonnagePage implements OnInit {
     ttItems: any[] = [];
     words: Word[] = [];
     ttBonusStats: any[] = [];
+    openCharac: boolean = true;
+    openItem: boolean = true;
+    openComment: boolean = true;
 
     constructor(private _activatedRoute: ActivatedRoute, private _appService: AppService) { }
 
