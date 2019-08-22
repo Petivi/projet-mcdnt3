@@ -46,4 +46,9 @@ export class AffichagePersonnagePage implements OnInit {
         return this.ttBonusStats.find(bs => bs.id === 1).libelle;
     }
 
+    getLibelleAttack() {
+      let statId = globals.statsClass.find(sc => sc.class == this.ttItems[0].class_id) ? globals.statsClass.find(sc => sc.class == this.ttItems[0].class_id).stat_id : null;
+      return statId ? this.ttBonusStats.find(bs => bs.id === statId).libelle : '';
+    }
+
 }
