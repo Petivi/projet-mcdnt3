@@ -49,7 +49,6 @@ export class LoginPage implements OnInit {
                         let token = JSON.parse(localStorage.getItem('userConnected'));
                         this._userService.setUser(token.session_token);
                         this._router.navigate(['/home']);
-                        window.location.reload();
                     } else {
                         if (res.error) {
                             this.linkMail = false;

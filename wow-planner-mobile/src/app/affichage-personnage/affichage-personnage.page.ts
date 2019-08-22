@@ -57,7 +57,6 @@ export class AffichagePersonnagePage implements OnInit {
             this.character = res.affichagePersonnage.character[0];
             this.pageTitle = this.character.name;
             this.ttComments = res.affichagePersonnage.comments;
-            console.log(this.ttComments)
             this.words = res.affichagePersonnage.words;
             this.ttBonusStats = globals.bonusStats.map(bs => {
                 if (this._appService.getLangue() === 'fr') {
