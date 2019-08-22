@@ -33,7 +33,7 @@ export class AffichagePersonnagePage implements OnInit {
         { id: 3, class: 4, inventoryType: 3, imgUrl: 'assets/img/inventoryslot_shoulder.jpg', item: null },
         { id: 4, class: 4, inventoryType: 16, imgUrl: 'assets/img/inventoryslot_chest.jpg', item: null }, //cape mais pas encore l'image
         { id: 5, class: 4, inventoryType: 5, imgUrl: 'assets/img/inventoryslot_chest.jpg', item: null },
-        /* { class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_shirt.jpg', item: null }, */ //sait pas ce que c'est 
+        /* { class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_shirt.jpg', item: null }, */ //sait pas ce que c'est
         /* { class: 4, inventoryType: 4, imgUrl: 'assets/img/inventoryslot_tabard.jpg', item: null }, */
         { id: 6, class: 4, inventoryType: 9, imgUrl: 'assets/img/inventoryslot_wrists.jpg', item: null },
         { id: 7, class: 4, inventoryType: 10, imgUrl: 'assets/img/inventoryslot_hands.jpg', item: null },
@@ -112,6 +112,18 @@ export class AffichagePersonnagePage implements OnInit {
     getLibelleStat(id_stat) {
         let libelleStat = this.ttBonusStats.find(ls => ls.id === id_stat).libelle;
         return libelleStat;
+    }
+
+    addComment(){
+      if (this.newComment.length > 0) {
+          this._appService.post('action/api-blizzard/addComment.php', { session_token: this._appService.getToken(), comment: this.newComment, character_id: this.character.character_id })
+              .then(res => {
+                  if (res.response) {
+                      this.ttCommentaire.unshift(res.response);
+                      this.commentaire = new Commentaire({ comment: '' });
+                  }
+              });
+      }
     }
 
 }

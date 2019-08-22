@@ -134,6 +134,14 @@
         </ion-item>
 
         <ion-list *ngIf="openComment" class="sub-item">
+            <ion-item>
+              <ion-label position="floating">Ajouter un commentaire</ion-label>
+              <ion-textarea [(ngModel)]="newComment"></ion-textarea>
+              <ion-button (click)="addComment()">
+                <ion-icon slot="start" name="star"></ion-icon>
+                Ajouter un commentaire
+              </ion-button>
+            </ion-item>
             <ion-item *ngFor="let comment of ttComments">
                 <ion-label text-wrap>
                     <ion-text class="commentUserPseudo">
