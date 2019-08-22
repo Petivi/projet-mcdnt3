@@ -52,7 +52,7 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
         { id: 16, class: 4, inventoryType: 14, imgUrl: 'assets/img/inventoryslot_offhand.jpg', item: null }
     ];
 
-    constructor(private _appService: AppService, private _router: Router, private _activatedRoute: ActivatedRoute) { }
+    constructor(private _appService: AppService, private _router: Router) { }
 
     ngOnInit() {
         this.urlRetour = '/' + this._router.url.split('/')[1];

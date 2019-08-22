@@ -8,6 +8,7 @@ export function setTtItem(ttItemG, ttItemD, character): Promise<any> {
     return new Promise((resolve, reject) => {
         let iconUrl: string = globals.blizzardIconUrl;
         ttItemG.forEach(ig => {
+            ig.open = false;
             if (ig.id === 1 && character.head.id) {
                 if (character.head.icon) character.head.imgUrl = iconUrl + character.head.icon + '.jpg';
                 ig.item = character.head;
@@ -42,6 +43,7 @@ export function setTtItem(ttItemG, ttItemD, character): Promise<any> {
             }
         });
         ttItemD.forEach(id => {
+            id.open = false;
             if (id.id === 9 && character.legs.id) {
                 if (character.legs.icon) character.legs.imgUrl = iconUrl + character.legs.icon + '.jpg';
                 id.item = character.legs;
