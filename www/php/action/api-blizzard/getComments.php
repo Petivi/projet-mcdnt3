@@ -4,8 +4,8 @@ include "../../includedFiles.php";
 
 $tabInfo = commentManagement($request);
 
+$account_id = NULL;
 if($tabInfo['session_token']){
-  $account_id = NULL;
   $request_user_info = 'SELECT * FROM users WHERE session_token LIKE :session_token';
   $request_user_info = $base->prepare($request_user_info);
   $request_user_info->bindValue('session_token', $tabInfo['session_token'], PDO::PARAM_STR);

@@ -134,17 +134,18 @@
         </ion-item>
 
         <ion-list *ngIf="openComment" class="sub-item">
-            <ion-item>
+            <ion-item *ngFor="let comment of ttComments">
                 <ion-label text-wrap>
+                    <ion-text class="commentUserPseudo">
+                        <h2>{{comment.user_pseudo}}</h2>
+                    </ion-text>
                     <ion-text>
-                        <p *ngIf="character.armour > 0">
-                            {{getWord('msg_armor')}} : {{character.armour}}</p>
-                        <p *ngIf="character.health > 0">
-                            {{getHealthLibelle()}} : {{character.health}}
+                        <p class="commentText">
+                            {{comment.comment}}
                         </p>
-                        <!-- <p *ngIf="character.attack > 0">
-                          {{getLibelleAttack(character)}} : {{character.attack}}
-                      </p> -->
+                        <p class="commentDate">
+                            {{comment.created_date}} <span *ngIf="comment.created_date != comment.last_modified">({{getWord('msg_edited')}}: {{comment.last_modified}})</span>
+                        </p>
                     </ion-text>
                 </ion-label>
             </ion-item>

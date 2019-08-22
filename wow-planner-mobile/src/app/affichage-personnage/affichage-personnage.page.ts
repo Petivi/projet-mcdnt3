@@ -22,6 +22,7 @@ export class AffichagePersonnagePage implements OnInit {
     words: Word[] = [];
     iconUrl = globals.blizzardIconUrl;
     ttBonusStats: any[] = [];
+    ttComments: any[] = [];
     openCharac: boolean = true;
     openItem: boolean = true;
     openComment: boolean = true;
@@ -55,6 +56,8 @@ export class AffichagePersonnagePage implements OnInit {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
             this.character = res.affichagePersonnage.character[0];
             this.pageTitle = this.character.name;
+            this.ttComments = res.affichagePersonnage.comments;
+            console.log(this.ttComments)
             this.words = res.affichagePersonnage.words;
             this.ttBonusStats = globals.bonusStats.map(bs => {
                 if (this._appService.getLangue() === 'fr') {
