@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { AccueilResolver, DetailPersonnageResolver } from './app.resolver';
+import { AccueilResolver, DetailPersonnageResolver, MesPersonnagesResolver } from './app.resolver';
 
 import { AppService } from './app.service';
 
@@ -37,7 +37,8 @@ import { AppService } from './app.service';
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         AppService,
         AccueilResolver,
-        DetailPersonnageResolver
+        DetailPersonnageResolver,
+        MesPersonnagesResolver
     ],
     bootstrap: [AppComponent]
 })

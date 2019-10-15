@@ -64,7 +64,7 @@ export class AppComponent {
             if (this.userToken) {
                 this.appPages = [{
                         title: this.words.find(w => w.msg_name === 'msg_mesPersonnages').value,
-                        url: '/listePersonnage',
+                        url: '/mesPersonnages',
                         icon: 'people'
                     }, {
                         title: this.words.find(w => w.msg_name === 'msg_signout').value,
@@ -74,10 +74,6 @@ export class AppComponent {
                 ];
             } else {
                 this.appPages = [{
-                    title: this.words.find(w => w.msg_name === 'msg_registration').value,
-                    url: '/inscription',
-                    icon: 'person-add'
-                }, {
                     title: this.words.find(w => w.msg_name === 'msg_connect').value,
                     url: '/login',
                     icon: 'person'

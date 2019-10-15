@@ -104,6 +104,26 @@ export class AccueilResolver implements Resolve<any> {
 }
 
 @Injectable()
+export class MesPersonnagesResolver implements Resolve<any> {
+    constructor(private _appService: AppService, private _router: Router) { }
+    resolve(): Promise<any> {
+        return Observable.forkJoin([
+            this._appService.getWords(['common', 'mesPersonnages']),
+            this._appService.post('action/api-blizzard/getCharacters.php', { session_token: this._appService.getToken(), data: 'perso' })
+        ]).map(
+            (data: any) => {
+                if (data[0]) {
+                    return { words: data[0], characters: data[1].response };
+                } else {
+                    this._router.navigate(['/home']);
+                    return false;
+                }
+            }
+        ).toPromise();
+    }
+}
+
+@Injectable()
 export class DetailPersonnageResolver implements Resolve<any> {
     constructor(private _appService: AppService, private _router: Router) { }
     resolve(route: ActivatedRouteSnapshot): Promise<any> {
