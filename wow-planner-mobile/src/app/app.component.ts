@@ -88,7 +88,6 @@ export class AppComponent {
                 url: '/home',
                 icon: 'home'
             });
-            console.log(this.appPages)
             setTimeout(() => {
                 if (this._router.url === '/') {
                     this._router.navigate(['/home']);
