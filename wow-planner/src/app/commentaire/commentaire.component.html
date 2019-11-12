@@ -20,18 +20,21 @@
             <div class="row mb-3" *ngFor="let comment of ttCommentaire">
                 <div class="col">
                     <div class="row txtSmall">
-                        <div class="col-md-auto font-weight-bold psd">
+                        <div class="col-md-3 font-weight-bold">
                             {{comment.user_pseudo}}
                         </div>
-                        <div class="col-md-auto dt">
+                        <div class="col-md-3 dt">
                             {{comment.created_date}}
                         </div>
-                        <div class="col-md-auto dtt" *ngIf="comment.created_date !== comment.last_modified">
+                        <div class="col-md-3 dtt" *ngIf="comment.created_date !== comment.last_modified">
                             ({{(words | filter : {msg_name: 'msg_edited'} : {col : 'value'})}} :
                             {{comment.last_modified}})
                         </div>
+                        <div class="col-md-3 dtt" *ngIf="comment.created_date == comment.last_modified">
+
+                        </div>
                         <ng-container *ngIf="comment.editable">
-                            <div class="col-md-auto">
+                            <div class="col-md-3">
                                 <a class="link" (click)="editComment(comment)"
                                     *ngIf="!commentToEdit || comment.comment_id !== commentToEdit.comment_id">
                                     {{(words | filter : {msg_name: 'msg_modifier'} : {col : 'value'})}}
