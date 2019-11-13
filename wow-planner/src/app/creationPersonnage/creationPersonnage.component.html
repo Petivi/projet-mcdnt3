@@ -266,7 +266,7 @@
                     </kendo-grid-column>
                     <kendo-grid-column field="item_name"
                         title="{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}"></kendo-grid-column>
-                    <kendo-grid-column field="item_quality"
+                    <kendo-grid-column field="item_quality" [filterable]="false"
                         title="{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}">
                         <ng-template let-dataItem kendoGridCellTemplate>
                             {{(words | filter : {msg_name: dataItem.qualityName} : {col : 'value'})}}
