@@ -240,7 +240,8 @@ li.nav-item:hover {
     display: block;
     width: max-content;
     cursor: url(assets/img/wow-cursor.png), pointer;
-    background-color: rgb(237, 224, 201, 0.2);
+    background-color: rgb(23,23,23);
+    list-style: none;
 }
 
 .sous-deroulant li {

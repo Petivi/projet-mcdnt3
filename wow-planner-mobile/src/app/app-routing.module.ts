@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { AccueilResolver, DetailPersonnageResolver } from './app.resolver';
+import { AccueilResolver, DetailPersonnageResolver, MesPersonnagesResolver } from './app.resolver';
 
 const routes: Routes = [
     {
@@ -34,6 +34,13 @@ const routes: Routes = [
             affichagePersonnage: DetailPersonnageResolver
         },
         loadChildren: './affichage-personnage/affichage-personnage.module#AffichagePersonnagePageModule'
+    },
+    {
+        path: 'mesPersonnages',
+        resolve: {
+            mesPersonnages: MesPersonnagesResolver
+        },
+        loadChildren: './mes-personnages/mes-personnages.module#MesPersonnagesPageModule'
     }
 ];
 

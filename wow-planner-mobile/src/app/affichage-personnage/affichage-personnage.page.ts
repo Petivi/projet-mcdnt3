@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as globals from '../../assets/data/globals';
 
 import { AppService } from '../app.service';
+import { UserService } from '../user.service';
 
 import { Word, ItemSlot, Commentaire } from '../model/app.model';
 
@@ -18,13 +19,15 @@ import { setTtItem } from '../common/function';
 export class AffichagePersonnagePage implements OnInit {
 
     obsInit: Subscription;
+    obsUser: Subscription;
+    
+    tokenUser: string;
     pageTitle: string = '';
     words: Word[] = [];
     iconUrl = globals.blizzardIconUrl;
     ttBonusStats: any[] = [];
-    ttComments: Commentaire[] = [];
     newComment: string;
-    commentaire: Commentaire;
+    ttComments: any[] = [];
     openCharac: boolean = true;
     openItem: boolean = true;
     openComment: boolean = true;
@@ -52,10 +55,17 @@ export class AffichagePersonnagePage implements OnInit {
         { id: 16, class: 4, inventoryType: 14, imgUrl: 'assets/img/inventoryslot_offhand.jpg', item: null }
     ];
 
-    constructor(private _activatedRoute: ActivatedRoute, private _appService: AppService) { }
+    constructor(private _activatedRoute: ActivatedRoute, private _appService: AppService, private _userService: UserService) { }
 
     ngOnInit() {
         this.obsInit = this._activatedRoute.data.subscribe(res => {
+            this.obsUser = this._userService.checkUser().subscribe((userToken: string) => {
+                if (userToken !== '' && userToken !== null && userToken !== undefined) {
+                    this.tokenUser = userToken;
+                } else {
+                    this.tokenUser = null;
+                }
+            });
             this.character = res.affichagePersonnage.character[0];
             this.pageTitle = this.character.name;
             this.ttComments = res.affichagePersonnage.comments;
@@ -122,7 +132,6 @@ export class AffichagePersonnagePage implements OnInit {
                 .then((res: any) => {
                     if (res.response) {
                         this.ttComments.unshift(res.response);
-                        this.commentaire = new Commentaire({ comment: '' });
                         this.newComment = '';
                     }
                 });

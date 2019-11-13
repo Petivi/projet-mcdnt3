@@ -134,9 +134,12 @@
         </ion-item>
 
         <ion-list *ngIf="openComment" class="sub-item">
-            <ion-item>
-                <ion-label position="floating">{{getWord('msg_addCommentaire')}}</ion-label>
-                <ion-textarea [(ngModel)]="newComment"></ion-textarea>
+            <ion-item *ngIf="tokenUser" lines="none" class="aroundCommentItem item-has-focus">
+              <ion-label position="floating" class="active">Ajouter un commentaire</ion-label>
+              <ion-textarea [(ngModel)]="newComment" class="commentTextArea"></ion-textarea>
+              <ion-button (click)="addComment()">
+                Ajouter un commentaire
+              </ion-button>
             </ion-item>
             <div class="text-center">
                 <ion-button (click)="addComment()">

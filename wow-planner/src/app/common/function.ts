@@ -6,16 +6,16 @@ export function setGrowl(obj: any): string {
 }
 
 export function setHeaderEditFixed() {
-    jQuery(window).scroll(function () {
-        var height = jQuery(window).scrollTop();
-        if (height >= 100) {
-            jQuery('.menu').addClass('scrollOn');
-            jQuery('#imgWow').css('width', '150px');
-        } else {
-            jQuery('.menu').removeClass('scrollOn');
-            jQuery('#imgWow').css('width', '400px');
-        }
-    });
+    // jQuery(window).scroll(function () {
+    //     var height = jQuery(window).scrollTop();
+    //     if (height >= 100) {
+    //         jQuery('.menu').addClass('scrollOn');
+    //         jQuery('#imgWow').css('width', '150px');
+    //     } else {
+    //         jQuery('.menu').removeClass('scrollOn');
+    //         jQuery('#imgWow').css('width', '400px');
+    //     }
+    // });
 }
 
 export function setTtItem(ttItemG, ttItemD, character): Promise<any> {
