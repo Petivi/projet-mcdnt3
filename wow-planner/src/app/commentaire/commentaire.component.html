@@ -20,7 +20,7 @@
             <div class="row mb-3" *ngFor="let comment of ttCommentaire">
                 <div class="col">
                     <div class="row txtSmall">
-                        <div class="col-md-3 font-weight-bold">
+                        <div class="col-md-2 font-weight-bold">
                             {{comment.user_pseudo}}
                         </div>
                         <div class="col-md-3 dt">
@@ -34,7 +34,7 @@
 
                         </div>
                         <ng-container *ngIf="comment.editable">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <a class="link" (click)="editComment(comment)"
                                     *ngIf="!commentToEdit || comment.comment_id !== commentToEdit.comment_id">
                                     {{(words | filter : {msg_name: 'msg_modifier'} : {col : 'value'})}}
@@ -44,15 +44,17 @@
                                     {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
                                 </a>
                             </div>
-                            <div class="col" *ngIf="commentToEdit && comment.comment_id === commentToEdit.comment_id">
+                            <div class="col-md-2">
+                              <div *ngIf="commentToEdit && comment.comment_id === commentToEdit.comment_id">
                                 <a class="link" (click)="(commentToEdit = null)">
-                                    {{(words | filter : {msg_name: 'msg_cancel'} : {col : 'value'})}}
+                                  {{(words | filter : {msg_name: 'msg_cancel'} : {col : 'value'})}}
                                 </a>
-                            </div>
-                            <div class="col" *ngIf="!commentToEdit || comment.comment_id !== commentToEdit.comment_id">
+                              </div>
+                              <div  *ngIf="!commentToEdit || comment.comment_id !== commentToEdit.comment_id">
                                 <a class="link" (click)="deleteComment(comment)">
-                                    {{(words | filter : {msg_name: 'msg_delete'} : {col : 'value'})}}
+                                  {{(words | filter : {msg_name: 'msg_delete'} : {col : 'value'})}}
                                 </a>
+                              </div>
                             </div>
                         </ng-container>
                     </div>
