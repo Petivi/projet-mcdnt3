@@ -227,7 +227,6 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     getItemInfo(item: Item): Promise<Item> {
-        console.log(item)
         return new Promise((resolve, reject) => {
             if (!item.id) {
                 this._appService.getBlizzard('item/' + item.item_id).then(res => {
@@ -243,7 +242,6 @@ export class CreationPersonnageComponent implements OnInit {
                     this.setGridData();
                     resolve(newItem);
                     this.selectedItem = newItem;
-                    console.log(newItem)
                 });
             } else {
                 resolve(item);
@@ -252,6 +250,8 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     showItemDetail(item: Item = null, itemSurPerso: boolean = false) {
+        console.log(item)
+        console.log(itemSurPerso)
         if (itemSurPerso) {
             if (item) {
                 this.selectedItem = item;

@@ -14,16 +14,16 @@
         <ion-item *ngFor="let character of ttCharacter">
             <ion-label (click)="displayPersonnage(character)" text-wrap>
                 <ion-text color="primary">
-                    <h2>{{character.name}}</h2>
+                    <h2>{{character.name}}</h2> 
                 </ion-text>
                 <ion-text>
                     <p *ngIf="character.armour > 0">
-                        {{getWord('msg_armor')}} : {{character.armour}}</p>
+                        <span class="font-weight-bold">{{getWord('msg_armor')}}</span> : {{character.armour}}</p>
                     <p *ngIf="character.health > 0">
-                        {{getHealthLibelle()}} : {{character.health}}
+                        <span class="font-weight-bold">{{getHealthLibelle()}}</span> : {{character.health}}
                     </p>
                     <p *ngIf="character.attack > 0">
-                        {{getLibelleAttack(character)}} : {{character.attack}}
+                        <span class="font-weight-bold">{{getLibelleAttack(character)}}</span> : {{character.attack}}
                     </p>
                 </ion-text>
             </ion-label>

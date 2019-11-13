@@ -6,7 +6,7 @@ import { Word, User } from './model/app.model';
 
 @Injectable()
 export class AppService {
-     urlServeur: string = 'https://wow-planner.eu/wow-planner-app/';
+    urlServeur: string = 'https://wow-planner.eu/wow-planner-app/';
     //urlServeur: string = 'http://localhost/wow-planner-app/';
     words: Word[];
     httpOptions = {

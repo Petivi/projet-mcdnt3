@@ -7,7 +7,7 @@ import * as globals from '../../assets/data/globals';
 import { AppService } from '../app.service';
 import { UserService } from '../user.service';
 
-import { Word, ItemSlot } from '../model/app.model';
+import { Word, ItemSlot, Commentaire } from '../model/app.model';
 
 import { setTtItem } from '../common/function';
 

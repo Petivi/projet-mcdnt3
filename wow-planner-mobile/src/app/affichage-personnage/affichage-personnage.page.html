@@ -141,6 +141,12 @@
                 Ajouter un commentaire
               </ion-button>
             </ion-item>
+            <div class="text-center">
+                <ion-button (click)="addComment()">
+                    <ion-icon slot="start" name="add-circle"></ion-icon>
+                    {{getWord('msg_addCommentaire')}}
+                </ion-button>
+            </div>
             <ion-item *ngFor="let comment of ttComments">
                 <ion-label text-wrap>
                     <ion-text class="commentUserPseudo">
@@ -151,7 +157,10 @@
                             {{comment.comment}}
                         </p>
                         <p class="commentDate">
-                            {{comment.created_date}} <span *ngIf="comment.created_date != comment.last_modified">({{getWord('msg_edited')}}: {{comment.last_modified}})</span>
+                            {{comment.created_date}}
+                            <span *ngIf="comment.created_date != comment.last_modified">
+                                ({{getWord('msg_edited')}}:{{comment.last_modified}})
+                            </span>
                         </p>
                     </ion-text>
                 </ion-label>
