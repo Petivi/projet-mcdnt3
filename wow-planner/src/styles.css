@@ -4,8 +4,12 @@ body {
     margin-bottom: 5% !important;
 }
 
-body p, label{
+body p, label, table th{
   color: white!important;
+}
+
+table td{
+  color: black!important;
 }
 
 button {
@@ -437,7 +441,7 @@ button.btncc {
 
 .icon-button {
     cursor: url(assets/img/wow-cursor.png), pointer;
-    color: rgb(237, 224, 201, 0.3);
+    color: black;
 }
 
 .icon-buton:active {
