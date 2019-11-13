@@ -26,7 +26,7 @@ export class CreationPersonnageComponent implements OnInit {
         { id: 3, class: 4, inventoryType: 3, imgUrl: 'assets/img/inventoryslot_shoulder.jpg', item: null },
         { id: 4, class: 4, inventoryType: 16, imgUrl: 'assets/img/inventoryslot_chest.jpg', item: null }, //cape mais pas encore l'image
         { id: 5, class: 4, inventoryType: 5, imgUrl: 'assets/img/inventoryslot_chest.jpg', item: null },
-        /* { class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_shirt.jpg', item: null }, */ //sait pas ce que c'est 
+        /* { class: 4, inventoryType: 6, imgUrl: 'assets/img/inventoryslot_shirt.jpg', item: null }, */ //sait pas ce que c'est
         /* { class: 4, inventoryType: 4, imgUrl: 'assets/img/inventoryslot_tabard.jpg', item: null }, */
         { id: 6, class: 4, inventoryType: 9, imgUrl: 'assets/img/inventoryslot_wrists.jpg', item: null },
         { id: 7, class: 4, inventoryType: 10, imgUrl: 'assets/img/inventoryslot_hands.jpg', item: null },
@@ -96,7 +96,7 @@ export class CreationPersonnageComponent implements OnInit {
                     this.ttItemDroit.forEach(id => {
                         if (id.item) {
                             id.item.item_id = id.item.id;
-                            delete id.item.id;  
+                            delete id.item.id;
                             this.getItemInfo(id.item).then(res => {
                                 id.item = { ...id.item, ...res };
                             });
@@ -250,8 +250,6 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     showItemDetail(item: Item = null, itemSurPerso: boolean = false) {
-        console.log(item)
-        console.log(itemSurPerso)
         if (itemSurPerso) {
             if (item) {
                 this.selectedItem = item;
@@ -451,4 +449,3 @@ export class CreationPersonnageComponent implements OnInit {
             });
     }
 }
-

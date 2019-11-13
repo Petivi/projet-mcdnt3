@@ -188,12 +188,12 @@
         <div class="card h-100">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-3">
                         <button (click)="(displayChoixItem = false)" class="button">
                             {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
                         </button>
                     </div>
-                    <div class="col">
+                    <!-- <div class="col-md-2">
                         <div class="row">
                             <div class="col-md-2">
                                 <label for="nameSearched">{{(words | filter : {msg_name: 'msg_name'} : {col :
@@ -203,10 +203,10 @@
                                 <input id="nameSearched" class="form-control" type="text" [(ngModel)]="recherche.name">
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
+                    </div> -->
+                    <div class="col-md-3">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="">
                                 <label>Type</label>
                             </div>
                             <div class="col">
@@ -219,9 +219,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-3">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="">
                                 <label>{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}</label>
                             </div>
                             <div class="col">
@@ -235,9 +235,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-3">
                         <div class="row">
-                            <div class="col">
+                            <div class="">
                                 <label>
                                     {{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}
                                 </label>
