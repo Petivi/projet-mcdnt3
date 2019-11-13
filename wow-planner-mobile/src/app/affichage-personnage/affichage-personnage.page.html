@@ -134,21 +134,13 @@
         </ion-item>
 
         <ion-list *ngIf="openComment" class="sub-item">
-            <ng-container *ngIf="tokenUser">
-                <ion-item lines="none" class="aroundCommentItem item-has-focus">
-                    <ion-label position="floating" class="active">Ajouter un commentaire</ion-label>
-                    <ion-textarea [(ngModel)]="newComment" class="commentTextArea"></ion-textarea>
-                    <ion-button (click)="addComment()">
-                        Ajouter un commentaire
-                    </ion-button>
-                </ion-item>
-                <div class="text-center">
-                    <ion-button (click)="addComment()">
-                        <ion-icon slot="start" name="add-circle"></ion-icon>
-                        {{getWord('msg_addCommentaire')}}
-                    </ion-button>
-                </div>
-            </ng-container>
+            <ion-item lines="none" *ngIf="tokenUser" class="aroundCommentItem item-has-focus">
+                <ion-label position="floating" class="active">{{getWord('msg_addCommentaire')}}</ion-label>
+                <ion-textarea [(ngModel)]="newComment" class="commentTextArea"></ion-textarea>
+                <ion-button (click)="addComment()">
+                        {{getWord('msg_add')}}
+                </ion-button>
+            </ion-item>
             <ion-item *ngFor="let comment of ttComments">
                 <ion-label text-wrap>
                     <ion-text class="commentUserPseudo">

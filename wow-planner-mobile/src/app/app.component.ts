@@ -70,8 +70,7 @@ export class AppComponent {
                     title: this.words.find(w => w.msg_name === 'msg_signout').value,
                     url: '/logout',
                     icon: 'log-out'
-                }
-                ];
+                }];
             } else {
                 this.appPages = [{
                     title: this.words.find(w => w.msg_name === 'msg_connect').value,
@@ -97,7 +96,6 @@ export class AppComponent {
         });
     }
     testChangeLangue(p) {
-        console.log(p)
         if (p.title.includes('fr') || p.title.includes('en')) {
             this.changeLangue();
         }
