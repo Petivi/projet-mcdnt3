@@ -32,7 +32,7 @@ export class AppComponent {
             this._splashScreen.hide();
             this.langue = this._appService.getLangue();
             let token = JSON.parse(localStorage.getItem('userConnected'));
-            if(token) {
+            if (token) {
                 this._userService.setUser(token.session_token);
             }
             this.obsUser = this._userService.checkUser().subscribe((userToken: string) => {
@@ -63,14 +63,14 @@ export class AppComponent {
             });
             if (this.userToken) {
                 this.appPages = [{
-                        title: this.words.find(w => w.msg_name === 'msg_mesPersonnages').value,
-                        url: '/mesPersonnages',
-                        icon: 'people'
-                    }, {
-                        title: this.words.find(w => w.msg_name === 'msg_signout').value,
-                        url: '/logout',
-                        icon: 'log-out'
-                    }
+                    title: this.words.find(w => w.msg_name === 'msg_mesPersonnages').value,
+                    url: '/mesPersonnages',
+                    icon: 'people'
+                }, {
+                    title: this.words.find(w => w.msg_name === 'msg_signout').value,
+                    url: '/logout',
+                    icon: 'log-out'
+                }
                 ];
             } else {
                 this.appPages = [{
@@ -79,6 +79,11 @@ export class AppComponent {
                     icon: 'person'
                 }];
             }
+            this.appPages.push({
+                title: this.words.find(w => w.msg_name === 'msg_langue').value + ' : ' + this.langue,
+                url: '/home',
+                icon: 'globe'
+            });
             this.appPages.unshift({
                 title: this.words.find(w => w.msg_name === 'msg_accueil').value,
                 url: '/home',
@@ -90,5 +95,11 @@ export class AppComponent {
                 }
             }, 100)
         });
+    }
+    testChangeLangue(p) {
+        console.log(p)
+        if (p.title.includes('fr') || p.title.includes('en')) {
+            this.changeLangue();
+        }
     }
 }
