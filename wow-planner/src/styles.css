@@ -4,6 +4,10 @@ body {
     margin-bottom: 5% !important;
 }
 
+body p, label{
+  color: white!important;
+}
+
 button {
     border: none;
 }
@@ -98,7 +102,7 @@ a.button-link:hover {
     margin: auto;
     opacity: 1;
     align-items: center;
-    width: 70%;
+    width: 85%;
 }
 
 .scrollv {
