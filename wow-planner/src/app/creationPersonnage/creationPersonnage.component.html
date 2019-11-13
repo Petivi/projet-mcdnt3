@@ -210,7 +210,8 @@
                                 <label>Type</label>
                             </div>
                             <div class="col">
-                                <select (change)="getTtItem()" class="form-control white" [(ngModel)]="recherche.matiere">
+                                <select (change)="getTtItem()" class="form-control white"
+                                    [(ngModel)]="recherche.matiere">
                                     <option [value]="mat.id" *ngFor="let mat of ttMatiere">
                                         {{(words | filter : {msg_name: mat.name} : {col : 'value'})}}
                                     </option>
@@ -224,7 +225,8 @@
                                 <label>{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}</label>
                             </div>
                             <div class="col">
-                                <select class="form-control white" (change)="getTtItem()" [(ngModel)]="recherche.quality">
+                                <select class="form-control white" (change)="getTtItem()"
+                                    [(ngModel)]="recherche.quality">
                                     <option [value]="-1"> - </option>
                                     <option [value]="quality.id" *ngFor="let quality of ttQuality">
                                         {{(words | filter : {msg_name: quality.name} : {col : 'value'})}}
@@ -276,7 +278,8 @@
                 </kendo-grid>
                 <div class="detail-content" *ngIf="displayItemDetailListe && selectedItem">
                     <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{selectedItem.name}}</div>
-                    <div *ngIf="selectedItem.armor">armor : {{selectedItem.armor}}</div>
+                    <div *ngIf="selectedItem.armor">{{(words | filter : {msg_name: 'msg_armor'} :
+                            {col : 'value'})}} : {{selectedItem.armor}}</div>
                     <div *ngFor="let bonus of selectedItem.bonusStats">
                         {{bonus.statLibelle + ' : ' + bonus.amount}}
                     </div>

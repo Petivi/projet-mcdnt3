@@ -23,7 +23,6 @@ export class ListePersonnageComponent implements OnInit, OnDestroy, AfterViewIni
     constructor(private _appService: AppService, private _activatedRoute: ActivatedRoute, private _router: Router, private _cfr: ComponentFactoryResolver) { }
 
     ngOnInit() {
-        console.log('oui')
         this.obsInit = this._activatedRoute.data.subscribe(res => {
             this.ttCharacter = res.resolver.characters && res.resolver.characters.length > 0 ? res.resolver.characters : [];
             this.words = res.resolver.words;
@@ -34,8 +33,8 @@ export class ListePersonnageComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     ngAfterViewInit() {
-        console.log(this.ttAffPersComp);
-        this.ttAffPersComp.changes.subscribe((r) => { console.log(this.ttAffPersComp); });
+        /* console.log(this.ttAffPersComp);
+        this.ttAffPersComp.changes.subscribe((r) => { console.log(this.ttAffPersComp); }); */
     }
 
     ngOnDestroy() {

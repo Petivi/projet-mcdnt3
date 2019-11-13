@@ -6,7 +6,7 @@ import * as globals from '../../assets/data/globals';
 
 import { AppService } from '../app.service';
 
-import { Word, ItemSlot } from '../model/app.model';
+import { Word, ItemSlot, Commentaire } from '../model/app.model';
 
 import { setTtItem } from '../common/function';
 
@@ -22,7 +22,9 @@ export class AffichagePersonnagePage implements OnInit {
     words: Word[] = [];
     iconUrl = globals.blizzardIconUrl;
     ttBonusStats: any[] = [];
-    ttComments: any[] = [];
+    ttComments: Commentaire[] = [];
+    newComment: string;
+    commentaire: Commentaire;
     openCharac: boolean = true;
     openItem: boolean = true;
     openComment: boolean = true;
@@ -114,16 +116,17 @@ export class AffichagePersonnagePage implements OnInit {
         return libelleStat;
     }
 
-    addComment(){
-      if (this.newComment.length > 0) {
-          this._appService.post('action/api-blizzard/addComment.php', { session_token: this._appService.getToken(), comment: this.newComment, character_id: this.character.character_id })
-              .then(res => {
-                  if (res.response) {
-                      this.ttCommentaire.unshift(res.response);
-                      this.commentaire = new Commentaire({ comment: '' });
-                  }
-              });
-      }
+    addComment() {
+        if (this.newComment.length > 0) {
+            this._appService.post('action/api-blizzard/addComment.php', { session_token: this._appService.getToken(), comment: this.newComment, character_id: this.character.character_id })
+                .then((res: any) => {
+                    if (res.response) {
+                        this.ttComments.unshift(res.response);
+                        this.commentaire = new Commentaire({ comment: '' });
+                        this.newComment = '';
+                    }
+                });
+        }
     }
 
 }
