@@ -55,14 +55,15 @@
                                                 <div class="col">
                                                     <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
                                                         <div class="col">
-                                                            <div class="detail-item-character">
+                                                            <div class="detail-item-character"
+                                                                (click)="setRecherche(itemGauche)">
                                                                 <div class="image-item"
                                                                     (mouseenter)="showItemDetail(itemGauche.item, true)"
                                                                     (mouseleave)="showItemDetail(null, true)">
                                                                     <img class="clickable"
-                                                                        [src]="itemGauche.item ? itemGauche.item.imgUrl : itemGauche.imgUrl"
-                                                                        (click)="setRecherche(itemGauche)">
+                                                                        [src]="itemGauche.item ? itemGauche.item.imgUrl : itemGauche.imgUrl">
                                                                 </div>
+                                                                {{itemGauche.item ? itemGauche.item.name : ''}}
                                                                 <div class="carac-item"
                                                                     *ngIf="itemGauche.item && displayItemDetailPerso && itemGauche.item.itemSlotId === selectedItem.itemSlotId">
                                                                     <div>
@@ -87,14 +88,15 @@
                                                 <div class="col">
                                                     <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
                                                         <div class="col">
-                                                            <div class="detail-item-character">
+                                                            <div class="detail-item-character"
+                                                                (click)="setRecherche(itemDroit)">
                                                                 <div class="image-item"
                                                                     (mouseenter)="showItemDetail(itemDroit.item, true)"
                                                                     (mouseleave)="showItemDetail(null, true)">
                                                                     <img class="clickable"
-                                                                        [src]="itemDroit.item ? itemDroit.item.imgUrl : itemDroit.imgUrl"
-                                                                        (click)='setRecherche(itemDroit)'>
+                                                                        [src]="itemDroit.item ? itemDroit.item.imgUrl : itemDroit.imgUrl">
                                                                 </div>
+                                                                {{itemDroit.item ? itemDroit.item.name : ''}}
                                                                 <div class="carac-item"
                                                                     *ngIf="itemDroit.item && displayItemDetailPerso && itemDroit.item.itemSlotId === selectedItem.itemSlotId">
                                                                     <div>{{(words | filter : {msg_name: 'msg_name'} : {col

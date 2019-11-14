@@ -34,12 +34,13 @@
                                 <div class="col">
                                     <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
                                         <div class="col">
-                                            <div class="detail-item-character">
-                                                <div class="image-item" (mouseenter)="showItemDetail(itemGauche)"
-                                                    (mouseleave)="showItemDetail()">
+                                            <div class="detail-item-character" (mouseenter)="showItemDetail(itemGauche)"
+                                                (mouseleave)="showItemDetail()">
+                                                <div class="image-item">
                                                     <img [ngClass]="{ 'clickable': itemGauche.item }"
                                                         [src]="itemGauche.item ? iconUrl + itemGauche.item.icon + '.jpg': itemGauche.imgUrl">
                                                 </div>
+                                                {{itemGauche.item ? itemGauche.name : ''}}
                                                 <div class="carac-item"
                                                     *ngIf="itemGauche.item && displayItemDetailPerso && itemGauche.item.itemSlotId === selectedItem.itemSlotId">
                                                     <div>
@@ -63,12 +64,13 @@
                                 <div class="col">
                                     <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
                                         <div class="col">
-                                            <div class="detail-item-character">
-                                                <div class="image-item" (mouseenter)="showItemDetail(itemDroit)"
-                                                    (mouseleave)="showItemDetail()">
+                                            <div class="detail-item-character" (mouseenter)="showItemDetail(itemDroit)"
+                                                (mouseleave)="showItemDetail()">
+                                                <div class="image-item">
                                                     <img [ngClass]="{ 'clickable': itemDroit.item }"
                                                         [src]="itemDroit.item ? iconUrl + itemDroit.item.icon + '.jpg': itemDroit.imgUrl">
                                                 </div>
+                                                {{itemDroit.item ? itemDroit.name : ''}}
                                                 <div class="carac-item"
                                                     *ngIf="itemDroit.item && displayItemDetailPerso && itemDroit.item.itemSlotId === selectedItem.itemSlotId">
                                                     <div>

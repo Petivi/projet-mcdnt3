@@ -12,7 +12,7 @@
                 <div class="card-body form-group cadreb">
                     <div class="row alert alert-danger" *ngIf="profileErrors && profileErrors.length > 0">
                         <div class="col">
-                            <div *ngFor="let error of profileErrors">{{error}}</div>
+                            <div *ngFor="let error of profileErrors" class="textErreur">{{error}}</div>
                         </div>
                     </div>
                     <div class="row form-group">
@@ -94,7 +94,7 @@
                 <div class="card-body cadreb form-group" *ngIf="changePass">
                     <div class="row alert alert-danger" *ngIf="passwordErrors && passwordErrors.length > 0">
                         <div class="col">
-                            <div *ngFor="let error of passwordErrors">{{error}}</div>
+                            <div *ngFor="let error of passwordErrors" class="textErreur">{{error}}</div>
                         </div>
                     </div>
                     <div class="row form-group">

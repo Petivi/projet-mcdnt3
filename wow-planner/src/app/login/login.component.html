@@ -5,7 +5,7 @@
                 <div class="col">
                     <h1 class="title">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</h1>
                     <div class="alert alert-danger" *ngIf="!valid">
-                        <div *ngFor="let e of errors">{{e}}</div>
+                        <div *ngFor="let e of errors" class="textErreur">{{e}}</div>
                     </div>
                     <div class="success" *ngIf="mailResetPass">
                         {{(words | filter : {msg_name: 'msg_mailSent'} : {col : 'value'})}}
@@ -83,7 +83,7 @@
                 <div class="col">
                     <h1 class="title">{{(words | filter : {msg_name: 'msg_resetMdp'} : {col : 'value'})}}</h1>
                     <div class="alert alert-danger" *ngIf="!valid">
-                        <div *ngFor="let e of errors">{{e}}</div>
+                        <div *ngFor="let e of errors" class="textErreur">{{e}}</div>
                     </div>
                     <div class="success" *ngIf="reinitPass">
                         {{(words | filter : {msg_name: 'msg_passwordChanged'} : {col : 'value'})}}
