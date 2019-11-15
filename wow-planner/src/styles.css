@@ -6,10 +6,6 @@ body p, label, table th{
   color: white!important;
 }
 
-table td{
-  color: black!important;
-}
-
 button {
     border: none;
 }
@@ -554,7 +550,7 @@ select.white {
 
 .lista {
     color: white !important;
-    background-color: rgb(58, 35, 25) !important;
+    background-color: rgba(53, 47, 44, 0.884);
     background-clip: padding-box !important;
     border-radius: 5px !important;
     border-style: outset !important;
@@ -586,7 +582,7 @@ select.white {
 }
 
 .k-grid-header {
-    background-color: rgb(58, 35, 25);
+    background-color: rgba(29, 26, 25, 0.884);
 }
 
 .k-grid-pager {
@@ -602,5 +598,6 @@ select.white {
 }
 
 .k-grid tbody tr:hover {
-    background-color: (237, 224, 201, 0.2) !important;
+    background-color: rgba(237, 224, 201, 0.2) !important;
+    color: #9e9e9e;
 }
