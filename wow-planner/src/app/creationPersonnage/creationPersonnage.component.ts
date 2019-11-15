@@ -423,9 +423,9 @@ export class CreationPersonnageComponent implements OnInit {
         }
         if (this.findBonusStat(7)) {
             if (oldItem) {
-                this.character.stamina -= this.findBonusStat(7, true).amount;
+                this.character.stamina -= this.findBonusStat(7, true) ? this.findBonusStat(7, true).amount : 0;
             } else {
-                this.character.stamina += this.findBonusStat(7).amount;
+                this.character.stamina += this.findBonusStat(7) ? this.findBonusStat(7).amount : 0;
             }
             this.character.health = this.character.stamina * 10;
         }
@@ -433,6 +433,8 @@ export class CreationPersonnageComponent implements OnInit {
 
     findBonusStat(bonnusId, oldItem: boolean = false) {
         if (oldItem) {
+            console.log(this.oldItem)
+            console.log(bonnusId)
             return this.oldItem.bonusStats.find(bs => bs.stat === bonnusId);
         } else {
             return this.selectedItem.bonusStats.find(bs => bs.stat === bonnusId);
