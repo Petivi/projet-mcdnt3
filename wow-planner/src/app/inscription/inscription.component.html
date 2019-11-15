@@ -54,14 +54,7 @@
                 </div>
             </form>
             <div class="row">
-                <div class="col">
-                    <div class="alert alert-success">
-                        {{(words | filter : {msg_name: 'msg_editLoginPossible'} : {col : 'value'})}}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
+                <div class="form-group col">
                     <button type="submit" (click)="inscription()" class="btn btn-primary" style="width: 100%">
                         {{(words | filter : {msg_name: 'msg_signin'} : {col : 'value'})}}
                     </button>
@@ -69,7 +62,8 @@
             </div>
         </div>
     </div>
-    <div class="row text-center">
-        <p class="col">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
+    <div class="text-center" style="color: white;">
+        <div>{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</div>
+        <div>{{(words | filter : {msg_name: 'msg_editLoginPossible'} : {col : 'value'})}}</div>
     </div>
 </div>
