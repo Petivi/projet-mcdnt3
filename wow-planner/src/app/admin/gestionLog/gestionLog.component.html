@@ -1,73 +1,82 @@
-<div class="row" *ngIf="!logActif">
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <h1 class="col text-center">Liste des logs {{logSelected}}</h1>
-                </div>
-                <div class="row text-center">
-                    <div class="col">
-                        <button class="btn btn-primary" (click)="changeTypeLog('user')">
-                            Logs utilisateur
-                        </button>
-                        <button class="btn btn-primary" (click)="changeTypeLog('admin')">
-                            Logs admin
-                        </button>
-                        <button class="btn btn-primary" (click)="changeTypeLog('account')">
-                            Compte Bloqué
-                        </button>
-                    </div>
-                </div>
+<div class="row">
+    <div class="col" *ngIf="!logActif">
+        <div class="row mb-2">
+            <div class="col-md-2">
+                <button class="button" (click)="changeTypeLog('user')">
+                    Logs utilisateur
+                </button>
             </div>
-            <div class="row">
-                <div class="col">
-                    <kendo-grid *ngIf="logSelected === 'user'" [kendoGridBinding]="gridDataLogsUsers.toArray()"
-                        [pageable]="true" [pageSize]="10" [filterable]="true" [scrollable]="'none'">
-                        <kendo-grid-column field="user_id" title="id utilisateur"></kendo-grid-column>
-                        <kendo-grid-column field="request_type" title="Type"></kendo-grid-column>
-                        <kendo-grid-column field="user_pseudo" title="Pseudo"></kendo-grid-column>
-                        <kendo-grid-column field="request_date" title="Date"></kendo-grid-column>
-                        <kendo-grid-column title="">
-                            <ng-template kendoGridCellTemplate let-dataItem>
-                                <button class="icon-button" (click)="showLog(dataItem)" title="voir">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                            </ng-template>
-                        </kendo-grid-column>
-                    </kendo-grid>
-                    <kendo-grid *ngIf="logSelected === 'account'" [kendoGridBinding]="gridDataLogsUsersBlocked.toArray()"
-                        [pageable]="true" [pageSize]="10" [filterable]="true" [scrollable]="'none'">
-                        <kendo-grid-column field="user_id" title="id utilisateur"></kendo-grid-column>
-                        <kendo-grid-column field="user_ip" title="Adresse ip"></kendo-grid-column>
-                        <kendo-grid-column field="login_tried" title="Login essayé"></kendo-grid-column>
-                        <kendo-grid-column field="date_blocked" title="Date blocage"></kendo-grid-column>
-                        <kendo-grid-column field="date_unblocked" title="Date déblocage"></kendo-grid-column>
-                    </kendo-grid>
-                    <kendo-grid *ngIf="logSelected === 'admin'" [kendoGridBinding]="gridDataLogsUsersManagement.toArray()"
-                        [pageable]="true" [pageSize]="10" [filterable]="true" [scrollable]="'none'">
-                        <kendo-grid-column field="user_id" title="id utilisateur"></kendo-grid-column>
-                        <kendo-grid-column field="action" title="Action"></kendo-grid-column>
-                        <kendo-grid-column field="date_action" title="Date"></kendo-grid-column>
-                        <kendo-grid-column title="">
-                            <ng-template kendoGridCellTemplate let-dataItem>
-                                <button class="icon-button" (click)="showLog(dataItem)" title="voir">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                            </ng-template>
-                        </kendo-grid-column>
-                    </kendo-grid>
+            <div class="col-md-2">
+                <button class="button" (click)="changeTypeLog('admin')">
+                    Logs admin
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="button" (click)="changeTypeLog('account')">
+                    Compte Bloqué
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <h1 class="col text-center">Liste des logs {{logSelected}}</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <kendo-grid class="lista" *ngIf="logSelected === 'user'"
+                                [kendoGridBinding]="gridDataLogsUsers.toArray()" [pageable]="true" [pageSize]="10"
+                                [filterable]="true" [scrollable]="'none'">
+                                <kendo-grid-column field="user_id" title="id utilisateur"></kendo-grid-column>
+                                <kendo-grid-column field="request_type" title="Type"></kendo-grid-column>
+                                <kendo-grid-column field="user_pseudo" title="Pseudo"></kendo-grid-column>
+                                <kendo-grid-column field="request_date" title="Date"></kendo-grid-column>
+                                <kendo-grid-column title="">
+                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                        <button class="icon-button" (click)="showLog(dataItem)" title="voir">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </ng-template>
+                                </kendo-grid-column>
+                            </kendo-grid>
+                            <kendo-grid class="lista" *ngIf="logSelected === 'account'"
+                                [kendoGridBinding]="gridDataLogsUsersBlocked.toArray()" [pageable]="true"
+                                [pageSize]="10" [filterable]="true" [scrollable]="'none'">
+                                <kendo-grid-column field="user_id" title="id utilisateur"></kendo-grid-column>
+                                <kendo-grid-column field="user_ip" title="Adresse ip"></kendo-grid-column>
+                                <kendo-grid-column field="login_tried" title="Login essayé"></kendo-grid-column>
+                                <kendo-grid-column field="date_blocked" title="Date blocage"></kendo-grid-column>
+                                <kendo-grid-column field="date_unblocked" title="Date déblocage"></kendo-grid-column>
+                            </kendo-grid>
+                            <kendo-grid class="lista" *ngIf="logSelected === 'admin'"
+                                [kendoGridBinding]="gridDataLogsUsersManagement.toArray()" [pageable]="true"
+                                [pageSize]="10" [filterable]="true" [scrollable]="'none'">
+                                <kendo-grid-column field="user_id" title="id utilisateur"></kendo-grid-column>
+                                <kendo-grid-column field="action" title="Action"></kendo-grid-column>
+                                <kendo-grid-column field="date_action" title="Date"></kendo-grid-column>
+                                <kendo-grid-column title="">
+                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                        <button class="icon-button" (click)="showLog(dataItem)" title="voir">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </ng-template>
+                                </kendo-grid-column>
+                            </kendo-grid>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row" *ngIf="logActif">
-    <div class="col">
+    <div class="col" *ngIf="logActif">
         <div class="row mb-2">
             <div class="col-md-2">
-                <button (click)="(logActif = null)" class="btn btn-dark">
-                    Retour liste
+                <button (click)="(logActif = null)" class="button">
+                    Retour
                 </button>
             </div>
         </div>

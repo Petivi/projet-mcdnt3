@@ -586,7 +586,7 @@ select.white {
 }
 
 .k-grid-pager {
-    background-color: rgb(58, 35, 25);
+    background-color: rgba(29, 26, 25, 0.884);
 }
 
 .k-pager-wrap {
