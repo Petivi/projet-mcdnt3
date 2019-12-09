@@ -360,72 +360,72 @@ export class CreationPersonnageComponent implements OnInit {
         if (this.findBonusStat(4)) {
             if (this.character.class_id == 1 || this.character.class_id == 2 || this.character.class_id == 6 || this.character.class_id == 10) {
                 if (oldItem) {
-                    this.character.attack -= this.findBonusStat(4, true).amount;
+                    this.character.attack -= +this.findBonusStat(4, true).amount;
                 } else {
-                    this.character.attack += this.findBonusStat(4).amount;
+                    this.character.attack += +this.findBonusStat(4).amount;
                 }
             }
         }
         if (this.findBonusStat(3)) {
             if (this.character.class_id == 7 || this.character.class_id == 4 || this.character.class_id == 3 || this.character.class_id == 10 || this.character.class_id == 11 || this.character.class_id == 12) {
                 if (oldItem) {
-                    this.character.attack -= this.findBonusStat(3, true).amount;
+                    this.character.attack -= +this.findBonusStat(3, true).amount;
                 } else {
-                    this.character.attack += this.findBonusStat(3).amount;
+                    this.character.attack += +this.findBonusStat(3).amount;
                 }
             }
         }
         if (this.findBonusStat(5)) {
             if (this.character.class_id == 7 || this.character.class_id == 5 || this.character.class_id == 2 || this.character.class_id == 8 || this.character.class_id == 9 || this.character.class_id == 10 || this.character.class_id == 11) {
                 if (oldItem) {
-                    this.character.attack -= this.findBonusStat(5, true).amount;
+                    this.character.attack -= +this.findBonusStat(5, true).amount;
                 } else {
-                    this.character.attack += this.findBonusStat(5).amount;
+                    this.character.attack += +this.findBonusStat(5).amount;
                 }
             }
         }
         if (this.findBonusStat(73)) {
             if (this.character.class_id == 7 || this.character.class_id == 2 || this.character.class_id == 4 || this.character.class_id == 3 || this.character.class_id == 5 || this.character.class_id == 8 || this.character.class_id == 9 || this.character.class_id == 10 || this.character.class_id == 11 || this.character.class_id == 12) {
                 if (oldItem) {
-                    this.character.attack -= this.findBonusStat(73, true).amount;
+                    this.character.attack -= +this.findBonusStat(73, true).amount;
                 } else {
-                    this.character.attack += this.findBonusStat(73).amount;
+                    this.character.attack += +this.findBonusStat(73).amount;
                 }
             }
         }
         if (this.findBonusStat(74)) {
             if (this.character.class_id == 1 || this.character.class_id == 7 || this.character.class_id == 2 || this.character.class_id == 5 || this.character.class_id == 6 || this.character.class_id == 8 || this.character.class_id == 9 || this.character.class_id == 10 || this.character.class_id == 11) {
                 if (oldItem) {
-                    this.character.attack -= this.findBonusStat(74, true).amount;
+                    this.character.attack -= +this.findBonusStat(74, true).amount;
                 } else {
-                    this.character.attack += this.findBonusStat(74).amount;
+                    this.character.attack += +this.findBonusStat(74).amount;
                 }
             }
         }
         if (oldItem) {
-            this.character.attack -= this.findBonusStat(75, true) ? this.findBonusStat(75, true).amount : 0;
-            this.character.attack -= this.findBonusStat(71, true) ? this.findBonusStat(71, true).amount : 0;
-            this.character.versatility -= this.findBonusStat(67, true) ? this.findBonusStat(67, true).amount : 0;
-            this.character.versatility -= this.findBonusStat(40, true) ? this.findBonusStat(40, true).amount : 0;
-            this.character.armour -= this.oldItem.armor ? this.oldItem.armor : 0;
-            this.character.mastery -= this.findBonusStat(49, true) ? this.findBonusStat(49, true).amount : 0;
-            this.character.haste -= this.findBonusStat(36, true) ? this.findBonusStat(36, true).amount : 0;
-            this.character.critical_strike -= this.findBonusStat(32, true) ? this.findBonusStat(32, true).amount : 0;
+            this.character.attack -= +this.findBonusStat(75, true) ? this.findBonusStat(75, true).amount : 0;
+            this.character.attack -= +this.findBonusStat(71, true) ? this.findBonusStat(71, true).amount : 0;
+            this.character.versatility -= +this.findBonusStat(67, true) ? this.findBonusStat(67, true).amount : 0;
+            this.character.versatility -= +this.findBonusStat(40, true) ? this.findBonusStat(40, true).amount : 0;
+            this.character.armour -= +this.oldItem.armor ? this.oldItem.armor : 0;
+            this.character.mastery -= +this.findBonusStat(49, true) ? this.findBonusStat(49, true).amount : 0;
+            this.character.haste -= +this.findBonusStat(36, true) ? this.findBonusStat(36, true).amount : 0;
+            this.character.critical_strike -= +this.findBonusStat(32, true) ? this.findBonusStat(32, true).amount : 0;
         } else {
-            this.character.attack += this.findBonusStat(75) ? this.findBonusStat(75).amount : 0;
-            this.character.attack += this.findBonusStat(71) ? this.findBonusStat(71).amount : 0;
-            this.character.versatility += this.findBonusStat(67) ? this.findBonusStat(67).amount : 0;
-            this.character.versatility += this.findBonusStat(40) ? this.findBonusStat(40).amount : 0;
-            this.character.armour += this.selectedItem.armor ? this.selectedItem.armor : 0;
-            this.character.mastery += this.findBonusStat(49) ? this.findBonusStat(49).amount : 0;
-            this.character.haste += this.findBonusStat(36) ? this.findBonusStat(36).amount : 0;
-            this.character.critical_strike += this.findBonusStat(32) ? this.findBonusStat(32).amount : 0;
+            this.character.attack += +this.findBonusStat(75) ? this.findBonusStat(75).amount : 0;
+            this.character.attack += +this.findBonusStat(71) ? this.findBonusStat(71).amount : 0;
+            this.character.versatility += +this.findBonusStat(67) ? this.findBonusStat(67).amount : 0;
+            this.character.versatility += +this.findBonusStat(40) ? this.findBonusStat(40).amount : 0;
+            this.character.armour += +this.selectedItem.armor ? this.selectedItem.armor : 0;
+            this.character.mastery += +this.findBonusStat(49) ? this.findBonusStat(49).amount : 0;
+            this.character.haste += +this.findBonusStat(36) ? this.findBonusStat(36).amount : 0;
+            this.character.critical_strike += +this.findBonusStat(32) ? this.findBonusStat(32).amount : 0;
         }
         if (this.findBonusStat(7)) {
             if (oldItem) {
-                this.character.stamina -= this.findBonusStat(7, true) ? this.findBonusStat(7, true).amount : 0;
+                this.character.stamina -= +this.findBonusStat(7, true) ? this.findBonusStat(7, true).amount : 0;
             } else {
-                this.character.stamina += this.findBonusStat(7) ? this.findBonusStat(7).amount : 0;
+                this.character.stamina += +this.findBonusStat(7) ? this.findBonusStat(7).amount : 0;
             }
             this.character.health = this.character.stamina * 10;
         }
@@ -433,8 +433,6 @@ export class CreationPersonnageComponent implements OnInit {
 
     findBonusStat(bonnusId, oldItem: boolean = false) {
         if (oldItem) {
-            console.log(this.oldItem)
-            console.log(bonnusId)
             return this.oldItem.bonusStats.find(bs => bs.stat === bonnusId);
         } else {
             return this.selectedItem.bonusStats.find(bs => bs.stat === bonnusId);
