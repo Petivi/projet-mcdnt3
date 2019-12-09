@@ -345,14 +345,14 @@ export class CreationPersonnageComponent implements OnInit {
     }
 
     setCharactereStats() {
-        this.character.attack = this.character.attack ? this.character.attack : 0;
-        this.character.armour = this.character.armour ? this.character.armour : 0;
-        this.character.stamina = this.character.stamina ? this.character.stamina : 0;
-        this.character.health = this.character.health ? this.character.health : 0;
-        this.character.critical_strike = this.character.critical_strike ? this.character.critical_strike : 0;
-        this.character.haste = this.character.haste ? this.character.haste : 0;
-        this.character.mastery = this.character.mastery ? this.character.mastery : 0;
-        this.character.versatility = this.character.versatility ? this.character.versatility : 0;
+        this.character.attack = this.character.attack ? +this.character.attack : 0;
+        this.character.armour = this.character.armour ? +this.character.armour : 0;
+        this.character.stamina = this.character.stamina ? +this.character.stamina : 0;
+        this.character.health = this.character.health ? +this.character.health : 0;
+        this.character.critical_strike = this.character.critical_strike ? +this.character.critical_strike : 0;
+        this.character.haste = this.character.haste ? +this.character.haste : 0;
+        this.character.mastery = this.character.mastery ? +this.character.mastery : 0;
+        this.character.versatility = this.character.versatility ? +this.character.versatility : 0;
         this.setStats();
     }
 
