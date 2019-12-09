@@ -403,31 +403,31 @@ export class CreationPersonnageComponent implements OnInit {
             }
         }
         if (oldItem) {
-            this.character.attack -= +this.findBonusStat(75, true) ? this.findBonusStat(75, true).amount : 0;
-            this.character.attack -= +this.findBonusStat(71, true) ? this.findBonusStat(71, true).amount : 0;
-            this.character.versatility -= +this.findBonusStat(67, true) ? this.findBonusStat(67, true).amount : 0;
-            this.character.versatility -= +this.findBonusStat(40, true) ? this.findBonusStat(40, true).amount : 0;
-            this.character.armour -= +this.oldItem.armor ? this.oldItem.armor : 0;
-            this.character.mastery -= +this.findBonusStat(49, true) ? this.findBonusStat(49, true).amount : 0;
-            this.character.haste -= +this.findBonusStat(36, true) ? this.findBonusStat(36, true).amount : 0;
-            this.character.critical_strike -= +this.findBonusStat(32, true) ? this.findBonusStat(32, true).amount : 0;
+            this.character.attack -= this.findBonusStat(75, true) ? +this.findBonusStat(75, true).amount : 0;
+            this.character.attack -= this.findBonusStat(71, true) ? +this.findBonusStat(71, true).amount : 0;
+            this.character.versatility -= this.findBonusStat(67, true) ? +this.findBonusStat(67, true).amount : 0;
+            this.character.versatility -= this.findBonusStat(40, true) ? +this.findBonusStat(40, true).amount : 0;
+            this.character.armour -= this.oldItem.armor ? +this.oldItem.armor : 0;
+            this.character.mastery -= this.findBonusStat(49, true) ? +this.findBonusStat(49, true).amount : 0;
+            this.character.haste -= this.findBonusStat(36, true) ? +this.findBonusStat(36, true).amount : 0;
+            this.character.critical_strike -= this.findBonusStat(32, true) ? +this.findBonusStat(32, true).amount : 0;
         } else {
-            this.character.attack += +this.findBonusStat(75) ? this.findBonusStat(75).amount : 0;
-            this.character.attack += +this.findBonusStat(71) ? this.findBonusStat(71).amount : 0;
-            this.character.versatility += +this.findBonusStat(67) ? this.findBonusStat(67).amount : 0;
-            this.character.versatility += +this.findBonusStat(40) ? this.findBonusStat(40).amount : 0;
-            this.character.armour += +this.selectedItem.armor ? this.selectedItem.armor : 0;
-            this.character.mastery += +this.findBonusStat(49) ? this.findBonusStat(49).amount : 0;
-            this.character.haste += +this.findBonusStat(36) ? this.findBonusStat(36).amount : 0;
-            this.character.critical_strike += +this.findBonusStat(32) ? this.findBonusStat(32).amount : 0;
+            this.character.attack += this.findBonusStat(75) ? +this.findBonusStat(75).amount : 0;
+            this.character.attack += this.findBonusStat(71) ? +this.findBonusStat(71).amount : 0;
+            this.character.versatility += this.findBonusStat(67) ? +this.findBonusStat(67).amount : 0;
+            this.character.versatility += this.findBonusStat(40) ? +this.findBonusStat(40).amount : 0;
+            this.character.armour += this.selectedItem.armor ? +this.selectedItem.armor : 0;
+            this.character.mastery += this.findBonusStat(49) ? +this.findBonusStat(49).amount : 0;
+            this.character.haste += this.findBonusStat(36) ? +this.findBonusStat(36).amount : 0;
+            this.character.critical_strike += this.findBonusStat(32) ? +this.findBonusStat(32).amount : 0;
         }
         if (this.findBonusStat(7)) {
             if (oldItem) {
-                this.character.stamina -= +this.findBonusStat(7, true) ? this.findBonusStat(7, true).amount : 0;
+                this.character.stamina -= this.findBonusStat(7, true) ? +this.findBonusStat(7, true).amount : 0;
             } else {
-                this.character.stamina += +this.findBonusStat(7) ? this.findBonusStat(7).amount : 0;
+                this.character.stamina += this.findBonusStat(7) ? +this.findBonusStat(7).amount : 0;
             }
-            this.character.health = this.character.stamina * 10;
+            this.character.health = +this.character.stamina * 10;
         }
     }
 
