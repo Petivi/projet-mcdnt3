@@ -71,9 +71,6 @@ export class AffichagePersonnageComponent implements OnInit, OnDestroy {
             this.ttItemDroit = res.ttItemD;
             this.ttItemGauche = res.ttItemG;
         });
-        /* this._appService.getBlizzard('character/hyjal/Mananga', [{ key: 'fields', value: 'items' }]).then(res => {
-            
-        }); */
     }
 
     ngOnDestroy() {
