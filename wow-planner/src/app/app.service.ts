@@ -125,7 +125,7 @@ export class AppService {
                 this.getBlizzard('data/character/classes')
             ]).then(result => {
                 resolve(result);
-            })
+            });
         });
     }
 
