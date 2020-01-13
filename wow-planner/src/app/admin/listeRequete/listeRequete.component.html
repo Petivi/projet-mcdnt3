@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col">
+        <div class="card" *ngIf="!requeteActive">
+            <div class="card-header">
+                <div class="row">
+                    <h1 class="col text-center">Liste des requetes utilisateur</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <kendo-grid class="lista" [kendoGridBinding]="gridDataRequete.toArray()" [pageable]="true" [pageSize]="10"
+                        [filterable]="true" [scrollable]="'none'">
+                        <kendo-grid-column field="id" title="id"></kendo-grid-column>
+                        <kendo-grid-column field="request_date" title="Date de la requête"></kendo-grid-column>
+                        <kendo-grid-column field="user_mail" title="Mail utilisateur"></kendo-grid-column>
+                        <kendo-grid-column field="request_subject" title="Sujet du message"></kendo-grid-column>
+                        <kendo-grid-column field="libelle_request_closed" title="Requête traitée"></kendo-grid-column>
+                        <kendo-grid-column title="">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <button class="icon-button" (click)="supprimer(dataItem)" title="supprimer">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button class="icon-button" (click)="(requeteActive = dataItem)" title="voir">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </ng-template>
+                        </kendo-grid-column>
+                    </kendo-grid>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" *ngIf="requeteActive">
+                <div class="row mb-2">
+                    <div class="col-md-2">
+                        <button (click)="(requeteActive = null)" class="button">
+                            Retour
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h4>Requete {{requeteActive.id}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="control-label">Traitée :</label>
+                                    </div>
+                                    <div class="col">
+                                        {{requeteActive.libelle_request_closed}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="control-label">Date :</label>
+                                    </div>
+                                    <div class="col">
+                                        {{requeteActive.request_date}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="control-label">Emetteur du message :</label>
+                                    </div>
+                                    <div class="col">{{requeteActive.user_mail}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="control-label">Sujet :</label>
+                                    </div>
+                                    <div class="col">{{requeteActive.request_subject}}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="control-label col">Message :</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                {{requeteActive.request_text}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button class="button" (click)="(setReponse = !setReponse)">Répondre</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-2" *ngIf="setReponse">
+                            <div class="card-header">
+                                <h4>Réponse</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <textarea rows="10" [(ngModel)]="reponse" [ngClass]="{ 'invalid': submitted && !reponse }"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button class="button" (click)="sendResponse()">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

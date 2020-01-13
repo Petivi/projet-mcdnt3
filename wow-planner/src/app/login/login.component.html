@@ -1,0 +1,116 @@
+<div class="container" (keyup)="enter($event)" *ngIf="words && words.length > 0">
+    <div class="row" [formGroup]="loginForm">
+        <div class="col-md-6 offset-md-3" *ngIf="!newPass" formGroupName="loginGroup">
+            <div class="row">
+                <div class="col">
+                    <h1 class="title">{{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}</h1>
+                    <div class="alert alert-danger" *ngIf="!valid">
+                        <div *ngFor="let e of errors" class="textErreur">{{e}}</div>
+                    </div>
+                    <div class="success" *ngIf="mailResetPass">
+                        {{(words | filter : {msg_name: 'msg_mailSent'} : {col : 'value'})}}
+                    </div>
+                    <div class="success" *ngIf="newMailSent">
+                        {{(words | filter : {msg_name: 'msg_creationCompte'} : {col : 'value'})}}
+                    </div>
+                    <div class="success" *ngIf="nouveauMail">
+                        {{(words | filter : {msg_name: 'msg_sendNewMail'} : {col : 'value'})}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label for="login">
+                        {{(words | filter : {msg_name: 'msg_loginMail'} : {col : 'value'})}} *
+                    </label>
+                    <input autofocus id="login" class="form-control" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.login.errors }"
+                        type="text" formControlName="login">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label for="mdp">{{(words | filter : {msg_name: 'msg_password'} : {col : 'value'})}} *</label>
+                    <input id="mdp" class="form-control" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.password.errors }"
+                        type="password" formControlName="password">
+                </div>
+            </div>
+            <div class="row" *ngIf="nouveauMail">
+                <div class="form-group col">
+                    <label for="mail">Mail *</label>
+                    <input id="mail" class="form-control" [ngClass]="{ 'invalid': submitted && loginForm.get('loginGroup').controls.mail.errors }"
+                        type="text" formControlName="mail">
+                </div>
+            </div>
+            <div class="row">
+                <div class="center col">
+                    <button *ngIf="!nouveauMail" (click)="login()" class="btn btn-success" style="width: 100%">
+                        {{(words | filter : {msg_name: 'msg_connect'} : {col : 'value'})}}
+                    </button>
+                    <button *ngIf="nouveauMail" (click)="sendNewMail()" class="btn btn-success" style="width: 100%">
+                        {{(words | filter : {msg_name: 'msg_send'} : {col : 'value'})}}
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div *ngIf="linkMail" class="col">
+                    <a class="link" (click)="newMail(0)">
+                        {{(words | filter : {msg_name: 'msg_mailPasRecu'} : {col : 'value'})}}
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" *ngIf="linkMail">
+                    <a class="link" (click)="mailInvalide()">
+                        {{(words | filter : {msg_name: 'msg_invalidMail'} : {col : 'value'})}}
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a class="link" (click)="newMail(1)">
+                        {{(words | filter : {msg_name: 'msg_mdpOublie'} : {col : 'value'})}}
+                    </a>
+                </div>
+            </div>
+            <div class="row text-center">
+                <p class="col">{{(words | filter : {msg_name: 'msg_obligatoire'} : {col : 'value'})}}</p>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 offset-md-3" *ngIf="newPass" formGroupName="newPassGroup">
+            <div class="row">
+                <div class="col">
+                    <h1 class="title">{{(words | filter : {msg_name: 'msg_resetMdp'} : {col : 'value'})}}</h1>
+                    <div class="alert alert-danger" *ngIf="!valid">
+                        <div *ngFor="let e of errors" class="textErreur">{{e}}</div>
+                    </div>
+                    <div class="success" *ngIf="reinitPass">
+                        {{(words | filter : {msg_name: 'msg_passwordChanged'} : {col : 'value'})}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label for="newPass">{{(words | filter : {msg_name: 'msg_newPassword'} : {col : 'value'})}}</label>
+                    <input id="newPass" class="form-control" autofocus [ngClass]="{ 'invalid': submitted && loginForm.get('newPassGroup').controls.newPassword.errors }"
+                        type="password" formControlName="newPassword">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label for="cfPass">{{(words | filter : {msg_name: 'msg_passwordConfirm'} : {col : 'value'})}} *</label>
+                    <input id="cfPass" class="form-control" [ngClass]="{ 'invalid': submitted && loginForm.get('newPassGroup').controls.cfPassword.errors }"
+                        type="password" formControlName="cfPassword">
+                </div>
+            </div>
+            <div class="row">
+                <div class="center col">
+                    <button (click)="newMdp()" class="btn btn-success" style="width: 100%">
+                        {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="activGrowl" class="growl" id="growl" [innerHTML]="msgGrowl.msg"></div>

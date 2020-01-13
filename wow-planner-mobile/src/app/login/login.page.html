@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{getWord('msg_connect')}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="words && words.length > 0">
+    <div class="alert alert-danger" *ngIf="!valid">
+        <div *ngFor="let e of errors">{{e}}</div>
+    </div>
+    <ion-item class="mt-3">
+        <ion-label position="floating">{{getWord('msg_loginMail')}} *
+        </ion-label>
+        <ion-input type="text" [(ngModel)]="user.login"></ion-input>
+    </ion-item>
+    <ion-item class="mt-3">
+        <ion-label position="floating">{{getWord('msg_password')}} *
+        </ion-label>
+        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+    <div class="text-center mt-3">
+        <button class="btn btn-success" (click)="login()">
+            {{getWord('msg_connect')}}
+        </button>
+    </div>
+    <div *ngIf="linkMail" class="col">
+        <a class="link" (click)="newMail(0)">
+            {{getWord('msg_mailPasRecu')}}
+        </a>
+    </div>
+    <div class="col" *ngIf="linkMail">
+        <a class="link" (click)="mailInvalide()">
+            {{getWord('msg_invalidMail')}}
+        </a>
+    </div>
+    <!--  <div class="col">
+        <a class="link" (click)="newMail(1)">
+            {{(words | filter : {msg_name: 'msg_mdpOublie'} : {col : 'value'})}}
+        </a>
+    </div> -->
+    <div class="row text-center">
+        <p class="col">{{getWord('msg_obligatoire')}}</p>
+    </div>
+</ion-content>

@@ -1,0 +1,73 @@
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <textarea class="form-control" [(ngModel)]="commentaire.comment"
+                            placeholder="{{(words | filter : {msg_name: 'msg_addCommentaire'} : {col : 'value'})}}"
+                            rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="button" [disabled]="commentaire.comment.length === 0"
+                        (click)="addComment()">
+                        {{(words | filter : {msg_name: 'msg_add'} : {col : 'value'})}}
+                    </button>
+                </div>
+            </div>
+            <div class="row mb-3" *ngFor="let comment of ttCommentaire">
+                <div class="col">
+                    <div class="row txtSmall">
+                        <div class="col-md-2 font-weight-bold">
+                            {{comment.user_pseudo}}
+                        </div>
+                        <div class="col-md-3 dt">
+                            {{comment.created_date}}
+                        </div>
+                        <div class="col-md-3 dtt" *ngIf="comment.created_date !== comment.last_modified">
+                            ({{(words | filter : {msg_name: 'msg_edited'} : {col : 'value'})}} :
+                            {{comment.last_modified}})
+                        </div>
+                        <div class="col-md-3 dtt" *ngIf="comment.created_date == comment.last_modified">
+
+                        </div>
+                        <ng-container *ngIf="comment.editable">
+                            <div class="col-md-2">
+                                <a class="link" (click)="editComment(comment)"
+                                    *ngIf="!commentToEdit || comment.comment_id !== commentToEdit.comment_id">
+                                    {{(words | filter : {msg_name: 'msg_modifier'} : {col : 'value'})}}
+                                </a>
+                                <a class="link" (click)="validEditComment()"
+                                    *ngIf="commentToEdit && comment.comment_id === commentToEdit.comment_id">
+                                    {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
+                                </a>
+                            </div>
+                            <div class="col-md-2">
+                              <div *ngIf="commentToEdit && comment.comment_id === commentToEdit.comment_id">
+                                <a class="link" (click)="(commentToEdit = null)">
+                                  {{(words | filter : {msg_name: 'msg_cancel'} : {col : 'value'})}}
+                                </a>
+                              </div>
+                              <div  *ngIf="!commentToEdit || comment.comment_id !== commentToEdit.comment_id">
+                                <a class="link" (click)="deleteComment(comment)">
+                                  {{(words | filter : {msg_name: 'msg_delete'} : {col : 'value'})}}
+                                </a>
+                              </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-md-10" *ngIf="!commentToEdit || comment.comment_id !== commentToEdit.comment_id">
+                            {{comment.comment}}
+                        </div>
+                        <div class="col-md-10 " *ngIf="commentToEdit && comment.comment_id === commentToEdit.comment_id">
+                            <textarea class="form-control" [(ngModel)]="commentToEdit.comment" rows="1"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

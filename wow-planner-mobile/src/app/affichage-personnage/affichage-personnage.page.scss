@@ -1,0 +1,42 @@
+.sub-item {
+  padding-left: 20px;
+  font-size: small;
+}
+
+.parent {
+  margin-top: -7px;
+}
+
+.active {
+  color: rgb(0, 0, 0);
+}
+
+.inactive {
+  color: rgba(0, 0, 0, 0.459);
+}
+
+.arrow{
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.commentDate{
+  font-size: 12px;
+}
+
+.commentUserPseudo h2{
+  font-weight: bold;
+}
+
+.commentText{
+  margin: 0.5em 0 0.5em 0;
+}
+
+
+.aroundCommentItem{
+  margin-left: -20px!important;
+}
+
+.commentTextArea{
+  border: 1px solid #777;
+}

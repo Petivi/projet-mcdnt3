@@ -1,0 +1,42 @@
+<ion-header *ngIf="words && words.length > 0">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{getWord('msg_mesPersos')}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="ttCharacter && ttCharacter.length > 0">
+        <ion-item *ngFor="let character of ttCharacter">
+            <ion-label (click)="displayPersonnage(character)" text-wrap>
+                <ion-text color="primary">
+                    <h2>{{character.name}}</h2>
+                </ion-text>
+                <ion-text>
+                    <p *ngIf="character.armour > 0">
+                        {{getWord('msg_armor')}} : {{character.armour}}</p>
+                    <p *ngIf="character.health > 0">
+                        {{getHealthLibelle()}} : {{character.health}}
+                    </p>
+                    <p *ngIf="character.attack > 0">
+                        {{getLibelleAttack(character)}} : {{character.attack}}
+                    </p>
+                </ion-text>
+            </ion-label>
+            <ion-label text-right>
+                <button class="icon-button" [ngClass]="{'icon-liked': character.statut_like === 'like'}"
+                    (click)="like(1, character)">
+                    <ion-icon name="thumbs-up"></ion-icon>
+                </button>
+                {{character.total_like}}
+                <button class="icon-button" [ngClass]="{'icon-disliked': character.statut_like === 'dislike'}"
+                    (click)="like(2, character)">
+                    <ion-icon name="thumbs-down"></ion-icon>
+                </button>
+                {{character.total_dislike}}
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

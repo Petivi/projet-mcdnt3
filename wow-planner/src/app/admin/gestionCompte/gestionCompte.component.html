@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col" *ngIf="!userActif">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <h1 class="col text-center">Gestion de compte</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <kendo-grid class="lista" [kendoGridBinding]="gridDataUsers.toArray()" [pageable]="true" [pageSize]="10"
+                        [filterable]="true" [scrollable]="'none'">
+                        <kendo-grid-column field="id" title="id" width="120"></kendo-grid-column>
+                        <kendo-grid-column field="lastname" title="Nom"></kendo-grid-column>
+                        <kendo-grid-column field="firstname" title="Prenom"></kendo-grid-column>
+                        <kendo-grid-column field="pseudo" title="Pseudo"></kendo-grid-column>
+                        <kendo-grid-column field="mail" title="Mail"></kendo-grid-column>
+                        <kendo-grid-column field="created_date" title="Création du compte"></kendo-grid-column>
+                        <kendo-grid-column field="last_connection" title="Derniere connexion"></kendo-grid-column>
+                        <kendo-grid-column field="libelle_active_account" title="Compte"></kendo-grid-column>
+                        <kendo-grid-column field="libelle_checked_mail" title="Confirmation mail"></kendo-grid-column>
+                        <kendo-grid-column title="">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <button class="icon-button" (click)="showUser(dataItem)" title="voir">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </ng-template>
+                        </kendo-grid-column>
+                    </kendo-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- si on est sur un utilisateur ****************************************************************************************** -->
+    <div class="col" *ngIf="userActif">
+        <div class="row">
+            <div class="col-md-2">
+                <button (click)="retour()" class="button">
+                    {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+                </button>
+            </div>
+        </div>
+        <div class="row" [formGroup]="userForm">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row text-center">
+                            <div class="col">
+                                <button (click)="(editMode = !editMode)" class="button">
+                                    {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" *ngIf="errors && errors.length > 0">
+                            <div class="col alert alert-danger">
+                                <div *ngFor="let error of errors" class="textErreur">{{error}}</div>
+                            </div>
+                        </div>
+                        <div formGroupName="userGroup">
+                            <div class="row">
+                                <label class="col-md-4" for="lastname">
+                                    {{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}
+                                </label>
+                                <span class="col" *ngIf="!editMode">{{userActif.lastname}}</span>
+                                <div class="col form-group">
+                                    <input class="form-control" *ngIf="editMode" type="text" formControlName="lastname"
+                                        id="lastname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-4" for="firstname">
+                                    {{(words | filter : {msg_name: 'msg_firstname'} : {col : 'value'})}}
+                                </label>
+                                <span class="col" *ngIf="!editMode">{{userActif.firstname}}</span>
+                                <div class="col form-group">
+                                    <input class="form-control" *ngIf="editMode" type="text" formControlName="firstname"
+                                        id="firstname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-4" for="pseudo">{{(words | filter : {msg_name: 'msg_pseudo'} :
+                                    {col : 'value'})}}</label>
+                                <span class="col" *ngIf="!editMode">{{userActif.pseudo}}</span>
+                                <div class="col form-group">
+                                    <input [ngClass]="{ 'invalid': submitted && (userForm.controls.userGroup.controls.pseudo.errors) }"
+                                        class="form-control" *ngIf="editMode" type="text" formControlName="pseudo" id="pseudo">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-4" for="compte">Compte</label>
+                                <span class="col" *ngIf="!editMode">{{userActif.libelle_active_account}}</span>
+                                <div class="col form-group" *ngIf="editMode">
+                                    <select class="form-control" formControlName="active_account">
+                                        <option *ngFor="let ca of typeCompteActif" [value]="ca.code">{{ca.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div formGroupName="adminGroup" *ngIf="editMode">
+                            <div class="row">
+                                <div class="col form-group">
+                                    <div class="text-center">
+                                        <label for="modif">Modification apportée</label>
+                                    </div>
+                                    <input id="modif" [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.action.errors) }"
+                                        class="form-control" formControlName="action">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <div class="text-center">
+                                        <label for="raison">Raison de cette modification</label>
+                                    </div>
+                                    <textarea [ngClass]="{ 'invalid': submitted && (userForm.controls.adminGroup.controls.raison.errors) }"
+                                        id="raison" class="form-control" formControlName="raison" rows="4">
+                                        </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" *ngIf="editMode">
+                        <div class="text-center row">
+                            <div class="col">
+                                <button (click)="sendUser()" class="button">
+                                    {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

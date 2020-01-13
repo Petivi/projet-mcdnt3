@@ -1,0 +1,173 @@
+<div class="row mb-2">
+    <div class="col-md-3" *ngIf="detailPersonnage">
+        <a class="button-link button" [routerLink]="[urlRetour]">
+            {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+        </a>
+    </div>
+    <div class="col-md-3" *ngIf="!detailPersonnage">
+        <a class="button-link button" [routerLink]="[urlRedirectionDetail, character.character_id]">
+            {{(words | filter : {msg_name: 'msg_voir'} : {col : 'value'})}}
+        </a>
+    </div>
+    <div class="col-md-3" *ngIf="mesPersonnages">
+        <a class="button-link button" [routerLink]="[urlEdit, character.character_id]">
+            {{(words | filter : {msg_name: 'msg_edit'} : {col : 'value'})}}
+        </a>
+    </div>
+    <div class="col-md-3" *ngIf="mesPersonnages">
+        <button class="button-link button" (click)="deleteCharacter()">
+            {{(words | filter : {msg_name: 'msg_delete'} : {col : 'value'})}}
+        </button>
+    </div>
+</div>
+<div class="card-body">
+    <div class="row text-center">
+        <div class="col-md-8">
+            <div class="card fonda">
+                <div class="card-header">
+                    <h3>{{character.name}}</h3>
+                </div>
+                <div class="card-body fondb">
+                    <div class="row text-center">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
+                                        <div class="col">
+                                            <div class="detail-item-character" (mouseenter)="showItemDetail(itemGauche)"
+                                                (mouseleave)="showItemDetail()">
+                                                <div class="image-item">
+                                                    <img [ngClass]="{ 'clickable': itemGauche.item }"
+                                                        [src]="itemGauche.item ? iconUrl + itemGauche.item.icon + '.jpg': itemGauche.imgUrl">
+                                                </div>
+                                                {{itemGauche.item ? itemGauche.name : ''}}
+                                                <div class="carac-item"
+                                                    *ngIf="itemGauche.item && displayItemDetailPerso && itemGauche.item.itemSlotId === selectedItem.itemSlotId">
+                                                    <div>
+                                                        {{(words | filter : {msg_name: 'msg_name'} :
+                                                            {col :
+                                                            'value'})}} : {{itemGauche.item.name}}
+                                                    </div>
+                                                    <div *ngIf="itemGauche.item.armor">
+                                                        {{(words | filter : {msg_name: 'msg_armor'} :
+                                                                {col :
+                                                                'value'})}} : {{itemGauche.item.armor}}
+                                                    </div>
+                                                    <div *ngFor="let bonus of itemGauche.item.bonusStats">
+                                                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
+                                        <div class="col">
+                                            <div class="detail-item-character" (mouseenter)="showItemDetail(itemDroit)"
+                                                (mouseleave)="showItemDetail()">
+                                                <div class="image-item">
+                                                    <img [ngClass]="{ 'clickable': itemDroit.item }"
+                                                        [src]="itemDroit.item ? iconUrl + itemDroit.item.icon + '.jpg': itemDroit.imgUrl">
+                                                </div>
+                                                {{itemDroit.item ? itemDroit.name : ''}}
+                                                <div class="carac-item"
+                                                    *ngIf="itemDroit.item && displayItemDetailPerso && itemDroit.item.itemSlotId === selectedItem.itemSlotId">
+                                                    <div>
+                                                        {{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}
+                                                        : {{itemDroit.item.name}}
+                                                    </div>
+                                                    <div *ngIf="itemDroit.item.armor">
+                                                        {{(words | filter : {msg_name: 'msg_armor'} : {col : 'value'})}}
+                                                        : {{itemDroit.item.armor}}
+                                                    </div>
+                                                    <div *ngFor="let bonus of itemDroit.item.bonusStats">
+                                                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card fonda">
+                <div class="card-header">
+                    <h3>{{(words | filter : {msg_name: 'msg_stat'} : {col : 'value'})}}</h3>
+                </div>
+                <div class="card-body fondb">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row" *ngIf="character && character.health !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 1} : {col : 'libelle'})}} :
+                                    {{character.health}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.attack !== '0'">
+                                <div class="col">
+                                    {{libelleAttack}} : {{character.attack}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.armour !== '0'">
+                                <div class="col">
+                                    {{(words | filter : {msg_name: 'msg_armor'} :
+                                        {col : 'value'})}} : {{character.armour}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.critical_strike !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 32} : {col : 'libelle'})}} :
+                                    {{character.critical_strike}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.stamina !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 7} : {col : 'libelle'})}} :
+                                    {{character.stamina}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.haste !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 36} : {col : 'libelle'})}} :
+                                    {{character.haste}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.mastery !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 49} : {col : 'libelle'})}} :
+                                    {{character.mastery}}
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="character && character.versatility !== '0'">
+                                <div class="col">
+                                    {{(ttBonusStats | filter : {id: 40} : {col : 'libelle'})}} :
+                                    {{character.versatility}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <button class="icon-button" [ngClass]="{'icon-liked': character.statut_like === 'like'}"
+                        (click)="like(1)">
+                        <i class="fa fa-thumbs-up fa-2x icon-likeDislike icon-like"></i>
+                    </button>
+                    {{character.total_like}}
+                    <button class="icon-button" [ngClass]="{'icon-disliked': character.statut_like === 'dislike'}"
+                        (click)="like(2)">
+                        <i class="fa fa-thumbs-down fa-2x icon-likeDislike icon-dislike"></i>
+                    </button>
+                    {{character.total_dislike}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

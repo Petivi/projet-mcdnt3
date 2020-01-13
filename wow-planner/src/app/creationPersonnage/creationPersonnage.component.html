@@ -1,0 +1,292 @@
+<div class="container cadre" *ngIf="words && words.length > 0">
+    <div class="row">
+        <div class="col">
+            <div class="card ">
+                <div class="form-group">
+                    <div class="row">
+                        <ng-container *ngIf="!displayCharacter">
+                            <div class="col ">
+                                <select *ngIf="tabRaces" class="form-control white" [(ngModel)]="character.race_id">
+                                    <option *ngFor="let race of tabRaces" [value]="race.id">{{ race.name }}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select *ngIf="tabClasses" class="form-control white" (change)="setCharacter()"
+                                    [(ngModel)]="character.class_id">
+                                    <option *ngFor="let class of tabClasses" [value]="class.id">{{ class.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col text-center">
+                                <button class="button" (click)="(displayCharacter = true)">
+                                    {{(words | filter : {msg_name: 'msg_valider'} : {col : 'value'})}}
+                                </button>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="displayCharacter">
+                            <div class="col-md-1 retourc" *ngIf="!character.character_id">
+                                <button (click)="resetCharac()" class="button">
+                                    {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+                                </button>
+                            </div>
+                            <ng-container *ngIf="userConnected">
+                                <label for="name" class="col-md-2">
+                                    {{(words | filter : {msg_name: 'msg_characName'} : {col : 'value'})}}
+                                </label>
+                                <input id="name" class="form-control col-md-6" autofocus type="text"
+                                    [(ngModel)]="character.name">
+                                <div class="col text-center">
+                                    <button class="button" (click)="saveCharac()">
+                                        {{(words | filter : {msg_name: 'msg_enregistrer'} : {col : 'value'})}}
+                                    </button>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="card-body tableaui" *ngIf="displayCharacter">
+                    <div class="row text-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row mb-1" *ngFor="let itemGauche of ttItemGauche">
+                                                        <div class="col">
+                                                            <div class="detail-item-character"
+                                                                (click)="setRecherche(itemGauche)">
+                                                                <div class="image-item"
+                                                                    (mouseenter)="showItemDetail(itemGauche.item, true)"
+                                                                    (mouseleave)="showItemDetail(null, true)">
+                                                                    <img class="clickable"
+                                                                        [src]="itemGauche.item ? itemGauche.item.imgUrl : itemGauche.imgUrl">
+                                                                </div>
+                                                                {{itemGauche.item ? itemGauche.item.name : ''}}
+                                                                <div class="carac-item"
+                                                                    *ngIf="itemGauche.item && displayItemDetailPerso && itemGauche.item.itemSlotId === selectedItem.itemSlotId">
+                                                                    <div>
+                                                                        {{(words | filter : {msg_name: 'msg_name'} :
+                                                                        {col :
+                                                                        'value'})}} : {{itemGauche.item.name}}
+                                                                    </div>
+                                                                    <div *ngIf="itemGauche.item.armor">
+                                                                        {{(words | filter : {msg_name: 'msg_armor'} :
+                                                                            {col :
+                                                                            'value'})}} : {{itemGauche.item.armor}}
+                                                                    </div>
+                                                                    <div
+                                                                        *ngFor="let bonus of itemGauche.item.bonusStats">
+                                                                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row mb-1" *ngFor="let itemDroit of ttItemDroit">
+                                                        <div class="col">
+                                                            <div class="detail-item-character"
+                                                                (click)="setRecherche(itemDroit)">
+                                                                <div class="image-item"
+                                                                    (mouseenter)="showItemDetail(itemDroit.item, true)"
+                                                                    (mouseleave)="showItemDetail(null, true)">
+                                                                    <img class="clickable"
+                                                                        [src]="itemDroit.item ? itemDroit.item.imgUrl : itemDroit.imgUrl">
+                                                                </div>
+                                                                {{itemDroit.item ? itemDroit.item.name : ''}}
+                                                                <div class="carac-item"
+                                                                    *ngIf="itemDroit.item && displayItemDetailPerso && itemDroit.item.itemSlotId === selectedItem.itemSlotId">
+                                                                    <div>{{(words | filter : {msg_name: 'msg_name'} : {col
+                                                                            : 'value'})}} : {{itemDroit.item.name}}
+                                                                    </div>
+                                                                    <div *ngIf="itemDroit.item.armor">{{(words | filter : {msg_name: 'msg_armor'} :
+                                                                            {col : 'value'})}} :
+                                                                        {{itemDroit.item.armor}}
+                                                                    </div>
+                                                                    <div
+                                                                        *ngFor="let bonus of itemDroit.item.bonusStats">
+                                                                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row" *ngIf="character && character.health">
+                                                <div class="col">
+                                                    {{(ttBonusStats | filter : {id: 1} : {col : 'libelle'})}} :
+                                                    {{character.health}}
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="character && character.attack">
+                                                <div class="col">
+                                                    {{libelleAttack}} : {{character.attack}}
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="character && character.armour">
+                                                <div class="col">
+                                                    {{(words | filter : {msg_name: 'msg_armor'} :
+                                                    {col : 'value'})}} : {{character.armour}}
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="character && character.critical_strike">
+                                                <div class="col">
+                                                    {{(ttBonusStats | filter : {id: 32} : {col : 'libelle'})}} :
+                                                    {{character.critical_strike}}
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="character && character.stamina">
+                                                <div class="col">
+                                                    {{(ttBonusStats | filter : {id: 7} : {col : 'libelle'})}} :
+                                                    {{character.stamina}}
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="character && character.haste">
+                                                <div class="col">
+                                                    {{(ttBonusStats | filter : {id: 36} : {col : 'libelle'})}} :
+                                                    {{character.haste}}
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="character && character.mastery">
+                                                <div class="col">
+                                                    {{(ttBonusStats | filter : {id: 49} : {col : 'libelle'})}} :
+                                                    {{character.mastery}}
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="character && character.versatility">
+                                                <div class="col">
+                                                    {{(ttBonusStats | filter : {id: 40} : {col : 'libelle'})}} :
+                                                    {{character.versatility}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="window" *ngIf="displayChoixItem">
+    <div class="windowIn">
+        <div class="card h-100">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button (click)="(displayChoixItem = false)" class="button">
+                            {{(words | filter : {msg_name: 'msg_retour'} : {col : 'value'})}}
+                        </button>
+                    </div>
+                    <!-- <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="nameSearched">{{(words | filter : {msg_name: 'msg_name'} : {col :
+                                    'value'})}}</label>
+                            </div>
+                            <div class="col">
+                                <input id="nameSearched" class="form-control" type="text" [(ngModel)]="recherche.name">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="">
+                                <label>Type</label>
+                            </div>
+                            <div class="col">
+                                <select (change)="getTtItem()" class="form-control white"
+                                    [(ngModel)]="recherche.matiere">
+                                    <option [value]="mat.id" *ngFor="let mat of ttMatiere">
+                                        {{(words | filter : {msg_name: mat.name} : {col : 'value'})}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="">
+                                <label>{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}</label>
+                            </div>
+                            <div class="col">
+                                <select class="form-control white" (change)="getTtItem()"
+                                    [(ngModel)]="recherche.quality">
+                                    <option [value]="-1"> - </option>
+                                    <option [value]="quality.id" *ngFor="let quality of ttQuality">
+                                        {{(words | filter : {msg_name: quality.name} : {col : 'value'})}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="">
+                                <label>
+                                    {{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}
+                                </label>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" (change)="getTtItem()" type="number"
+                                    [(ngModel)]="recherche.lvlMin">
+                            </div>
+                            <div class="col">
+                                <input class="form-control" (change)="getTtItem()" type="number"
+                                    [(ngModel)]="recherche.lvlMax">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body scrollv">
+                <kendo-grid [kendoGridBinding]="gridData.toArray()" [scrollable]="'none'" [sortable]="true"
+                    [pageable]="true" [pageSize]="50" [filterable]="true" class="lista">
+                    <kendo-grid-column field="item_icon" title="" [width]="80" [filterable]="false">
+                        <ng-template let-dataItem kendoGridCellTemplate>
+                            <img (click)="selectItem(dataItem)" class="clickable"
+                                (mouseenter)="showItemDetail(dataItem)" (mouseleave)="showItemDetail()"
+                                src="{{iconUrl + dataItem.item_icon + '.jpg'}}">
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="item_name"
+                        title="{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}"></kendo-grid-column>
+                    <kendo-grid-column field="item_quality" [filterable]="false"
+                        title="{{(words | filter : {msg_name: 'msg_quality'} : {col : 'value'})}}">
+                        <ng-template let-dataItem kendoGridCellTemplate>
+                            {{(words | filter : {msg_name: dataItem.qualityName} : {col : 'value'})}}
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="item_required_level" filter="numeric" format="{0:n0}"
+                        title="{{(words | filter : {msg_name: 'msg_nivRequis'} : {col : 'value'})}}">
+                    </kendo-grid-column>
+                </kendo-grid>
+                <div class="detail-content" *ngIf="displayItemDetailListe && selectedItem">
+                    <div>{{(words | filter : {msg_name: 'msg_name'} : {col : 'value'})}}: {{selectedItem.name}}</div>
+                    <div *ngIf="selectedItem.armor">{{(words | filter : {msg_name: 'msg_armor'} :
+                            {col : 'value'})}} : {{selectedItem.armor}}</div>
+                    <div *ngFor="let bonus of selectedItem.bonusStats">
+                        {{bonus.statLibelle + ' : ' + bonus.amount}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

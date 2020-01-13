@@ -1,0 +1,165 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{pageTitle}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="character">
+        <ion-item button (click)="openCharac = !openCharac" class="parent" [class.active]="openCharac"
+            [class.inactive]="!openCharac" detail="false">
+            <ion-icon name="arrow-forward" *ngIf="!openCharac" class="arrow"></ion-icon>
+            <ion-icon name="arrow-down" *ngIf="openCharac" class="arrow"></ion-icon>
+            <ion-label>
+                {{getWord('msg_stat')}}
+            </ion-label>
+        </ion-item>
+
+        <ion-list *ngIf="openCharac" class="sub-item">
+            <ion-item>
+                <ion-label text-wrap>
+                    <ion-text>
+                        <p *ngIf="character.armour > 0">
+                            <span class="font-weight-bold">{{getWord('msg_armor')}}</span> : {{character.armour}}</p>
+                        <p *ngIf="character.health > 0">
+                            <span class="font-weight-bold">{{getHealthLibelle()}}</span> : {{character.health}}
+                        </p>
+                        <p *ngIf="character.attack > 0">
+                            <span class="font-weight-bold">{{getLibelleAttack()}}</span> : {{character.attack}}
+                        </p>
+                        <p *ngIf="character.critical_strike > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(32)}}</span> : {{character.critical_strike}}
+                        </p>
+                        <p *ngIf="character.stamina > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(7)}}</span> : {{character.stamina}}
+                        </p>
+                        <p *ngIf="character.haste > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(36)}}</span> : {{character.haste}}
+                        </p>
+                        <p *ngIf="character.mastery > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(49)}}</span> : {{character.mastery}}
+                        </p>
+                        <p *ngIf="character.versatility > 0">
+                            <span class="font-weight-bold">{{getLibelleStat(40)}}</span> : {{character.versatility}}
+                        </p>
+                    </ion-text>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+        <ion-item button (click)="openItem = !openItem" class="parent" [class.active]="openItem"
+            [class.inactive]="!openItem" detail="false">
+            <ion-icon name="arrow-forward" *ngIf="!openItem" class="arrow"></ion-icon>
+            <ion-icon name="arrow-down" *ngIf="openItem" class="arrow"></ion-icon>
+            <ion-label>
+                {{getWord('msg_item')}}
+            </ion-label>
+        </ion-item>
+
+        <ion-list *ngIf="openItem" class="sub-item">
+            <ion-item>
+                <ion-label text-wrap>
+                    <ion-text>
+                        <ng-container *ngFor="let itemGauche of ttItemGauche">
+                            <ion-item button (click)="itemGauche.open = !itemGauche.open">
+                                <ion-thumbnail slot="start">
+                                    <ion-img
+                                        [src]="itemGauche.item ? iconUrl + itemGauche.item.icon + '.jpg': itemGauche.imgUrl">
+                                    </ion-img>
+                                </ion-thumbnail>
+                                <ion-label *ngIf="itemGauche.item">{{itemGauche.item.name}}</ion-label>
+                            </ion-item>
+                            <ion-list *ngIf="itemGauche.open && itemGauche.item">
+                                <ion-item>
+                                    <ion-text>
+                                        <p>
+                                            <span class="font-weight-bold">{{getWord('msg_name')}}</span> :
+                                            {{itemGauche.item.name}}
+                                        </p>
+                                        <p *ngIf="itemGauche.item.armor">
+                                            <span class="font-weight-bold">{{getWord('msg_armor')}}</span> :
+                                            {{itemGauche.item.armor}}
+                                        </p>
+                                        <p *ngFor="let bonus of itemGauche.item.bonusStats">
+                                            <span class="font-weight-bold">{{bonus.statLibelle}}</span> :
+                                            {{bonus.amount}}
+                                        </p>
+                                    </ion-text>
+                                </ion-item>
+                            </ion-list>
+                        </ng-container>
+                        <ng-container *ngFor="let itemDroit of ttItemDroit">
+                            <ion-item button (click)="itemDroit.open = !itemDroit.open">
+                                <ion-thumbnail slot="start">
+                                    <ion-img
+                                        [src]="itemDroit.item ? iconUrl + itemDroit.item.icon + '.jpg': itemDroit.imgUrl">
+                                    </ion-img>
+                                </ion-thumbnail>
+                                <ion-label *ngIf="itemDroit.item">{{itemDroit.item.name}}</ion-label>
+                            </ion-item>
+                            <ion-list *ngIf="itemDroit.open && itemDroit.item">
+                                <ion-item>
+                                    <ion-text>
+                                        <p>
+                                            <span class="font-weight-bold">{{getWord('msg_name')}}</span> :
+                                            {{itemDroit.item.name}}
+                                        </p>
+                                        <p *ngIf="itemDroit.item.armor">
+                                            <span class="font-weight-bold">{{getWord('msg_armor')}}</span> :
+                                            {{itemDroit.item.armor}}
+                                        </p>
+                                        <p *ngFor="let bonus of itemDroit.item.bonusStats">
+                                            <span class="font-weight-bold">{{bonus.statLibelle}}</span> :
+                                            {{bonus.amount}}
+                                        </p>
+                                    </ion-text>
+                                </ion-item>
+                            </ion-list>
+                        </ng-container>
+                    </ion-text>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+        <ion-item button (click)="openComment = !openComment" class="parent" [class.active]="openComment"
+            [class.inactive]="!openComment" detail="false">
+            <ion-icon name="arrow-forward" *ngIf="!openComment" class="arrow"></ion-icon>
+            <ion-icon name="arrow-down" *ngIf="openComment" class="arrow"></ion-icon>
+            <ion-label>
+                {{getWord('msg_comment')}}
+            </ion-label>
+        </ion-item>
+
+        <ion-list *ngIf="openComment" class="sub-item">
+            <ion-item lines="none" *ngIf="tokenUser" class="aroundCommentItem item-has-focus">
+                <ion-label position="floating" class="active">{{getWord('msg_addCommentaire')}}</ion-label>
+                <ion-textarea [(ngModel)]="newComment" class="commentTextArea"></ion-textarea>
+                <ion-button (click)="addComment()">
+                        {{getWord('msg_add')}}
+                </ion-button>
+            </ion-item>
+            <ion-item *ngFor="let comment of ttComments">
+                <ion-label text-wrap>
+                    <ion-text class="commentUserPseudo">
+                        <h2>{{comment.user_pseudo}}</h2>
+                    </ion-text>
+                    <ion-text>
+                        <p class="commentText">
+                            {{comment.comment}}
+                        </p>
+                        <p class="commentDate">
+                            {{comment.created_date}}
+                            <span *ngIf="comment.created_date != comment.last_modified">
+                                ({{getWord('msg_edited')}}:{{comment.last_modified}})
+                            </span>
+                        </p>
+                    </ion-text>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+    </ion-list>
+</ion-content>

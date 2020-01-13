@@ -1,0 +1,22 @@
+<div class="container-bo">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <a class="col" [routerLink]="['gestionCompte']">Gestion de compte</a>
+                    </div>
+                    <div class="row">
+                        <a class="col" [routerLink]="['listeRequete']">Liste des requetes</a>
+                    </div>
+                    <div class="row">
+                        <a class="col" [routerLink]="['gestionLog']">Liste des Log</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
